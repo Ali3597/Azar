@@ -1,0 +1,223 @@
+<header class="flex column ">
+	<div class="modal">
+		<div class="modal-wrapper connexion">
+			<div class=" switch flex">
+				<p class="switchConnexion ">Connexion</p>
+				<span>
+					|</span>
+				<p class="switchInscription">Inscription</p>
+			</div>
+
+			<span><i class="fas fa-user"></i></span>
+			<form class="formulaire_connexion  column" action="" method="POST">
+				<input type="email" name="email" placeholder="Adresse mail">
+				<input type="password" name="password" placeholder="Mot de passe">
+				<a href="#">Mot de passe oublié ?
+				</a>
+				<span class="flex"><input type="checkbox" name="stay" value="true" placeholder="hoelndelnk">Rester connecté ?
+				</span>
+				<button type="submit">Se connecter</button>
+			</form>
+
+			<form class="formulaire_inscription  column" action="" method="POST">
+				<input type="email" name="email" placeholder="Adresse mail">
+				<input type="lastname" name="lastname" placeholder="Nom">
+				<input type="firstname" name="firstname" placeholder="Prenom">
+				<input type="password" name="password" placeholder="Mot de passe">
+				<input type="password" name="password" placeholder="Confirmez le mot de passe">
+				<button type="submit">S'inscrire</button>
+			</form>
+
+			<a class="downGoogle" href="#">
+				<i class="fab fa-google"></i>
+				Connectez vous avec google
+			</a>
+
+		</div>
+	</div>
+	<div class="up-header flex">
+		<div class="flex up-header-left">
+			<a class="logo" href="/">
+				<img width="100%" height="100%" src="/assets/images/logo/logo.jfif"/>
+			</a>
+			<div class="header-title column">
+				<h1>Chafic Azar & Cie</h1>
+				<h2>Un pour tous et tous pour un
+				</h2>
+
+			</div>
+		</div>
+		<ul class="flex link-header">
+			<li>
+				Accueil
+			</li>
+			<span><i class="fas fa-slash"></i></span>
+			<li>
+				Marques
+			</li>
+			<span><i class="fas fa-slash"></i></span>
+			<li>
+				Trouver un artisan
+			</li>
+			<span><i class="fas fa-slash"></i></span>
+			<li>
+				Promotions
+			</li>
+			<span><i class="fas fa-slash"></i></span>
+			<li>
+				Produits
+			</li>
+		</ul>
+	</div>
+	<div class="down-header flex" data-sticky>
+		<div class="depliant flex ">
+			<div class="threebar flex column ">
+				<div class="bordurebar"></div>
+				<div class="bordurebar"></div>
+				<div class="bordurebar"></div>
+			</div>
+			<div class="arrow-up"></div>
+			<span>Produits</span>
+			<div class="menudepliant flex">
+				<div class="categorieHaut-depliant flex column ">
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							Appareillage
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							Chaufferie
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							tournevis
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							plomberie
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							Appareillage
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							Appareillage
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							Appareillage
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							Appareillage
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							Appareillage
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							Appareillage
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							Appareillage
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+					<div class="flex ">
+						<span><i class="fas fa-plug"></i></span>
+						<p>
+							Appareillage
+						</p>
+						<span><i class="fas fa-arrow-right"></i></span>
+					</div>
+
+
+				</div>
+				<div class="categorieBas-depliant flex column"></div>
+
+			</div>
+		</div>
+
+		<form action="" method="GET" class="flex ">
+			<input type="text" placeholder="Rechercher un produit ou une reference ">
+			<button type="submit">
+				<i class="fas fa-search fa-2x"></i>
+			</button>
+		</form>
+		<ul class="flex">
+			{% if connected %}
+			<li>
+				<a href="#">
+					<span><i class="fas fa-id-card-alt"></i></span>
+					<p>Contactez nous</p>
+				</a>
+
+			</li>
+
+			<li>
+				<a href="#" class="clickmodal">
+					<span><i class="fas fa-user"></i></span>
+					<p>
+						Connexion / Inscription</p>
+				</a>
+			</li>
+			{% else %}
+			<li>
+				<a href="#" class="compte_header">
+					<span><i class="fas fa-id-card-alt"></i></span>
+					Compte
+					<div class="depliant_compte_header flex column">
+						<div>Mon profil</div>
+						<div>Mes parametres de comptes</div>
+						<div>Mes commandes</div>
+						<div></div>
+						<div>Deconnexion</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="# " class="panier_header">
+					<span><i class="fas fa-shopping-basket"></i></span>
+					<p>Panier</p>
+					<span class="number_panier_header">17</span>
+				</a>
+
+			</li>
+			{%- endif -%}
+		</ul>
+	</div>
+</header>

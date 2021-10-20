@@ -1,0 +1,781 @@
+/* theme */
+:root {
+    --font-family: 'Open Sans', sans-serif;
+    --primary:red;
+    --primary-dark:#c0392b;
+    --dark:#2c3e50;
+    --danger:#e74c3c;
+    --background-light:#ecf0f1;
+    --text-color:#444;
+    --text-color-light:#fff;
+    --box-shadow:rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    --border:1px solid #eee;
+  }
+  
+  
+  /* reset */
+  
+  *{
+    box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+  }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    font-family: var(--font-family);
+    background-color: var(--background-light);
+  }
+
+
+ 
+  
+  a {
+    color:inherit;
+    text-decoration: none;
+  }
+  
+  .flex{
+      display: flex;
+  }
+
+  .column{
+      flex-direction: column;
+  }
+
+  .up-header{
+    padding-left: 12%;
+    padding-right: 12%;
+    width: 100%;
+    height: 16vh;
+    align-items: center;
+    background-color: var(--primary);
+    justify-content: space-between;
+  }
+
+   .logo {
+     background-color: violet;
+     
+     width: 16%;
+    height: 10vh;
+    margin-top: 0.4%;
+  }
+
+  .header-title{
+    color: var(--text-color-light);
+  
+    margin-top: 1%;
+    margin-left: 1.5%;
+   
+  }
+
+  .header-title h1{
+    font-size: 25px;
+    margin: 0;
+
+  }
+.header-title h2{
+  font-size: 12px;
+}
+  .link-header{
+
+    align-items: center;
+    width: 41%;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-color-light);
+    justify-content: space-around;
+
+    height: 10vh;
+    
+  }
+  .link-header span {
+
+
+   width: 5%;
+height: 100%;
+display: flex;
+align-items: center;
+transform: rotateZ(-20deg);
+  }
+
+  .up-header-left{
+    
+    width: 50%;
+  }
+  
+
+  .down-header{
+    background-color:#d6cbd3;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    height: 8vh;
+    width: 100%;
+    padding-left: 12%;
+    padding-right: 12%;
+    align-items: center;
+    color: white;
+    font-size: 10px;
+    z-index: 1000;
+  }
+
+
+  .down-header input {
+    width: 90%;
+    height: 100%;
+    align-items: center;
+    border-right: 3px solid white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+
+  }
+  .down-header input[type="text"]
+  {
+      font-size:15px;
+      font-weight: 100;
+  }
+
+ .down-header input[type="text"], input[type="password"], textarea, select { 
+    outline: none;
+}
+  .down-header input::placeholder {
+    padding: 1%;
+    font-size: 14px;
+  
+  }
+  .down-header  span{
+    font-size: 16px;
+ 
+  }
+  .down-header form {
+    background-color: white;
+    width: 58%;
+    height: 70%;
+    margin-right: 10%;
+    border-right: 3px solid white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  }
+  .down-header button {
+    cursor: pointer;
+    color: red;
+    background-color: white;
+    height: 100%;
+    width: 10%;
+    border-right: 3px solid white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  }
+   
+ 
+  .fa-search{
+    color: red;
+  }
+
+  .down-header ul {
+    width: 42% ;
+    color: red;
+    font-size: 14px;
+    font-weight: 700;
+    
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    
+  }
+ 
+  .down-header ul li {
+    width: 50%;
+    
+    margin:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    height: 100%;
+   
+  }
+  .down-header ul li a{
+    
+   
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    
+   
+  }
+
+  .down-header ul li a span{
+    
+  
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2%;
+   
+  }
+  .centerX{
+    justify-content: center;
+
+  }
+
+  .centerY{
+    align-items: center;
+  }
+
+  .fixed{
+    position: fixed;
+    top: 0;
+  }
+
+  .container{
+   
+    padding-left: 8%;
+    padding-right: 8%;
+
+  }
+
+footer{
+  background-color: var(--primary);
+  height: fit-content;
+  font-size: 14px;
+  color: white;
+}
+footer a {
+  cursor: pointer;
+}
+
+footer a:hover{
+  text-decoration: underline;
+}
+
+footer div{
+  align-items: center;
+  height: 50vh;
+  background-color: red;
+  margin-top: 1%;
+ 
+}
+
+.footer-left{
+  justify-content: center;
+  width: 33%;
+
+ 
+
+}
+
+.footer-left a {
+  margin-bottom: 3%;
+}
+
+.footer-center{
+  align-items: center;
+  align-items: center;
+ 
+  width: 34%;
+ 
+
+}
+.footer-center div{
+width: 80%;
+height: 80%;
+background-color: white;
+}
+.footer-center h3{
+  margin:0;
+  padding: 0;
+}
+.footer-center  p{
+  margin-top: 0;
+  margin-bottom: 3%;
+}
+
+.footer-right{
+  width: 33%;
+ 
+  
+}
+.footer-right h1{
+ margin-top: 5%;
+
+}
+
+
+
+.footer-right p{
+  font-weight: bold;
+  margin-top: 2%;
+}
+.footer-center input {
+  width: 75%;
+  height: 100%;
+  align-items: center;
+  border-radius: 5px;
+  border-right: 3px solid white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+
+}
+
+.footer-center input::placeholder {
+  padding-left: 5%;
+}
+.footer-center form {
+  border-radius: 5px;
+  width: 90%;
+  height: 6vh;
+  margin-top: 1%;
+  background-color: white;
+  margin-left: 2%;
+
+
+}
+.footer-center :nth-child(5){
+  font-weight: 400;
+  margin-top: 5%;
+ 
+}
+.footer-center :nth-child(5) a{
+  color: green;
+}
+.footer-center button {
+  border-radius: 5px;
+  color: white;
+  border-right: 3px solid white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  background-color: #29b9ad;
+  min-width: fit-content;
+  width: 25%;
+  height: 100%;
+ 
+}
+.footer-right a {
+  margin-bottom: 3%;
+}
+
+.pro{
+  width: 30%;
+  background-color:
+  #00e600;
+  height:8vh;
+  border-radius: 5px;
+  margin-bottom: 7%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
+  border: 0.1rem solid #00e600;
+}
+.pro:hover{
+  transform: scale(1.05);
+}
+.pro a:hover{
+  text-decoration: none;
+}
+
+.depliant{
+  width: 12% ;
+ 
+  height:  70%; 
+  justify-content: flex-start;
+  padding-left: 0.3%;
+  margin-right: 0.3%;
+  align-items: center;
+  background-color: red;
+  cursor: pointer;
+  position: relative;
+  
+}
+.arrow-up {
+  position: absolute;
+  display: none;
+  top: 5.58vh;
+  right: 43%;
+  width: 0; 
+  height: 0; 
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 11px solid #f5f6f7;
+}
+
+.threebar{
+  width: 25%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.bordurebar{
+  background-color: white;
+  height: 8%;
+  width:60% ;
+  margin-bottom: 10%;
+
+}
+
+
+.menudepliant{
+  position: absolute;
+  width: 1022%;
+  height: 60vh;
+  background-color: grey;
+  top: 120%;
+  left: 0;
+
+  display: none;
+}
+
+.categorieHaut-depliant{
+  width: 50%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: content-box;
+  height: 60vh;
+  background-color: white;
+
+  
+}
+
+.categorieHaut-depliant div{
+min-height: 14.8%;
+color: black;
+background-color: #f5f6f7;
+font-size: 14px;
+font-weight: 700;
+display: flex;
+align-items: center;
+padding-left: 3%;
+}
+
+.categorieHaut-depliant div:hover{
+  background-color:var(--primary);
+}
+.categorieHaut-depliant div p {
+ min-width: 50%;
+}
+.categorieHaut-depliant div span:nth-child(1){
+  box-sizing: content-box;
+min-width: 8%;
+  color: black;
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  padding-right: 4%;
+  }
+ 
+  .categorieHaut-depliant div span:nth-child(3){
+    box-sizing: content-box;
+    min-width: 6%;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding-left: 25%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-right: 4%;
+    }
+
+    .categorieHaut-depliant div.active{
+      background-color:red;
+      
+    }
+
+    .categorieHaut-depliant div.active {
+      color:white;
+    }
+.categorieBas-depliant{
+  width: 50%;
+  box-sizing: content-box;
+ overflow-y: scroll;
+ overflow-x: hidden;
+  height: 100%;
+  font-size: 14px;
+font-weight: 700;
+  background-color:white;
+}
+
+
+.categorieBas-depliant div{
+  width: 100%;
+  min-height: 14.8%;
+  background-color: #f5f6f7;
+  align-items: center;
+  
+  
+  padding-left: 5%;
+  color: black;
+ 
+}
+
+.categorieBas-depliant div:hover{
+  color: red !important;
+}
+.categorieBas-depliant div:hover{
+  color:white
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+display: none;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-wrapper {
+  transition: all 0.4s;
+  background-color: white;
+  margin: 0;
+  padding: 1%;
+  padding-top: 1%;
+  height: fit-content;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+ 
+
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+.modal-wrapper div:first-child{
+  width: 100%;
+  height: fit-content;
+
+  justify-content: flex-end;
+  font-size: 14px;
+
+}
+
+.modal-wrapper div:first-child p{
+  cursor: pointer;
+  margin-right: 2%;
+  margin-left: 2%;
+}
+
+.modal-wrapper div:first-child p:hover{
+  text-decoration: underline;
+}
+
+
+
+.modal-wrapper > span {
+
+  box-sizing: border-box;
+  margin-bottom: 2%;
+  width: 100%;
+  height:fit-content 10vh;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.modal-wrapper form{
+
+  
+  justify-content: center;
+  width: 75%;
+}
+.modal-wrapper form a{
+  width: 100%;
+  
+  color:  darkblue ;
+  font-size:small;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: underline;
+}
+
+.modal-wrapper form  span {
+  width: 100%;
+  height: fit-content;
+  margin-top: 5%;
+  margin-bottom: 7%;
+  justify-content: flex-start;
+  align-items: center;
+}
+.modal-wrapper span > input {
+  display: flex;
+  width: 10%;
+  cursor: pointer;
+  justify-content: flex-start;
+
+  min-height: 1.8rem;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-wrapper button{
+  height: 7vh;
+  border-radius: 5px;
+  border: 0.1rem solid #d8dadf;
+  cursor: pointer;
+
+}
+
+.modal-wrapper form > input {
+  min-width: 100%;
+  height: 4.8rem;
+  margin-bottom: 5%;
+  border-radius: 0.4rem;
+  border: 0.1rem solid #d8dadf;
+}
+.modal-wrapper form input::placeholder{
+  padding-left: 5%;
+}
+
+.downGoogle{
+  border-radius: 5px;
+  background-color: white;
+  margin-top: 1%;
+  height: fit-content;
+  width: 75%;
+  border: 1px solid black;
+}
+
+.downGoogle {
+  height: 7vh;
+  width: 75%;
+  margin-top: 2.5%;
+  border-radius: 5px;
+  border: 0.1rem solid #d8dadf;
+ display: flex;
+  color: grey;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+
+  font-size: larger;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.downGoogle img {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.formulaire_connexion{
+  display: none;
+}
+
+
+.formulaire_inscription{
+  display: none;
+}
+.modal-wrapper.connexion .formulaire_connexion {
+  display: flex !important;
+}
+
+.modal-wrapper.inscription .formulaire_inscription{
+  display: flex !important;
+
+}
+
+
+
+.modal-wrapper.connexion .switchConnexion  {
+  color: red;
+  cursor:default;
+}
+
+.modal-wrapper.connexion .switchConnexion:hover  {
+  text-decoration: none;
+}
+
+.modal-wrapper.inscription .switchInscription {
+  color: red;
+ cursor:default
+
+}
+
+.modal-wrapper.inscription .switchInscription:hover {
+  text-decoration: none;
+ 
+ }
+
+
+.panier_header{
+  position: relative;
+}
+.number_panier_header{
+  position: absolute;
+  top: -15%;
+  left: 7%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 7.5%;
+  height: 55%;
+  background-color: white;
+  border-radius: 50px;
+  color: red;
+  font-size: 12px !important;
+}
+
+
+.compte_header{
+  position: relative;
+}
+.depliant_compte_header{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  height: 35vh;
+  width: 170%;
+  background-color: #d6cbd3;
+  display: none;
+  border-radius: 5px;
+}
+
+.depliant_compte_header.active{
+  display: flex;
+}
+
+.depliant_compte_header div {
+width: 100%;
+display: flex;
+align-items: center;
+padding-left: 5%;
+margin-top: 2%;
+height: 10vh;
+
+}
+
+
+.depliant_compte_header div:hover {
+ text-decoration: underline;
+  
+  }
+
+.depliant_compte_header :nth-child(4)  {
+
+ 
+  height: 0.5vh ;
+  background-color: red ;
+  }
