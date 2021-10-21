@@ -4,22 +4,22 @@
 		<meta charset="UTF-8">
 		<title>
 			{% block title %}
-				Welcome!
+				Admin
 			{% endblock %}
 		</title>
 
 		{% block cdn %}
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 		{% endblock %}
 		{% block stylesheets %}
-			{{ encore_entry_link_tags('app')}}
+			{{ encore_entry_link_tags('admin')}}
 		{% endblock %}
 
 
 	</head>
 	<body>
 		{% block header %}
-			{{ include('partials/_header.html.twig') }}
+			{{ include('partials/_header_admin.html.twig') }}
 		{% endblock %}
 		{% block body %}
 			je suis le body
@@ -29,11 +29,8 @@
 				<div class="flash flash-{{ cat }}">{{ message }}</div>
 			{% endfor %}
 		{% endfor %}
-		{% block footer %}
-			{{ include('partials/_footer.html.twig') }}
-		{% endblock %}
 		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
+			{{ encore_entry_script_tags('admin') }}
 		{% endblock %}
 	</body>
 

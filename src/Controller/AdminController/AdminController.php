@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\AdminController;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class AdminController extends AbstractController
 {
-    #[Route('/', name: 'home')]
+    #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        $connected = true;
-        return $this->render('home/index.html.twig', [
-            'connected'=>$connected,
+        return $this->render('admin/index.html.twig', [
+            'connected' =>true,
         ]);
     }
 }

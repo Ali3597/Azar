@@ -1,19 +1,4 @@
-/* theme */
-:root {
-    --font-family: 'Open Sans', sans-serif;
-    --primary:red;
-    --primary-dark:#c0392b;
-    --dark:#2c3e50;
-    --danger:#e74c3c;
-    --background-light:#ecf0f1;
-    --text-color:#444;
-    --text-color-light:#fff;
-    --box-shadow:rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    --border:1px solid #eee;
-  }
-  
-  
-  /* reset */
+
   
   *{
     box-sizing: border-box;
@@ -24,9 +9,8 @@
   html, body {
     margin: 0;
     padding: 0;
-    font-size: 10px;
-    font-family: var(--font-family);
-    background-color: var(--background-light);
+    font-size: 14px;
+
   }
 
 
