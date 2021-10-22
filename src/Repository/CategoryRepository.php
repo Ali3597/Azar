@@ -47,4 +47,33 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function findHighCategoriesQueryWithSearch($search)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.category_parent is NULL');
+        if ($search->getQueryName()) {
+            $query->andWhere('c.name LIKE :search')
+                ->setParameter('search', '%' . $search->getQueryName() . '%');
+        }
+        $query->orderBy('c.name', 'ASC');
+
+        return $query->getQuery();
+    }
+
+    public function findCategoriesChildrensQueryWithSearch($search,$id)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.category_parent = :id')
+            ->setParameter('id',$id);
+        if ($search->getQueryName()) {
+            $query->andWhere('c.name LIKE :search')
+                ->setParameter('search', '%' . $search->getQueryName() . '%');
+        }
+        $query->orderBy('c.name', 'ASC');
+
+        return $query->getQuery();
+    }
 }
+

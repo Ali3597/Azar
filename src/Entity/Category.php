@@ -36,7 +36,7 @@ class Category
      /**
      * @ORM\OneToMany(targetEntity=Category::class, mappedBy="category_parent")
      */
-    private $categories_childrens;
+    private $categories_children;
 
    /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="categories_childrens")
