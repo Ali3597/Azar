@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
 	<div class="content column ">
-		<h1>Mes BAsses  categories</h1>
+		<h1>Mes categorie ennfants de {{ highCategory.name}}</h1>
 		{{form_start(form)}}
 		<div class="form-row">
 			{{form_row(form.queryName)}}
@@ -20,7 +20,6 @@
 			<thead>
 				<th>nom</th>
 				<th>Description</th>
-				<th>Categorie parent</th>
 				<th>Action</th>
 			</thead>
 			<tbody>
@@ -29,15 +28,10 @@
 						<td>{{categorie.name}}
 						</td>
 						<td>{{categorie.description}}</td>
-						<td>{{categorie.CategoryParent.name}}</td>
 						<td class="flex">
-							<a href="{{path('admin_high_category_edit',{ id: categorie.id })}}">Editer</a>
+							<a href="#">Editer</a>
 							<a href="#">Consulter</a>
-							<form action="{{ path('admin_high_category_delete' , { id: categorie.id }) }}" method="post">
-								<input type="hidden" name="_method" value="DELETE">
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
-								<button>Supprimer</button>
-							</form>
+                            <a href="#">Supprimer</a>
 						</td>
 
 					</tr>

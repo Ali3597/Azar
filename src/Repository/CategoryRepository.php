@@ -62,6 +62,19 @@ class CategoryRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
+    public function findLowCategoriesQueryWithSearch($search)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.category_parent is NOT NULL');
+        if ($search->getQueryName()) {
+            $query->andWhere('c.name LIKE :search')
+                ->setParameter('search', '%' . $search->getQueryName() . '%');
+        }
+        $query->orderBy('c.name', 'ASC');
+
+        return $query->getQuery();
+    }
+
     public function findCategoriesChildrensQueryWithSearch($search,$id)
     {
         $query = $this->createQueryBuilder('c')

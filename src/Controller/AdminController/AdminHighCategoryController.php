@@ -62,7 +62,7 @@ class AdminHighCategoryController extends AbstractController
             'form' => $form->createview()
         ]);
     }
-    #[Route('/high_category/consult/{id}', name: 'high_category_')]
+    #[Route('/high_category/consult/{id}', name: 'high_category_consult')]
     public function consult(PaginatorInterface $paginator , Request $request ,Category $category): Response
     {
         $search = new Search();
