@@ -1,0 +1,31 @@
+{% extends 'base_admin.html.twig' %}
+{% block stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags('form')}}
+{% endblock %}
+
+{% block body %}
+	<div class="content column ">
+		<div class="comment-form">
+			{{ form_start(form)}}
+			{{ form_rest(form) }}
+			<div class="flex">
+				{% if marque.pictures %}
+					{% for picture in marque.pictures %}
+						<div class="imagecard">
+							<img width="100%" height="100%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
+							<a href="{{ path('admin_picture_delete' , { id: picture.id }) }}" method="post" data-delete data-token="{{ csrf_token('delete' ~ picture.id) }}">Supprimer</a>
+						</div>
+					{% endfor %}
+
+				{% endif %}
+			</div>
+			<button class="btn btn-primary">soumettre</button>
+			{{ form_end(form)}}
+		</div>
+	</div>
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('form') }}
+		{% endblock %}
+{% endblock %}

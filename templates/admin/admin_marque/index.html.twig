@@ -1,5 +1,59 @@
 {% extends 'base_admin.html.twig' %}
-
-{% block body %}
-<h1>Les marques</h1>
+{% block stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags('admin_index')}}
 {% endblock %}
+{% block body %}
+	<div class="content column ">
+		<h1>Mes Marques</h1>
+		{{form_start(form)}}
+		<div class="form-row">
+			{{form_row(form.queryName)}}
+			<div class="button_form">
+				<button>
+					<i class="fas fa-search"></i>
+				</button>
+			</div>
+		</div>
+		{{form_end(form)}}
+		<table class="table_admin">
+			<thead>
+				<th>nom</th>
+				<th>Description</th>
+				<th>image</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				{% for marque in marques %}
+					<tr>
+						<td>{{marque.name}}
+						</td>
+						<td>{{marque.description}}</td>
+						<td>
+							{% if marque.pictures %}
+								{% for picture in marque.pictures %}
+									<div class="imagecard">
+										<img width="100%" height="100%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
+									</div>
+								{% endfor %}
+
+							{% endif %}
+						</td>
+						<td class="flex">
+							<a href="{{path('admin_marque_edit',{ id: marque.id })}}">Editer</a>
+							<a href="#">Consulter</a>
+							<form action="{{ path('admin_marque_delete' , { id: marque.id }) }}" method="post">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ marque.id) }}">
+								<button>Supprimer</button>
+							</form>
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="pagination">
+			{{ knp_pagination_render(marques) }}
+		</div>
+	{% endblock %}

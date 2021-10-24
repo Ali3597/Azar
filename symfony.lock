@@ -85,6 +85,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "jms/metadata": {
+        "version": "2.5.1"
+    },
     "knplabs/knp-components": {
         "version": "v3.2.0"
     },
@@ -236,6 +239,9 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/mime": {
+        "version": "v5.3.8"
+    },
     "symfony/options-resolver": {
         "version": "v5.3.7"
     },
@@ -246,6 +252,9 @@
         "version": "v1.23.1"
     },
     "symfony/polyfill-intl-icu": {
+        "version": "v1.23.0"
+    },
+    "symfony/polyfill-intl-idn": {
         "version": "v1.23.0"
     },
     "symfony/polyfill-intl-normalizer": {
@@ -419,5 +428,17 @@
     },
     "twig/twig": {
         "version": "v3.3.3"
+    },
+    "vich/uploader-bundle": {
+        "version": "1.18",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.7",
+            "ref": "c4f5755b37fb65b9c6a3cbdae91205c15a137ed4"
+        },
+        "files": [
+            "./config/packages/vich_uploader.yaml"
+        ]
     }
 }
