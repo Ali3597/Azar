@@ -1,4 +1,69 @@
 {% extends 'base_admin.html.twig' %}
-{% block body %}
-<h1>Les produits </h1>
+{% block stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags('admin_index')}}
 {% endblock %}
+{% block body %}
+	<div class="content column ">
+		<h1>Mes Produits</h1>
+		{{form_start(form)}}
+		<div class="form-row">
+			{{form_row(form.queryName)}}
+			<div class="button_form">
+				<button>
+					<i class="fas fa-search"></i>
+				</button>
+			</div>
+		</div>
+		{{form_end(form)}}
+		<table class="table_admin">
+			<thead>
+				<th>nom</th>
+				<th>Description</th>
+				<th>Stock</th>
+				<th>Unite</th>
+				<th>afficher</th>
+				<th>Marque</th>
+				<th>CAtegorie</th>
+				<th>image</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				{% for product in products %}
+					<tr>
+						<td>{{product.name}}
+						</td>
+						<td>{{product.description}}</td>
+						<td>{{product.stock}}</td>
+						<td>{{product.unite}}</td>
+						<td>{{product.afficher}}</td>
+						<td>{{product.marque.name}}</td>
+						<td>{{product.category.name}}</td>
+						<td>
+							{% if product.pictures %}
+								{% for picture in product.pictures %}
+									<div class="imagecard">
+										<img width="100%" height="100%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
+									</div>
+								{% endfor %}
+
+							{% endif %}
+						</td>
+						<td class="flex">
+							<a href="{{path('admin_product_edit',{ id: product.id })}}">Editer</a>
+							<a href="#">Consulter</a>
+							<form action="{{ path('admin_product_delete' , { id: product.id }) }}" method="post">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+								<button>Supprimer</button>
+							</form>
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="pagination">
+			{{ knp_pagination_render(products) }}
+		</div>
+	{% endblock %}

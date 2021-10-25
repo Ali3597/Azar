@@ -47,9 +47,15 @@ class Marque
      */
     private $pictureFiles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="marque",orphanRemoval=true)
+     */
+    private $produits;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+        $this->produits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,6 +133,36 @@ class Marque
             $this->addPicture($picture);
         }
         $this->pictureFiles = $pictureFiles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Produit[]
+     */
+    public function getProduits(): Collection
+    {
+        return $this->produits;
+    }
+
+    public function addProduit(Produit $produit): self
+    {
+        if (!$this->produits->contains($produit)) {
+            $this->produits[] = $produit;
+            $produit->setMarque($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): self
+    {
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getMarque() === $this) {
+                $produit->setMarque(null);
+            }
+        }
 
         return $this;
     }

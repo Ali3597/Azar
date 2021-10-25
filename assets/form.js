@@ -27,3 +27,6 @@ document.querySelectorAll('[data-delete]').forEach(a=>{
           })  
     })
 })
+
+
+

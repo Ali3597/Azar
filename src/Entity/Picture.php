@@ -37,6 +37,16 @@ class Picture
      */
     private $marque;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="pictures")
+     */
+    private $article;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="pictures")
+     */
+    private $produit;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +86,30 @@ class Picture
     {
 
         $this->imageFile = $imageFile;
+        return $this;
+    }
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): self
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(?Produit $produit): self
+    {
+        $this->produit = $produit;
+
         return $this;
     }
 }
