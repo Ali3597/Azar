@@ -44,6 +44,11 @@ class Picture
      */
     private $produit;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=BandePromo::class, inversedBy="pictures")
+     */
+    private $bandePromo;
+
 
     public function getId(): ?int
     {
@@ -96,6 +101,18 @@ class Picture
     public function setProduit(?Produit $produit): self
     {
         $this->produit = $produit;
+
+        return $this;
+    }
+
+    public function getBandePromo(): ?BandePromo
+    {
+        return $this->bandePromo;
+    }
+
+    public function setBandePromo(?BandePromo $bandePromo): self
+    {
+        $this->bandePromo = $bandePromo;
 
         return $this;
     }

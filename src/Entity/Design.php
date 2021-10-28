@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DesignRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +34,16 @@ class Design
      * @ORM\JoinColumn(nullable=false)
      */
     private $logo;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Bande::class, mappedBy="design", orphanRemoval=true)
+     */
+    private $bandes;
+
+    public function __construct()
+    {
+        $this->bandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,6 +82,36 @@ class Design
     public function setLogo(Picture $logo): self
     {
         $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bande[]
+     */
+    public function getBandes(): Collection
+    {
+        return $this->bandes;
+    }
+
+    public function addBande(Bande $bande): self
+    {
+        if (!$this->bandes->contains($bande)) {
+            $this->bandes[] = $bande;
+            $bande->setDesign($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBande(Bande $bande): self
+    {
+        if ($this->bandes->removeElement($bande)) {
+            // set the owning side to null (unless already changed)
+            if ($bande->getDesign() === $this) {
+                $bande->setDesign(null);
+            }
+        }
 
         return $this;
     }
