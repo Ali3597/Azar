@@ -5,7 +5,6 @@ console.log("hello");
 document.querySelectorAll('[data-delete]').forEach(a=>{
     a.addEventListener('click',e=>{
         e.preventDefault()
-        console.log(a.getAttribute('href'))
         fetch(a.getAttribute('href'),{
             method: 'DELETE',
             headers:{
@@ -19,10 +18,12 @@ document.querySelectorAll('[data-delete]').forEach(a=>{
             if (data.success){
                     a.parentNode.parentNode.removeChild(a.parentNode);
             }else{
+
                 alert(data.error)
             }
         })
         .catch( err => {
+            console.log("ici")
             alert(err);
           })  
     })

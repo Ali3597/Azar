@@ -38,7 +38,6 @@ class AdminMarqueController extends AbstractController
             $request->query->getInt('page', 1),
             3,
         );
-
         return $this->render('admin/admin_marque/index.html.twig', [
             'marques' => $marques,
             "form" => $form->createView(),
@@ -67,10 +66,13 @@ class AdminMarqueController extends AbstractController
     #[Route('/marque/{id}', name: 'marque_edit', methods: ['GET', 'POST'])]
     public function edit( Request $request,Marque $marque): Response
     {
+        $picture = $marque->getPicture();
         $form = $this->createForm(MarqueType::class, $marque);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            if ($marque->getPictureFile()) {
+                $this->em->remove($picture);
+            }
             $this->em->persist($marque);
             $this->em->flush();
             $this->addFlash('success', 'Votre Marque a bien été modifié ');

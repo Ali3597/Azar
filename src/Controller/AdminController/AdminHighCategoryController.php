@@ -21,21 +21,21 @@ class AdminHighCategoryController extends AbstractController
 
     private $categorieRepo;
     private $em;
-   
 
-    function __construct(CategoryRepository $categorieRepo,EntityManagerInterface $em)
+
+    function __construct(CategoryRepository $categorieRepo, EntityManagerInterface $em)
     {
         $this->categorieRepo = $categorieRepo;
         $this->em = $em;
     }
 
     #[Route('/high_categories', name: 'high_categories')]
-    public function index(PaginatorInterface $paginator , Request $request): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new Search();
         $form = $this->createForm(FormSearchType::class, $search);
         $form->handleRequest($request);
-        $highCategories= $paginator->paginate(
+        $highCategories = $paginator->paginate(
             $this->categorieRepo->findHighCategoriesQueryWithSearch($search),
             $request->query->getInt('page', 1),
             3,
@@ -63,30 +63,35 @@ class AdminHighCategoryController extends AbstractController
         ]);
     }
     #[Route('/high_category/consult/{id}', name: 'high_category_consult')]
-    public function consult(PaginatorInterface $paginator , Request $request ,Category $category): Response
+    public function consult(PaginatorInterface $paginator, Request $request, Category $category): Response
     {
+
         $search = new Search();
         $form = $this->createForm(FormSearchType::class, $search);
         $form->handleRequest($request);
-        $lowCategories= $paginator->paginate(
-            $this->categorieRepo->findCategoriesChildrensQueryWithSearch($search,$category->getId()),
+        $lowCategories = $paginator->paginate(
+            $this->categorieRepo->findCategoriesChildrensQueryWithSearch($search, $category->getId()),
             $request->query->getInt('page', 1),
             3,
         );
         return $this->render('admin/admin_high_category/consult.html.twig', [
             'categories' => $lowCategories,
-            'highCategory'=>$category,
-            'form'=>$form->createView()
+            'highCategory' => $category,
+            'form' => $form->createView()
         ]);
     }
 
     #[Route('/high_category/{id}', name: 'high_category_edit', methods: ['GET', 'POST'])]
-    public function edit( Request $request,Category $category): Response
+    public function edit(Request $request, Category $category): Response
     {
+        $picture = $category->getPicture();
         $form = $this->createForm(HighCategoryType::class, $category);
         $form->handleRequest($request);
+       
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            if ($category->getPictureFile()) {
+                $this->em->remove($picture);
+            }
             $this->em->persist($category);
             $this->em->flush();
             $this->addFlash('success', 'Votre categorie a bien été modifié ');
@@ -94,25 +99,21 @@ class AdminHighCategoryController extends AbstractController
         }
 
         return $this->render('admin/admin_high_category/edit.html.twig', [
-            'form' => $form->createview()
+            'form' => $form->createview(),
+            'category' => $category,
         ]);
     }
 
 
     #[Route('/high_category/{id}', name: 'high_category_delete', methods: ['DELETE'])]
-    public function delete(Request $request , Category $categorie): Response
+    public function delete(Request $request, Category $categorie): Response
     {
-      
-        if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->get('_token'))) 
-        {
+
+        if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->get('_token'))) {
             $this->em->remove($categorie);
             $this->em->flush();
             $this->addFlash('success', 'Votre categorie a bien été supprime ');
         }
         return $this->redirectToRoute('admin_high_categories');
-
     }
-
-    
-
 }

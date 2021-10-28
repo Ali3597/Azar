@@ -10,13 +10,12 @@
 			{{ form_start(form)}}
 			{{ form_rest(form) }}
 			<div class="flex">
-				{% if marque.pictures %}
-					{% for picture in marque.pictures %}
+				{% if marque.picture %}
+
 						<div class="imagecard">
-							<img width="100%" height="100%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
-							<a href="{{ path('admin_picture_delete' , { id: picture.id }) }}" method="post" data-delete data-token="{{ csrf_token('delete' ~ picture.id) }}">Supprimer</a>
+							<img width="100%" height="100%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
+							
 						</div>
-					{% endfor %}
 
 				{% endif %}
 			</div>
@@ -25,7 +24,4 @@
 		</div>
 	</div>
 
-		{% block javascripts %}
-			{{ encore_entry_script_tags('form') }}
-		{% endblock %}
 {% endblock %}

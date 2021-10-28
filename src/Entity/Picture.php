@@ -32,10 +32,7 @@ class Picture
     #[Assert\Image(mimeTypes: 'jpeg',massage:'Pour les images veuillez utilisez le format jpeg')]
     private $imageFile;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="pictures")
-     */
-    private $marque;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="pictures")
@@ -46,6 +43,7 @@ class Picture
      * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="pictures")
      */
     private $produit;
+
 
     public function getId(): ?int
     {
@@ -64,18 +62,7 @@ class Picture
         return $this;
     }
 
-    public function getMarque(): ?Marque
-    {
-        return $this->marque;
-    }
-
-    public function setMarque(?Marque $marque): self
-    {
-        $this->marque = $marque;
-
-        return $this;
-    }
-
+  
     public function getImageFile()
     {
         return $this->imageFile;
@@ -112,4 +99,6 @@ class Picture
 
         return $this;
     }
+
+   
 }

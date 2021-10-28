@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=MarqueRepository::class)
  */
@@ -35,22 +36,20 @@ class Marque
     #[Assert\Length(min: 40, minMessage: 'Veuillez détailler votre description')]
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="marque",orphanRemoval=true,cascade={"persist"})
-     */
-    private $pictures;
 
-    /**
-     * @Assert\All({
-     *     @Assert\Image(mimeTypes="image/jpeg")
-     * })
-     */
-    private $pictureFiles;
 
     /**
      * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="marque",orphanRemoval=true)
      */
     private $produits;
+
+
+    #[Assert\Image(mimeTypes:["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+    private $pictureFile;
+    /**
+     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -87,55 +86,6 @@ class Marque
         return $this;
     }
 
-    /**
-     * @return Collection|Picture[]
-     */
-    public function getPictures(): Collection
-    {
-        return $this->pictures;
-    }
-
-    public function addPicture(Picture $picture): self
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures[] = $picture;
-            $picture->setMarque($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): self
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getMarque() === $this) {
-                $picture->setMarque(null);
-            }
-        }
-
-        return $this;
-    }
-
-
-    public function getPictureFiles()
-    {
-        return $this->pictureFiles;
-    }
-
-  
-    public function setPictureFiles($pictureFiles)
-    {
-        foreach($pictureFiles as $pictureFile)
-        {
-            $picture = new Picture();
-            $picture->setImageFile($pictureFile);
-            $this->addPicture($picture);
-        }
-        $this->pictureFiles = $pictureFiles;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Produit[]
@@ -166,4 +116,42 @@ class Marque
 
         return $this;
     }
+
+    public function getPicture(): ?Picture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?Picture $picture): self
+    {
+      
+            $this->picture = $picture;
+        return $this;
+    }
+
+    /**
+     * Get the value of pictureFile
+     */ 
+    public function getPictureFile()
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * Set the value of pictureFile
+     *
+     * @return  self
+     */ 
+    public function setPictureFile($pictureFile)
+    {
+        if ($pictureFile) {
+            $picture = new Picture();
+            $picture->setImageFile($pictureFile);
+            $this->picture = $picture;
+        }
+        $this->pictureFile = $pictureFile;
+
+        return $this;
+    }
+  
 }

@@ -15,9 +15,8 @@ class MarqueType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('pictureFiles',FileType::class,[
+            ->add('pictureFile',FileType::class,[
                 'required'=>false,
-                'multiple'=>true,
             ]);
         ;
     }
@@ -26,6 +25,7 @@ class MarqueType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Marque::class,
+            
         ]);
     }
 }

@@ -9,11 +9,18 @@
 		<div class="comment-form">
               {{ form_start(form)}}
               {{ form_rest(form) }}
+			  <div class="flex">
+				{% if category.picture %}
+
+						<div class="imagecard">
+							<img width="100%" height="100%" src="{{ vich_uploader_asset(category.picture,'imageFile') }}" alt="">
+						</div>
+
+				{% endif %}
+			</div>
               <button class="btn btn-primary">soumettre</button>
               {{ form_end(form)}}
           </div>
 	</div>
-	{% block javascripts %}
-			{{ encore_entry_script_tags('form') }}
-		{% endblock %}
+
 	{% endblock %}

@@ -49,6 +49,14 @@ class Category
      */
     private $produits;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     */
+    private $picture;
+
+    #[Assert\Image(mimeTypes:["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+    private $pictureFile;
+
     public function __construct()
     {
         $this->categories_children = new ArrayCollection();
@@ -151,6 +159,44 @@ class Category
                 $produit->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?Picture $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of pictureFile
+     */ 
+    public function getPictureFile()
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * Set the value of pictureFile
+     *
+     * @return  self
+     */ 
+    public function setPictureFile($pictureFile)
+    {
+        if ($pictureFile) {
+            $picture = new Picture();
+            $picture->setImageFile($pictureFile);
+            $this->picture = $picture;
+        }
+    
+        $this->pictureFile = $pictureFile;
 
         return $this;
     }

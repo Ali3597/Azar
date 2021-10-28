@@ -23,10 +23,11 @@ class AdminPictureController extends AbstractController
     #[Route('/picture/{id}', name: 'picture_delete',methods: ['DELETE'])]
     public function index(Request $request, Picture $picture): Response
     {
-
-       $data =json_decode($request->getContent(),true);
+        
+       $data = json_decode($request->getContent(),true);
         if ($this->isCsrfTokenValid('delete'.$picture->getId(), $data['_token'])) 
         {
+            
             $this->em->remove($picture);
             $this->em->flush();
             $this->addFlash('success', 'Votre image a bien été supprime ');

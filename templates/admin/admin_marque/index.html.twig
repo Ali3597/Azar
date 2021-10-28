@@ -30,12 +30,11 @@
 						</td>
 						<td>{{marque.description}}</td>
 						<td>
-							{% if marque.pictures %}
-								{% for picture in marque.pictures %}
+							{% if marque.picture %}
+							
 									<div class="imagecard">
-										<img width="100%" height="100%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
+										<img width="100%" height="100%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
 									</div>
-								{% endfor %}
 
 							{% endif %}
 						</td>

@@ -20,6 +20,7 @@
 			<thead>
 				<th>nom</th>
 				<th>Description</th>
+				<th>Image</th>
 				<th>Action</th>
 			</thead>
 			<tbody>
@@ -28,6 +29,15 @@
 						<td>{{categorie.name}}
 						</td>
 						<td>{{categorie.description}}</td>
+						<td>
+							{% if categorie.picture %}
+							
+									<div class="imagecard">
+										<img width="100%" height="100%" src="{{ vich_uploader_asset(categorie.picture,'imageFile') }}" alt="">
+									</div>
+
+							{% endif %}
+						</td>
 						<td class="flex">
 							<a href="{{path('admin_high_category_edit',{ id: categorie.id })}}">Editer</a>
 							<a href="#">Consulter</a>
