@@ -26,6 +26,7 @@ Encore
     .addEntry('formCategory', './assets/categoryForm.js')
     .addEntry('admin', './assets/adminapp.js')
     .addEntry('admin_index', './assets/adminindex.js')
+    .addEntry('design', './assets/design.js')
     
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

@@ -1,0 +1,102 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 200vh;
+
+    width: 100%;
+    margin-bottom: 5%;
+    
+}
+.bandes{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+   
+}
+
+.bandes .cross{
+    position: absolute;
+    right: 0.5%;
+    top: 0.5%;
+    background-color: red;
+    border-radius: 50px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.bandes .fa-times {
+    cursor: pointer;
+    color: white;
+}
+.bande{
+  
+    width:80%;
+    height:fit-content;
+    border-radius: 5px;
+    margin: 2%;
+ 
+    position: relative;
+}
+.details{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    border-bottom: 1px solid black;
+}
+.elements{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    border: 2px solid black;
+    flex-wrap: wrap;
+    position: relative;
+}
+.element{
+  width: 200px;
+  height: 180px;
+  border-radius: 5px;
+    transition: 0.7s;
+  cursor: pointer;
+}
+.element.is-dragged{
+   transition: 0s;
+   opacity: 0.5;
+   z-index: 9000;
+  }
+.choose{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    height: 70px;
+    border-radius: 10px;
+}
+.choose select{
+    display: flex;
+    width: 40%;
+    height: 100%;
+}
+.choose button{
+    height: 100%;
+    width: 20%;
+}
+.more{
+    width: 5%;
+    min-height:50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+    margin-top: 5%;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.more i{
+    color: white;
+}
