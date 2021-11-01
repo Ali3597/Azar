@@ -9,6 +9,7 @@ use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -97,4 +98,20 @@ class AdminProductController extends AbstractController
         return $this->redirectToRoute('admin_marques');
 
     }
+
+    #[Route('/getProducts', name: 'ajax_products')]
+    public function getHighCategories(Request $request): Response
+    {
+        $data = json_decode($request->getContent(),true);
+      $products = $this->productRepo->findProductsinOneCategory($data["value"]);
+        $test= [];
+        for ($i= 0;$i < sizeof($products) ;$i++) {
+            $test[$i]= ["name"=>$products[$i]->getName(),"id"=>$products[$i]->getId(),'filename'=>$products[$i]->getPictures()[0]->getFilename()];
+        }
+    return new JsonResponse(['categories' => $test]);
+         
+        
+    }
+
+    
 }

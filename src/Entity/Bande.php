@@ -44,10 +44,7 @@ class Bande
      */
     private $loopable;
 
-    /**
-     * @ORM\OneToMany(targetEntity=BandePromo::class, mappedBy="bande")
-     */
-    private $bandePromos;
+ 
 
     /**
      * @ORM\OneToOne(targetEntity=BandePromo::class, mappedBy="bande", cascade={"persist", "remove"})

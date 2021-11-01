@@ -6,85 +6,52 @@
 {% block cdn %}
 	{{parent()}}
 	<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 {% endblock %}
 {% block body %}
 	<div class="content">
 		<h1>Le design</h1>
-		<div class="bandes">
-			<div class="bande">
-				<div class="cross">
-					<i class="fas fa-times"></i>
+		<div class="bandes" data-sortable=".bande">
+			{% for bande in design.bandes %}
+				<div class="bande" data-position={{bande.position -1}} data-id={{bande.id}}>
+					<div  onclick="deleteBande(this)" class="cross">
+						<i class="fas fa-times"></i>
+					</div>
+					<div class="details">
+						<label for="Visible">Visible :</label>
+						<input type="number" value={{bande.slideVisible}} name='Visible'>
+						<label for="scroll">
+							scroll:</label>
+						<input type="number" value={{bande.slideToScroll}} name='scroll'>
+						<label for="loop">
+							loop</label>
+						<input type="checkbox" {{ (bande.loopable) ? checked : '' }} name='loop'>
+						<p>
+							{{bande.type}}
+						</p>
+					</div>
+					{%  if bande.bandeProduct %}
+						{{ include('admin/admin_design/bande_product.html.twig') }}
+					{% elseif bande.bandeCategory %}
+						{{ include('admin/admin_design/bande_category.html.twig') }}
+					{% elseif bande.bandeCategoryTitle %}
+						{{ include('admin/admin_design/bande_categorytitle.html.twig') }}
+					{% elseif bande.bandeArticle %}
+						{{ include('admin/admin_design/bande_article.html.twig') }}
+					{% elseif bande.BandeMarque %}
+						{{ include('admin/admin_design/bande_marque.html.twig') }}
+					{% elseif bande.bandePromo %}
+						{{ include('admin/admin_design/bande_promo.html.twig') }}
+					{% endif %}
 				</div>
-				<div class="details">
-					<label for="title">
-						Titre</label>
-					<input type="text" name='title' value="valeur test" placeholder="placer le titre">
-					<label for="subTitle">
-						Sous-Titre</label>
-					<input type="text" name='subTitle' value="valeur test" placeholder="placer le titre">
-					<label for="Visible">Visible :</label>
-					<input type="number" name='Visible'>
-					<label for="scroll">
-						scroll:</label>
-					<input type="number" name='scroll'>
-					<label for="loop">
-						loop</label>
-					<input type="checkbox" name='loop'>
-					<p>
-						Article
-					</p>
-				</div>
-				<div class="elements" data-sortable=".element">
-					<div class="element" data-position="0" data-id="1">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2013/08/09/05/54/layer-170971__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="1" data-id="2">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2017/06/01/13/16/peru-2363502__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="2" data-id="3">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2018/07/26/12/21/sunset-3563482__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="3" data-id="4">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2021/04/27/18/56/sunset-6212218__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="4" data-id="5">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2021/10/20/14/01/bull-6726185__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="5" data-id="6">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2021/09/28/12/40/cat-6664360__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="6" data-id="7">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="7" data-id="8">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2021/10/08/16/22/plant-6691763__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="8" data-id="9">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="9" data-id="10">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2021/09/03/02/08/skyscrapers-6594833__340.png" alt="">
-					</div>
-					<div class="element" data-position="10" data-id="11">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2021/10/12/15/20/witch-6703818__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="11" data-id="12">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2021/10/05/16/53/temple-6683242__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="12" data-id="13">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2021/04/27/18/56/sunset-6212218__340.jpg" alt="">
-					</div>
-					<div class="element" data-position="13" data-id="14">
-						<img width="100%" height="100%" src="https://cdn.pixabay.com/photo/2020/11/23/18/18/birds-5770589__340.jpg" alt="">
-					</div>
 
+			{% endfor %}
 
-				</div>
-			</div>
 		</div>
-		{# <div onclick="addBande()" class="more fa-2x">
-					<i class="fas fa-plus"></i>
-				</div> #}
+		<div onclick="addBande(this)" class="more ">
+			<i class="fas fa-2x fa-plus"></i>
+		</div>
+
 	</div>
 {% endblock %}
 

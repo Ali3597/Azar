@@ -11,9 +11,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[Route('/admin', name: 'admin_')]
 class AdminHighCategoryController extends AbstractController
@@ -115,5 +117,20 @@ class AdminHighCategoryController extends AbstractController
             $this->addFlash('success', 'Votre categorie a bien été supprime ');
         }
         return $this->redirectToRoute('admin_high_categories');
+    }
+
+
+
+    #[Route('/getHighCategories', name: 'ajax_highCategories')]
+    public function getHighCategories(Request $request): Response
+    {
+      $categories = $this->categorieRepo->findAllHighCategories();
+        $test= [];
+        for ($i= 0;$i < sizeof($categories) ;$i++) {
+            $test[$i]= ["name"=>$categories[$i]->getName(),"id"=>$categories[$i]->getId(),"filename"=>$categories[$i]->getPicture()->getFilename()];
+        }
+    return new JsonResponse(['categories' =>$test]);
+         
+        
     }
 }

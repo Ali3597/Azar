@@ -34,7 +34,7 @@ class Category
     private $description;
 
      /**
-     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="category_parent")
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="category_parent" ,orphanRemoval=true)
      */
     private $categories_children;
 

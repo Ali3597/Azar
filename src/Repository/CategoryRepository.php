@@ -47,6 +47,24 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findAllHighCategories()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.category_parent is NULL')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllLowCategoriesofCategoryParent($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.category_parent = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 
     public function findHighCategoriesQueryWithSearch($search)

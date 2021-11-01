@@ -49,12 +49,22 @@ class ProduitRepository extends ServiceEntityRepository
     */
     public function findAllVisibleQuery($search)
     {
-        $query = $this->createQueryBuilder('m');
+        $query = $this->createQueryBuilder('p');
         if ($search->getQueryName())
         {
-            $query->where('m.name LIKE :search')
+            $query->where('p.name LIKE :search')
                 ->setParameter('search','%'.$search->getQueryName().'%');
         }
         return $query->getQuery();
+    }
+
+    public function findProductsinOneCategory($id)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.category = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }
