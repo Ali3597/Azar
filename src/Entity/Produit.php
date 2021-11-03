@@ -76,9 +76,8 @@ class Produit
     private $pictures;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="produits")
+     * @ORM\ManyToOne(targetEntity=Marque::class, nullable=true,  inversedBy="produits")
      */
-    #[Assert\NotBlank(message: 'Veuillez renseigner une marque')]
     private $marque;
 
     public function __construct()

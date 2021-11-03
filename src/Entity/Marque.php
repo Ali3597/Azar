@@ -39,7 +39,7 @@ class Marque
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="marque",orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="marque")
      */
     private $produits;
 

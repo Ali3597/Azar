@@ -48,6 +48,15 @@ class ArticleRepository extends ServiceEntityRepository
     }
     */
 
+    public function findAllArticlesByDates()
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.created_at', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findAllVisibleQuery($search)
 {
     $query = $this->createQueryBuilder('m');

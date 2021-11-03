@@ -1,0 +1,15 @@
+
+<div class="elements" data-sortable=".element">
+	{% for category in bande.bandeCategory.categories %}
+		<div class="element" data-position={{loop.index -1}} data-id={{category.id}}>
+			<div class="cross" onclick="removeElement(this)">
+				<i class="fas fa-times"></i>
+			</div>
+			<img width="80%" height="80%" src="{{ vich_uploader_asset(category.picture,'imageFile') }}" alt="">
+			<p>{{category.name}}</p>
+		</div>
+	{% endfor %}
+</div>
+<div class="addnew">
+	<button onclick="newcategory(this)">Rajoutez une nouvelle category</button>
+</div>

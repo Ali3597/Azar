@@ -58,4 +58,13 @@ class MarqueRepository extends ServiceEntityRepository
     }
     return $query->getQuery();
 }
+
+public function findAllMarquesAlphabet()
+    {
+        return $this->createQueryBuilder('m')
+            ->orderBy('m.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

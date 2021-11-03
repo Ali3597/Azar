@@ -1,0 +1,18 @@
+
+<div class="elements" data-sortable=".element">
+	{% for marque in bande.bandeMarque.marques %}
+		<div class="element" data-position={{loop.index -1}} data-id={{marque.id}}>
+			<div class="cross" onclick="removeElement(this)">
+				<i class="fas fa-times"></i>
+			</div>
+			<img width="80%" height="80%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
+			<p>{{marque.name}}</p>
+		</div>
+	{% endfor %}
+
+
+</div>
+
+<div class="addnew">
+	<button onclick="newmarque(this)">Rajoutez une nouvelle marque</button>
+</div>

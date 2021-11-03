@@ -1,11 +1,4 @@
-<div class="subdetails">
-	<label for="title">
-		Titre</label>
-	<input type="text" name='title' value="{{ bande.bandeProduct.title }}" placeholder="placer le titre">
-	<label for="subTitle">
-		Sous-Titre</label>
-	<input type="text" name='subTitle' value="{{bande.bandeProduct.subtitle}}" placeholder="placer le titre">
-</div>
+
 <div class="elements" data-sortable=".element">
 	{% for product in bande.bandeProduct.products %}
 		<div class="element" data-position={{loop.index -1}} data-id="1">
@@ -14,7 +7,6 @@
 			</div>
 			<img width="80%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
 			<p>{{product.name}}</p>
-			<p>{{product.category.name}}</p>
 		</div>
 	{% endfor %}
 

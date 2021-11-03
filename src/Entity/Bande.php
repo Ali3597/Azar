@@ -56,11 +56,7 @@ class Bande
      */
     private $bandeProduct;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Design::class, inversedBy="bandes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $design;
+ 
 
     /**
      * @ORM\OneToOne(targetEntity=BandeCategoryTitle::class, mappedBy="bande", cascade={"persist", "remove"})
@@ -81,6 +77,16 @@ class Bande
      * @ORM\OneToOne(targetEntity=BandeMarque::class, mappedBy="bande", cascade={"persist", "remove"})
      */
     private $bandeMarque;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $subtitle;
 
     
 
@@ -189,18 +195,7 @@ class Bande
         return $this;
     }
 
-    public function getDesign(): ?Design
-    {
-        return $this->design;
-    }
-
-    public function setDesign(?Design $design): self
-    {
-        $this->design = $design;
-
-        return $this;
-    }
-
+   
     public function getBandeCategoryTitle(): ?BandeCategoryTitle
     {
         return $this->bandeCategoryTitle;
@@ -265,6 +260,30 @@ class Bande
         }
 
         $this->bandeMarque = $bandeMarque;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getSubtitle(): ?string
+    {
+        return $this->subtitle;
+    }
+
+    public function setSubtitle(?string $subtitle): self
+    {
+        $this->subtitle = $subtitle;
 
         return $this;
     }

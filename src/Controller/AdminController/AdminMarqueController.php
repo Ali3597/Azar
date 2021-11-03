@@ -10,6 +10,7 @@ use App\Repository\MarqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -92,11 +93,29 @@ class AdminMarqueController extends AbstractController
     
         if ($this->isCsrfTokenValid('delete'.$marque->getId(), $request->get('_token'))) 
         {
+            foreach($marque->getProduits() as $product)
+            {
+                $marque->removeProduit($product);
+            }
             $this->em->remove($marque);
             $this->em->flush();
             $this->addFlash('success', 'Votre marque a bien été supprime ');
         }
         return $this->redirectToRoute('admin_marques');
 
+    }
+
+
+    #[Route('/getMarques', name: 'ajax_marques')]
+    public function getMarques(): Response
+    {
+      $marques = $this->marqueRepo->findAllMarquesAlphabet();
+        $test= [];
+        for ($i= 0;$i < sizeof($marques) ;$i++) {
+            $test[$i]= ["name"=>$marques[$i]->getName(),"id"=>$marques[$i]->getId(),"filename"=>$marques[$i]->getPicture()->getFilename()];
+        }
+    return new JsonResponse(['marques' =>$test]);
+         
+        
     }
 }

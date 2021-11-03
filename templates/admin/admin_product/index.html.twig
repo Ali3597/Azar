@@ -37,7 +37,11 @@
 						<td>{{product.stock}}</td>
 						<td>{{product.unite}}</td>
 						<td>{{product.afficher}}</td>
+						{% if product.marque %}
 						<td>{{product.marque.name}}</td>
+						{% else %}
+							<td>Pas de marques</td>
+						{% endif %}
 						<td>{{product.category.name}}</td>
 						<td>
 							{% if product.pictures %}

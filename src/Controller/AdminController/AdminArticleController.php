@@ -11,6 +11,7 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -98,5 +99,18 @@ class AdminArticleController extends AbstractController
         }
         return $this->redirectToRoute('admin_articles');
 
+    }
+
+    #[Route('/getArticles', name: 'ajax_articles')]
+    public function getArticles(): Response
+    {
+      $articles = $this->articleRepo->findAllArticlesByDates();
+        $test= [];
+        for ($i= 0;$i < sizeof($articles) ;$i++) {
+            $test[$i]= ["name"=>$articles[$i]->getTitle(),"id"=>$articles[$i]->getId(),"filename"=>$articles[$i]->getPictures()[0]->getFilename()];
+        }
+    return new JsonResponse(['articles' =>$test]);
+         
+        
     }
 }

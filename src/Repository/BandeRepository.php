@@ -47,4 +47,12 @@ class BandeRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findAllBandesByPosition()
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.position', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

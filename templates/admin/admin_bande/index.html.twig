@@ -1,0 +1,70 @@
+{% extends 'base_admin.html.twig' %}
+{% block stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags('bande')}}
+{% endblock %}
+{% block cdn %}
+	{{parent()}}
+	<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+{% endblock %}
+{% block body %}
+	<div class="content">
+		<h1>Les bandes</h1>
+		<div class="bandes" data-sortable=".bande">
+			{% for bande in bandes %}
+				<div class="bande" data-position={{bande.position}}>
+					<div onclick="deleteBande(this)" class="cross">
+						<i class="fas fa-times"></i>
+					</div>
+					<div class="details">
+						<label for="Visible">Visible :</label>
+						<input type="number" value={{bande.slideVisible}} name='Visible'>
+						<label for="scroll">
+							scroll:</label>
+						<input type="number" value={{bande.slideToScroll}} name='scroll'>
+						<label for="loop">
+							loop</label>
+						<input type="checkbox" {{ (bande.loopable) ? 'checked' : '' }} name='loop'>
+						<p>
+							{{bande.type}}
+						</p>
+					</div>
+					<div class="subdetails">
+						<label for="title">
+							Titre</label>
+						<input type="text" name='title' value="{{ bande.title }}" placeholder="placer le titre">
+						<label for="subTitle">
+							Sous-Titre</label>
+						<input type="text" name='subTitle' value="{{bande.subtitle}}" placeholder="placer le titre">
+						<p class= "error">allo voila l'erreur</p>
+					</div>
+					{%  if bande.bandeProduct %}
+						{{ include('admin/admin_bande/bande_product.html.twig') }}
+					{% elseif bande.bandeCategory %}
+						{{ include('admin/admin_bande/bande_category.html.twig') }}
+					{% elseif bande.bandeCategoryTitle %}
+						{{ include('admin/admin_bande/bande_categorytitle.html.twig') }}
+					{% elseif bande.bandeArticle %}
+						{{ include('admin/admin_bande/bande_article.html.twig') }}
+					{% elseif bande.BandeMarque %}
+						{{ include('admin/admin_bande/bande_marque.html.twig') }}
+					{% elseif bande.bandePromo %}
+						{{ include('admin/admin_bande/bande_promo.html.twig') }}
+					{% endif %}
+				</div>
+
+			{% endfor %}
+
+		</div>
+
+		<div onclick="addBande(this)" class="more ">
+			<i class="fas fa-2x fa-plus"></i>
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('bande') }}
+{% endblock %}

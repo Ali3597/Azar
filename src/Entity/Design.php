@@ -35,10 +35,7 @@ class Design
      */
     private $logo;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Bande::class, mappedBy="design", orphanRemoval=true)
-     */
-    private $bandes;
+    
 
     public function __construct()
     {
@@ -86,33 +83,5 @@ class Design
         return $this;
     }
 
-    /**
-     * @return Collection|Bande[]
-     */
-    public function getBandes(): Collection
-    {
-        return $this->bandes;
-    }
-
-    public function addBande(Bande $bande): self
-    {
-        if (!$this->bandes->contains($bande)) {
-            $this->bandes[] = $bande;
-            $bande->setDesign($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBande(Bande $bande): self
-    {
-        if ($this->bandes->removeElement($bande)) {
-            // set the owning side to null (unless already changed)
-            if ($bande->getDesign() === $this) {
-                $bande->setDesign(null);
-            }
-        }
-
-        return $this;
-    }
+    
 }

@@ -23,10 +23,9 @@ class AdminDesignController extends AbstractController
     #[Route('/admin/design', name: 'admin_design')]
     public function index(): Response
     {
-        $design  = $this->designRepo->find(1);
+     
         
         return $this->render('admin/admin_design/index.html.twig', [
-            'design' => $design,
             'controller_name' => 'AdminDesignController',
         ]);
     }

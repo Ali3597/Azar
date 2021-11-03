@@ -30,15 +30,6 @@ class BandeProduct
      */
     private $products;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $subtitle;
 
     public function __construct()
     {
@@ -86,27 +77,5 @@ class BandeProduct
         return $this;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getSubtitle(): ?string
-    {
-        return $this->subtitle;
-    }
-
-    public function setSubtitle(?string $subtitle): self
-    {
-        $this->subtitle = $subtitle;
-
-        return $this;
-    }
+   
 }
