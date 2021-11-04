@@ -220,30 +220,29 @@ let bandeCommun = `
   <i class="fas fa-times"></i>
 </div>
 <div class="details">
-						<label for="Visible">Visible :</label>
-						<input type="number" name='Visible'>
+						<label  for="Visible">Visible :</label>
+						<input id="visible" type="number" name='Visible'>
 						<label for="scroll">
 							scroll:</label>
-						<input type="number"  name='scroll'>
-						<label for="loop">
-							loop</label>
-						<input type="checkbox"  name='loop'>
+						<input id="scroll" type="number"  name='scroll'>
 						<p>
 							
 						</p>
+            <p class= "error"></p>
 					</div>
 <div class="subdetails">
 <label for="title">
   Titre</label>
-<input type="text" name='title' placeholder="placer le titre">
+<input id="title" type="text" name='title' placeholder="placer le titre">
 <label for="subTitle">
   Sous-Titre</label>
-<input type="text" name='subTitle' placeholder="placer le titre">
+<input id="subtitle" type="text" name='subTitle' placeholder="placer le titre">
+<p class= "error"></p>
 </div>
 <div class="elements" data-sortable=".element">
 
 </div>
-
+<p class= "error"></p>
 <div class="addnew">
 <button onclick="newproduit(this)"> </button>
 </div>
@@ -291,7 +290,6 @@ let ChangeProduitOnCategoryHigh = function (element) {
 
 let ChangeProduitOnCategoryLow = function (element) {
   let value = element.value;
-  console.log(value);
   let div = element.parentNode;
   axios
     .post("/admin/getProducts", { value })
@@ -391,12 +389,12 @@ let removeElement = function (element) {
   let contenant = myElementParent.cloneNode(true);
   myElementParent.remove();
   let myElements = contenant.querySelectorAll(".element");
-  if (myElements.length > 0) {
+ 
     for (let i = 0; i < myElements.length; i++) {
       myElements[i].setAttribute("data-position", i);
     }
-
     insertAfter(contenant, toInsertAfter);
+    if (myElements.length > 0) {
     new Sortable(contenant, contenant);
   } else {
     //TODOOOOOO delete bande
@@ -481,22 +479,23 @@ let newcategory = function (element) {
 let addBande = function (element) {
   let div = createDivWithClass("createBande");
   div.innerHTML = creatBande;
-  element.parentNode.appendChild(div);
+  insertAfter(div,document.querySelector('.bandes'))
   element.remove();
 };
 
 let removeAddbande = function (element) {
+  console.log(element.parentNode)
   let div = createDivWithClass("more");
   div.innerHTML = plus;
   div.onclick = function () {
     addBande(this);
   };
-  element.parentNode.parentNode.appendChild(div);
+  insertAfter(div,document.querySelector('.bandes'))
   element.parentNode.remove();
 };
 
 let confirmNewBande = function (element) {
-  console.log("okkkkkkkkkkkkk");
+
   let bandType = element.parentNode.querySelector("#bandeType").value;
   console.log(bandType);
   if (bandType !== "no") {
@@ -517,12 +516,117 @@ let confirmNewBande = function (element) {
     insertAfter(bandeSubstitute, toInsertAfter);
     new Sortable(bandeSubstitute, bandeSubstitute, true);
     let toSort = document.querySelectorAll(".elements");
-    for (let i = 0; i < toSort.length; i++) {
+    for (let i = 0; i < toSort.length -1; i++) {
       new Sortable(toSort[i], toSort[i]);
     }
+    removeAddbande(element)
   }
 };
 
+
+
+let verifyDetails = function(element , error)
+{
+  let numberElements =  element.querySelectorAll('.element').length
+  console.log("soisis")
+  console.log(numberElements)
+  if (numberElements >0){
+  let messageError= ""
+ let visible = element.querySelector("#visible").value
+ let scroll = element.querySelector("#scroll").value
+ if (visible >= numberElements || visible < 1){
+  messageError = "l'element visble ne correspond pas . "
+  error +=1
+ }
+ if (scroll > numberElements- visible || scroll < 1){
+   messageError += "L'element scroll ne correspond pas."
+   error += 1;
+ }
+ let pError = element.querySelector('.details .error')
+ pError.innerHTML = messageError
+}
+ return error;
+}
+
+let verifySubDetails =  function(element, error){
+  let lengthTitle = element.querySelector("#title").value.length
+  let messageError = ""
+  let pError = element.querySelector('.subdetails .error')
+  let lenghSubtitle = element.querySelector("#subtitle")
+  if (lengthTitle <1 || lengthTitle> 255){
+    messageError += "Vous avez une erreur dans le titre . "
+    error += 1
+  }
+  if (lenghSubtitle> 255){
+    messageError += "Vous avez une erreur dans le sous-titre ."
+    error += 1
+  }
+  pError.innerHTML = messageError
+  return error
+}
+
+
+
+let verifyElements  = function (element,error) {
+  let numberelements = element.querySelectorAll('.element').length
+  if (numberelements ==0){
+    console.log("ya rrrrrrrr")
+    let pError = element.querySelector('.errorElement')
+    console.log(pError)
+    pError.innerHTML = "Vous n'avez aucun élément dans cette bande"
+    error +=1
+  }
+  return error
+}
+let validAll = function(){
+  let  error = 0
+  let bandesToSendHttp = []
+ let bandes = document.querySelectorAll(".bande")
+ for (let i = 0 ; i < bandes.length ; i++){
+  
+  error = verifyDetails(bandes[i],error)
+   error = verifySubDetails(bandes[i],error)
+  error = verifyElements(bandes[i],error)
+ }
+ console.log(error)
+ if(error== 0){
+   
+   for (let i = 0 ; i < bandes.length ; i++){
+     let mySquares = bandes[i].querySelectorAll(".element") 
+     let array  = []
+     for(let j=0 ; j< mySquares.length ; j++){
+      array[j] = mySquares[j].getAttribute('data-id')
+      console.log(mySquares[j].getAttribute('data-id'))
+    }
+
+      bandesToSendHttp[i]= {
+        type : bandes[i].querySelector('.details p').innerHTML.replace(/\n/g, '').replace(/\t/g, ''),
+        visible : bandes[i].querySelector("#visible").value,
+        scroll : bandes[i].querySelector("#scroll").value,
+        title : bandes[i].querySelector("#title").value,
+        subtitle  : bandes[i].querySelector("#subtitle").value,
+        position : bandes[i].dataset.position,
+        elements :array
+   }
+   
+
+   }
+   console.log(bandesToSendHttp)
+  //  window.location.href = '/admin'
+   axios
+   .post("/admin/validNewBandes",{bandesToSendHttp})
+   .then((response) => {
+     console.log(response.data)
+    // window.location.href = '/admin/bandes'
+   })
+   .catch((err) => {
+     console.log(err);
+   });
+ }
+}
+
+
+window.validAll = validAll;
 window.confirmNewBande = confirmNewBande;
 window.removeAddbande = removeAddbande;
 window.addBande = addBande;

@@ -1,7 +1,7 @@
 
 <div class="elements" data-sortable=".element">
 	{% for product in bande.bandeProduct.products %}
-		<div class="element" data-position={{loop.index -1}} data-id="1">
+		<div class="element" data-position={{loop.index -1}} data-id={{product.id}}>
 			<div class="cross" onclick="removeElement(this)">
 				<i class="fas fa-times"></i>
 			</div>
@@ -12,6 +12,7 @@
 
 
 </div>
+<p class= "errorElement"></p>
 
 <div class="addnew">
 	<button onclick="newproduit(this)">Rajoutez une nouveau produit</button>

@@ -39,10 +39,7 @@ class Bande
      */
     private $slideVisible;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $loopable;
+    
 
  
 
@@ -149,18 +146,7 @@ class Bande
         return $this;
     }
 
-    public function getLoopable(): ?bool
-    {
-        return $this->loopable;
-    }
-
-    public function setLoopable(?bool $loopable): self
-    {
-        $this->loopable = $loopable;
-
-        return $this;
-    }
-
+    
     public function getBandePromo(): ?BandePromo
     {
         return $this->bandePromo;

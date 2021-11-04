@@ -19,25 +19,23 @@
 					</div>
 					<div class="details">
 						<label for="Visible">Visible :</label>
-						<input type="number" value={{bande.slideVisible}} name='Visible'>
+						<input type="number" value={{bande.slideVisible}} id="visible" name='Visible'>
 						<label for="scroll">
 							scroll:</label>
-						<input type="number" value={{bande.slideToScroll}} name='scroll'>
-						<label for="loop">
-							loop</label>
-						<input type="checkbox" {{ (bande.loopable) ? 'checked' : '' }} name='loop'>
+						<input type="number" value={{bande.slideToScroll}} id="scroll" name='scroll'>
 						<p>
 							{{bande.type}}
 						</p>
+						<p class= "error"></p>
 					</div>
 					<div class="subdetails">
 						<label for="title">
 							Titre</label>
-						<input type="text" name='title' value="{{ bande.title }}" placeholder="placer le titre">
+						<input type="text" name='title' id="title" value="{{ bande.title }}" placeholder="placer le titre">
 						<label for="subTitle">
 							Sous-Titre</label>
-						<input type="text" name='subTitle' value="{{bande.subtitle}}" placeholder="placer le titre">
-						<p class= "error">allo voila l'erreur</p>
+						<input type="text" id="subtitle" name='subTitle' value="{{bande.subtitle}}" placeholder="placer le titre">
+						<p class= "error"></p>
 					</div>
 					{%  if bande.bandeProduct %}
 						{{ include('admin/admin_bande/bande_product.html.twig') }}
@@ -61,6 +59,8 @@
 		<div onclick="addBande(this)" class="more ">
 			<i class="fas fa-2x fa-plus"></i>
 		</div>
+
+		<button  onclick="validAll()" class="validAll"> Validez les bandes</button>
 
 	</div>
 {% endblock %}

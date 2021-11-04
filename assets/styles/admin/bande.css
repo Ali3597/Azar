@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 500vh;
+    height:fit-content;
     width: 100%;
     margin-bottom: 5%;
     
@@ -127,7 +127,7 @@
     justify-content: center;
     align-items: center;
 }
-.addnew button{
+.addnew button{  
     width: 30%;
     height: 25%;
     color: white;
@@ -199,4 +199,29 @@
     cursor: pointer;
     border-radius: 15px;
     background-color: green;
+}
+.error{
+    width: 100%;
+    color: red;
+    font-weight: 700;
+    font-size: 14px;
+    padding-left: 5%;
+}
+
+.errorElement{
+    width: 100%;
+    color: red;
+    font-weight: 700;
+    font-size: 14px;
+    padding-left: 5%;
+}
+
+.validAll{
+    width: 30%;
+    height: 60px;
+    color: white;
+    cursor: pointer;
+    border-radius: 15px;
+    background-color: green;
+    margin-top: 5%;
 }
