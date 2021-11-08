@@ -124,9 +124,7 @@ for (let i = 0; i < toSort.length; i++) {
 }
 
 let toSortBandes = document.querySelector(".bandes");
-new Sortable(toSortBandes, toSortBandes, true);
-
-// let sortable = new Sortable(document.querySelector(".bandes"),document.querySelector(".content"));
+new Sortable(toSortBandes,  toSortBandes, true);
 let createDivWithClass = function (className) {
   let div = document.createElement("div");
   div.setAttribute("class", className);
@@ -201,6 +199,15 @@ let categorySelects = `<div  class="selectNewElement">
 
 let categoryAddNew = `<button onclick="newcategory(this)">Rajoutez une nouvelle category</button>`;
 
+let promoSelects = `<div  class="selectNewElement">
+<select  id="element">
+  <option value="">--Choisis une promo--</option>
+  </select>
+</div>
+<button onclick="addThisElement(this,'promo')">Ajoutez ce nouvelle promo</button>`;
+
+let promoAddNew = `<button onclick="newpromo(this)">Rajoutez une nouvelle promo</button>`;
+
 let creatBande = `<div onclick="removeAddbande(this)" class="cross">
 <i class="fas fa-times"></i>
 </div>
@@ -244,7 +251,6 @@ let bandeCommun = `
 </div>
 <p class= "error"></p>
 <div class="addnew">
-<button onclick="newproduit(this)"> </button>
 </div>
 
 `;
@@ -262,6 +268,24 @@ let newproduit = function (element) {
         div.querySelector("#highCategory"),
         response.data.categories,
         "--Choisis une Haute categorie--"
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+let newpromo =   function (element) {
+  let div = element.parentNode;
+  axios
+    .get("/admin/getPromos")
+    .then((response) => {
+      console.log(response.data);
+      div.innerHTML = promoSelects;
+      fillSelect(
+        div.querySelector("#element"),
+        response.data.promos,
+        "--Choisis une promo--"
       );
     })
     .catch((err) => {
@@ -321,8 +345,6 @@ let addThisElement = function (element, type) {
       .cloneNode(true);
     element.parentNode.parentNode.querySelector(".elements").remove();
     let elementsNumber = contenant.querySelectorAll(".element").length;
-    console.log(contenant.querySelectorAll(".elements"));
-    console.log(elementsNumber);
     let div = createDivWithClass("element");
 
     div.setAttribute("data-position", elementsNumber);
@@ -352,6 +374,8 @@ let addThisElement = function (element, type) {
       reloadNewarticle(contenant);
     } else if (type == "product") {
       reloadNewProduct(contenant);
+    }else if (type == "promo"){
+      reloadNewPromo(contenant)
     }
   } else {
     //todoooo errooooor
@@ -362,6 +386,11 @@ let reloadNewarticle = function (element) {
   let toChange = element.parentNode.querySelector(".addnew");
   toChange.innerHTML = articleAddNew;
 };
+
+let reloadNewPromo = function (element){
+  let toChange = element.parentNode.querySelector(".addnew");
+  toChange.innerHTML = promoAddNew;
+}
 
 let reloadNewCategory = function (element) {
   let toChange = element.parentNode.querySelector(".addnew");
@@ -495,21 +524,29 @@ let removeAddbande = function (element) {
 };
 
 let confirmNewBande = function (element) {
-
+  
   let bandType = element.parentNode.querySelector("#bandeType").value;
-  console.log(bandType);
+  console.log(bandType)
   if (bandType !== "no") {
     let div = createDivWithClass("bande");
     let bandeNumbers = document.querySelectorAll(".bande").length;
     div.setAttribute("data-position", bandeNumbers);
     div.innerHTML = bandeCommun;
+    if (bandType == "Category") {
+      reloadNewCategory(div.querySelector(".addnew"));
+    } else if (bandType == "marque") {
+      reloadNewMarque(div.querySelector(".addnew"));
+    } else if (bandType == "article") {
+      reloadNewarticle(div.querySelector(".addnew"));
+    } else if (bandType == "product") {
+      reloadNewProduct(div.querySelector(".addnew"));
+    }else if (bandType == "promo"){
+      reloadNewPromo(div.querySelector(".addnew"))
+    }
     let p = div.querySelector(".details p");
     p.innerHTML = bandType;
-    let button = div.querySelector(".addnew button");
-    button.innerHTML = "Rajouter un nouveau " + bandType;
     let bandes = document.querySelector(".bandes");
     let bandeSubstitute = bandes.cloneNode(true);
-    console.log(div);
     bandeSubstitute.appendChild(div);
     bandes.remove();
     let toInsertAfter = document.querySelector(".content h1");
@@ -612,7 +649,7 @@ let validAll = function(){
 
    }
    console.log(bandesToSendHttp)
-  //  window.location.href = '/admin'
+   window.location.href = '/admin'
    axios
    .post("/admin/validNewBandes",{bandesToSendHttp})
    .then((response) => {
@@ -625,7 +662,7 @@ let validAll = function(){
  }
 }
 
-
+window.newpromo = newpromo
 window.validAll = validAll;
 window.confirmNewBande = confirmNewBande;
 window.removeAddbande = removeAddbande;

@@ -76,7 +76,7 @@ class Produit
     private $pictures;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Marque::class, nullable=true,  inversedBy="produits")
+     * @ORM\ManyToOne(targetEntity=Marque::class,  inversedBy="produits")
      */
     private $marque;
 

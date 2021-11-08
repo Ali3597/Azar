@@ -1,0 +1,54 @@
+{% extends 'base_admin.html.twig' %}
+{% block stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags('admin_index')}}
+{% endblock %}
+{% block body %}
+	<div class="content column ">
+		<h1>Mes promos</h1>
+		{{form_start(form)}}
+		<div class="form-row">
+			{{form_row(form.queryName)}}
+			<div class="button_form">
+				<button>
+					<i class="fas fa-search"></i>
+				</button>
+			</div>
+		</div>
+		{{form_end(form)}}
+		<table class="table_admin">
+			<thead>
+				<th>nom</th>
+				<th>image</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				{% for promo in promos %}
+					<tr>
+						<td>{{promo.name}}
+						</td>
+						<td>
+							{% if promo.picture %}
+									<div class="imagecard">
+										<img width="100%" height="100%" src="{{ vich_uploader_asset(promo.picture,'imageFile') }}" alt="">
+									</div>
+							{% endif %}
+						</td>
+						<td class="flex">
+							<a href="{{path('admin_promo_edit',{ id: promo.id })}}">Editer</a>
+							<a href="#">Consulter</a>
+							<form action="{{ path('admin_promo_delete' , { id: promo.id }) }}" method="post">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promo.id) }}">
+								<button>Supprimer</button>
+							</form>
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="pagination">
+			{{ knp_pagination_render(promos) }}
+		</div>
+	{% endblock %}

@@ -8,25 +8,46 @@
 				<p class="switchInscription">Inscription</p>
 			</div>
 
-			<span><i class="fas fa-user"></i></span>
-			<form class="formulaire_connexion  column" action="" method="POST">
-				<input type="email" name="email" placeholder="Adresse mail">
-				<input type="password" name="password" placeholder="Mot de passe">
-				<a href="#">Mot de passe oublié ?
-				</a>
-				<span class="flex"><input type="checkbox" name="stay" value="true" placeholder="hoelndelnk">Rester connecté ?
-				</span>
-				<button type="submit">Se connecter</button>
+			<span>
+				<i class="fas fa-user"></i>
+			</span>
+			<form class="formulaire_connexion column" method="post">
+				<h2 class="pb-30">Connexion</h2>
+				<div class="form-row">
+					<label for="inputEmail">Email</label>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" required autofocus>
+				</div>
+				<div class="form-row">
+					<label for="inputPassword">Mot de passe</label>
+					<input type="password" name="password" id="inputPassword" required>
+				</div>
+				<div class="form-row">
+					<label>
+						<input type="checkbox" name="_remember_me">Se souvenir de moi
+					</label>
+				</div>
+				{% if error %}
+					<ul class="form-errors mb-20">
+						<li>{{ error.messageKey|trans(error.messageData, 'security') }}</li>
+					</ul>
+				{% endif %}
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<button class="btn btn-primary mr-10" type="submit">
+					Connexion
+				</button>
+				{# <small>
+										<a href="{{ path('signup') }}">Vous n'avez pas encore de compte?</a>
+									</small> #}
 			</form>
 
-			<form class="formulaire_inscription  column" action="" method="POST">
-				<input type="email" name="email" placeholder="Adresse mail">
-				<input type="lastname" name="lastname" placeholder="Nom">
-				<input type="firstname" name="firstname" placeholder="Prenom">
-				<input type="password" name="password" placeholder="Mot de passe">
-				<input type="password" name="password" placeholder="Confirmez le mot de passe">
+
+			<div class="formulaire_inscription">
+				{{form_start(formInscription)}}
+				{{form_rest(formInscription)}}
 				<button type="submit">S'inscrire</button>
-			</form>
+				{{form_end(formInscription)}}
+			</div>
+
 
 			<a class="downGoogle" href="#">
 				<i class="fab fa-google"></i>
@@ -51,19 +72,27 @@
 			<li>
 				Accueil
 			</li>
-			<span><i class="fas fa-slash"></i></span>
+			<span>
+				<i class="fas fa-slash"></i>
+			</span>
 			<li>
 				Marques
 			</li>
-			<span><i class="fas fa-slash"></i></span>
+			<span>
+				<i class="fas fa-slash"></i>
+			</span>
 			<li>
 				Trouver un artisan
 			</li>
-			<span><i class="fas fa-slash"></i></span>
+			<span>
+				<i class="fas fa-slash"></i>
+			</span>
 			<li>
 				Promotions
 			</li>
-			<span><i class="fas fa-slash"></i></span>
+			<span>
+				<i class="fas fa-slash"></i>
+			</span>
 			<li>
 				Produits
 			</li>
@@ -81,88 +110,136 @@
 			<div class="menudepliant flex">
 				<div class="categorieHaut-depliant flex column ">
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							Appareillage
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							Chaufferie
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							tournevis
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							plomberie
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							Appareillage
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							Appareillage
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							Appareillage
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							Appareillage
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							Appareillage
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							Appareillage
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							Appareillage
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 					<div class="flex ">
-						<span><i class="fas fa-plug"></i></span>
+						<span>
+							<i class="fas fa-plug"></i>
+						</span>
 						<p>
 							Appareillage
 						</p>
-						<span><i class="fas fa-arrow-right"></i></span>
+						<span>
+							<i class="fas fa-arrow-right"></i>
+						</span>
 					</div>
 
 
@@ -179,44 +256,53 @@
 			</button>
 		</form>
 		<ul class="flex">
-			{% if connected %}
-			<li>
-				<a href="#">
-					<span><i class="fas fa-id-card-alt"></i></span>
-					<p>Contactez nous</p>
-				</a>
+			{%- if is_granted('ROLE_USER') -%}
+				
+				<li>
+					<a href="# " class="panier_header">
+						<span>
+							<i class="fas fa-shopping-basket"></i>
+						</span>
+						<p>Panier</p>
+						<span class="number_panier_header">17</span>
+					</a>
 
-			</li>
+				</li>
+				<li>
+					<a href="#">
+						<span>
+							<i class="fas fa-id-card-alt"></i>
+						</span>
+						<p>Contactez nous</p>
+					</a>
 
-			<li>
-				<a href="#" class="clickmodal">
-					<span><i class="fas fa-user"></i></span>
-					<p>
-						Connexion / Inscription</p>
-				</a>
-			</li>
+				</li>
+				<li>
+					<a href="#" class="compte_header">
+						<span>
+							<i class="fas fa-id-card-alt"></i>
+						</span>
+						Compte
+						<div class="depliant_compte_header flex column">
+							<div>Mon profil</div>
+							<div>Mes parametres de comptes</div>
+							<div>Mes commandes</div>
+							<div></div>
+							<div>Deconnexion</div>
+						</div>
+					</a>
+				</li>
 			{% else %}
-			<li>
-				<a href="#" class="compte_header">
-					<span><i class="fas fa-id-card-alt"></i></span>
-					Compte
-					<div class="depliant_compte_header flex column">
-						<div>Mon profil</div>
-						<div>Mes parametres de comptes</div>
-						<div>Mes commandes</div>
-						<div></div>
-						<div>Deconnexion</div>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="# " class="panier_header">
-					<span><i class="fas fa-shopping-basket"></i></span>
-					<p>Panier</p>
-					<span class="number_panier_header">17</span>
-				</a>
 
-			</li>
+				<li>
+					<a href="#" class="clickmodal">
+						<span>
+							<i class="fas fa-user"></i>
+						</span>
+						<p>
+							Connexion / Inscription</p>
+					</a>
+				</li>
 			{%- endif -%}
 		</ul>
 	</div>

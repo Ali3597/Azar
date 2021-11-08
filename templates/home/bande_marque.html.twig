@@ -1,0 +1,19 @@
+<div class="high-marque">
+	<div class=" marque">
+		<div class="item_titre">
+			<h1>
+				{{bande.title }}</h1>
+		</div>
+		<div class="item_description">{{bande.subtitle}}</div>
+		<div class="carouselSelect" data-pagination=false data-visible={{bande.slideVisible}} data-scroll={{bande.slideToScroll}}>
+			{% for marque in bande.bandeMarque.marques %}
+				<div class="item_marque card column ">
+					<div class="item_image_marque">
+						<img width="85%" height="70%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
+					</div>
+				</div>
+			{% endfor %}
+
+		</div>
+	</div>
+</div>

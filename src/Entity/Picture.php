@@ -105,17 +105,6 @@ class Picture
         return $this;
     }
 
-    public function getBandePromo(): ?BandePromo
-    {
-        return $this->bandePromo;
-    }
-
-    public function setBandePromo(?BandePromo $bandePromo): self
-    {
-        $this->bandePromo = $bandePromo;
-
-        return $this;
-    }
-
+   
    
 }

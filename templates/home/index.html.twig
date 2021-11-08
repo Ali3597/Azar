@@ -7,6 +7,28 @@
 
 {% block body %}
 
-	home
+	<div class="content flex column">
+		{% for bande in bandes %}
+			{% if bande.type == "product" %}
+				{{ include('home/bande_product.html.twig') }}
+			{% elseif bande.type == "marque" %}
+				{{ include('home/bande_marque.html.twig') }}
+			{%  elseif bande.type == "category" %}
+				<p>category</p>
+			{%  elseif  bande.type == "promo" %}
+				{{ include('home/bande_promo.html.twig') }}
+			{%  elseif bande.type == "categoryTitle" %}
+				<p>catgorytitle</p>
+			{%  elseif bande.type == "article" %}
+				{{ include('home/bande_article.html.twig') }}
+			{% endif %}
+		{% endfor %}
+	</div>
 
+
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('home') }}
 {% endblock %}

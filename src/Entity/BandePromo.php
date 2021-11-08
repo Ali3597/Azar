@@ -19,10 +19,7 @@ class BandePromo
      */
     private $id;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="bandePromo")
-     */
-    private $pictures;
+    
 
     /**
      * @ORM\OneToOne(targetEntity=Bande::class, inversedBy="bandePromo", cascade={"persist", "remove"})
@@ -30,11 +27,17 @@ class BandePromo
      */
     private $bande;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Promo::class)
+     */
+    private $promos;
+
    
 
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+        $this->promos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -42,35 +45,8 @@ class BandePromo
         return $this->id;
     }
 
-    /**
-     * @return Collection|Picture[]
-     */
-    public function getPictures(): Collection
-    {
-        return $this->pictures;
-    }
+   
 
-    public function addPicture(Picture $picture): self
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures[] = $picture;
-            $picture->setBandePromo($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): self
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getBandePromo() === $this) {
-                $picture->setBandePromo(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getBande(): ?Bande
     {
@@ -80,6 +56,30 @@ class BandePromo
     public function setBande(Bande $bande): self
     {
         $this->bande = $bande;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Promo[]
+     */
+    public function getPromos(): Collection
+    {
+        return $this->promos;
+    }
+
+    public function addPromo(Promo $promo): self
+    {
+        if (!$this->promos->contains($promo)) {
+            $this->promos[] = $promo;
+        }
+
+        return $this;
+    }
+
+    public function removePromo(Promo $promo): self
+    {
+        $this->promos->removeElement($promo);
 
         return $this;
     }

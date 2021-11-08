@@ -7,11 +7,13 @@ use App\Entity\BandeArticle;
 use App\Entity\BandeCategory;
 use App\Entity\BandeMarque;
 use App\Entity\BandeProduct;
+use App\Entity\BandePromo;
 use App\Repository\ArticleRepository;
 use App\Repository\BandeRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\MarqueRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\PromoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,7 +44,7 @@ class AdminBandeController extends AbstractController
 
 
     #[Route('/admin/validNewBandes', name: 'admin_validNewBandes')]
-    public function valid(Request $request, ProduitRepository $produitRepo, ArticleRepository $articleRepo,CategoryRepository $categoryRepo, MarqueRepository $marqueRepo): Response
+    public function valid(Request $request, ProduitRepository $produitRepo,PromoRepository $promoRepo , ArticleRepository $articleRepo,CategoryRepository $categoryRepo, MarqueRepository $marqueRepo): Response
     {
         $data = json_decode($request->getContent(), true);
         $bandes  = $this->bandeRepo->findAll();
@@ -90,6 +92,14 @@ class AdminBandeController extends AbstractController
                     $bandeArticle->addArticle($article);
                 }
             $this->em->persist($bandeArticle);
+            } else if ($bande->getType() == "promo") {
+                $bandePromo = new BandePromo();
+                $bandePromo->setBande($bande);
+                foreach ($dataBande["elements"] as $elementId) {
+                    $promo = $promoRepo->find($elementId);
+                    $bandePromo->addPromo($promo);
+                }
+            $this->em->persist($bandePromo);
             }
             $this->em->flush();
         }
