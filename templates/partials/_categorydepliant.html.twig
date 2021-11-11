@@ -1,0 +1,19 @@
+<div class="menudepliant flex">
+	<div class="categorieHaut-depliant flex column ">
+		{% for category in categoriesHigh  %}
+			<div class="flex ">
+				<span>
+					<i class="fas fa-plug"></i>
+				</span>
+				<p data-id={{category.id}}>
+					{{category.name}}
+				</p>
+				<span>
+					<i class="fas fa-arrow-right"></i>
+				</span>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="categorieBas-depliant flex column"></div>
+
+</div>
