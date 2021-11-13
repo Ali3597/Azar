@@ -231,6 +231,7 @@ footer{
   height: fit-content;
   font-size: 14px;
   color: white;
+  margin-bottom: 1%;
 }
 footer a {
   cursor: pointer;
@@ -243,7 +244,7 @@ footer a:hover{
 footer div{
   align-items: center;
   height: 50vh;
-  background-color: red;
+
   margin-top: 1%;
  
 }
@@ -251,7 +252,7 @@ footer div{
 .footer-left{
   justify-content: center;
   width: 33%;
-
+  background-color: red;
  
 
 }
@@ -263,7 +264,7 @@ footer div{
 .footer-center{
   align-items: center;
   align-items: center;
- 
+ background-color: red;
   width: 34%;
  
 
@@ -271,7 +272,14 @@ footer div{
 .footer-center div{
 width: 80%;
 height: 80%;
-background-color: white;
+
+}
+.leaflet-bottom{
+  display: none !important;
+}
+#map{
+  width: 100%;
+  height: 100%;
 }
 .footer-center h3{
   margin:0;
@@ -284,6 +292,7 @@ background-color: white;
 
 .footer-right{
   width: 33%;
+ background-color: red;
  
   
 }
@@ -760,4 +769,8 @@ height: 10vh;
  
   height: 0.5vh ;
   background-color: red ;
+  }
+
+  .leaflet-touch .leaflet-bar{
+    border: none;
   }

@@ -203,3 +203,18 @@ if (compte_header != null) {
     depliant_compte_header.classList.remove("active");
   });
 }
+/////////////footer
+var mymap = L.map('map').setView([14.674035, -17.4368828], 16);
+
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    
+    maxZoom: 24,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoiYWxpemlvbiIsImEiOiJja3Z4dm9nd2wwOTc4MnBub3V1ZjB0MXh0In0.a1Huq9OB19mLDnDM6W7aQg'
+}).addTo(mymap);
+
+
+var marker = L.marker([14.674035, -17.4368828]).addTo(mymap);
+// marker.bindPopup("22 Rue Robert Brun.").openPopup();
