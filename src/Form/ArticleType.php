@@ -15,6 +15,7 @@ class ArticleType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
+            ->add('slug')
             ->add('pictureFiles',FileType::class,[
                 'required'=>false,
                 'multiple'=>true,

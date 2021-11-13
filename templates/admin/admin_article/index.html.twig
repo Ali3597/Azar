@@ -20,6 +20,7 @@
 			<thead>
 				<th>nom</th>
 				<th>Description</th>
+				<th>slug</th>
 				<th>image</th>
 				<th>Action</th>
 			</thead>
@@ -29,6 +30,7 @@
 						<td>{{article.title}}
 						</td>
 						<td>{{article.content}}</td>
+						<td>{{article.slug}}</td>
 						<td>
 							{% if article.pictures %}
 								{% for picture in article.pictures %}

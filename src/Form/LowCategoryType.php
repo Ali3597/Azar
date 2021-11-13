@@ -16,6 +16,7 @@ class LowCategoryType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('slug')
             ->add('category_parent', EntityType::class, [
                 'class' => Category::class,
                 'query_builder' => function (CategoryRepository $er) {

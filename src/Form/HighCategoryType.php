@@ -15,6 +15,7 @@ class HighCategoryType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('slug')
             ->add('pictureFile',FileType::class,[
                 'required'=>false,
             ]);

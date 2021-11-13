@@ -20,6 +20,7 @@
 			<thead>
 				<th>nom</th>
 				<th>Description</th>
+				<th>slug</th>
 				<th>Categorie parent</th>
 				<th>Action</th>
 			</thead>
@@ -29,6 +30,7 @@
 						<td>{{categorie.name}}
 						</td>
 						<td>{{categorie.description}}</td>
+						<td>{{categorie.slug}}</td>
 						<td>{{categorie.CategoryParent.name}}</td>
 						<td class="flex">
 							<a href="{{path('admin_high_category_edit',{ id: categorie.id })}}">Editer</a>

@@ -57,6 +57,11 @@ class Category
     #[Assert\Image(mimeTypes:["image/jpeg", "image/png", "image/gif", "image/jpg"])]
     private $pictureFile;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->categories_children = new ArrayCollection();
@@ -197,6 +202,18 @@ class Category
         }
     
         $this->pictureFile = $pictureFile;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
