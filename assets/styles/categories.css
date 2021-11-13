@@ -1,0 +1,65 @@
+.content{
+    height: fit-content;
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding-left: 12%;
+    padding-right: 12%;
+    padding-top: 1.5%;
+    
+}
+
+.repertoire{
+    display: flex;
+    height: 10vh;
+    
+    width: 100%;
+    border-bottom: 1px solid black;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.repertoire a{
+    margin-right: 2%;
+    font-weight: bold;
+}
+.repertoire a.active{
+    color: red;
+}
+
+.category{
+    height: 40vh;
+    margin-top: 3%;
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid black;
+   
+}
+.category h2{
+    margin-bottom: 15%;
+   
+}
+.category img{
+    height: 100%;
+    width: 30%;
+    margin-right: 2%;
+   
+   
+}
+
+.noCategory{
+    height: 40vh;
+    margin-top: 3%;
+    font-size: 21px;
+    font-weight: 700;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.noCategory i  {
+    color: red;
+    margin-bottom: 3%;
+}

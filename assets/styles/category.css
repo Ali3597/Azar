@@ -1,0 +1,173 @@
+.content{
+    padding-left: 12%;
+    padding-right: 12%;
+    height: fit-content;
+    background-color: white;
+}
+
+.presentation {
+   width: 100%;
+    margin-top: 5%;
+    height: fit-content;
+    
+ 
+}
+
+.presentation h1{
+    font-size: 54px;;
+    margin-bottom: 2%;
+}
+.presentation > p{
+    font-size: large;
+    margin-bottom: 3%;
+    
+}
+
+.sous-categories{
+    flex: 1;
+    width: 100%;
+    flex-wrap: wrap;
+   
+}
+
+.sous-category{
+   
+    align-items: center;
+    width: 9%;
+    height: 20vh;
+    margin-right: 6.1%;
+}
+
+.sous-categories :nth-child(7n){
+ 
+    margin-right: 0 !important;
+}
+
+
+
+.sous-category img{
+    background-color: white;
+    height: 70%;
+    width: 100%;
+    margin: 0;
+    border: 1px solid black;
+    border-radius: 5px;
+  
+}
+.sous-category h3{
+margin: 0;
+margin-top: 1%
+;
+
+color: red;
+font-size: larger;
+}
+
+.listecategories{
+    flex: 1;
+ 
+    width: 100%;
+}
+
+.listecategories   > h1{
+    font-size: xx-large;
+    margin-bottom: 4%;
+}
+
+.rayon{
+    height: fit-content;
+    
+    width: 100%;
+}
+.rayon-presentation{
+    width: 30%;
+   
+    height: fit-content;
+  
+}
+
+
+
+.rayon-presentation h2{
+    margin: 0;
+    color: red;
+    font-size: 21px;
+    
+
+}
+
+.rayon-presentation  > p {
+    margin-top: 3%;
+    font-size: large;
+    
+    
+
+}
+
+.rayon-img{
+    width: 60%;
+  height: 35vh;
+  border-radius: 5px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    margin-left: 10%;
+    margin-top: 4%;
+
+  border: 1px solid #d4d4d4;
+
+}
+
+.rayon-img img{
+    margin :2%;
+}
+.rayon-produits{
+    flex: 1;
+    height: fit-content;
+   
+    
+}
+
+.rayon-produits h1{
+    margin-bottom: 3%;
+}
+
+.lesproduits{
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.lesproduits a {
+    width: 30%;
+    height: 15vh;
+    margin-bottom: 5%;
+    margin-right: 5%;
+   
+}
+
+
+
+.lesproduits a:hover h3 {
+  text-decoration: underline;
+   
+}
+
+.lesproduits a:nth-child(3n) {
+  margin: 0;
+   
+}
+
+
+.lesproduits a img {
+ border-radius: 5px;
+}
+.lesproduits a  h3{
+   margin: 0;
+   margin-left : 5%;
+  flex: 1;
+    color: red;
+    font-size: medium;
+}

@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\BandeRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,43 +20,37 @@ class CategoryController extends AbstractController
 
    
     private $em;
+    private $categoryRepo;
    
 
-    function __construct(EntityManagerInterface $em)
+    function __construct(EntityManagerInterface $em,CategoryRepository $categoryRepo)
     {
         $this->em = $em;
+        $this->categoryRepo = $categoryRepo;
     }
-    #[Route('/category', name: 'category')]
-    public function index(Request $request,UserPasswordHasherInterface $passwordHasher,AuthenticationUtils $authenticationUtils,BandeRepository $bandeRepo): Response
+    #[Route('/categories/{letter}', name: 'categories' ,requirements: ['letter' => '([A-Za-z*]){1}'])]
+    public function index( string $letter="A"): Response
     {
-        //connexion 
-        
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        //inscription
-        $user =  new User();
-        $userForm = $this->createForm(UserType::class, $user);
-        $userForm->handleRequest($request);
-        if ($userForm->isSubmitted() && $userForm->isValid())
-        {
-            dd($user);
-            $hash = $passwordHasher->hashPassword($user, $user->getPassword());
-            $user->setPassword($hash);
-            $this->em->persist($user);
-            $this->em->flush();
-            $this->addFlash('success', 'Bienvenue !');
-            return $this->redirectToRoute('home');
-        }
-
+       $letter = strtoupper($letter);
+       $categories= $this->categoryRepo->findHighCategoriesBeginWith($letter);
+       
 
     
         return $this->render('category/index.html.twig', [
-            'formInscription'=>$userForm->createView(),
-            'last_username' => $lastUsername,
-            'error' => $error
+            "categories"=>$categories,
+            "letter" =>$letter,
+        ]);
+    }
+
+    #[Route('/category/{slug}', name: 'category' )]
+    public function one(Category $category ): Response
+    {
+
+       
+
+    
+        return $this->render('category/one.html.twig', [
+            "category"=>$category,
         ]);
     }
 }

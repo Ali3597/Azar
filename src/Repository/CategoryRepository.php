@@ -56,6 +56,18 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findHighCategoriesBeginWith(string $letter)
+    {
+        return $this->createQueryBuilder('c')
+            ->Where('c.name LIKE :letter')
+            ->setParameter('letter',  strtoupper($letter) . '%')
+            ->orWhere('c.name LIKE :letter')
+            ->setParameter('letter',  strtolower($letter) . '%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findAllLowCategoriesofCategoryParent($id)
     {
         return $this->createQueryBuilder('c')

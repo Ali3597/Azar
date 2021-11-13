@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('category') }}
+{% endblock %}
+
+
+{% block body %}
+	<div class="content flex column ">
+		<div class="presentation flex column ">
+			<h1>{{category.name}}</h1>
+			<p>{{category.description}}</p>
+			{% for categorie in category.CategoriesChildrens %}
+				<div class="sous-categories flex">
+					<a href="#" class="sous-category flex column ">
+						{% if categorie.produits|length > 0 %}
+							<img width="30%" height="60%" src="{{ vich_uploader_asset(categorie.produits[0].pictures[0] ,'imageFile') }}" alt="">
+						{% endif %}
+						<h3>{{categorie.name}}</h3>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="listecategories flex column">
+			<h1>Nos rayons
+				{{ category.name}}</h1>
+			{% for categorie in category.CategoriesChildrens %}
+				<div class="rayon flex  ">
+					<div class="rayon-presentation flex column ">
+						<h2>{{categorie.name}}</h2>
+						{% if categorie.produits|length > 0 %}
+							<div class="rayon-img"><img width="95%" height="95%" src="{{ vich_uploader_asset(categorie.produits[0].pictures[0],'imageFile') }}" alt=""></div>
+						{% endif %}
+					</div>
+					<div class="rayon-produits flex column ">
+						<h1>Les produits les plus populaires de
+							{{categorie.name}}</h1>
+						<div class="lesproduits">
+							{% if categorie.produits|length > 0 %}
+								{% for produit in categorie.produits %}
+									<a href="" class="flex">
+
+										<img width="50%" height="90%" src="{{ vich_uploader_asset(produit.pictures[0],'imageFile') }}" alt="">
+										<h3>{{produit.name}}</h3>
+									</a>
+
+								{% endfor %}
+                                {% else %}
+                                    <h2>Pas encore de produits pour cette categorie</h2>
+							{% endif %}
+
+
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+
+{% endblock %}

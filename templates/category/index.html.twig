@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('categories') }}
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="content flex column">
+		<div class="repertoire">
+			<a href="{{ path('categories' , { letter: "*" }) }}" class={{ (letter == "*")? "active" : ""}}>[*]</a>
+			<a href="{{ path('categories' , { letter: "A" }) }}" class={{ (letter == "A")? "active" : ""}}>[A]</a>
+			<a href="{{ path('categories' , { letter: "B" }) }}" class={{ (letter == "B")? "active" : ""}}>[B]</a>
+			<a href="{{ path('categories' , { letter: "C" }) }}" class={{ (letter == "C")? "active" : ""}}>[C]</a>
+			<a href="{{ path('categories' , { letter: "D" }) }}" class={{ (letter == "D")? "active" : ""}}>[D]</a>
+			<a href="{{ path('categories' , { letter: "E" }) }}" class={{ (letter == "E")? "active" : ""}}>[E]</a>
+			<a href="{{ path('categories' , { letter: "F" }) }}" class={{ (letter == "F")? "active" : ""}}>[F]</a>
+			<a href="{{ path('categories' , { letter: "G" }) }}" class={{ (letter == "G")? "active" : ""}}>[G]</a>
+			<a href="{{ path('categories' , { letter: "H" }) }}" class={{ (letter == "H")? "active" : ""}}>[H]</a>
+			<a href="{{ path('categories' , { letter: "I" }) }}" class={{ (letter == "I")? "active" : ""}}>[I]</a>
+			<a href="{{ path('categories' , { letter: "J" }) }}" class={{ (letter == "J")? "active" : ""}}>[J]</a>
+			<a href="{{ path('categories' , { letter: "K" }) }}" class={{ (letter == "K")? "active" : ""}}>[K]</a>
+			<a href="{{ path('categories' , { letter: "L" }) }}" class={{ (letter == "L")? "active" : ""}}>[L]</a>
+			<a href="{{ path('categories' , { letter: "M" }) }}" class={{ (letter == "M")? "active" : ""}}>[M]</a>
+			<a href="{{ path('categories' , { letter: "N" }) }}" class={{ (letter == "N")? "active" : ""}}>[N]</a>
+			<a href="{{ path('categories' , { letter: "O" }) }}" class={{ (letter == "O")? "active" : ""}}>[O]</a>
+			<a href="{{ path('categories' , { letter: "P" }) }}" class={{ (letter == "P")? "active" : ""}}>[P]</a>
+			<a href="{{ path('categories' , { letter: "Q" }) }}" class={{ (letter == "Q")? "active" : ""}}>[Q]</a>
+			<a href="{{ path('categories' , { letter: "R" }) }}" class={{ (letter == "R")? "active" : ""}}>[R]</a>
+			<a href="{{ path('categories' , { letter: "S" }) }}" class={{ (letter == "S")? "active" : ""}}>[S]</a>
+			<a href="{{ path('categories' , { letter: "T" }) }}" class={{ (letter == "T")? "active" : ""}}>[T]</a>
+			<a href="{{ path('categories' , { letter: "U" }) }}" class={{ (letter == "U")? "active" : ""}}>[U]</a>
+			<a href="{{ path('categories' , { letter: "V" }) }}" class={{ (letter == "V")? "active" : ""}}>[V]</a>
+			<a href="{{ path('categories' , { letter: "W" }) }}" class={{ (letter == "W")? "active" : ""}}>[W]</a>
+			<a href="{{ path('categories' , { letter: "X" }) }}" class={{ (letter == "X")? "active" : ""}}>[X]</a>
+			<a href="{{ path('categories' , { letter: "Y" }) }}" class={{ (letter == "Y")? "active" : ""}}>[Y]</a>
+			<a href="{{ path('categories' , { letter: "Z" }) }}" class={{ (letter == "Z")? "active" : ""}}>[Z]</a>
+
+
+		</div>
+		<div class="categories flex coumn ">
+			{% if categories %}
+				{% for category in categories %}
+					<div class="category">
+						<img width="100%" height="100%" src="{{ vich_uploader_asset(category.picture,'imageFile') }}" alt="">
+						<div class="description flex column ">
+							<h2>{{category.name}}</h2>
+                            <p>{{category.description}}</p>
+						</div>
+
+					</div>
+				{% endfor %}
+			{% else %}
+				<div class="noCategory">
+					<i class="fas fa-ban fa-10x"></i>
+					<p>Désolé il n'y a pas de catégories commençant par la lettre
+						{{letter}}</p>
+				</div>
+			{% endif %}
+
+		</div>
+	</div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+
+{% endblock %}
