@@ -5,7 +5,10 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\BandeRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\MailerInterface;
 use App\Repository\CategoryRepository;
+use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RecycleController extends AbstractController
 {
@@ -28,7 +32,7 @@ class RecycleController extends AbstractController
    
     
     #[Route('/formLogin', name: 'formLogin', methods: [ 'POST'])]
-    public function header(Request $request,UserPasswordHasherInterface $passwordHasher,AuthenticationUtils $authenticationUtils,CategoryRepository $categoryRepo): Response
+    public function header(Request $request,UserAuthenticatorInterface $authenticator,LoginFormAuthenticator $loginForm,UserPasswordHasherInterface $passwordHasher,AuthenticationUtils $authenticationUtils,CategoryRepository $categoryRepo, MailerInterface $mailer): Response
     {
        
         $categories = $categoryRepo->findAllHighCategories();
@@ -55,7 +59,19 @@ class RecycleController extends AbstractController
             $this->em->persist($user);
             $this->em->flush();
             $this->addFlash('success', 'Bienvenue !');
-            return $this->redirectToRoute('home');
+            $email = new TemplatedEmail();
+            $email->to($user->getEmail())
+              ->subject('Bienvenue sur Wonder')
+              ->htmlTemplate('@email_templates/welcome.html.twig')
+              ->context([
+                'username' => $user->getFirstname()
+              ]);
+            $mailer->send($email);
+            return $authenticator->authenticateUser(
+                $user,
+                $loginForm,
+                $request
+              );
         }
         else{
             return $this->redirectToRoute('home');
