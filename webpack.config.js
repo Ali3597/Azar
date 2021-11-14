@@ -30,6 +30,7 @@ Encore
     .addEntry('contact', './assets/contact.js')
     .addEntry('categories', './assets/categories.js')
     .addEntry('category', './assets/category.js')
+    .addEntry('marque', './assets/marque.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     // .enableStimulusBridge('./assets/controllers.json')

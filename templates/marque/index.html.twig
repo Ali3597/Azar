@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('marque') }}
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="content flex column">
+		<div class="image flex column " style="background-image:url('{{ asset('images/marque/marque.jpg') }}')">
+			<h2>DECOUVRER</h2>
+			<h1>TOUTES NOS MARQUES</h1>
+		</div>
+		<div class="marques flex">
+			{% for marque in marques %}
+				<div class="marque">
+					<img width="90%" height="55%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
+				</div>
+			{% endfor %}
+		</div>
+
+	</div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+
+{% endblock %}
