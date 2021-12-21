@@ -5,45 +5,49 @@
 				{{bande.title}}</h1>
 		</div>
 		<div class="item_description">{{bande.subtitle}}</div>
-		<div class="carouselSelect" data-pagination=false data-visible={{bande.slideVisible}} data-scroll={{bande.slideToScroll}}>
+		<div class="carouselSelect carouselProduct" data-type="article" data-visible={{bande.slideVisible}} data-scroll={{bande.slideToScroll}}>
 			{% for product in bande.bandeProduct.products %}
-            <div class="produit flex column">
-				<a href="#">
-					<div class="img-produit">
-						<img width="30%" height="70%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}">
-					</div>
-					<div class="titre-produit">
-						<h3>{{product.name}}</h3>
-					</div>
-					<div class="reference-produit">
-						<h3>S540204 - Schneider Electric</h3>
-					</div>
-				</a>
-				<div class="bas-produit flex column ">
-					<div class="disponible flex column ">
-						<h2>Disponibilité :
-						</h2>
-                        {% if product.stock >0 %}
-                        <h2>En stock</h2>
-                        {% else %}
-                            <h2>Epuisé</h2>
-                        {% endif %}
-					</div>
-					<div class="ajout-produit flex">
-						<div class="flex surquantity column">
-							<div class="quantity flex">
-								<input type="number" name="tentacles" min="1" value="1">
-							</div>
-							<div class="unite">
-                                    {{product.unite}}
-							</div>
+				<div class="produit flex column">
+					<a href="#">
+						<div class="img-produit">
+							<img width="60%" height="90%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}">
 						</div>
-						<button>Ajouter</button>
-					</div>
+						<div class="titre-produit">
+							<h3>{{product.name}}</h3>
+						</div>
+						<div class="reference-produit">
+							<h3>S540204 - Schneider Electric</h3>
+						</div>
+					</a>
+					<div class="bas-produit flex column ">
+						<div class="disponible flex column ">
+							<h2>Disponibilité :
+							</h2>
+							{% if product.stock >0 %}
+								<h2>En stock</h2>
+							{% else %}
+								<h2>Epuisé</h2>
+							{% endif %}
+						</div>
+						<div class="ajout-produit flex">
+							<div class="flex surquantity column">
+								<div class="quantity flex">
+									<input type="number" name="tentacles" min="1" value="1">
+								</div>
+								<div class="unite">
+									{{product.unite}}
+								</div>
+							</div>
 
+
+							<button data-name={{product.name}} data-id={{ product.id }} onclick="addBasket(this)">Ajouter</button>
+
+
+						</div>
+
+					</div>
 				</div>
-			</div>
-            {% endfor %}
+			{% endfor %}
 		</div>
 	</div>
 </div>

@@ -71,7 +71,7 @@ class Produit
     private $pictureFiles;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="produit",orphanRemoval=true,cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="produit",orphanRemoval=true,cascade={"persist", "remove"})
      */
     private $pictures;
 
@@ -84,6 +84,10 @@ class Produit
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+
+
+    private $basketNumber;
 
     public function __construct()
     {
@@ -203,11 +207,10 @@ class Produit
         return $this->pictureFiles;
     }
 
-  
+
     public function setPictureFiles($pictureFiles)
     {
-        foreach($pictureFiles as $pictureFile)
-        {
+        foreach ($pictureFiles as $pictureFile) {
             $picture = new Picture();
             $picture->setImageFile($pictureFile);
             $this->addPicture($picture);
@@ -229,11 +232,11 @@ class Produit
         return $this;
     }
 
-   
+
 
     /**
      * Get the value of categoryParent
-     */ 
+     */
     public function getCategoryParent()
     {
         return $this->categoryParent;
@@ -243,7 +246,7 @@ class Produit
      * Set the value of categoryParent
      *
      * @return  self
-     */ 
+     */
     public function setCategoryParent($categoryParent)
     {
         $this->categoryParent = $categoryParent;
@@ -259,6 +262,26 @@ class Produit
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of basketNumber
+     */
+    public function getBasketNumber()
+    {
+        return $this->basketNumber;
+    }
+
+    /**
+     * Set the value of basketNumber
+     *
+     * @return  self
+     */
+    public function setBasketNumber($basketNumber)
+    {
+        $this->basketNumber = $basketNumber;
 
         return $this;
     }

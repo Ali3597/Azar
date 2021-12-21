@@ -124,7 +124,7 @@ for (let i = 0; i < toSort.length; i++) {
 }
 
 let toSortBandes = document.querySelector(".bandes");
-new Sortable(toSortBandes,  toSortBandes, true);
+new Sortable(toSortBandes, toSortBandes, true);
 let createDivWithClass = function (className) {
   let div = document.createElement("div");
   div.setAttribute("class", className);
@@ -227,15 +227,13 @@ let bandeCommun = `
   <i class="fas fa-times"></i>
 </div>
 <div class="details">
-						<label  for="Visible">Visible :</label>
-						<input id="visible" type="number" name='Visible'>
-						<label for="scroll">
-							scroll:</label>
-						<input id="scroll" type="number"  name='scroll'>
+<div id="visible" ></div>
+<br>
+<div ></div>
 						<p>
 							
 						</p>
-            <p class= "error"></p>
+            
 					</div>
 <div class="subdetails">
 <label for="title">
@@ -249,7 +247,7 @@ let bandeCommun = `
 <div class="elements" data-sortable=".element">
 
 </div>
-<p class= "error"></p>
+<p class= "errorElement"></p>
 <div class="addnew">
 </div>
 
@@ -275,7 +273,7 @@ let newproduit = function (element) {
     });
 };
 
-let newpromo =   function (element) {
+let newpromo = function (element) {
   let div = element.parentNode;
   axios
     .get("/admin/getPromos")
@@ -329,53 +327,70 @@ let ChangeProduitOnCategoryLow = function (element) {
       console.log(err);
     });
 };
+let isthIsIdAlreadySelect = function (id, element) {
+  let bool = false;
+  let items = element.parentNode.parentNode.querySelectorAll(".element");
+  items.forEach((item) => {
+    if (item.getAttribute("data-id") === id) {
+      bool = true;
+    }
+  });
+  return bool;
+};
 
 let addThisElement = function (element, type) {
   let id = element.parentNode.querySelector("#element").value;
+  console.log(isthIsIdAlreadySelect(id, element));
   if (!isNaN(parseInt(id))) {
-    let productName =
-      element.parentNode.querySelector("#element").selectedOptions[0].innerHTML;
-    let filename = element.parentNode
-      .querySelector("#element")
-      .selectedOptions[0].getAttribute("filename");
-    let toInsertAfter =
-      element.parentNode.parentNode.querySelector(".subdetails");
-    let contenant = element.parentNode.parentNode
-      .querySelector(".elements")
-      .cloneNode(true);
-    element.parentNode.parentNode.querySelector(".elements").remove();
-    let elementsNumber = contenant.querySelectorAll(".element").length;
-    let div = createDivWithClass("element");
+    if (isthIsIdAlreadySelect(id, element)) {
+      let pError = element.parentNode.parentNode.querySelector(".errorElement");
+      pError.innerHTML = "Cet element a deja était rajouté a la bande";
+    } else {
+      let productName =
+        element.parentNode.querySelector("#element").selectedOptions[0]
+          .innerHTML;
+      let filename = element.parentNode
+        .querySelector("#element")
+        .selectedOptions[0].getAttribute("filename");
+      let toInsertAfter =
+        element.parentNode.parentNode.querySelector(".subdetails");
+      let contenant = element.parentNode.parentNode
+        .querySelector(".elements")
+        .cloneNode(true);
+      element.parentNode.parentNode.querySelector(".elements").remove();
+      let elementsNumber = contenant.querySelectorAll(".element").length;
+      let div = createDivWithClass("element");
 
-    div.setAttribute("data-position", elementsNumber);
-    div.setAttribute("data-id", id);
-    let deleteCross = createDivWithClass("cross");
-    deleteCross.onclick = function () {
-      removeElement(this);
-    };
-    deleteCross.innerHTML = cross;
-    div.appendChild(deleteCross);
-    let img = document.createElement("img");
-    img.src = "/images/properties/" + filename;
-    img.style.width = "80%";
-    img.style.height = "80%";
-    div.appendChild(img);
-    let p1 = document.createElement("p");
-    p1.innerHTML = productName;
-    div.appendChild(p1);
-    contenant.appendChild(div);
-    insertAfter(contenant, toInsertAfter);
-    new Sortable(contenant, contenant);
-    if (type == "category") {
-      reloadNewCategory(contenant);
-    } else if (type == "marque") {
-      reloadNewMarque(contenant);
-    } else if (type == "article") {
-      reloadNewarticle(contenant);
-    } else if (type == "product") {
-      reloadNewProduct(contenant);
-    }else if (type == "promo"){
-      reloadNewPromo(contenant)
+      div.setAttribute("data-position", elementsNumber);
+      div.setAttribute("data-id", id);
+      let deleteCross = createDivWithClass("cross");
+      deleteCross.onclick = function () {
+        removeElement(this);
+      };
+      deleteCross.innerHTML = cross;
+      div.appendChild(deleteCross);
+      let img = document.createElement("img");
+      img.src = "/images/properties/" + filename;
+      img.style.width = "80%";
+      img.style.height = "80%";
+      div.appendChild(img);
+      let p1 = document.createElement("p");
+      p1.innerHTML = productName;
+      div.appendChild(p1);
+      contenant.appendChild(div);
+      insertAfter(contenant, toInsertAfter);
+      new Sortable(contenant, contenant);
+      if (type == "category") {
+        reloadNewCategory(contenant);
+      } else if (type == "marque") {
+        reloadNewMarque(contenant);
+      } else if (type == "article") {
+        reloadNewarticle(contenant);
+      } else if (type == "product") {
+        reloadNewProduct(contenant);
+      } else if (type == "promo") {
+        reloadNewPromo(contenant);
+      }
     }
   } else {
     //todoooo errooooor
@@ -387,10 +402,10 @@ let reloadNewarticle = function (element) {
   toChange.innerHTML = articleAddNew;
 };
 
-let reloadNewPromo = function (element){
+let reloadNewPromo = function (element) {
   let toChange = element.parentNode.querySelector(".addnew");
   toChange.innerHTML = promoAddNew;
-}
+};
 
 let reloadNewCategory = function (element) {
   let toChange = element.parentNode.querySelector(".addnew");
@@ -418,12 +433,12 @@ let removeElement = function (element) {
   let contenant = myElementParent.cloneNode(true);
   myElementParent.remove();
   let myElements = contenant.querySelectorAll(".element");
- 
-    for (let i = 0; i < myElements.length; i++) {
-      myElements[i].setAttribute("data-position", i);
-    }
-    insertAfter(contenant, toInsertAfter);
-    if (myElements.length > 0) {
+
+  for (let i = 0; i < myElements.length; i++) {
+    myElements[i].setAttribute("data-position", i);
+  }
+  insertAfter(contenant, toInsertAfter);
+  if (myElements.length > 0) {
     new Sortable(contenant, contenant);
   } else {
     //TODOOOOOO delete bande
@@ -508,40 +523,50 @@ let newcategory = function (element) {
 let addBande = function (element) {
   let div = createDivWithClass("createBande");
   div.innerHTML = creatBande;
-  insertAfter(div,document.querySelector('.bandes'))
+  insertAfter(div, document.querySelector(".bandes"));
   element.remove();
 };
 
 let removeAddbande = function (element) {
-  console.log(element.parentNode)
+  console.log(element.parentNode);
   let div = createDivWithClass("more");
   div.innerHTML = plus;
   div.onclick = function () {
     addBande(this);
   };
-  insertAfter(div,document.querySelector('.bandes'))
+  insertAfter(div, document.querySelector(".bandes"));
   element.parentNode.remove();
 };
 
+let ajustVisibleAndScroll = function (visible, scroll, div) {
+  let elements = div.querySelector(".details").querySelectorAll("div");
+
+  elements[0].innerHTML = `Visible:${visible}  &nbsp;`;
+  elements[1].innerHTML = `Scroll: ${scroll}  &nbsp;`;
+};
 let confirmNewBande = function (element) {
-  
   let bandType = element.parentNode.querySelector("#bandeType").value;
-  console.log(bandType)
+  console.log(bandType);
   if (bandType !== "no") {
     let div = createDivWithClass("bande");
     let bandeNumbers = document.querySelectorAll(".bande").length;
     div.setAttribute("data-position", bandeNumbers);
     div.innerHTML = bandeCommun;
     if (bandType == "Category") {
+      ajustVisibleAndScroll(1, 1, div);
       reloadNewCategory(div.querySelector(".addnew"));
     } else if (bandType == "marque") {
+      ajustVisibleAndScroll(8, 2, div);
       reloadNewMarque(div.querySelector(".addnew"));
     } else if (bandType == "article") {
+      ajustVisibleAndScroll(3, 1, div);
       reloadNewarticle(div.querySelector(".addnew"));
     } else if (bandType == "product") {
+      ajustVisibleAndScroll(4, 1, div);
       reloadNewProduct(div.querySelector(".addnew"));
-    }else if (bandType == "promo"){
-      reloadNewPromo(div.querySelector(".addnew"))
+    } else if (bandType == "promo") {
+      ajustVisibleAndScroll(1, 1, div);
+      reloadNewPromo(div.querySelector(".addnew"));
     }
     let p = div.querySelector(".details p");
     p.innerHTML = bandType;
@@ -553,116 +578,96 @@ let confirmNewBande = function (element) {
     insertAfter(bandeSubstitute, toInsertAfter);
     new Sortable(bandeSubstitute, bandeSubstitute, true);
     let toSort = document.querySelectorAll(".elements");
-    for (let i = 0; i < toSort.length -1; i++) {
+    for (let i = 0; i < toSort.length - 1; i++) {
       new Sortable(toSort[i], toSort[i]);
     }
-    removeAddbande(element)
+    removeAddbande(element);
   }
 };
 
-
-
-let verifyDetails = function(element , error)
-{
-  let numberElements =  element.querySelectorAll('.element').length
-  console.log("soisis")
-  console.log(numberElements)
-  if (numberElements >0){
-  let messageError= ""
- let visible = element.querySelector("#visible").value
- let scroll = element.querySelector("#scroll").value
- if (visible >= numberElements || visible < 1){
-  messageError = "l'element visble ne correspond pas . "
-  error +=1
- }
- if (scroll > numberElements- visible || scroll < 1){
-   messageError += "L'element scroll ne correspond pas."
-   error += 1;
- }
- let pError = element.querySelector('.details .error')
- pError.innerHTML = messageError
-}
- return error;
-}
-
-let verifySubDetails =  function(element, error){
-  let lengthTitle = element.querySelector("#title").value.length
-  let messageError = ""
-  let pError = element.querySelector('.subdetails .error')
-  let lenghSubtitle = element.querySelector("#subtitle")
-  if (lengthTitle <1 || lengthTitle> 255){
-    messageError += "Vous avez une erreur dans le titre . "
-    error += 1
+let verifySubDetails = function (element, error) {
+  let lengthTitle = element.querySelector("#title").value.length;
+  let messageError = "";
+  let pError = element.querySelector(".subdetails .error");
+  let lenghSubtitle = element.querySelector("#subtitle");
+  if (lengthTitle < 1 || lengthTitle > 255) {
+    messageError += "Vous avez une erreur dans le titre . ";
+    error += 1;
   }
-  if (lenghSubtitle> 255){
-    messageError += "Vous avez une erreur dans le sous-titre ."
-    error += 1
+  if (lenghSubtitle > 255) {
+    messageError += "Vous avez une erreur dans le sous-titre .";
+    error += 1;
   }
-  pError.innerHTML = messageError
-  return error
-}
+  pError.innerHTML = messageError;
+  return error;
+};
 
-
-
-let verifyElements  = function (element,error) {
-  let numberelements = element.querySelectorAll('.element').length
-  if (numberelements ==0){
-    console.log("ya rrrrrrrr")
-    let pError = element.querySelector('.errorElement')
-    console.log(pError)
-    pError.innerHTML = "Vous n'avez aucun élément dans cette bande"
-    error +=1
+let verifyElements = function (element, error) {
+  let numberelements = element.querySelectorAll(".element").length;
+  if (numberelements == 0) {
+    let pError = element.querySelector(".errorElement");
+    pError.innerHTML = "Vous n'avez aucun élément dans cette bande";
+    error += 1;
   }
-  return error
-}
-let validAll = function(){
-  let  error = 0
-  let bandesToSendHttp = []
- let bandes = document.querySelectorAll(".bande")
- for (let i = 0 ; i < bandes.length ; i++){
-  
-  error = verifyDetails(bandes[i],error)
-   error = verifySubDetails(bandes[i],error)
-  error = verifyElements(bandes[i],error)
- }
- console.log(error)
- if(error== 0){
-   
-   for (let i = 0 ; i < bandes.length ; i++){
-     let mySquares = bandes[i].querySelectorAll(".element") 
-     let array  = []
-     for(let j=0 ; j< mySquares.length ; j++){
-      array[j] = mySquares[j].getAttribute('data-id')
-      console.log(mySquares[j].getAttribute('data-id'))
+  return error;
+};
+
+let verifyElementsLenght = function (element, error) {
+  let numberelements = element.querySelectorAll(".element").length;
+  let lenghtVIsible = element
+    .querySelector("#visible")
+    .getAttribute("data-visible");
+  if (numberelements < lenghtVIsible) {
+    let pError = element.querySelector(".errorElement");
+    pError.innerHTML =
+      "Une bande de ce type doit avoir au moins " + lenghtVIsible + "elements";
+    error += 1;
+  }
+  return error;
+};
+
+let validAll = function () {
+  let error = 0;
+  let bandesToSendHttp = [];
+  let bandes = document.querySelectorAll(".bande");
+  for (let i = 0; i < bandes.length; i++) {
+    error = verifySubDetails(bandes[i], error);
+    error = verifyElements(bandes[i], error);
+    error = verifyElementsLenght(bandes[i], error);
+  }
+  if (error == 0) {
+    for (let i = 0; i < bandes.length; i++) {
+      let mySquares = bandes[i].querySelectorAll(".element");
+      let array = [];
+      for (let j = 0; j < mySquares.length; j++) {
+        array[j] = mySquares[j].getAttribute("data-id");
+        console.log(mySquares[j].getAttribute("data-id"));
+      }
+
+      bandesToSendHttp[i] = {
+        type: bandes[i]
+          .querySelector(".details p")
+          .innerHTML.replace(/\n/g, "")
+          .replace(/\t/g, ""),
+        title: bandes[i].querySelector("#title").value,
+        subtitle: bandes[i].querySelector("#subtitle").value,
+        position: bandes[i].dataset.position,
+        elements: array,
+      };
     }
+    // window.location.href = "/admin";
+    axios
+      .post("/admin/validNewBandes", { bandesToSendHttp })
+      .then((response) => {
+        window.location.href = "/admin/bandes";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+};
 
-      bandesToSendHttp[i]= {
-        type : bandes[i].querySelector('.details p').innerHTML.replace(/\n/g, '').replace(/\t/g, ''),
-        visible : bandes[i].querySelector("#visible").value,
-        scroll : bandes[i].querySelector("#scroll").value,
-        title : bandes[i].querySelector("#title").value,
-        subtitle  : bandes[i].querySelector("#subtitle").value,
-        position : bandes[i].dataset.position,
-        elements :array
-   }
-   
-
-   }
-   console.log(bandesToSendHttp)
-   window.location.href = '/admin'
-   axios
-   .post("/admin/validNewBandes",{bandesToSendHttp})
-   .then((response) => {
-     console.log(response.data)
-    // window.location.href = '/admin/bandes'
-   })
-   .catch((err) => {
-     console.log(err);
-   });
- }
-}
-
-window.newpromo = newpromo
+window.newpromo = newpromo;
 window.validAll = validAll;
 window.confirmNewBande = confirmNewBande;
 window.removeAddbande = removeAddbande;

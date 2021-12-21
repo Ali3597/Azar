@@ -1,4 +1,3 @@
-
 <div class="elements" data-sortable=".element">
 	{% for product in bande.bandeProduct.products %}
 		<div class="element" data-position={{loop.index -1}} data-id={{product.id}}>
@@ -9,10 +8,8 @@
 			<p>{{product.name}}</p>
 		</div>
 	{% endfor %}
-
-
 </div>
-<p class= "errorElement"></p>
+<p class="errorElement"></p>
 
 <div class="addnew">
 	<button onclick="newproduit(this)">Rajoutez une nouveau produit</button>

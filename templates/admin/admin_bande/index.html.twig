@@ -16,17 +16,14 @@
 				<div class="bande" data-position={{bande.position}}>
 					<div onclick="deleteBande(this)" class="cross">
 						<i class="fas fa-times"></i>
-					</div>
+					</div> 
 					<div class="details">
-						<label for="Visible">Visible :</label>
-						<input type="number" value={{bande.slideVisible}} id="visible" name='Visible'>
-						<label for="scroll">
-							scroll:</label>
-						<input type="number" value={{bande.slideToScroll}} id="scroll" name='scroll'>
+							<div id="visible"data-visible="{{bande.slideVisible}} ">Visible:{{bande.slideVisible}}   &nbsp;</div>
+							<br>
+							<div>Scroll:{{bande.slideToScroll}} &nbsp;</div>
 						<p>
 							{{bande.type}}
 						</p>
-						<p class= "error"></p>
 					</div>
 					<div class="subdetails">
 						<label for="title">

@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      */
     #[Assert\Email(message: 'Veuillez rentrer un email valide.')]
-  #[Assert\NotBlank(message: 'Veuillez renseigner votre email.')]
+    #[Assert\NotBlank(message: 'Veuillez renseigner votre email.')]
     private $email;
 
     /**
@@ -37,7 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     #[Assert\Length(min: 6, minMessage: 'Le mot de passe doit faire au moins 6 caractères.')]
-  #[Assert\NotBlank(message: 'Veuillez renseigner un mot de passe.')]
+    #[Assert\NotBlank(message: 'Veuillez renseigner un mot de passe.')]
     private $password;
 
     /**

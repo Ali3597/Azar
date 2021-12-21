@@ -71,7 +71,8 @@
 				Accueil
 			</li>
 			<span>
-				<i class="fas fa-slash"></i>
+				<i class=" fas fa-slash"></i>
+
 			</span>
 			<li>
 				Marques
@@ -136,25 +137,21 @@
 		<ul class="flex">
 			{%- if is_granted('ROLE_USER') -%}
 
-				<li>
-					<a href="# " class="panier_header">
-						<span>
-							<i class="fas fa-shopping-basket"></i>
-						</span>
-						<p>Panier</p>
-						<span class="number_panier_header">17</span>
-					</a>
+				<li class="flex">
+					<div href="#" onclick="deplierPanier(this)" class="panier_header flex">
+
+						<a href="{{ path('panier') }}" class="flex  ">
+
+							<i class=" fa-2x fas fa-shopping-basket"></i>
+							<p>Panier</p>
+						</a>
+
+
+						<span class="number_panier_header">{{total}}</span>
+					</div>
 
 				</li>
-				<li>
-					<a href="#">
-						<span>
-							<i class="fas fa-id-card-alt"></i>
-						</span>
-						<p>Contactez nous</p>
-					</a>
 
-				</li>
 				<li>
 					<a href="#" class="compte_header">
 						<span>

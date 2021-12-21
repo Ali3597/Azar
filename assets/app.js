@@ -111,17 +111,16 @@ let activeHighCategory = function () {
   axios
     .post("/admin/getLowCategories", { value })
     .then((response) => {
-      if (response.data.categories.length == 0){
-        subCategoriesPrinted = ""
-      }else{
-      response.data.categories.forEach((element) => {
-        subCategoriesPrinted += `<div data-id=${element.id} class="flex ">
+      if (response.data.categories.length == 0) {
+        subCategoriesPrinted = "";
+      } else {
+        response.data.categories.forEach((element) => {
+          subCategoriesPrinted += `<div data-id=${element.id} class="flex ">
         ${element.name}
       </div>`;
-     
-      });
-    }
-    tabSubCategories.innerHTML = subCategoriesPrinted;
+        });
+      }
+      tabSubCategories.innerHTML = subCategoriesPrinted;
     })
     .catch((err) => {
       console.log(err);
@@ -204,17 +203,21 @@ if (compte_header != null) {
   });
 }
 /////////////footer
-var mymap = L.map('map').setView([14.674035, -17.4368828], 16);
+var mymap = L.map("map").setView([14.674035, -17.4368828], 16);
 
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    
+L.tileLayer(
+  "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+  {
     maxZoom: 24,
-    id: 'mapbox/streets-v11',
+    id: "mapbox/streets-v11",
     tileSize: 512,
     zoomOffset: -1,
-    accessToken: 'pk.eyJ1IjoiYWxpemlvbiIsImEiOiJja3Z4dm9nd2wwOTc4MnBub3V1ZjB0MXh0In0.a1Huq9OB19mLDnDM6W7aQg'
-}).addTo(mymap);
-
+    accessToken:
+      "pk.eyJ1IjoiYWxpemlvbiIsImEiOiJja3Z4dm9nd2wwOTc4MnBub3V1ZjB0MXh0In0.a1Huq9OB19mLDnDM6W7aQg",
+  }
+).addTo(mymap);
 
 var marker = L.marker([14.674035, -17.4368828]).addTo(mymap);
 // marker.bindPopup("22 Rue Robert Brun.").openPopup();
+
+/////////////panier

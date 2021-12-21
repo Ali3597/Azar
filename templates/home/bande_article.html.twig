@@ -4,7 +4,7 @@
 			<h1>{{bande.title}}</h1>
 		</div>
 		<div class="item_description">{{bande.subtitle}}</div>
-		<div class="carouselSelect" data-pagination=false data-visible={{bande.slideVisible}} data-scroll={{bande.slideToScroll}}>
+		<div class="carouselSelect" data-type="article" data-visible={{bande.slideVisible}} data-scroll={{bande.slideToScroll}}>
 			{% for article in bande.bandeArticle.articles %}
 				<div class="item_ecriture  column ">
 					<div class="item_image_ecriture">

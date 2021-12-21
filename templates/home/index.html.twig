@@ -4,6 +4,11 @@
 	{{ encore_entry_link_tags('home') }}
 {% endblock %}
 
+{% block cdn %}
+	{{ parent() }}
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+{% endblock %}
 
 {% block body %}
 
@@ -32,4 +37,6 @@
 {% block javascripts %}
 	{{ parent() }}
 	{{ encore_entry_script_tags('home') }}
+	{{ encore_entry_script_tags('addbasket') }}
+
 {% endblock %}

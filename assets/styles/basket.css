@@ -1,0 +1,459 @@
+.content {
+  height: fit-content;
+  width: 100%;
+  padding-left: 12%;
+  padding-right: 12%;
+}
+
+.onglet {
+  height: 10vh;
+  width: 100%;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ensemble_right_panier {
+  width: 30%;
+
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.recap {
+  padding: 3%;
+  height: fit-content;
+  width: 90%;
+  background-color: #f5f6f7;
+  border-radius: 5px;
+  margin-top: 5%;
+  right: 0;
+  position: sticky;
+  top: 20%;
+}
+.ensemble_left_panier {
+  width: 70%;
+  margin-bottom: 10%;
+  height: fit-content;
+}
+
+.onglet_panier {
+  display: flex;
+
+  justify-content: center;
+  align-items: flex-end;
+  height: 93%;
+  width: 100%;
+}
+
+.onglet span {
+  height: 35%;
+  width: 6%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.onglet_panier span svg {
+  fill: red;
+  width: 50%;
+}
+.ensemble_onglet {
+  width: 50%;
+
+  justify-content: flex-end;
+}
+.onglet_cote {
+  height: 93%;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.onglet_cote span svg {
+  fill: red;
+  width: 50%;
+}
+
+.bordure_panier {
+  flex: 1;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.bordure_panier.active {
+  background-color: red;
+  border-radius: 5px;
+}
+
+.nbr_produit {
+  margin-top: 3%;
+  font-size: 17px;
+}
+.nbr_produit span {
+  font-weight: 700;
+  color: red;
+}
+
+.produit_panier {
+  width: 100%;
+  height: 25vh;
+  border-radius: 5px;
+  background-color: white;
+
+  margin-top: 3%;
+}
+
+.img_panier {
+  height: 100%;
+
+  width: 25%;
+  justify-content: center;
+  align-items: center;
+}
+
+.center_panier {
+  height: 100%;
+
+  width: 50%;
+}
+
+.center_panier_up {
+  height: 50%;
+}
+.center_panier_up h1 {
+  margin-top: 2%;
+  font-size: 17px;
+  color: red;
+  font-weight: 700;
+}
+.center_panier_down {
+  width: 100%;
+  height: 50%;
+}
+.center_panier_down span {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+.center_panier_down span svg {
+  fill: red;
+  width: 10%;
+  margin-right: 3%;
+}
+.right_panier {
+  height: 100%;
+
+  width: 25%;
+  align-items: center;
+  justify-content: center;
+}
+
+.surquantity {
+  margin-left: 20%;
+  width: 40%;
+  background-color: violet;
+  height: 40%;
+  display: flex;
+  justify-content: flex-start;
+}
+.unite {
+  width: 100%;
+  flex: 1;
+  background-color: grey;
+  font-size: 14px;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+.quantity {
+  height: 70%;
+}
+
+.ajout-produit button {
+  height: 100%;
+  flex: 1;
+  margin-left: 8%;
+  cursor: pointer;
+  background: linear-gradient(90deg, #f00000, #dc281e);
+  border: 0.1rem solid #d8dadf;
+  color: white;
+  font-size: large;
+}
+
+HTML CSS JSResult Skip Results Iframe .quantity {
+  position: relative;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.quantity input {
+  font-size: 25px;
+
+  height: 100%;
+  width: 100%;
+  line-height: 1.65;
+  float: left;
+  display: block;
+  padding: 0;
+  margin: 0;
+  padding-left: 20px;
+  border: 1px solid #eee;
+}
+
+.quantity input:focus {
+  outline: 0;
+}
+
+.quantity-nav {
+  float: left;
+  position: relative;
+  height: 80%;
+}
+
+.quantity-button {
+  position: relative;
+  cursor: pointer;
+  border-left: 1px solid #eee;
+  width: 20px;
+  font-weight: 700;
+  height: 100%;
+  text-align: center;
+  color: #333;
+  font-size: 18px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+  line-height: 0.8;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.quantity-button.quantity-up {
+  position: absolute;
+  height: 18px;
+  top: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.quantity-button.quantity-down {
+  position: absolute;
+  bottom: -8px;
+  height: 18px;
+}
+
+.recap {
+  align-items: center;
+}
+.recap h1 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+.recap h2 {
+  align-content: center;
+}
+.recap p {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+  font-size: 14px;
+}
+.recap p span {
+  margin-left: 2%;
+  margin-right: 2%;
+  font-weight: 700;
+  color: red;
+}
+
+.recap a {
+  margin-top: 3%;
+  width: 75%;
+  height: 8vh;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.recap button {
+  height: 100%;
+  border: 1px solid #ecedf0;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  font-size: 21px;
+}
+
+.panier_vide {
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+}
+
+.panier_vide h1 {
+  margin-top: 5%;
+}
+.panier_vide p {
+  margin-top: 2%;
+}
+
+.panier_vide span {
+  margin-top: 5%;
+}
+.panier_vide span svg {
+  fill: red;
+}
+
+.basketList {
+  width: 100%;
+
+  height: 100%;
+}
+
+.basketItem {
+  height: 25vh;
+  border-bottom: 1px solid #ddd;
+}
+
+.basketItem img {
+  margin: 2%;
+}
+.itemsDetails {
+  flex: 1;
+}
+.itemsDetails a {
+  margin-top: 2%;
+  margin-bottom: 3%;
+  font-size: 21px;
+  height: fit-content;
+
+  color: red;
+}
+
+.itemsDetails p {
+  margin-bottom: 8%;
+}
+
+.quantityBasket {
+  background-color: #e3e6e6;
+  width: 70px;
+  margin-right: 0.5%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+
+  border-color: #d5d9d9;
+  border-radius: 3px;
+  cursor: pointer;
+  padding-top: 1%;
+  position: relative;
+}
+.quantityBasket.active {
+  display: flex;
+}
+
+.quantityBasket:hover {
+  background-color: #d5d9d9;
+}
+
+.quantityBasket i {
+  margin-bottom: 8%;
+  margin-left: 2%;
+}
+
+.quantityBasket p {
+  margin-right: 6px;
+}
+
+.changeQuantity {
+  position: absolute;
+  display: none;
+  border: 1px solid #d5d9d9;
+  top: 0;
+  margin: 0;
+  z-index: 100;
+  height: 290px;
+  border-radius: 5px;
+  background-color: white;
+  width: 110px;
+}
+.changeQuantity.active {
+  display: flex;
+}
+.changeQuantity p {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  padding-left: 5px;
+  height: 25px;
+  cursor: pointer;
+}
+.changeQuantity p:hover {
+  background-color: #d5d9d9;
+}
+
+.changeQuantity p.active {
+  background-color: #edfdff;
+  border: 1px solid #007185;
+}
+
+.changeQuantity :nth-child(11) {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #d5d9d9;
+}
+.itemOptions > p {
+  margin: 1%;
+}
+.action {
+  color: red;
+  cursor: pointer;
+}
+.action:hover {
+  text-decoration: underline;
+}
+
+.inputquantity {
+  width: 60px;
+  margin-right: 10px;
+  display: none;
+}
+.inputquantity.active {
+  display: block;
+}
+.update {
+  color: white;
+  border-radius: 25px;
+  padding: 5px;
+  background-color: red;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.update.active {
+  display: flex;
+}

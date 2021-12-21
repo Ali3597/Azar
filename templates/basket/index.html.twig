@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+
+	{{ encore_entry_link_tags('basket') }}
+{% endblock %}
+
+
+{% block body %}
+	<div class="content flex ">
+		<div class="ensemble_left_panier flex column">
+			<div class="flex onglet">
+				<div class=" ensemble_onglet flex column">
+					<div class="onglet_panier flex">
+						<span>
+							<i class="fa-solid fa-basket-shopping"></i>
+						</span>
+						Panier
+					</div>
+					<div class="bordure_panier active"></div>
+				</div>
+				<div class="column flex ensemble_onglet">
+					<div class="onglet_cote flex">
+						<span>
+							<i class="fa-solid fa-cart-arrow-down"></i>
+						</span>Mis de coté
+					</div>
+					<div class="bordure_panier"></div>
+				</div>
+			</div>
+			{% if basket %}
+				<div class="basketList flex column ">
+					{% for product in products %}
+						<div data-id={{ product.id }} class="basketItem flex">
+							<img width="20%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
+							<div class="itemsDetails flex column">
+								<a href="#">{{ product.name }}</a>
+								<p>{{ product.description }}</p>
+								<div data-nbr={{product.basketNumber}} class="flex itemOptions">
+
+									<div onclick="deplierQuantity(this)" class="flex quantityBasket  ">
+
+										<p>Qte:</p>
+										<p id="number">{{ product.basketNumber}}</p>
+
+										<i class="fas fa-xs fa-arrow-down"></i>
+										<div class="changeQuantity column ">
+											<p onclick="changeQuantity(this)">0 (Supprimer)</p>
+
+											<p onclick="changeQuantity(this)">1</p>
+
+											<p onclick="changeQuantity(this)">2</p>
+
+											<p onclick="changeQuantity(this)">3</p>
+
+											<p onclick="changeQuantity(this)">4</p>
+
+											<p onclick="changeQuantity(this)">5</p>
+
+											<p onclick="changeQuantity(this)">6</p>
+
+											<p onclick="changeQuantity(this)">7</p>
+
+											<p onclick="changeQuantity(this)">8</p>
+
+											<p onclick="changeQuantity(this)">9</p>
+
+											<p onclick="changeQuantity(this)">10 +</p>
+
+
+										</div>
+
+									</div>
+									<input onclick="activeUpdateItesmBasket(this)" oninput="typeItemBasket(this)" class="inputquantity  " type="number" value="{{ product.basketNumber}}">
+
+
+									<p id="unite">{{ product.unite }}</p>
+
+									<div onclick="updateTheInput(this)" class="update">Mettre a jour</div>
+
+
+									<p>|</p>
+									<p onclick="deleteThisItem(this)" class="action">Supprimer</p>
+									<p>|</p>
+									<p class="action">Mettre de coté</p>
+
+								</p>
+							</div>
+
+
+						</div>
+
+
+					</div>
+				{% endfor %}
+			</div>
+
+
+		{% else %}
+
+			<div class=" panier_vide flex column">
+				<h1>Ça alors. Vous n’avez rien mis de côté.
+				</h1>
+
+				<span>
+					{{ source('@public_path'~asset('svg/vide.svg')) }}</span>
+			</div>
+
+
+		{% endif %}
+
+	</div>
+	<div class="flex  ensemble_right_panier ">
+		<div class="recap flex column ">
+			<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
+			<a href="">
+				<button>Aller au catalogue</button>
+			</a>
+		</div>
+	</div>
+
+</div>{% endblock %}{% block javascripts %}
+{{ parent() }}
+{{ encore_entry_script_tags('basket') }}{% endblock %}

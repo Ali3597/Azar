@@ -29,10 +29,10 @@ class Picture
      * @var File|null
      * @Vich\UploadableField(mapping="property_image",fileNameProperty="filename")
      */
-    #[Assert\Image(mimeTypes: 'jpeg',massage:'Pour les images veuillez utilisez le format jpeg')]
+    #[Assert\Image(mimeTypes: 'jpeg', massage: 'Pour les images veuillez utilisez le format jpeg')]
     private $imageFile;
 
-    
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="pictures")
@@ -44,10 +44,8 @@ class Picture
      */
     private $produit;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=BandePromo::class, inversedBy="pictures")
-     */
-    private $bandePromo;
+
+
 
 
     public function getId(): ?int
@@ -67,7 +65,7 @@ class Picture
         return $this;
     }
 
-  
+
     public function getImageFile()
     {
         return $this->imageFile;
@@ -104,7 +102,4 @@ class Picture
 
         return $this;
     }
-
-   
-   
 }
