@@ -1,3 +1,4 @@
+console.log("addbasket");
 let addBasket = function (element) {
   let idProduct = element.getAttribute("data-id");
   let nbrProducts = element.parentNode.querySelector(
@@ -19,7 +20,6 @@ let addBasket = function (element) {
 let changeBasketNumber = function (number) {
   let numberElement = document.querySelector(".number_panier_header");
   let originalNumber = parseInt(numberElement.innerHTML);
-
   let newNumber = originalNumber + parseInt(number);
   numberElement.innerHTML = newNumber;
 };

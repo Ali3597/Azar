@@ -218,9 +218,10 @@ class Carousel {
   }
 
   createPagination() {
+    console.log("on crééé");
     if (this.options.style == "produit") {
       let laDiv = document.querySelector(".echantillons");
-      let echantillons = [];
+      this.echantillons = [];
       for (
         let i = 0;
         i < this.items.length;
@@ -230,14 +231,9 @@ class Carousel {
         echantillon.appendChild(this.items[i].querySelector("img").cloneNode());
 
         echantillon.addEventListener("click", () => this.gotoItem(i));
-        echantillon.addEventListener("click", () => {
-          echantillons.forEach((element) => {
-            element.classList.remove("active");
-          });
-          echantillon.classList.add("active");
-        });
+
         laDiv.appendChild(echantillon);
-        echantillons.push(echantillon);
+        this.echantillons.push(echantillon);
       }
       laDiv.querySelector(".echantillon").classList.add("active");
     } else {
@@ -292,6 +288,12 @@ class Carousel {
    * @param {number} index
    */
   gotoItem(index) {
+    if (this.options.style == "produit") {
+      this.echantillons.forEach((element) => {
+        element.classList.remove("active");
+      });
+      this.echantillons[index].classList.add("active");
+    }
     if (index < 0) {
       if (this.options.loop) {
         index = this.items.length - this.slidesVisible;

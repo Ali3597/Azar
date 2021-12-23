@@ -1,20 +1,157 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductController!{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('product') }}
+{% endblock %}
+
+{% block cdn %}
+	{{ parent() }}
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+{% endblock %}
+
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="content flex column ">
+		<div class=" archo flex">
+			<a href="#">Accueil</a>
+			<span>
+				></span>
+			<a href="#">{{product.category.categoryParent.name}}</a>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+			<span>
+				></span>
+			<a href="#">{{product.category.name}}</a>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/ali_s/OneDrive/Documents/Ecole/Symphony/Azar/src/Controller/ProductController.php'|file_link(0) }}">src/Controller/ProductController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/ali_s/OneDrive/Documents/Ecole/Symphony/Azar/templates/product/index.html.twig'|file_link(0) }}">templates/product/index.html.twig</a></code></li>
-    </ul>
-</div>
+			<span>
+				></span>
+			<p>{{product.name}}</p>
+		</div>
+		<h1>{{product.name}}</h1>
+		<div class="produit-brut flex">
+			<div class="echantillons flex column "></div>
+			<div class="img-brut flex" id="carousel1">
+				{% for picture in product.pictures %}
+					<div class="item_promo">
+						<div class="item_image">
+							<img width="80%" height="80%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
+						</div>
+					</div>
+
+				{% endfor %}
+
+
+			</div>
+			<div class="ajouter-brut surquantity flex column ">
+				<div class="ajouter-brut-haut quantity flex">
+					<input type="number" name="tentacles" min="1" value="1">
+					<button data-name={{product.name}} data-id={{ product.id }} onclick="addBasket(this)">Ajouter</button>
+
+
+				</div>
+				<div class="disponibilite flex column">
+					<h1>Disponibilité
+					</h1>
+					<h2>En stock</h2>
+				</div>
+			</div>
+		</div>
+		<div class="produit-description  flex column">
+			<div class="reel flex column">
+				<h1>Detail du produit</h1>
+				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
+				<ul>
+					<li>Montage rapide de la machine de forage Diamant</li>
+					<li>Conception robuste pour un forage de précision</li>
+					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
+				</ul>
+				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
+				<ul>
+					<li>Montage rapide de la machine de forage Diamant</li>
+					<li>Conception robuste pour un forage de précision</li>
+					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
+				</ul>
+				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
+				<ul>
+					<li>Montage rapide de la machine de forage Diamant</li>
+					<li>Conception robuste pour un forage de précision</li>
+					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
+				</ul>
+				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
+				<ul>
+					<li>Montage rapide de la machine de forage Diamant</li>
+					<li>Conception robuste pour un forage de précision</li>
+					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
+				</ul>
+
+				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
+				<ul>
+					<li>Montage rapide de la machine de forage Diamant</li>
+					<li>Conception robuste pour un forage de précision</li>
+					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
+				</ul>
+
+				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
+				<ul>
+					<li>Montage rapide de la machine de forage Diamant</li>
+					<li>Conception robuste pour un forage de précision</li>
+					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
+				</ul>
+
+			</div>
+			<div class="afficher-plus flex">
+				<p>Afficher plus</p>
+				<span>
+					<i class="fas fa-arrow-down"></i>
+				</span>
+
+			</div>
+		</div>
+
+		<div class="flex column else">
+			<h1>Ces produits pourraient aussi vous intéresser</h1>
+			<div class="otherProducts flex">
+				<a class="otherProduct">
+					<img width="80%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
+					<p>{{product.name}}</p>
+
+				</a>
+				<a class="otherProduct">
+					<img width="80%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
+					<p>{{product.name}}</p>
+
+				</a>
+
+				<a class="otherProduct">
+					<img width="80%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
+					<p>{{product.name}}</p>
+
+				</a>
+
+				<a class="otherProduct">
+					<img width="80%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
+					<p>{{product.name}}</p>
+
+				</a>
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('product') }}
+	{{ encore_entry_script_tags('addbasket') }}
+	{{ encore_entry_script_tags('produitQuery') }}
+
+
 {% endblock %}

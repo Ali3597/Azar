@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Produit;
 use App\Repository\MarqueRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,12 +22,12 @@ class ProductController extends AbstractController
         $this->em = $em;
         $this->productRepo = $productRepo;
     }
-    #[Route('/produit/{id}', name: 'produit')]
-    public function index(): Response
+    #[Route('/produit/{slug}', name: 'produit')]
+    public function index(Produit $product): Response
     {
-        $marques = $this->productRepo->findAll();
-        return $this->render('marque/index.html.twig', [
-            'marques' => $marques,
+
+        return $this->render('product/index.html.twig', [
+            'product' => $product,
         ]);
     }
 }
