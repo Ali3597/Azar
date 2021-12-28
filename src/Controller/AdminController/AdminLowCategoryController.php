@@ -20,21 +20,21 @@ class AdminLowCategoryController extends AbstractController
 {
     private $categorieRepo;
     private $em;
-   
 
-    function __construct(CategoryRepository $categorieRepo,EntityManagerInterface $em)
+
+    function __construct(CategoryRepository $categorieRepo, EntityManagerInterface $em)
     {
         $this->categorieRepo = $categorieRepo;
         $this->em = $em;
     }
 
     #[Route('/low_categories', name: 'low_categories')]
-    public function index(PaginatorInterface $paginator , Request $request): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
-        $lowCategories= $paginator->paginate(
+        $lowCategories = $paginator->paginate(
             $this->categorieRepo->findLowCategoriesQueryWithSearch($search),
             $request->query->getInt('page', 1),
             3,
@@ -83,12 +83,12 @@ class AdminLowCategoryController extends AbstractController
     // }
 
     #[Route('/low_category/{id}', name: 'low_category_edit', methods: ['GET', 'POST'])]
-    public function edit( Request $request,Category $category): Response
+    public function edit(Request $request, Category $category): Response
     {
         $form = $this->createForm(LowCategoryType::class, $category);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $this->em->persist($category);
             $this->em->flush();
             $this->addFlash('success', 'Votre categorie a bien été modifié ');
@@ -102,30 +102,26 @@ class AdminLowCategoryController extends AbstractController
 
 
     #[Route('/low_category/{id}', name: 'low_category_delete', methods: ['DELETE'])]
-    public function delete(Request $request , Category $categorie): Response
+    public function delete(Request $request, Category $categorie): Response
     {
-      
-        if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->get('_token'))) 
-        {
+
+        if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->get('_token'))) {
             $this->em->remove($categorie);
             $this->em->flush();
             $this->addFlash('success', 'Votre categorie a bien été supprime ');
         }
         return $this->redirectToRoute('admin_low_categories');
-
     }
 
     #[Route('/getLowCategories', name: 'ajax_lowCategories')]
     public function getHighCategories(Request $request): Response
     {
-        $data = json_decode($request->getContent(),true);
-      $categories = $this->categorieRepo->findAllLowCategoriesofCategoryParent($data["value"]);
-        $test= [];
-        for ($i= 0;$i < sizeof($categories) ;$i++) {
-            $test[$i]= ["name"=>$categories[$i]->getName(),"id"=>$categories[$i]->getId()];
+        $data = json_decode($request->getContent(), true);
+        $categories = $this->categorieRepo->findAllLowCategoriesofCategoryParent($data["value"]);
+        $test = [];
+        for ($i = 0; $i < sizeof($categories); $i++) {
+            $test[$i] = ["name" => $categories[$i]->getName(), "id" => $categories[$i]->getId()];
         }
-    return new JsonResponse(['categories' => $test]);
-         
-        
+        return new JsonResponse(['categories' => $test]);
     }
 }

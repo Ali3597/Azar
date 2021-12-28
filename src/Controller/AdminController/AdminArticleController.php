@@ -21,21 +21,21 @@ class AdminArticleController extends AbstractController
 {
     private $articleRepo;
     private $em;
-   
 
-    function __construct(ArticleRepository $articleRepo,EntityManagerInterface $em)
+
+    function __construct(ArticleRepository $articleRepo, EntityManagerInterface $em)
     {
         $this->articleRepo = $articleRepo;
         $this->em = $em;
     }
 
     #[Route('/articles', name: 'articles')]
-    public function index(PaginatorInterface $paginator , Request $request): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
-        $articles= $paginator->paginate(
+        $articles = $paginator->paginate(
             $this->articleRepo->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
             3,
@@ -68,7 +68,7 @@ class AdminArticleController extends AbstractController
 
 
     #[Route('/article/{id}', name: 'article_edit', methods: ['GET', 'POST'])]
-    public function edit( Request $request,Article $article): Response
+    public function edit(Request $request, Article $article): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -82,35 +82,31 @@ class AdminArticleController extends AbstractController
 
         return $this->render('admin/admin_article/edit.html.twig', [
             'form' => $form->createview(),
-            'article'=>$article
+            'article' => $article
         ]);
     }
 
 
     #[Route('/article/{id}', name: 'article_delete', methods: ['DELETE'])]
-    public function delete(Request $request , Article $article): Response
+    public function delete(Request $request, Article $article): Response
     {
-    
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->get('_token'))) 
-        {
+
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->get('_token'))) {
             $this->em->remove($article);
             $this->em->flush();
             $this->addFlash('success', 'Votre article a bien été supprime ');
         }
         return $this->redirectToRoute('admin_articles');
-
     }
 
-    #[Route('/getArticles', name: 'ajax_articles')]
+    #[Route('/getArticles', name: 'ajax_articles', methods: ['POST'])]
     public function getArticles(): Response
     {
-      $articles = $this->articleRepo->findAllArticlesByDates();
-        $test= [];
-        for ($i= 0;$i < sizeof($articles) ;$i++) {
-            $test[$i]= ["name"=>$articles[$i]->getTitle(),"id"=>$articles[$i]->getId(),"filename"=>$articles[$i]->getPictures()[0]->getFilename()];
+        $articles = $this->articleRepo->findAllArticlesByDates();
+        $test = [];
+        for ($i = 0; $i < sizeof($articles); $i++) {
+            $test[$i] = ["name" => $articles[$i]->getTitle(), "id" => $articles[$i]->getId(), "filename" => $articles[$i]->getPictures()[0]->getFilename()];
         }
-    return new JsonResponse(['articles' =>$test]);
-         
-        
+        return new JsonResponse(['articles' => $test]);
     }
 }

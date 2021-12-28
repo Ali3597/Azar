@@ -1,11 +1,10 @@
-console.log("addbasket");
 let addBasket = function (element) {
   let idProduct = element.getAttribute("data-id");
   let nbrProducts = element.parentNode.querySelector(
     ".surquantity input "
   ).value;
   let nameProduct = element.getAttribute("data-name");
-  console.log("anis");
+
   changeBasketNumber(nbrProducts);
   axios
     .post("/panier/add/" + idProduct, { nbrProducts })

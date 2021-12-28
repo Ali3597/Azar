@@ -1,0 +1,46 @@
+<div class="right-produits-haut flex">
+	{% for product in products %}
+
+		<div class="produit flex column">
+			<a href="#">
+				<div class="img-produit">
+					<img width="30%" height="70%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
+
+				</div>
+				<div class="titre-produit">
+					<h3>{{product.name}}</h3>
+				</div>
+				<div class="reference-produit">
+					<h3>S540204 - Schneider Electric</h3>
+				</div>
+			</a>
+			<div class="bas-produit flex column ">
+				<div class="disponible flex column ">
+					<h2>Disponibilité :
+					</h2>
+					<h2>En stock</h2>
+				</div>
+				<div class="ajout-produit flex">
+					<div class="flex surquantity column">
+						<div class="quantity flex">
+							<input type="number" name="tentacles" min="1" value="1">
+						</div>
+						<div class="unite">
+							{{product.unite}}
+						</div>
+					</div>
+					<button data-name={{product.name}} data-id={{ product.id }} onclick="addBasket(this)">Ajouter</button>
+
+				</div>
+
+			</div>
+		</div>
+
+	{% endfor %}
+
+
+</div>
+<div class="righ-produits-bas flex column">
+	{{ knp_pagination_render(products) }}
+
+</div>

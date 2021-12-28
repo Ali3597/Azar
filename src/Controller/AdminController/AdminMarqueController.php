@@ -20,21 +20,21 @@ class AdminMarqueController extends AbstractController
 {
     private $marqueRepo;
     private $em;
-   
 
-    function __construct(MarqueRepository $marqueRepo,EntityManagerInterface $em)
+
+    function __construct(MarqueRepository $marqueRepo, EntityManagerInterface $em)
     {
         $this->marqueRepo = $marqueRepo;
         $this->em = $em;
     }
 
     #[Route('/marques', name: 'marques')]
-    public function index(PaginatorInterface $paginator , Request $request): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
-        $marques= $paginator->paginate(
+        $marques = $paginator->paginate(
             $this->marqueRepo->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
             3,
@@ -65,7 +65,7 @@ class AdminMarqueController extends AbstractController
 
 
     #[Route('/marque/{id}', name: 'marque_edit', methods: ['GET', 'POST'])]
-    public function edit( Request $request,Marque $marque): Response
+    public function edit(Request $request, Marque $marque): Response
     {
         $picture = $marque->getPicture();
         $form = $this->createForm(MarqueType::class, $marque);
@@ -82,19 +82,17 @@ class AdminMarqueController extends AbstractController
 
         return $this->render('admin/admin_marque/edit.html.twig', [
             'form' => $form->createview(),
-            'marque'=>$marque
+            'marque' => $marque
         ]);
     }
 
 
     #[Route('/marque/{id}', name: 'marque_delete', methods: ['DELETE'])]
-    public function delete(Request $request , Marque $marque): Response
+    public function delete(Request $request, Marque $marque): Response
     {
-    
-        if ($this->isCsrfTokenValid('delete'.$marque->getId(), $request->get('_token'))) 
-        {
-            foreach($marque->getProduits() as $product)
-            {
+
+        if ($this->isCsrfTokenValid('delete' . $marque->getId(), $request->get('_token'))) {
+            foreach ($marque->getProduits() as $product) {
                 $marque->removeProduit($product);
             }
             $this->em->remove($marque);
@@ -102,20 +100,17 @@ class AdminMarqueController extends AbstractController
             $this->addFlash('success', 'Votre marque a bien été supprime ');
         }
         return $this->redirectToRoute('admin_marques');
-
     }
 
 
     #[Route('/getMarques', name: 'ajax_marques')]
     public function getMarques(): Response
     {
-      $marques = $this->marqueRepo->findAllMarquesAlphabet();
-        $test= [];
-        for ($i= 0;$i < sizeof($marques) ;$i++) {
-            $test[$i]= ["name"=>$marques[$i]->getName(),"id"=>$marques[$i]->getId(),"filename"=>$marques[$i]->getPicture()->getFilename()];
+        $marques = $this->marqueRepo->findAllMarquesAlphabet();
+        $test = [];
+        for ($i = 0; $i < sizeof($marques); $i++) {
+            $test[$i] = ["name" => $marques[$i]->getName(), "id" => $marques[$i]->getId(), "filename" => $marques[$i]->getPicture()->getFilename()];
         }
-    return new JsonResponse(['marques' =>$test]);
-         
-        
+        return new JsonResponse(['marques' => $test]);
     }
 }

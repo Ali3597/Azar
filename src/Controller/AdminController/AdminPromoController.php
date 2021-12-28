@@ -20,21 +20,21 @@ class AdminPromoController extends AbstractController
 {
     private $promoRepo;
     private $em;
-   
 
-    function __construct(PromoRepository $promoRepo,EntityManagerInterface $em)
+
+    function __construct(PromoRepository $promoRepo, EntityManagerInterface $em)
     {
         $this->promoRepo = $promoRepo;
         $this->em = $em;
     }
 
     #[Route('/promos', name: 'promos')]
-    public function index(PaginatorInterface $paginator , Request $request): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
-        $promos= $paginator->paginate(
+        $promos = $paginator->paginate(
             $this->promoRepo->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
             3,
@@ -65,7 +65,7 @@ class AdminPromoController extends AbstractController
 
 
     #[Route('/promo/{id}', name: 'promo_edit', methods: ['GET', 'POST'])]
-    public function edit( Request $request,Promo $promo): Response
+    public function edit(Request $request, Promo $promo): Response
     {
         $picture = $promo->getPicture();
         $form = $this->createForm(PromoType::class, $promo);
@@ -82,36 +82,32 @@ class AdminPromoController extends AbstractController
 
         return $this->render('admin/admin_promo/edit.html.twig', [
             'form' => $form->createview(),
-            'promo'=>$promo
+            'promo' => $promo
         ]);
     }
 
 
     #[Route('/promo/{id}', name: 'promo_delete', methods: ['DELETE'])]
-    public function delete(Request $request , Promo $promo): Response
+    public function delete(Request $request, Promo $promo): Response
     {
-    
-        if ($this->isCsrfTokenValid('delete'.$promo->getId(), $request->get('_token'))) 
-        {
+
+        if ($this->isCsrfTokenValid('delete' . $promo->getId(), $request->get('_token'))) {
             $this->em->remove($promo);
             $this->em->flush();
             $this->addFlash('success', 'Votre promo a bien été supprime ');
         }
         return $this->redirectToRoute('admin_promos');
-
     }
 
 
     #[Route('/getPromos', name: 'ajax_promos')]
     public function getPromos(): Response
     {
-      $promos = $this->promoRepo->findAllPromosAlphabet();
-        $test= [];
-        for ($i= 0;$i < sizeof($promos) ;$i++) {
-            $test[$i]= ["name"=>$promos[$i]->getName(),"id"=>$promos[$i]->getId(),"filename"=>$promos[$i]->getPicture()->getFilename()];
+        $promos = $this->promoRepo->findAllPromosAlphabet();
+        $test = [];
+        for ($i = 0; $i < sizeof($promos); $i++) {
+            $test[$i] = ["name" => $promos[$i]->getName(), "id" => $promos[$i]->getId(), "filename" => $promos[$i]->getPicture()->getFilename()];
         }
-    return new JsonResponse(['promos' =>$test]);
-         
-        
+        return new JsonResponse(['promos' => $test]);
     }
 }

@@ -89,7 +89,7 @@ class AdminHighCategoryController extends AbstractController
         $picture = $category->getPicture();
         $form = $this->createForm(HighCategoryType::class, $category);
         $form->handleRequest($request);
-       
+
         if ($form->isSubmitted() && $form->isValid()) {
             if ($category->getPictureFile()) {
                 $this->em->remove($picture);
@@ -124,13 +124,11 @@ class AdminHighCategoryController extends AbstractController
     #[Route('/getHighCategories', name: 'ajax_highCategories')]
     public function getHighCategories(Request $request): Response
     {
-      $categories = $this->categorieRepo->findAllHighCategories();
-        $test= [];
-        for ($i= 0;$i < sizeof($categories) ;$i++) {
-            $test[$i]= ["name"=>$categories[$i]->getName(),"id"=>$categories[$i]->getId(),"filename"=>$categories[$i]->getPicture()->getFilename()];
+        $categories = $this->categorieRepo->findAllHighCategories();
+        $test = [];
+        for ($i = 0; $i < sizeof($categories); $i++) {
+            $test[$i] = ["name" => $categories[$i]->getName(), "id" => $categories[$i]->getId(), "filename" => $categories[$i]->getPicture()->getFilename()];
         }
-    return new JsonResponse(['categories' =>$test]);
-         
-        
+        return new JsonResponse(['categories' => $test]);
     }
 }

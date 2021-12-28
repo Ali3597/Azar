@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('products') }}
+{% endblock %}
+
+{% block cdn %}
+	{{ parent() }}
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+{% block body %}
+	<div class="content-produits flex column ">
+		<div class="up-produits flex column ">
+			<div class="flex">
+
+				{% if category %}
+					<a href="#">Accueil</a>
+
+					<span>
+						></span>
+					<a href="#">{{category.categoryParent.name}}</a>
+					<span>
+						></span>
+					<p>{{category.name}}</p>
+
+				{% endif %}
+				{% if marque %}
+					<div class="marqueTop">
+						<img width="30%" height="70%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
+						<h1>{{marque.name}}</h1>
+						<p>{{marque.description}}</p>
+
+					</div>
+
+				{% endif %}
+
+
+			</div>
+			{% if category %}
+				<h1>{{category.name}}</h1>
+
+
+			{% endif %}
+			{% if search %}
+				<div class="search">
+					<span>«{{search|capitalize}}»</span>
+					{% if products.getTotalItemCount > 1 %}
+						{{products.getTotalItemCount}}
+						produits trouvés
+
+					{% elseif products.getTotalItemCount == 1 %}
+
+						{{products.getTotalItemCount}}
+						produit trouvé
+					{% else %}
+						Aucun produit trouvé
+
+
+					{% endif %}
+
+
+				</div>
+
+			{% endif %}
+
+
+			<div class="flex tri">
+				<p>Trier par
+				</p>
+				<select>
+					<option value="Pertinence">Pertinence</option>
+					<option value="asc">Nom produit asc</option>
+					<option value="dsc">Nom produit dsc</option>
+				</select>
+
+			</div>
+		</div>
+
+		<div class="down-produits flex">
+			<div class="left-produits flex column ">
+				<div class=" tri-coulissant  flex column">
+					<div class=" tri-haut inactive flex">
+
+
+						<div class=" filtre  flex">
+							<span>{{activeFilter}}</span>filtre actif
+						</div>
+
+
+					</div>
+
+
+				</div>
+				{% if marques %}
+					<div class=" tri-coulissant flex column">
+						<div onclick="getTheTri(this)" class=" tri-haut flex">
+
+							<p>Marque</p>
+							<span>
+								<i class="fas fa-arrow-down"></i>
+							</span>
+
+						</div>
+						<div class="tri-bas column ">
+							{% for marqueName,key in marques %}
+								<span data-slug={{key.slug}} class="flex">
+
+									<input onclick="adaptMark(this)" type="checkbox" name="stay" placeholder="hoelndelnk">
+									{{marqueName}}
+									({{key.nbr}})
+
+
+								</span>
+
+							{% endfor %}
+
+
+						</div>
+
+
+					</div>
+				{% endif %}
+				{% if categories %}
+
+					<div class=" tri-coulissant flex column">
+						<div onclick="getTheTri(this)" class=" tri-haut flex">
+
+							<p>Categorie</p>
+							<span>
+								<i class="fas fa-arrow-down"></i>
+							</span>
+
+						</div>
+						<div class="tri-bas column ">
+							{% for categoryName,key in categories %}
+								<span data-slug={{key.slug}} class="flex">
+									<input onclick="adaptCategory(this)" type="checkbox" name="stay" placeholder="hoelndelnk">
+
+									{{categoryName}}
+
+									({{key.nbr}})
+
+
+								</span>
+
+							{% endfor %}
+
+
+						</div>
+					</div>
+				{% endif %}
+
+
+			</div>
+			<div class="right-produits flex column">
+
+				{{ include('products/productsList.html.twig') }}
+			</div>
+
+
+		</div>
+
+
+	</div>
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('products') }}
+	{{ encore_entry_script_tags('addbasket') }}
+	{{ encore_entry_script_tags('produitQuery') }}
+{% endblock %}
