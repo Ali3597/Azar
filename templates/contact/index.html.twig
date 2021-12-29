@@ -7,47 +7,92 @@
 
 {% block body %}
 
-<div class="content flex column">
+	<div class="content flex column">
 
-    <div class="contact flex">
-        <div class="contact_left flex column">
-            <h1>Contactez nous ! </h1>
-            <form class="flex " action="" method="POST">
-                <input type="name" name="name" placeholder="Nom">
-                <input type="email" name="email" placeholder="Adresse mail">
-                <input type="subject" name="subject" placeholder="Sujet">
-                <input type="text" name="Meessage" placeholder="Message">
-                <button type="submit">Envoyer</button>
-            </form>
-        </div>
-        <div class="contact_right flex column">
-            <div class="adress flex">
-                <span> <i class="fas fa-map-marker"></i></span>
-                <p> <span>Adresse</span> : 18 rue ganlandoufiouf</p>
-            </div>
-            <div class="phone flex">
-                <span><i class="fas fa-phone-volume"></i> </span>
-                <p> <span> Télephone </span> : 33 821 41 78 - 33 888 11 22</p>
-            </div>
-            <div class="email flex">
-                <span> <i class="fas fa-mail-bulk"></i> </span>
-                <p> <span>Email </span> : anisazarleplusbeau@gmail.com</p>
-            </div>
-            <div class="horraire column">
-                <div class="flex">
-                    <span> <i class="far fa-clock"></i></span>
-                    <p> <span> Horaire :</span> </p>
-                </div>
+		<div class="contact flex">
+			<div class="contact_left flex column">
+				<h1>Contactez nous !
+				</h1>
+				{{ form_start(form) }}
 
-                <p class="vendredi"> Lundi - Vendredi : 8H30 - 12H45 | 14H45 - 18H00</p> <br>
-                <p class="samedi"> Samedi : 8H45 | 12H45</p>
+				<div class="formelements flex column">
+					{{ form_widget(form.name) }}
+					{{ form_errors(form.name) }}
 
-            </div>
-        </div>
-    </div>
-</div>
+				</div>
+				<div class="formelements flex column">
+					{{ form_widget(form.email) }}
+					{{ form_errors(form.email) }}
+
+				</div>
+
+				<div class="formelements flex column">
+					{{ form_widget(form.subject) }}
+					{{ form_errors(form.subject) }}
+
+				</div>
+
+				<div class="formelements flex column">
+					{{ form_widget(form.content) }}
+					{{ form_errors(form.content) }}
+
+				</div>
+
+
+				<button type="submit">Envoyer</button>
+				{{ form_end(form) }}
+
+
+			</div>
+			<div class="contact_right flex column">
+				<div class="adress flex">
+					<span>
+						<i class="fas fa-map-marker"></i>
+					</span>
+					<p>
+						<span>Adresse</span>
+						: 18 rue ganlandoufiouf</p>
+				</div>
+				<div class="phone flex">
+					<span>
+						<i class="fas fa-phone-volume"></i>
+					</span>
+					<p>
+						<span>
+							Télephone
+						</span>
+						: 33 821 41 78 - 33 888 11 22</p>
+				</div>
+				<div class="email flex">
+					<span>
+						<i class="fas fa-mail-bulk"></i>
+					</span>
+					<p>
+						<span>Email
+						</span>
+						: anisazarleplusbeau@gmail.com</p>
+				</div>
+				<div class="horraire column">
+					<div class="flex">
+						<span>
+							<i class="far fa-clock"></i>
+						</span>
+						<p>
+							<span>
+								Horaire :</span>
+						</p>
+					</div>
+
+					<p class="vendredi">
+						Lundi - Vendredi : 8H30 - 12H45 | 14H45 - 18H00</p>
+					<br>
+					<p class="samedi">
+						Samedi : 8H45 | 12H45</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 {% endblock %}
-
-
