@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('parameters') }}
+{% endblock %}
+
+
+{% block body %}
+	<div class="content flex column">
+		<div class="change flex ">
+			<div>
+				<h1>Modifier mon email</h1>
+
+
+				<button type="submit">Envoyer</button>
+
+
+			</div>
+			<div>
+				<h1>Modifier mon mot de passe</h1>
+				{{ form_start(passwordForm) }}
+				<button type="submit">Envoyer</button>
+
+				{{ form_end(passwordForm)}}
+
+
+			</div>
+			<div>
+				<h1>Mes informations personelles</h1>
+				{{ form_start(changeForm) }}
+				<button type="submit">Envoyer</button>
+
+				{{ form_end(changeForm)}}
+
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('parameters') }}
+
+{% endblock %}

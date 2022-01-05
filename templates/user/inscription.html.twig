@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Inscription
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('inscription') }}
+{% endblock %}
+
+{% block header %}
+
+	{{ include('partials/_header_log.html.twig') }}
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="content flex column ">
+		<h1>Ah vous êtes nouveau !</h1>
+
+
+		<h2>On est ravi de vous rencontrer!</h2>
+
+		{{form_start(formInscription)}}
+		<h1>Inscription</h1>
+
+
+		{{form_rest(formInscription)}}
+		<button type="submit">S'inscrire</button>
+		{{form_end(formInscription)}}
+
+
+	</div>
+
+{% endblock %}
+
+
+{% block footer %}{% endblock %}

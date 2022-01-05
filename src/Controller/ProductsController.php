@@ -44,7 +44,7 @@ class ProductsController extends AbstractController
             $PaginateProducts = $paginator->paginate(
                 $products,
                 $request->query->getInt('page', 1),
-                1,
+                12,
             );
             return $this->render('products/productsList.html.twig', [
                 'products' => $PaginateProducts,
@@ -114,7 +114,7 @@ class ProductsController extends AbstractController
             $PaginateProducts = $paginator->paginate(
                 $products,
                 $request->query->getInt('page', 1),
-                1,
+                12,
             );
             return $this->render('products/productsList.html.twig', [
                 'products' => $PaginateProducts,
@@ -173,7 +173,7 @@ class ProductsController extends AbstractController
             $PaginateProducts = $paginator->paginate(
                 $products,
                 $request->query->getInt('page', 1),
-                1,
+                12,
             );
             return $this->render('products/productsList.html.twig', [
                 'products' => $PaginateProducts,
@@ -191,7 +191,7 @@ class ProductsController extends AbstractController
             $PaginateProducts = $paginator->paginate(
                 $products,
                 $request->query->getInt('page', 1),
-                1,
+                12,
             );
 
 

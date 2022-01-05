@@ -10,6 +10,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use App\Repository\CategoryRepository;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Stmt\Else_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,50 +33,24 @@ class RecycleController extends AbstractController
 
 
 
-    #[Route('/formLogin', name: 'formLogin', methods: ['POST'])]
+
     public function header(SessionInterface $session, Request $request, UserAuthenticatorInterface $authenticator, LoginFormAuthenticator $loginForm, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo, MailerInterface $mailer): Response
     {
 
         $categories = $categoryRepo->findAllHighCategories();
 
-        //connexion 
 
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+
+
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
         //inscription
         $user =  new User();
         $userForm = $this->createForm(UserType::class, $user, [
-            'action' => $this->generateUrl('formLogin'),
+            'action' => $this->generateUrl('inscription'),
         ]);
-        $userForm->handleRequest($request);
-        if ($userForm->isSubmitted()) {
-            if ($userForm->isValid()) {
 
-                $hash = $passwordHasher->hashPassword($user, $user->getPassword());
-                $user->setPassword($hash);
-                $this->em->persist($user);
-                $this->em->flush();
-                $this->addFlash('success', 'Bienvenue !');
-                $email = new TemplatedEmail();
-                $email->to($user->getEmail())
-                    ->subject('Bienvenue sur Wonder')
-                    ->htmlTemplate('@email_templates/welcome.html.twig')
-                    ->context([
-                        'username' => $user->getFirstname()
-                    ]);
-                $mailer->send($email);
-                return $authenticator->authenticateUser(
-                    $user,
-                    $loginForm,
-                    $request
-                );
-            } else {
-                return $this->redirectToRoute('home');
-            }
-        }
         //basket
         $totalNumber = $session->get("total", 0);
         $basket = $session->get("basket", null);
@@ -84,7 +59,7 @@ class RecycleController extends AbstractController
             "categoriesHigh" => $categories,
             'formInscription' => $userForm->createView(),
             'last_username' => $lastUsername,
-            'error' => $error,
+
             'total' => $totalNumber,
             "basket" => $basket
         ]);

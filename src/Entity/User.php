@@ -4,13 +4,21 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ *  
  */
+#[UniqueEntity(
+    fields: ['email'],
+    errorPath: 'email',
+    message: 'Cet email est deja utilisé',
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -36,21 +44,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    #[Assert\Length(min: 6, minMessage: 'Le mot de passe doit faire au moins 6 caractères.')]
+    // #[Assert\Length(min: 6, minMessage: 'Le mot de passe doit faire au moins 6 caractères.')]
     #[Assert\NotBlank(message: 'Veuillez renseigner un mot de passe.')]
     private $password;
+
+
+
+
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner votre prénom.')]
+    #[Assert\Length(max: 6, maxMessage: 'Le mot de passe doit faire au moins 6 caractères.')]
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner votre nom.')]
+    #[Assert\Length(max: 6, maxMessage: 'Le mot de passe doit faire au moins 6 caractères.')]
     private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $telephone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $addresse;
 
     public function getId(): ?int
     {
@@ -161,6 +185,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(string $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getAddresse(): ?string
+    {
+        return $this->addresse;
+    }
+
+    public function setAddresse(?string $addresse): self
+    {
+        $this->addresse = $addresse;
 
         return $this;
     }

@@ -1,0 +1,58 @@
+.content {
+  background-color: #f5f6f7;
+  height: fit-content;
+  padding-left: 12%;
+  padding-right: 12%;
+  align-items: center;
+  justify-content: center;
+}
+.content > h1 {
+  margin-bottom: 1%;
+  color: red;
+}
+.content > h2 {
+  color: red;
+}
+form {
+  background-color: white;
+  border-radius: 5px;
+  height: fit-content;
+  width: 40%;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 3%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+form h1 {
+  width: 100%;
+  color: red;
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  font-size: 21px;
+}
+.form-row {
+  margin-top: 3%;
+}
+
+.form-row:nth-child(1) {
+  margin-top: 8%;
+}
+button {
+  height: 7vh;
+  border-radius: 5px;
+  border: 0.1rem solid #d8dadf;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 2%;
+}
+
+form a {
+  width: 100%;
+  padding-right: 2%;
+  display: flex;
+  justify-content: flex-end;
+  color: red;
+  text-decoration: underline;
+}

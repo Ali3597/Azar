@@ -471,7 +471,7 @@ footer div {
 }
 
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -568,16 +568,17 @@ footer div {
   border-radius: 5px;
   border: 0.1rem solid #d8dadf;
   cursor: pointer;
+  width: 100%;
 }
 
-.modal-wrapper form > input {
+.form-row > input {
   min-width: 100%;
-  height: 4.8rem;
-  margin-bottom: 5%;
+  height: 7vh;
+  margin-bottom: 1%;
   border-radius: 0.4rem;
   border: 0.1rem solid #d8dadf;
 }
-.modal-wrapper form input::placeholder {
+.form-row input::placeholder {
   padding-left: 5%;
 }
 
@@ -617,6 +618,8 @@ footer div {
 
 .formulaire_inscription {
   display: none;
+  width: 100%;
+  justify-content: center;
 }
 .modal-wrapper.connexion .formulaire_connexion {
   display: flex !important;
@@ -771,4 +774,28 @@ footer div {
 }
 .panier_element :nth-child(3) {
   width: 10%;
+}
+
+.fa-id-card {
+  color: red;
+}
+
+.headerlog {
+  height: 10vh;
+  width: 100%;
+  align-items: center;
+}
+
+.headerlog a {
+  margin-left: 2%;
+  width: 5%;
+}
+.headerlog a i {
+  margin-right: 2%;
+}
+.headerlog h1 {
+  color: red;
+}
+.form-errors {
+  color: red;
 }

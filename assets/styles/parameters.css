@@ -1,0 +1,44 @@
+.content {
+  height: 200vh;
+
+  padding-left: 12%;
+  padding-right: 12%;
+}
+
+.change {
+  flex-wrap: wrap;
+  margin-top: 3%;
+}
+
+.change > div {
+  background-color: #fafafa;
+  border: 1px solid red;
+}
+
+.change > div:nth-child(1) {
+  width: 48%;
+  margin-left: 1%;
+  margin-right: 2%;
+  margin-bottom: 3%;
+  height: 45vh;
+}
+
+.change > div:nth-child(2) {
+  width: 48%;
+  margin-right: 1%;
+  height: 45vh;
+}
+
+.change > div:nth-child(3) {
+  width: 98%;
+  height: 65vh;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+.change h1 {
+  margin-top: 3%;
+  margin-left: 2%;
+  font-size: 17px;
+  color: red;
+}

@@ -36,6 +36,10 @@ Encore
   .addEntry("addbasket", "./assets/addbasket.js")
   .addEntry("product", "./assets/product.js")
   .addEntry("products", "./assets/products.js")
+  .addEntry("profile", "./assets/profile.js")
+  .addEntry("parameters", "./assets/parameters.js")
+  .addEntry("connexion", "./assets/connexion.js")
+  .addEntry("inscription", "./assets/inscription.js")
 
   // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
   // .enableStimulusBridge('./assets/controllers.json')

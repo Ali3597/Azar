@@ -27,9 +27,8 @@ class SecurityController extends AbstractController
     #[Route("/login", name: "login")]
     public function login(): Response
     {
-       
-            return $this->redirectToRoute('home');
-        
+
+        return $this->redirectToRoute('home');
     }
 
     #[Route("/logout", name: "logout")]
