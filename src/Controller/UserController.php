@@ -55,6 +55,13 @@ class UserController extends AbstractController
             'error' => $error,
         ]);
     }
+
+    #[Route("/profile/commandes", name: "commande_valide")]
+    public function command(): Response
+    {
+
+        return $this->render('user/commands.html.twig', []);
+    }
     #[Route("/inscription", name: "inscription")]
     public function inscription(Request $request, UserAuthenticatorInterface $authenticator, LoginFormAuthenticator $loginForm, UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer): Response
     {

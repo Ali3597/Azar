@@ -111,13 +111,24 @@
 	</div>
 	<div class="flex  ensemble_right_panier ">
 		<div class="recap flex column ">
-			<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
-			<a href="">
-				<button>Aller au catalogue</button>
-			</a>
+			{% if basket %}
+
+				<form action="{{ path('panier_confirm') }}" method="post">
+					<input type="hidden" name="_token" value="{{ csrf_token('confirm' ~ idUser) }}">
+					<button>Valider la commande</button>
+
+				</form>
+
+
+			{% else %}
+				<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
+				<a href="">
+					<button>Aller au catalogue</button>
+				</a>
+
+			{% endif %}
+
 		</div>
 	</div>
-
 </div>{% endblock %}{% block javascripts %}
-{{ parent() }}
-{{ encore_entry_script_tags('basket') }}{% endblock %}
+{{ parent() }}{{ encore_entry_script_tags('basket') }}{% endblock %}
