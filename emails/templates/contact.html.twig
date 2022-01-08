@@ -14,11 +14,13 @@
 		<h1>Sujet du message :
 			{{subject}}</h1>
 		<p>Vous avez reçu de cet email :
-			{{email}}
+			{{emailClient}}
 			et il se nomme
-			{{firstanme}}
-			{{lastname}}
+			{{name}}
+
 		</p>
+		<p>le message contient
+			{{content}}</p>
 		<a href="{{ url('home') }}">Mes messages</a>
 		{% endapply %}
 

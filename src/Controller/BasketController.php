@@ -103,6 +103,7 @@ class BasketController extends AbstractController
                     ]);
                 $mailer->send($emailAdmin);
                 $session->remove("basket");
+                $session->remove("total");
                 $this->addFlash('success', 'Votre commande a bien était passé nous reviendrons ver vous ulterieurement');
                 return $this->redirectToRoute('commande_valide');
             } else {
