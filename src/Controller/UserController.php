@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserChangeType;
 use App\Form\UserMailType;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -23,6 +24,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class UserController extends AbstractController
 {
@@ -63,7 +66,7 @@ class UserController extends AbstractController
         return $this->render('user/commands.html.twig', []);
     }
     #[Route("/inscription", name: "inscription")]
-    public function inscription(Request $request, UserAuthenticatorInterface $authenticator, LoginFormAuthenticator $loginForm, UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer): Response
+    public function inscription(Request $request, VerifyEmailHelperInterface $verifyEmailHelper,  UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer): Response
     {
         $user =  new User();
         $userForm = $this->createForm(UserType::class, $user);
@@ -71,32 +74,63 @@ class UserController extends AbstractController
         if ($userForm->isSubmitted()) {
 
             if ($userForm->isValid()) {
-                dd("alllo");
-
                 $hash = $passwordHasher->hashPassword($user, $user->getPassword());
                 $user->setPassword($hash);
+                $user->setIsVerified(false);
                 $this->em->persist($user);
                 $this->em->flush();
-                $this->addFlash('success', 'Bienvenue !');
+                $signatureComponents = $verifyEmailHelper->generateSignature(
+                    'app_verify_email',
+                    $user->getId(),
+                    $user->getEmail(),
+                    ['id' => $user->getId()]
+                );
                 $email = new TemplatedEmail();
                 $email->to($user->getEmail())
                     ->subject('Bienvenue chez nous')
                     ->htmlTemplate('@email_templates/welcome.html.twig')
                     ->context([
+                        'urlEmail' => $signatureComponents->getSignedUrl(),
                         'username' => $user->getFirstname()
                     ]);
                 $mailer->send($email);
-                return $authenticator->authenticateUser(
-                    $user,
-                    $loginForm,
-                    $request
-                );
-            } else {
+
+                $this->addFlash('success', 'Merci de vous être inscris chez nous il ne vous reste plus qu\'a confirmer votre email');
+                return $this->redirectToRoute('home');
             }
         }
         return $this->render('user/inscription.html.twig', [
             'formInscription' => $userForm->createView(),
         ]);
+    }
+
+    #[Route("/verify", name: "app_verify_email")]
+    public function verifyUserEmail(UserRepository $userRepo, LoginFormAuthenticator $loginForm, UserAuthenticatorInterface $authenticator, VerifyEmailHelperInterface $verifyEmailHelper, Request $request): Response
+    {
+
+        $user = $userRepo->find($request->query->get('id'));
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+        try {
+            $verifyEmailHelper->validateEmailConfirmation(
+                $request->getUri(),
+                $user->getId(),
+                $user->getEmail(),
+            );
+        } catch (VerifyEmailExceptionInterface $e) {
+            $this->addFlash('error', "Le lien n'est pas valdie");
+            return $this->redirectToRoute('inscription');
+        }
+
+        $user->setIsVerified(true);
+        $this->em->flush();
+        $this->addFlash('success', 'Votre compte e bien été verifié ! Bienvenue !.');
+        return $authenticator->authenticateUser(
+            $user,
+            $loginForm,
+            $request
+        );
     }
 
 

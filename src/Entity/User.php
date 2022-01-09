@@ -76,6 +76,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $addresse;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -209,6 +214,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAddresse(?string $addresse): self
     {
         $this->addresse = $addresse;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
