@@ -18,39 +18,27 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class CategoryController extends AbstractController
 {
 
-   
+
     private $em;
     private $categoryRepo;
-   
 
-    function __construct(EntityManagerInterface $em,CategoryRepository $categoryRepo)
+
+    function __construct(EntityManagerInterface $em, CategoryRepository $categoryRepo)
     {
         $this->em = $em;
         $this->categoryRepo = $categoryRepo;
     }
-    #[Route('/categories/{letter}', name: 'categories' ,requirements: ['letter' => '([A-Za-z*]){1}'])]
-    public function index( string $letter="A"): Response
-    {
-       $letter = strtoupper($letter);
-       $categories= $this->categoryRepo->findHighCategoriesBeginWith($letter);
-       
 
-    
-        return $this->render('category/index.html.twig', [
-            "categories"=>$categories,
-            "letter" =>$letter,
-        ]);
-    }
 
-    #[Route('/category/{slug}', name: 'category' )]
-    public function one(Category $category ): Response
+    #[Route('/category/{slug}', name: 'category')]
+    public function one(Category $category): Response
     {
 
-       
 
-    
+
+
         return $this->render('category/one.html.twig', [
-            "category"=>$category,
+            "category" => $category,
         ]);
     }
 }
