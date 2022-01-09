@@ -54,13 +54,15 @@ class BasketController extends AbstractController
     #[Route('/panier/confirmer', name: 'panier_confirm', methods: ['POST'])]
     public function confirm(SessionInterface $session, MailerInterface $mailer, Request $request, ProduitRepository $produitRepo, CommandRepository $commandRepo, ComandProductsRepository $comandProductsRepo): Response
     {
-        if ($this->isCsrfTokenValid('confirm' . $this->getUser()->getId(), $request->get('_token'))) {
+        $currentUser = $this->getUser();
+        if ($this->isCsrfTokenValid('confirm' . $currentUser->getId(), $request->get('_token'))) {
 
             $basket =  $session->get("basket", null);
             $products = [];
             if ($basket) {
                 $command = new Command();
                 $command->setCreatedAt(new \DateTimeImmutable());
+                $command->setUser($currentUser);
                 $command->setTreated(false);
                 $this->em->persist($command);
                 $this->em->flush();
