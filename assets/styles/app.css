@@ -72,7 +72,7 @@ a {
   height: 100%;
   display: flex;
   align-items: center;
-  transform: rotateZ(90deg);
+  transform: rotateZ(80deg);
 }
 
 .up-header-left {
@@ -160,11 +160,9 @@ select {
 }
 
 .down-header ul li {
-  width: 50%;
-
   margin: 0;
   display: flex;
-  justify-content: center;
+
   align-items: center;
   padding: 0;
   height: 100%;
@@ -176,11 +174,9 @@ select {
 }
 
 .down-header ul li a span {
-  width: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 25%;
 }
 
 .centerX {
@@ -652,7 +648,7 @@ footer div {
 }
 .number_panier_header {
   position: absolute;
-  top: -45%;
+  top: -40%;
   left: 30%;
   display: flex;
   align-items: center;
@@ -798,4 +794,41 @@ footer div {
 }
 .form-errors {
   color: red;
+}
+
+.navbarNo {
+  justify-content: flex-end;
+}
+
+.navbarNo li {
+  width: 100% !important;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 3.5% !important;
+}
+
+.navbarNo li a p span {
+  transform: rotateZ(80deg);
+}
+
+.navbarNo span:first-child {
+  margin-right: 3%;
+}
+
+.navbarYes span {
+  margin-right: 3%;
+}
+.navbarYes a {
+  width: 100%;
+}
+.navbarYes li:first-child {
+  width: 35%;
+}
+
+.navbarYes li:nth-child(2) {
+  width: 45%;
+}
+
+.navbarYes li:nth-child(3) {
+  margin-right: 3%;
 }

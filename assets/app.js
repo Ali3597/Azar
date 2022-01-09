@@ -188,20 +188,6 @@ switchI.addEventListener("click", () => {
   }
 });
 
-//compte
-let compte_header = document.querySelector(".compte_header");
-let depliant_compte_header = document.querySelector(".depliant_compte_header");
-
-if (compte_header != null) {
-  compte_header.addEventListener("mouseover", () => {
-    if (!depliant_compte_header.classList.contains("active")) {
-      depliant_compte_header.classList.add("active");
-    }
-  });
-  depliant_compte_header.addEventListener("mouseout", () => {
-    depliant_compte_header.classList.remove("active");
-  });
-}
 /////////////footer
 var mymap = L.map("map").setView([14.674035, -17.4368828], 16);
 

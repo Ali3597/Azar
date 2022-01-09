@@ -64,32 +64,37 @@
 		</div>
 		<ul class="flex link-header">
 			<li>
-				Accueil
+				<a href="{{ path('home')}}">Accueil</a>
+
+
 			</li>
 			<span>
 				<i class=" fas fa-slash"></i>
 
 			</span>
 			<li>
-				Marques
-			</li>
-			<span>
-				<i class="fas fa-slash"></i>
-			</span>
-			<li>
-				Trouver un artisan
-			</li>
-			<span>
-				<i class="fas fa-slash"></i>
-			</span>
-			<li>
-				Promotions
+				<a href="{{ path('marque')}}">Marques</a>
+
+
 			</li>
 			<span>
 				<i class="fas fa-slash"></i>
 			</span>
 			<li>
 				Produits
+			</li>
+			<span>
+				<i class="fas fa-slash"></i>
+			</span>
+			<li>
+				Articles
+			</li>
+			<span>
+				<i class="fas fa-slash"></i>
+			</span>
+			<li>
+				<a href="{{ path('contact')}}">Contact</a>
+
 			</li>
 		</ul>
 	</div>
@@ -130,8 +135,10 @@
 				<i class="fas fa-search fa-2x"></i>
 			</button>
 		</form>
-		<ul class="flex">
-			{%- if is_granted('ROLE_USER') -%}
+
+		{%- if is_granted('ROLE_USER') -%}
+			<ul class="flex navbarYes">
+
 
 				<li class="flex">
 					<div href="#" onclick="deplierPanier(this)" class="panier_header flex">
@@ -149,32 +156,51 @@
 				</li>
 
 				<li>
-					<a href="#" class="compte_header">
+					<a href="{{ path('profile')}}" class="compte_header">
+
 						<span>
-							<i class="fas fa-id-card-alt"></i>
+							<i class="fas fa-lg fa-user"></i>
+
 						</span>
-						Compte
-						<div class="depliant_compte_header flex column">
-							<div>Mon profil</div>
-							<div>Mes parametres de comptes</div>
-							<div>Mes commandes</div>
-							<div></div>
-							<div>Deconnexion</div>
-						</div>
+						Mon compte
+
 					</a>
 				</li>
-			{% else %}
+				<li>
+					<a href="{{ path('logout')}}" class="compte_header">
+
+						<span>
+							<i class="fas fa-power-off"></i>
+
+						</span>
+						Deconnexion
+
+					</a>
+				</li>
+
+			</ul>
+		{% else %}
+			<ul class="flex navbarNo">
 
 				<li>
 					<a href="#" class="clickmodal">
 						<span>
-							<i class="fas fa-user"></i>
+							<i class="fas fa-lg fa-user"></i>
+
+
 						</span>
-						<p>
-							Connexion / Inscription</p>
+						<p class="flex">
+							Connexion
+							<span>
+								<i class="fas fa-slash"></i>
+							</span>
+							Inscription</p>
+
 					</a>
 				</li>
-			{%- endif -%}
-		</ul>
+			</ul>
+
+		{%- endif -%}
+
 	</div>
 </header>
