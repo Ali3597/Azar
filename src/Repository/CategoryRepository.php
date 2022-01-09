@@ -19,6 +19,16 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    public function findAllVisibleQuery($search)
+    {
+        $query = $this->createQueryBuilder('m');
+        if ($search->getQueryName()) {
+            $query->where('m.name LIKE :search')
+                ->setParameter('search', '%' . $search->getQueryName() . '%');
+        }
+        return $query->getQuery();
+    }
+
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */
@@ -52,8 +62,7 @@ class CategoryRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->andWhere('c.category_parent is NULL')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     public function findHighCategoriesBeginWith(string $letter)
@@ -64,18 +73,16 @@ class CategoryRepository extends ServiceEntityRepository
             ->orWhere('c.name LIKE :letter')
             ->setParameter('letter',  strtolower($letter) . '%')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     public function findAllLowCategoriesofCategoryParent($id)
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.category_parent = :id')
-            ->setParameter('id',$id)
+            ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
 
@@ -105,11 +112,11 @@ class CategoryRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
-    public function findCategoriesChildrensQueryWithSearch($search,$id)
+    public function findCategoriesChildrensQueryWithSearch($search, $id)
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.category_parent = :id')
-            ->setParameter('id',$id);
+            ->setParameter('id', $id);
         if ($search->getQueryName()) {
             $query->andWhere('c.name LIKE :search')
                 ->setParameter('search', '%' . $search->getQueryName() . '%');
@@ -119,4 +126,3 @@ class CategoryRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 }
-

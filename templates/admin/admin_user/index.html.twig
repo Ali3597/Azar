@@ -1,4 +1,73 @@
 {% extends 'base_admin.html.twig' %}
-{% block body %}
-<h1>Les utilisateurs</h1>
+{% block stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags('admin_index')}}
 {% endblock %}
+{% block body %}
+	<div class="content column ">
+		<h1>Mes utilisateurs</h1>
+		{{form_start(form)}}
+		<div class="form-row">
+			{{form_row(form.queryName)}}
+			<div class="button_form">
+				<button>
+					<i class="fas fa-search"></i>
+				</button>
+			</div>
+		</div>
+		{{form_end(form)}}
+		<table class="table_admin">
+			<thead>
+				<th>Email</th>
+				<th>Prénom
+				</th>
+				<th>Nom</th>
+				<th>Télephone
+				</th>
+				<th>addresse</th>
+				<th>Vérifié</th>
+				<th>Actions</th>
+
+			</thead>
+			<tbody>
+				{% for user in users %}
+
+					<td>{{user.email}}</td>
+					<td>{{user.firstname}}</td>
+					<td>{{user.lastname}}</td>
+					<td>{{user.telephone}}</td>
+					{% if user.addresse %}
+						<td>{{user.addresse}}</td>
+					{% else %}
+						<td>Pas d'addresse'</td>
+					{% endif %}
+
+
+					{% if user.isverified == true %}
+						<td>
+							<i class="fas fa-check"></i>
+						</td>
+					{% else %}
+						<td>
+							<i class="fas fa-times"></i>
+						</td>
+
+
+					{% endif %}
+
+
+					<td class="flex">
+						<a href="#">Editer</a>
+						<a href="#">Consulter</a>
+						<form action="{{ path('admin_marque_delete' , { id: user.id }) }}" method="post">
+							<input type="hidden" name="_method" value="DELETE">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+							<button>Supprimer</button>
+						</form>
+					</td>
+				</tbody>
+			</tbody>
+		</tr>
+	{% endfor %}
+</tbody></table><div class="pagination">
+{{ knp_pagination_render(users) }}</div>{% endblock %}

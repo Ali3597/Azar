@@ -35,7 +35,17 @@ class CommandRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findAllVisibleQuery($search)
+    {
 
+        $query = $this->createQueryBuilder('c');
+        if ($search->getQueryName()) {
+            $query->Join('c.user', 'userJoin')
+                ->andWhere('userJoin.email LIKE :userEmail')
+                ->setParameter('userEmail', '%' . $search->getQueryName() . '%');
+        }
+        return $query->getQuery();
+    }
     /*
     public function findOneBySomeField($value): ?Command
     {

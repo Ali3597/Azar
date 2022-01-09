@@ -34,9 +34,6 @@ class CategoryController extends AbstractController
     public function one(Category $category): Response
     {
 
-
-
-
         return $this->render('category/one.html.twig', [
             "category" => $category,
         ]);
