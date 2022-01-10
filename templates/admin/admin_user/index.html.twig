@@ -18,10 +18,61 @@
 		{{form_end(form)}}
 		<table class="table_admin">
 			<thead>
-				<th>Email</th>
-				<th>Prénom
+				<th>
+					<div>
+						{% if users.isSorted('u.email') %}
+							{% if users.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(users, 'Email', 'u.email') }}
+
+					</div>
 				</th>
-				<th>Nom</th>
+
+				<th>
+					<div>
+						{% if users.isSorted('u.firstname') %}
+							{% if users.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(users, 'Prénom', 'u.firstname') }}
+
+					</div>
+				</th>
+
+
+				<th>
+					<div>
+						{% if users.isSorted('u.lastname') %}
+							{% if users.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(users, 'Nom', 'u.lastname') }}
+
+					</div>
+				</th>
+
 				<th>Télephone
 				</th>
 				<th>addresse</th>

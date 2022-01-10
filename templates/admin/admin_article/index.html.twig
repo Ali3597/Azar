@@ -18,9 +18,79 @@
 		{{form_end(form)}}
 		<table class="table_admin">
 			<thead>
-				<th>nom</th>
-				<th>Description</th>
-				<th>slug</th>
+
+				<th>
+					<div>
+						{% if articles.isSorted('a.title') %}
+							{% if articles.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(articles, 'Titre', 'a.title') }}
+
+					</div>
+				</th>
+
+				<th>
+					<div>
+						{% if articles.isSorted('a.content') %}
+							{% if articles.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(articles, 'Contenu', 'a.content') }}
+
+					</div>
+				</th>
+				<th>
+					<div>
+						{% if articles.isSorted('a.created_at') %}
+							{% if articles.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(articles, 'Date de création', 'a.created_at') }}
+
+					</div>
+				</th>
+
+
+				<th>
+					<div>
+						{% if articles.isSorted('a.slug') %}
+							{% if articles.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(articles, 'Slug', 'a.slug') }}
+
+					</div>
+				</th>
+
 				<th>image</th>
 				<th>Action</th>
 			</thead>
@@ -29,7 +99,10 @@
 					<tr>
 						<td>{{article.title}}
 						</td>
-						<td>{{article.content}}</td>
+
+						<td>{{article.content|length > 200 ? article.content|slice(0,200)~ '...' : article.content}}</td>
+						<td>{{article.createdat|date("m/d/Y")}}</td>
+
 						<td>{{article.slug}}</td>
 						<td>
 							{% if article.pictures %}

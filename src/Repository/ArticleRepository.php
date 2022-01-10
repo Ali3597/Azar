@@ -53,18 +53,16 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->orderBy('a.created_at', 'DESC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     public function findAllVisibleQuery($search)
-{
-    $query = $this->createQueryBuilder('m');
-    if ($search->getQueryName())
     {
-        $query->where('m.name LIKE :search')
-            ->setParameter('search','%'.$search->getQueryName().'%');
+        $query = $this->createQueryBuilder('a');
+        if ($search->getQueryName()) {
+            $query->where('a.name LIKE :search')
+                ->setParameter('search', '%' . $search->getQueryName() . '%');
+        }
+        return $query->getQuery();
     }
-    return $query->getQuery();
-}
 }

@@ -18,8 +18,42 @@
 		{{form_end(form)}}
 		<table class="table_admin">
 			<thead>
-				<th>Date</th>
-				<th>Traité</th>
+				<th>
+					<div>
+						{% if commands.isSorted('c.created_at') %}
+							{% if commands.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(commands, 'Date de création', 'c.created_at') }}
+
+					</div>
+				</th>
+
+				<th>
+					<div>
+						{% if commands.isSorted('c.treated') %}
+							{% if commands.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(commands, 'Traité', 'c.treated') }}
+
+					</div>
+				</th>
+
 				<th>Commentaire</th>
 				<th>email de l'utilisateur</th>
 				<th>Action</th>

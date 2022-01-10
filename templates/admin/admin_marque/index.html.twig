@@ -18,9 +18,66 @@
 		{{form_end(form)}}
 		<table class="table_admin">
 			<thead>
-				<th>nom</th>
-				<th>Description</th>
-				<th>slug</th>
+				<th>
+					<div>
+						{% if marques.isSorted('m.name') %}
+							{% if marques.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(marques, 'Nom', 'm.name') }}
+
+					</div>
+
+				</th>
+
+
+				<th>
+					<div>
+						{% if marques.isSorted('m.description') %}
+							{% if marques.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+						{{ knp_pagination_sortable(marques, 'Description', 'm.description') }}
+
+
+					</div>
+
+				</th>
+
+				<th>
+					<div>
+						{% if marques.isSorted('m.slug') %}
+							{% if marques.direction == "asc" %}
+								<i class="fas fa-chevron-up"></i>
+							{% else %}
+								<i class="fas fa-chevron-down"></i>
+
+							{% endif %}
+
+
+						{% endif %}
+
+
+						{{ knp_pagination_sortable(marques, 'Slug', 'm.slug') }}
+
+					</div>
+
+				</th>
+
 				<th>image</th>
 				<th>Action</th>
 			</thead>
@@ -29,14 +86,16 @@
 					<tr>
 						<td>{{marque.name}}
 						</td>
-						<td>{{marque.description}}</td>
+						<td>{{marque.description|length > 100 ? marque.description|slice(0,100)~ '...' : marque.description}}</td>
+
+
 						<td>{{marque.slug}}</td>
 						<td>
 							{% if marque.picture %}
-							
-									<div class="imagecard">
-										<img width="100%" height="100%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
-									</div>
+
+								<div class="imagecard">
+									<img width="100%" height="100%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
+								</div>
 
 							{% endif %}
 						</td>
