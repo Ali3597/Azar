@@ -5,12 +5,12 @@
 {% endblock %}
 {% block body %}
 	<div class="content column ">
-		<h1>Mes Produits</h1>
-		<a href="{{path('admin_product_new')}}" class="new">Créer un nouveau produit</a>
+		<h1>Mes Produits de la marque '{{marque.name}}'</h1>
+		<a href="{{path('admin_product_new')}}" class="new">Créer une nouveau produit avec cette marque</a>
 
 		{{form_start(form)}}
-		<div class="form-row flex">
-			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher un produit par son nom'} })}}
+		<div class="form-row">
+			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher un produit  par son nom'} })}}
 
 			<div class="button_form">
 				<button>
@@ -96,7 +96,7 @@
 				</th>
 
 				<th>Marque</th>
-				<th>Categorie</th>
+				<th>CAtegorie</th>
 				<th>image</th>
 				<th>Action</th>
 			</thead>
@@ -125,18 +125,11 @@
 
 					<td>{{product.slug}}</td>
 					{% if product.marque %}
-						<td>
-							<a href="{{ path('admin_marque_consult' , { id: product.marque.id }) }}">{{product.marque.name}}</a>
-						</td>
-
+						<td>{{product.marque.name}}</td>
 					{% else %}
 						<td>Pas de marques</td>
 					{% endif %}
-					<td>
-						<a href="{{ path('admin_low_category_consult' , { id: product.category.id }) }}">{{product.category.name}}</a>
-
-					</td>
-
+					<td>{{product.category.name}}</td>
 					<td>
 						{% if product.pictures %}
 							{% for picture in product.pictures %}
@@ -149,6 +142,7 @@
 					</td>
 					<td class="flex column">
 						<a href="{{path('admin_product_edit',{ id: product.id })}}">Editer</a>
+						<a href="#">Consulter</a>
 						<form action="{{ path('admin_product_delete' , { id: product.id }) }}" method="post">
 							<input type="hidden" name="_method" value="DELETE">
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">

@@ -6,9 +6,12 @@
 {% block body %}
 	<div class="content column ">
 		<h1>Mes Articles</h1>
+		<a href="{{path('admin_article_new')}}" class="new">Créer un nouvel article</a>
+
 		{{form_start(form)}}
-		<div class="form-row">
-			{{form_row(form.queryName)}}
+		<div class="form-row flex">
+			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher un article par son titre'} })}}
+
 			<div class="button_form">
 				<button>
 					<i class="fas fa-search"></i>
@@ -114,9 +117,9 @@
 
 							{% endif %}
 						</td>
-						<td class="flex">
+						<td class="flex column">
 							<a href="{{path('admin_article_edit',{ id: article.id })}}">Editer</a>
-							<a href="#">Consulter</a>
+
 							<form action="{{ path('admin_article_delete' , { id: article.id }) }}" method="post">
 								<input type="hidden" name="_method" value="DELETE">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">

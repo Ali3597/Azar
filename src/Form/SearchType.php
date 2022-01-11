@@ -17,10 +17,7 @@ class SearchType extends AbstractType
             ->add('queryName', TextType::class, [
                 'required' => true,
                 'label' => false,
-               
-                'attr' => [
-                    'placeholder' => "Rechercher une societe par nom",
-                ]
+
             ]);
     }
 
@@ -28,8 +25,8 @@ class SearchType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Search::class,
-            'method'=>'get',
-            "csrf_protection"=>false,
+            'method' => 'get',
+            "csrf_protection" => false,
         ]);
     }
     public function getBlockPrefix()

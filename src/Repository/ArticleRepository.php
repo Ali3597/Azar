@@ -60,7 +60,7 @@ class ArticleRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('a');
         if ($search->getQueryName()) {
-            $query->where('a.name LIKE :search')
+            $query->where('a.title LIKE :search')
                 ->setParameter('search', '%' . $search->getQueryName() . '%');
         }
         return $query->getQuery();

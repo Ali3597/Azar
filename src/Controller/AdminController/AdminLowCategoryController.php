@@ -64,23 +64,24 @@ class AdminLowCategoryController extends AbstractController
         ]);
     }
 
-    // #[Route('/low_category/consult/{id}', name: 'low_category_consult')]
-    // public function consult(PaginatorInterface $paginator , Request $request ,Category $category): Response
-    // {
-    //     $search = new Search();
-    //     $form = $this->createForm(FormSearchType::class, $search);
-    //     $form->handleRequest($request);
-    //     $lowCategories= $paginator->paginate(
-    //         $this->categorieRepo->findCategoriesChildrensQueryWithSearch($search,$category->getId()),
-    //         $request->query->getInt('page', 1),
-    //         3,
-    //     );
-    //     return $this->render('admin/admin_low_category/consult.html.twig', [
-    //         'categories' => $lowCategories,
-    //         'lowCategory'=>$category,
-    //         'form'=>$form->createView()
-    //     ]);
-    // }
+    #[Route('/low_category/consult/{id}', name: 'low_category_consult')]
+    public function consult(PaginatorInterface $paginator, Request $request, Category $category): Response
+    {
+        dd("todooooo");
+        // $search = new Search();
+        // $form = $this->createForm(FormSearchType::class, $search);
+        // $form->handleRequest($request);
+        // $lowCategories = $paginator->paginate(
+        //     $this->categorieRepo->findCategoriesChildrensQueryWithSearch($search, $category->getId()),
+        //     $request->query->getInt('page', 1),
+        //     3,
+        // );
+        // return $this->render('admin/admin_low_category/consult.html.twig', [
+        //     'categories' => $lowCategories,
+        //     'lowCategory' => $category,
+        //     'form' => $form->createView()
+        // ]);
+    }
 
     #[Route('/low_category/{id}', name: 'low_category_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Category $category): Response

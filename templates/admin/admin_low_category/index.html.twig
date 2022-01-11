@@ -5,10 +5,12 @@
 {% endblock %}
 {% block body %}
 	<div class="content column ">
-		<h1>Mes BAsses  categories</h1>
+		<h1>Mes Basses  categories</h1>
+		<a href="{{path('admin_low_category_new')}}" class="new">Créer une nouvelle basse categorie</a>
 		{{form_start(form)}}
-		<div class="form-row">
-			{{form_row(form.queryName)}}
+		<div class="form-row flex">
+			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher une basse categorie par son nom'} })}}
+
 			<div class="button_form">
 				<button>
 					<i class="fas fa-search"></i>
@@ -68,8 +70,6 @@
 
 
 						{% endif %}
-
-
 						{{ knp_pagination_sortable(categories, 'Slug', 'c.slug') }}
 
 					</div>
@@ -94,11 +94,16 @@
 						</td>
 
 						<td>{{categorie.slug}}</td>
-						<td>{{categorie.CategoryParent.name}}</td>
-						<td class="flex">
-							<a href="{{path('admin_high_category_edit',{ id: categorie.id })}}">Editer</a>
-							<a href="#">Consulter</a>
-							<form action="{{ path('admin_high_category_delete' , { id: categorie.id }) }}" method="post">
+						<td>
+							<a href="{{path('admin_high_category_consult',{ id: categorie.CategoryParent.id })}}">{{categorie.CategoryParent.name}}</a>
+
+
+						</td>
+
+						<td class="flex column">
+							<a href="{{path('admin_low_category_edit',{ id: categorie.id })}}">Editer</a>
+							<a href="{{ path('admin_low_category_consult' , { id: categorie.id }) }}">Consulter</a>
+							<form action="{{ path('admin_low_category_delete' , { id: categorie.id }) }}" method="post">
 								<input type="hidden" name="_method" value="DELETE">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
 								<button>Supprimer</button>

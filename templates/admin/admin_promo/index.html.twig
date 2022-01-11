@@ -6,9 +6,10 @@
 {% block body %}
 	<div class="content column ">
 		<h1>Mes promos</h1>
+		<a href="{{path('admin_low_category_new')}}" class="new">Créer une nouvelle promo</a>
 		{{form_start(form)}}
-		<div class="form-row">
-			{{form_row(form.queryName)}}
+		<div class="form-row flex">
+			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher une promo par son nom'} })}}
 			<div class="button_form">
 				<button>
 					<i class="fas fa-search"></i>
@@ -51,9 +52,9 @@
 								</div>
 							{% endif %}
 						</td>
-						<td class="flex">
+						<td class="flex column">
 							<a href="{{path('admin_promo_edit',{ id: promo.id })}}">Editer</a>
-							<a href="#">Consulter</a>
+
 							<form action="{{ path('admin_promo_delete' , { id: promo.id }) }}" method="post">
 								<input type="hidden" name="_method" value="DELETE">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promo.id) }}">

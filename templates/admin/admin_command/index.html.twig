@@ -7,8 +7,9 @@
 	<div class="content column ">
 		<h1>Mes Commandes</h1>
 		{{form_start(form)}}
-		<div class="form-row">
-			{{form_row(form.queryName)}}
+		<div class="form-row flex">
+			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher une commande  par l\'email de l\'utilisateur'} })}}
+
 			<div class="button_form">
 				<button>
 					<i class="fas fa-search"></i>
@@ -88,9 +89,10 @@
 					<td>{{command.user.email}}</td>
 
 
-					<td class="flex">
-						<a href="#">Editer</a>
-						<a href="#">Consulter</a>
+					<td class="flex column ">
+						<a href="#">Rajouter un commentaire</a>
+
+						<a href="#">Valider</a>
 						<form action="{{ path('admin_marque_delete' , { id: command.id }) }}" method="post">
 							<input type="hidden" name="_method" value="DELETE">
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ command.id) }}">
@@ -101,5 +103,4 @@
 			</tbody>
 		</tr>
 	{% endfor %}
-</tbody></table><div class="pagination">
-{{ knp_pagination_render(commands) }}</div>{% endblock %}
+</tbody></table><div class="pagination">{{ knp_pagination_render(commands) }}</div>{% endblock %}

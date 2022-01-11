@@ -7,8 +7,9 @@
 	<div class="content column ">
 		<h1>Mes utilisateurs</h1>
 		{{form_start(form)}}
-		<div class="form-row">
-			{{form_row(form.queryName)}}
+		<div class="form-row flex ">
+			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher un utilisateur  par l\'email de l\'utilisateur'} })}}
+
 			<div class="button_form">
 				<button>
 					<i class="fas fa-search"></i>
@@ -75,7 +76,7 @@
 
 				<th>Télephone
 				</th>
-				<th>addresse</th>
+				<th>Addresse</th>
 				<th>Vérifié</th>
 				<th>Actions</th>
 
@@ -107,9 +108,9 @@
 					{% endif %}
 
 
-					<td class="flex">
-						<a href="#">Editer</a>
-						<a href="#">Consulter</a>
+					<td class="flex column ">
+						<a href="#">Consulter ses commandes</a>
+						<a href="#">Consulter ses envies</a>
 						<form action="{{ path('admin_marque_delete' , { id: user.id }) }}" method="post">
 							<input type="hidden" name="_method" value="DELETE">
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">

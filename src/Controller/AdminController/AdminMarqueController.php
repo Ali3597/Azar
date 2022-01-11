@@ -7,6 +7,7 @@ use App\Entity\Search;
 use App\Form\MarqueType;
 use App\Form\SearchType;
 use App\Repository\MarqueRepository;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,7 +63,24 @@ class AdminMarqueController extends AbstractController
             'form' => $form->createview()
         ]);
     }
+    #[Route('/marque/consult/{id}', name: 'marque_consult')]
+    public function consult(Request $request, Marque $marque, ProduitRepository $produitRepo, PaginatorInterface $paginator): Response
+    {
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search, array('attr' => array('placeholder' => 'claddddss')));
+        $form->handleRequest($request);
 
+        $products = $paginator->paginate(
+            $produitRepo->findProductsDependsOnMarqueIdWithSearch($marque->getId(), $search),
+            $request->query->getInt('page', 1),
+            3,
+        );
+        return $this->render('admin/admin_marque/consult.html.twig', [
+            'marque' => $marque,
+            "form" => $form->createView(),
+            'products' => $products
+        ]);
+    }
 
     #[Route('/marque/{id}', name: 'marque_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Marque $marque): Response

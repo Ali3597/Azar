@@ -85,6 +85,21 @@ class ProduitRepository extends ServiceEntityRepository
         return   $query->getQuery()
             ->getResult();
     }
+    public function findProductsDependsOnMarqueIdWithSearch($marqueId, $search)
+    {
+
+
+        $query = $this->createQueryBuilder('p');
+
+        $query
+            ->andWhere('p.marque = :marqueId')
+            ->setParameter('marqueId', $marqueId);
+        if ($search->getQueryName()) {
+            $query->andWhere('p.name LIKE :search')
+                ->setParameter('search', '%' . $search->getQueryName() . '%');
+        }
+        return   $query->getQuery();
+    }
 
     public function findProductsDependsOnCategorySlug($categorySlug)
     {
