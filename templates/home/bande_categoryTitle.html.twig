@@ -1,0 +1,27 @@
+<div class="high-category-carousel">
+	<div class=" category-carousel">
+		<div class="item_titre">
+			<h1>
+				{{bande.title }}</h1>
+
+		</div>
+		<div class="item_description">{{bande.subtitle}}</div>
+
+		<div class=" carouselSelect theCategoryCarousel" data-type="article" data-visible={{bande.slideVisible}} data-scroll={{bande.slideToScroll}}>
+			{% for item in bande.bandeCategoryTitle.categories %}
+
+				<div class="item_category column ">
+
+
+					<h1>{{item.name}}</h1>
+					{% for element in item.categoriesChildrens %}
+						<h2>{{element.name}}</h2>
+					{% endfor %}
+
+
+				</div>
+			{% endfor %}
+
+		</div>
+	</div>
+</div>

@@ -14,16 +14,23 @@
 
 	<div class="content flex column">
 		{% for bande in bandes %}
+			{% if loop.index == 4 %}
+				{{ include('home/bande_decor.html.twig') }}
+
+			{% endif %}
+
 			{% if bande.type == "product" %}
 				{{ include('home/bande_product.html.twig') }}
 			{% elseif bande.type == "marque" %}
 				{{ include('home/bande_marque.html.twig') }}
 			{%  elseif bande.type == "category" %}
-				<p>category</p>
+				{{ include('home/bande_category.html.twig') }}
+
 			{%  elseif  bande.type == "promo" %}
 				{{ include('home/bande_promo.html.twig') }}
 			{%  elseif bande.type == "categoryTitle" %}
-				<p>catgorytitle</p>
+				{{ include('home/bande_categoryTitle.html.twig') }}
+
 			{%  elseif bande.type == "article" %}
 				{{ include('home/bande_article.html.twig') }}
 			{% endif %}
