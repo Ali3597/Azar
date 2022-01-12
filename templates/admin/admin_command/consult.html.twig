@@ -1,0 +1,48 @@
+{% extends 'base_admin.html.twig' %}
+{% block stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags('admin_command_consult')}}
+{% endblock %}
+{% block body %}
+	<div class="content column ">
+
+
+		<h1>Commande numero
+			{{command.id}}
+			de
+			<a href="#">
+				{{command.user.email}}
+			</a>
+
+		</h1>
+		<ul>
+
+			{% for item in command.comandProducts %}
+				<li class="flex">
+					-<p>{{item.number}}</p>
+					<a href="#">{{item.products.name}}</a>
+
+				</li>
+
+
+			{% endfor %}
+
+
+		</ul>
+		<div class="comment flex column">
+			<h1>Commentaire</h1>
+			<input type="textarea">
+		</div>
+		<div>
+			{% if command.treated %}
+				<button class="invalid">Invalider</button>
+
+			{% else %}
+				<button class="valid">Valider</button>
+
+
+			{% endif %}
+		</div>
+
+	</div>
+{% endblock %}

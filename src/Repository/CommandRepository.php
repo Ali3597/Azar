@@ -40,12 +40,13 @@ class CommandRepository extends ServiceEntityRepository
 
         $query = $this->createQueryBuilder('c');
         if ($search->getQueryName()) {
-            $query->Join('c.user', 'userJoin')
-                ->andWhere('userJoin.email LIKE :userEmail')
-                ->setParameter('userEmail', '%' . $search->getQueryName() . '%');
+            $query->andWhere('c.email LIKE :search')
+                ->setParameter('search', '%' . $search->getQueryName() . '%');
         }
+
         return $query->getQuery();
     }
+
     /*
     public function findOneBySomeField($value): ?Command
     {

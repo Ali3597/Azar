@@ -27,7 +27,7 @@ class Command
     /**
      * @ORM\Column(type="boolean")
      */
-    private $Treated;
+    private $treated;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -69,12 +69,12 @@ class Command
 
     public function getTreated(): ?bool
     {
-        return $this->Treated;
+        return $this->treated;
     }
 
-    public function setTreated(bool $Treated): self
+    public function setTreated(bool $treated): self
     {
-        $this->Treated = $Treated;
+        $this->treated = $treated;
 
         return $this;
     }

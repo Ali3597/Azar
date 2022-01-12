@@ -5,12 +5,15 @@
 {% endblock %}
 {% block body %}
 	<div class="content column ">
-		<h1>Mes Produits de la marque '{{marque.name}}'</h1>
-		<a href="{{path('admin_product_new')}}" class="new">Créer une nouveau produit avec cette marque</a>
+		<h1>Mes Produits de la marque
+																								"{{marque.name}}"</h1>
+		<a href="{{path('admin_product_new')}}" class="new">Créer un nouveau produit correspandant a cette marque</a>
+		<a href="{{path('admin_marque_edit',{ id: marque.id })}}" class="newUnder">Editer cette marque</a>
+
 
 		{{form_start(form)}}
-		<div class="form-row">
-			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher un produit  par son nom'} })}}
+		<div class="form-row flex">
+			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher un produit par son nom'} })}}
 
 			<div class="button_form">
 				<button>
@@ -19,139 +22,151 @@
 			</div>
 		</div>
 		{{form_end(form)}}
-		<table class="table_admin">
-			<thead>
-				<th>
-					<div>
-						{% if products.isSorted('p.name') %}
-							{% if products.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
+		{% if products|length >0 %}
+
+			<table class="table_admin">
+				<thead>
+					<th>
+						<div>
+							{% if products.isSorted('p.name') %}
+								{% if products.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
 
 							{% endif %}
+
+							{{ knp_pagination_sortable(products, 'Nom', 'p.name') }}
+
+						</div>
+					</th>
+
+					<th>
+						<div>
+							{% if products.isSorted('p.description') %}
+								{% if products.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(products, 'Description', 'p.description') }}
+
+						</div>
+					</th>
+
+					<th>
+						<div>
+							{% if products.isSorted('p.stock') %}
+								{% if products.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(products, 'Stock', 'p.stock') }}
+
+						</div>
+					</th>
+
+					<th>Unite</th>
+					<th>afficher</th>
+					<th>
+						<div>
+							{% if products.isSorted('p.slug') %}
+								{% if products.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(products, 'Slug', 'p.slug') }}
+
+						</div>
+					</th>
+
+					<th>Marque</th>
+					<th>Categorie</th>
+					<th>image</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+					{% for product in products %}
+
+						<td>{{product.name|length > 10 ? product.name|slice(0,10)~ '...' : product.name}}</td>
+
+						<td>{{product.description|length > 10 ? product.description|slice(0,10)~ '...' : product.description}}</td>
+
+						<td>{{product.stock}}</td>
+						<td>{{product.unite}}</td>
+						{% if product.afficher == true %}
+							<td>
+								<i class="fas fa-check"></i>
+							</td>
+
+
+						{% else %}
+							<td>
+								<i class="fas fa-times"></i>
+							</td>
 
 
 						{% endif %}
 
-						{{ knp_pagination_sortable(products, 'Nom', 'p.name') }}
+						<td>{{product.slug}}</td>
+						{% if product.marque %}
+							<td>
+								<a href="{{ path('admin_marque_consult' , { id: product.marque.id }) }}">{{product.marque.name}}</a>
+							</td>
 
-					</div>
-				</th>
-
-				<th>
-					<div>
-						{% if products.isSorted('p.description') %}
-							{% if products.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
-
-
+						{% else %}
+							<td>Pas de marques</td>
 						{% endif %}
-
-						{{ knp_pagination_sortable(products, 'Description', 'p.description') }}
-
-					</div>
-				</th>
-
-				<th>
-					<div>
-						{% if products.isSorted('p.stock') %}
-							{% if products.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
-
-
-						{% endif %}
-
-						{{ knp_pagination_sortable(products, 'Stock', 'p.stock') }}
-
-					</div>
-				</th>
-
-				<th>Unite</th>
-				<th>afficher</th>
-				<th>
-					<div>
-						{% if products.isSorted('p.slug') %}
-							{% if products.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
-
-
-						{% endif %}
-
-						{{ knp_pagination_sortable(products, 'Slug', 'p.slug') }}
-
-					</div>
-				</th>
-
-				<th>Marque</th>
-				<th>CAtegorie</th>
-				<th>image</th>
-				<th>Action</th>
-			</thead>
-			<tbody>
-				{% for product in products %}
-
-					<td>{{product.name|length > 10 ? product.name|slice(0,10)~ '...' : product.name}}</td>
-
-					<td>{{product.description|length > 10 ? product.description|slice(0,10)~ '...' : product.description}}</td>
-
-					<td>{{product.stock}}</td>
-					<td>{{product.unite}}</td>
-					{% if product.afficher == true %}
 						<td>
-							<i class="fas fa-check"></i>
+							<a href="{{ path('admin_low_category_consult' , { id: product.category.id }) }}">{{product.category.name}}</a>
+
 						</td>
 
-
-					{% else %}
 						<td>
-							<i class="fas fa-times"></i>
+							{% if product.pictures %}
+								{% for picture in product.pictures %}
+									<div class="imagecard">
+										<img width="100%" height="100%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
+									</div>
+								{% endfor %}
+
+							{% endif %}
 						</td>
-
-
-					{% endif %}
-
-					<td>{{product.slug}}</td>
-					{% if product.marque %}
-						<td>{{product.marque.name}}</td>
-					{% else %}
-						<td>Pas de marques</td>
-					{% endif %}
-					<td>{{product.category.name}}</td>
-					<td>
-						{% if product.pictures %}
-							{% for picture in product.pictures %}
-								<div class="imagecard">
-									<img width="100%" height="100%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
-								</div>
-							{% endfor %}
-
-						{% endif %}
-					</td>
-					<td class="flex column">
-						<a href="{{path('admin_product_edit',{ id: product.id })}}">Editer</a>
-						<a href="#">Consulter</a>
-						<form action="{{ path('admin_product_delete' , { id: product.id }) }}" method="post">
-							<input type="hidden" name="_method" value="DELETE">
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
-							<button>Supprimer</button>
-						</form>
-					</td>
+						<td class="flex column">
+							<a href="{{path('admin_product_edit',{ id: product.id })}}">Editer</a>
+							<form action="{{ path('admin_product_delete' , { id: product.id }) }}" method="post">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+								<button>Supprimer</button>
+							</form>
+						</td>
+					</tbody>
 				</tbody>
-			</tbody>
-		</tr>
-	{% endfor %}
-</tbody></table><div class="pagination">
-{{ knp_pagination_render(products) }}</div>{% endblock %}
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagination">{{ knp_pagination_render(products) }}</div>{% else %}
+<div class="noItem">
+	Aucun element ne correspond
+</div>{% endif %}{% endblock %}

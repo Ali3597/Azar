@@ -96,6 +96,24 @@ td > a:hover {
 .new:hover {
   transform: scale(1.05);
 }
+.newUnder {
+  position: absolute;
+  cursor: pointer;
+  top: 18%;
+  right: 3%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  color: white;
+  height: 5vh;
+  border-radius: 5px;
+  padding: 1%;
+}
+.newUnder:hover {
+  transform: scale(1.05);
+}
 
 .form-row {
   margin-left: 1%;
@@ -130,4 +148,15 @@ td > form > button {
 
 td > form > button:hover {
   transform: scale(1.05);
+}
+
+.noItem {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 21px;
+  color: red;
+  height: 25vh;
+  font-weight: 700;
 }

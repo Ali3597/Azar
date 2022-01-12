@@ -90,10 +90,10 @@
 
 
 					<td class="flex column ">
-						<a href="#">Rajouter un commentaire</a>
+						<a href="{{ path('admin_command_consult' , { id: command.id }) }}">Consultez</a>
 
-						<a href="#">Valider</a>
-						<form action="{{ path('admin_marque_delete' , { id: command.id }) }}" method="post">
+
+						<form action="{{ path('admin_command_delete' , { id: command.id }) }}" method="post">
 							<input type="hidden" name="_method" value="DELETE">
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ command.id) }}">
 							<button>Supprimer</button>

@@ -7,6 +7,7 @@ use App\Entity\Search;
 use App\Form\LowCategoryType;
 use App\Form\SearchType;
 use App\Repository\CategoryRepository;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -65,22 +66,21 @@ class AdminLowCategoryController extends AbstractController
     }
 
     #[Route('/low_category/consult/{id}', name: 'low_category_consult')]
-    public function consult(PaginatorInterface $paginator, Request $request, Category $category): Response
+    public function consult(PaginatorInterface $paginator, Request $request, Category $category, ProduitRepository $produitRepo): Response
     {
-        dd("todooooo");
-        // $search = new Search();
-        // $form = $this->createForm(FormSearchType::class, $search);
-        // $form->handleRequest($request);
-        // $lowCategories = $paginator->paginate(
-        //     $this->categorieRepo->findCategoriesChildrensQueryWithSearch($search, $category->getId()),
-        //     $request->query->getInt('page', 1),
-        //     3,
-        // );
-        // return $this->render('admin/admin_low_category/consult.html.twig', [
-        //     'categories' => $lowCategories,
-        //     'lowCategory' => $category,
-        //     'form' => $form->createView()
-        // ]);
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
+        $products = $paginator->paginate(
+            $produitRepo->findProductsDependsOnCategoryIdWithSearch($category->getId(), $search),
+            $request->query->getInt('page', 1),
+            3,
+        );
+        return $this->render('admin/admin_low_category/consult.html.twig', [
+            'products' => $products,
+            'categorie' => $category,
+            'form' => $form->createView()
+        ]);
     }
 
     #[Route('/low_category/{id}', name: 'low_category_edit', methods: ['GET', 'POST'])]

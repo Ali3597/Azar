@@ -20,104 +20,111 @@
 			</div>
 		</div>
 		{{form_end(form)}}
-		<table class="table_admin">
-			<thead>
-				<th>
-					<div>
-						{% if marques.isSorted('m.name') %}
-							{% if marques.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
+		{% if marques|length >0 %}
+			<table class="table_admin">
+				<thead>
+					<th>
+						<div>
+							{% if marques.isSorted('m.name') %}
+								{% if marques.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(marques, 'Nom', 'm.name') }}
+
+						</div>
+
+					</th>
+
+
+					<th>
+						<div>
+							{% if marques.isSorted('m.description') %}
+								{% if marques.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(marques, 'Description', 'm.description') }}
+
+
+						</div>
+
+					</th>
+
+					<th>
+						<div>
+							{% if marques.isSorted('m.slug') %}
+								{% if marques.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
 
 							{% endif %}
 
 
-						{% endif %}
+							{{ knp_pagination_sortable(marques, 'Slug', 'm.slug') }}
 
-						{{ knp_pagination_sortable(marques, 'Nom', 'm.name') }}
+						</div>
 
-					</div>
+					</th>
 
-				</th>
-
-
-				<th>
-					<div>
-						{% if marques.isSorted('m.description') %}
-							{% if marques.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
+					<th>image</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+					{% for marque in marques %}
+						<tr>
+							<td>{{marque.name}}
+							</td>
+							<td>{{marque.description|length > 100 ? marque.description|slice(0,100)~ '...' : marque.description}}</td>
 
 
-						{% endif %}
+							<td>{{marque.slug}}</td>
+							<td>
+								{% if marque.picture %}
 
-						{{ knp_pagination_sortable(marques, 'Description', 'm.description') }}
+									<div class="imagecard">
+										<img width="100%" height="100%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
+									</div>
 
+								{% endif %}
+							</td>
+							<td class="flex column">
+								<a href="{{path('admin_marque_edit',{ id: marque.id })}}">Editer</a>
+								<a href="{{path('admin_marque_consult',{ id: marque.id })}}">Consulter</a>
+								<form action="{{ path('admin_marque_delete' , { id: marque.id }) }}" method="post">
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ marque.id) }}">
+									<button>Supprimer</button>
+								</form>
+							</td>
 
-					</div>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="pagination">
+				{{ knp_pagination_render(marques) }}
+			</div>
+		{% else %}
+			<div class="noItem">
+				Aucun element ne correspond
+			</div>
+		{% endif %}
 
-				</th>
-
-				<th>
-					<div>
-						{% if marques.isSorted('m.slug') %}
-							{% if marques.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
-
-
-						{% endif %}
-
-
-						{{ knp_pagination_sortable(marques, 'Slug', 'm.slug') }}
-
-					</div>
-
-				</th>
-
-				<th>image</th>
-				<th>Action</th>
-			</thead>
-			<tbody>
-				{% for marque in marques %}
-					<tr>
-						<td>{{marque.name}}
-						</td>
-						<td>{{marque.description|length > 100 ? marque.description|slice(0,100)~ '...' : marque.description}}</td>
-
-
-						<td>{{marque.slug}}</td>
-						<td>
-							{% if marque.picture %}
-
-								<div class="imagecard">
-									<img width="100%" height="100%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
-								</div>
-
-							{% endif %}
-						</td>
-						<td class="flex column">
-							<a href="{{path('admin_marque_edit',{ id: marque.id })}}">Editer</a>
-							<a href="{{path('admin_marque_consult',{ id: marque.id })}}">Consulter</a>
-							<form action="{{ path('admin_marque_delete' , { id: marque.id }) }}" method="post">
-								<input type="hidden" name="_method" value="DELETE">
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ marque.id) }}">
-								<button>Supprimer</button>
-							</form>
-						</td>
-
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-		<div class="pagination">
-			{{ knp_pagination_render(marques) }}
-		</div>
 	{% endblock %}
