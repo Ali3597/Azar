@@ -1,37 +1,42 @@
 import "./styles/basket.css";
 
-let changeQuantitydefaults = document.querySelectorAll(".changeQuantity");
-for (let i = 0; i < changeQuantitydefaults.length; i++) {
-  changeQuantitydefaults[i].addEventListener("click", (e) => {
-    e.stopPropagation();
-  });
-}
-
-let DeplierDefault = document.querySelectorAll(".quantityBasket");
-
-for (let i = 0; i < DeplierDefault.length; i++) {
-  DeplierDefault[i].addEventListener("click", (e) => {
-    e.stopPropagation();
-  });
-}
-
-let numbersItem = document.querySelectorAll("#number");
-
-for (let i = 0; i < numbersItem.length; i++) {
-  if (parseInt(numbersItem[i].innerHTML) < 10) {
-    let toactivate =
-      numbersItem[i].parentNode.parentNode.querySelector(".quantityBasket");
-    toactivate.classList.add("active");
-    let nbr = toactivate.parentNode.getAttribute("data-nbr");
-    let listQuantity = toactivate.querySelectorAll(".changeQuantity p");
-    listQuantity[nbr].classList.add("active");
-  } else {
-    numbersItem[i].parentNode.parentNode
-      .querySelector(".inputquantity")
-      .classList.add("active");
+let loader = `<div id="ctn">
+<div id="loader"></div>
+</div>`;
+let startBasket = function () {
+  let changeQuantitydefaults = document.querySelectorAll(".changeQuantity");
+  for (let i = 0; i < changeQuantitydefaults.length; i++) {
+    changeQuantitydefaults[i].addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
   }
-}
 
+  let DeplierDefault = document.querySelectorAll(".quantityBasket");
+
+  for (let i = 0; i < DeplierDefault.length; i++) {
+    DeplierDefault[i].addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+  }
+
+  let numbersItem = document.querySelectorAll("#number");
+
+  for (let i = 0; i < numbersItem.length; i++) {
+    if (parseInt(numbersItem[i].innerHTML) < 10) {
+      let toactivate =
+        numbersItem[i].parentNode.parentNode.querySelector(".quantityBasket");
+      toactivate.classList.add("active");
+      let nbr = toactivate.parentNode.getAttribute("data-nbr");
+      let listQuantity = toactivate.querySelectorAll(".changeQuantity p");
+      listQuantity[nbr].classList.add("active");
+    } else {
+      numbersItem[i].parentNode.parentNode
+        .querySelector(".inputquantity")
+        .classList.add("active");
+    }
+  }
+};
+startBasket();
 let changeBasketNumber = function (number) {
   let numberElement = document.querySelector(".number_panier_header");
 
@@ -204,6 +209,84 @@ let deleteThisItem = function (element) {
     });
 };
 
+let goToAsideItems = function () {
+  activeAndInactiveItem(1);
+  activeLoader();
+  ajaxAside();
+};
+let activeLoader = function () {
+  let basketList = document.querySelector("#toFill");
+  basketList.innerHTML = loader;
+};
+let goToBasketItems = function () {
+  activeAndInactiveItem(0);
+  activeLoader();
+  ajaxBasket();
+};
+let activeAndInactiveItem = function (number) {
+  let elementsToInactive = document.querySelectorAll(".active");
+  elementsToInactive.forEach((element) => {
+    element.classList.remove("active");
+  });
+  let items = document.querySelectorAll(".ensemble_onglet");
+  console.log(number, items[number]);
+  items[number].querySelector("i").classList.add("active");
+  items[number].querySelector(".bordure_panier").classList.add("active");
+};
+
+let insertAfterAjax = function (toInsert) {
+  let container = document.querySelector(".content");
+  container.innerHTML = toInsert;
+};
+let ajaxBasket = function () {
+  axios
+    .get("/panierAjaxBasket")
+    .then((response) => {
+      insertAfterAjax(response.data);
+      startBasket();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+let ajaxAside = function () {
+  axios
+    .get("/panierAjaxAside")
+    .then((response) => {
+      insertAfterAjax(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+let addToBasketFromAside = function (element) {
+  let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
+  let nbrProducts = 1;
+  axios
+    .post("/panier/add/" + id, { nbrProducts })
+    .then((response) => {
+      goToBasketItems();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+let deleteFromAside = function (element) {
+  let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
+  axios
+    .get("/aside/delete/" + id)
+    .then((response) => {
+      element.parentNode.parentNode.parentNode.remove();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+window.deleteFromAside = deleteFromAside;
+window.addToBasketFromAside = addToBasketFromAside;
+window.goToBasketItems = goToBasketItems;
+window.goToAsideItems = goToAsideItems;
 window.activeUpdateItesmBasket = activeUpdateItesmBasket;
 window.typeItemBasket = typeItemBasket;
 window.updateTheInput = updateTheInput;

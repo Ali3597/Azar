@@ -39,32 +39,33 @@
 
 .onglet_panier {
   display: flex;
+  cursor: pointer;
 
+  height: 5vh;
   justify-content: center;
   align-items: flex-end;
-  height: 93%;
+
   width: 100%;
 }
 
-.onglet span {
-  height: 35%;
-  width: 6%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.onglet_panier span svg {
-  fill: red;
-  width: 50%;
-}
 .ensemble_onglet {
   width: 50%;
-
+  font-size: 17px;
+  font-weight: 700;
   justify-content: flex-end;
 }
+.ensemble_onglet i {
+  color: #d6cbd3;
+  margin-bottom: 1%;
+}
+.ensemble_onglet i.active {
+  color: red;
+}
+
 .onglet_cote {
   height: 93%;
   display: flex;
+  cursor: pointer;
   width: 100%;
   justify-content: center;
   align-items: flex-end;
@@ -76,8 +77,9 @@
 }
 
 .bordure_panier {
-  flex: 1;
+  height: 5px;
   width: 100%;
+  transition: all 0.4s ease;
   border-bottom: 1px solid black;
 }
 
@@ -340,11 +342,11 @@ input[type="number"] {
   margin: 2%;
 }
 .itemsDetails {
-  flex: 1;
+  width: 100%;
 }
 .itemsDetails a {
   margin-top: 2%;
-  margin-bottom: 3%;
+  margin-bottom: 1%;
   font-size: 21px;
   height: fit-content;
 
@@ -352,7 +354,10 @@ input[type="number"] {
 }
 
 .itemsDetails p {
-  margin-bottom: 8%;
+  flex-wrap: wrap;
+
+  height: fit-content;
+  display: flex;
 }
 
 .quantityBasket {
@@ -376,11 +381,6 @@ input[type="number"] {
 
 .quantityBasket:hover {
   background-color: #d5d9d9;
-}
-
-.quantityBasket i {
-  margin-bottom: 8%;
-  margin-left: 2%;
 }
 
 .quantityBasket p {
@@ -438,7 +438,7 @@ input[type="number"] {
 
 .inputquantity {
   width: 60px;
-  margin-right: 10px;
+  height: 5vh;
   display: none;
 }
 .inputquantity.active {
@@ -457,4 +457,47 @@ input[type="number"] {
 
 .update.active {
   display: flex;
+}
+
+.descriptionItem {
+  min-height: 11vh;
+}
+
+.itemOptions {
+  height: 15vh;
+
+  align-items: center;
+}
+
+.fa-arrow-alt-circle-down {
+  margin-right: 8%;
+}
+
+#loader {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid #dcefff;
+  border-top: 10px solid red;
+  animation: rotate 2s infinite ease;
+}
+@keyframes rotate {
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+#ctn {
+  margin-top: 5%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.itemsDetails > a:hover {
+  text-decoration: underline;
 }

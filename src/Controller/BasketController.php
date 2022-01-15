@@ -34,7 +34,6 @@ class BasketController extends AbstractController
     {
 
         $basket =  $session->get("basket", null);
-
         $products = [];
         if ($basket) {
             foreach ($basket as $key => $value) {
@@ -50,6 +49,39 @@ class BasketController extends AbstractController
         ]);
     }
 
+
+    #[Route('/panierAjaxAside', name: 'panierAjaxAside')]
+    public function AsideAjax(): Response
+    {
+
+        $user = $this->getUser();
+        $userProducts = $user->getAside();
+        return $this->render('basket/aside.html.twig', [
+            'basket' => $userProducts,
+            "products" => $userProducts,
+            'idUser' => $this->getUser()->getId()
+        ]);
+    }
+
+    #[Route('/panierAjaxBasket', name: 'panierAjaxBasket')]
+    public function BasketAjax(SessionInterface $session, ProduitRepository $produitRepo): Response
+    {
+
+        $basket =  $session->get("basket", null);
+        $products = [];
+        if ($basket) {
+            foreach ($basket as $key => $value) {
+                $product = $produitRepo->find($key);
+                $product->setBasketNumber($value);
+                array_push($products, $product);
+            }
+        }
+        return $this->render('basket/basket.html.twig', [
+            'basket' => $basket,
+            'products' => $products,
+            'idUser' => $this->getUser()->getId()
+        ]);
+    }
 
     #[Route('/panier/confirmer', name: 'panier_confirm', methods: ['POST'])]
     public function confirm(SessionInterface $session, MailerInterface $mailer, Request $request, ProduitRepository $produitRepo, CommandRepository $commandRepo, ComandProductsRepository $comandProductsRepo): Response
@@ -141,5 +173,17 @@ class BasketController extends AbstractController
         $session->set("basket", $basket);
 
         return new JsonResponse(['nbr' => $totalNumber]);
+    }
+
+    #[Route('/aside/delete/{id}', name: 'panier_add')]
+    public function deleteAside(Produit $product, SessionInterface $session, Request $request): Response
+    {
+
+        $user = $this->getUser();
+        $user->removeAside($product);
+        $this->em->flush();
+        $this->addFlash('success', 'Ce produit a bien été nlevé de votre liste de souhait ');
+
+        return new JsonResponse(['ok' => "ok"]);
     }
 }

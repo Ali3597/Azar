@@ -1,0 +1,92 @@
+<div class="ensemble_left_panier flex column">
+	<div class="flex onglet">
+		<div class=" ensemble_onglet flex column">
+			<div onclick="goToBasketItems(this)" class="onglet_panier flex">
+
+
+				<i class=" fa-lg fas fa-shopping-basket "></i>
+
+				<p>Panier</p>
+
+			</div>
+			<div class="bordure_panier  "></div>
+		</div>
+		<div class="column flex ensemble_onglet">
+			<div onclick="goToAsideItems(this)" class="onglet_cote flex">
+
+
+				<i class="far fa-lg fa-arrow-alt-circle-down active"></i>
+
+
+				<p>Mis de coté</p>
+
+			</div>
+			<div class="bordure_panier active"></div>
+		</div>
+	</div>
+	{% if basket %}
+		<div id="toFill" class="basketList flex column ">
+
+			{% for product in products %}
+				<div data-id={{ product.id }} class="basketItem flex">
+					<img width="20%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
+					<div class="itemsDetails flex column">
+						<a href="#">{{ product.name }}</a>
+						<p class="descriptionItem">{{product.description|length > 350 ? product.description|slice(0,350)~ '...' : product.description}}</p>
+
+						<div class="flex itemOptions">
+
+							<p onclick="addToBasketFromAside(this)" class="action">Ajoutez au panier</p>
+
+							<p>|</p>
+							<p onclick="deleteFromAside(this)" class="action">Supprimer</p>
+
+
+						</div>
+
+
+					</div>
+
+
+				</div>
+			{% endfor %}
+		</div>
+
+
+	{% else %}
+
+		<div class=" panier_vide flex column">
+			<h1>Ça alors. Vous n’avez rien mis de côté.
+			</h1>
+
+			<span>
+				{{ source('@public_path'~asset('svg/vide.svg')) }}</span>
+		</div>
+
+
+	{% endif %}
+
+</div>
+<div class="flex  ensemble_right_panier ">
+	<div id="toFill" class="recap flex column ">
+
+		{% if basket %}
+
+			<form action="{{ path('panier_confirm') }}" method="post">
+				<input type="hidden" name="_token" value="{{ csrf_token('confirm' ~ idUser) }}">
+				<button onclick="goToBasketItems(this)">Retournez au panier</button>
+
+
+			</form>
+
+
+		{% else %}
+			<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
+			<a href="">
+				<button>Aller au catalogue</button>
+			</a>
+
+		{% endif %}
+
+	</div>
+</div>
