@@ -1,33 +1,63 @@
-
-
 .form-row {
-display: flex;
-flex-flow: column;
-margin-bottom: 15px;
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 15px;
+  width: 100%;
 }
-
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+}
+form > button {
+  border-radius: 5px;
+  background-color: red;
+  color: white;
+  width: 150px;
+  font-size: 21px;
+  font-weight: 700;
+  height: 8vh;
+  cursor: pointer;
+  border: 0.1rem solid #d8dadf;
+}
+form > button:hover {
+  transform: scale(1.03);
+}
 .form-row label {
-margin-bottom: 5px;
-font-weight: var(--font-weight-semi-bold);
-color: black;
+  margin-bottom: 5px;
+  font-weight: var(--font-weight-semi-bold);
+  color: black;
 }
 
 .form-row input,
 textarea {
-font-family: 600;
-border: 0;
-border-radius: 5px;
-padding: 10px 15px;
-background-color: grey;
+  font-family: 600;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px 15px;
+  background-color: wheat;
 }
 
 .form-row textarea {
-min-height: 150px;
+  min-height: 150px;
 }
 
 .form-errors {
-color: red;
-font-size: 14px;
-font-weight:600;
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
 }
 
+.content {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  margin-top: 2%;
+}
+
+.comment-form {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}

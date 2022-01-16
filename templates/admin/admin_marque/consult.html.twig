@@ -6,8 +6,8 @@
 {% block body %}
 	<div class="content column ">
 		<h1>Mes Produits de la marque
-																								"{{marque.name}}"</h1>
-		<a href="{{path('admin_product_new')}}" class="new">Créer un nouveau produit correspandant a cette marque</a>
+																																				"{{marque.name}}"</h1>
+		<a href="{{path('admin_product_new')}}?marque={{marque.id}}" class="new">Créer un nouveau produit correspondant a cette marque</a>
 		<a href="{{path('admin_marque_edit',{ id: marque.id })}}" class="newUnder">Editer cette marque</a>
 
 

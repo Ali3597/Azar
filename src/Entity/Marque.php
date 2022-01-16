@@ -6,11 +6,22 @@ use App\Repository\MarqueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MarqueRepository::class)
  */
+#[UniqueEntity(
+    fields: ['slug'],
+    errorPath: 'slug',
+    message: 'Ce slug est deja utilisé',
+)]
+#[UniqueEntity(
+    fields: ['name'],
+    errorPath: 'name',
+    message: 'Ce nom est deja utilisé',
+)]
 class Marque
 {
     /**
@@ -24,10 +35,10 @@ class Marque
 
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner un Nom')]
-    #[Assert\Length(min: 10, minMessage: 'Veuillez détailler votre nom', max: 255, maxMessage: 'Le nom de votre categorie est trop long')]
+
     private $name;
 
     /**
@@ -44,7 +55,8 @@ class Marque
     private $produits;
 
 
-    #[Assert\Image(mimeTypes:["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+    #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+
     private $pictureFile;
     /**
      * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
@@ -52,8 +64,10 @@ class Marque
     private $picture;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true ,nullable=false)
      */
+    #[Assert\NotBlank(message: 'Veuillez rajoutez un slug')]
+    #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug n'a pas le bon format")]
     private $slug;
 
     public function __construct()
@@ -129,14 +143,14 @@ class Marque
 
     public function setPicture(?Picture $picture): self
     {
-      
-            $this->picture = $picture;
+
+        $this->picture = $picture;
         return $this;
     }
 
     /**
      * Get the value of pictureFile
-     */ 
+     */
     public function getPictureFile()
     {
         return $this->pictureFile;
@@ -146,7 +160,7 @@ class Marque
      * Set the value of pictureFile
      *
      * @return  self
-     */ 
+     */
     public function setPictureFile($pictureFile)
     {
         if ($pictureFile) {
@@ -170,5 +184,4 @@ class Marque
 
         return $this;
     }
-  
 }

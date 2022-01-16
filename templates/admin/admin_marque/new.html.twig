@@ -7,13 +7,13 @@
 {% block body %}
 	<div class="content column ">
 		<div class="comment-form">
-              {{ form_start(form)}}
-              {{ form_rest(form) }}
-              <button class="btn btn-primary">soumettre</button>
-              {{ form_end(form)}}
-          </div>
+			{{ form_start(form)}}
+			{{ form_rest(form) }}
+			<button class="btn btn-primary">Soumettre</button>
+			{{ form_end(form)}}
+		</div>
 	</div>
 	{% block javascripts %}
-			{{ encore_entry_script_tags('form') }}
-		{% endblock %}
+		{{ encore_entry_script_tags('form') }}
 	{% endblock %}
+{% endblock %}

@@ -11,6 +11,7 @@ use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,10 +54,14 @@ class AdminMarqueController extends AbstractController
         $form = $this->createForm(MarqueType::class, $marque);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($marque);
-            $this->em->flush();
-            $this->addFlash('success', 'Votre marque a bien été ajouté ');
-            return $this->redirectToRoute('admin_marques');
+            if ($marque->getPicture()) {
+                $this->em->persist($marque);
+                $this->em->flush();
+                $this->addFlash('success', 'Votre marque a bien été ajouté ');
+                return $this->redirectToRoute('admin_marques');
+            } else {
+                $form->get("pictureFile")->addError(new FormError('Vous n\'avez pas mis de photo'));
+            }
         }
 
         return $this->render('admin/admin_marque/new.html.twig', [
@@ -86,9 +91,12 @@ class AdminMarqueController extends AbstractController
     public function edit(Request $request, Marque $marque): Response
     {
         $picture = $marque->getPicture();
+
         $form = $this->createForm(MarqueType::class, $marque);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($marque->getPictureFile());
             if ($marque->getPictureFile()) {
                 $this->em->remove($picture);
             }
