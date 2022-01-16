@@ -206,4 +206,20 @@ L.tileLayer(
 var marker = L.marker([14.674035, -17.4368828]).addTo(mymap);
 // marker.bindPopup("22 Rue Robert Brun.").openPopup();
 
-/////////////panier
+/////////////search
+let searchProduct = function (element) {
+  let search = element.parentNode.querySelector("input").value;
+  let newStr = search.replaceAll("/", "");
+  let newNexStr = newStr.replaceAll("\\", "");
+
+  if (newNexStr.length > 0) {
+    newNexStr;
+    window.location.href = "/produits/recherche/" + newNexStr;
+  }
+};
+
+let stopSearchProduct = document.querySelector("#stopSearchProduct");
+stopSearchProduct.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
+window.searchProduct = searchProduct;
