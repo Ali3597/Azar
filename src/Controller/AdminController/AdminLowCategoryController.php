@@ -107,6 +107,16 @@ class AdminLowCategoryController extends AbstractController
     {
 
         if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->get('_token'))) {
+            $products = $categorie->getProduits();
+            foreach ($products as $element) {
+                $pictures = $element->getPictures();
+                foreach ($pictures as $picture) {
+                    $this->em->remove($picture);
+                }
+                $this->em->flush();
+                $this->em->remove($element);
+            }
+            $this->em->flush();
             $this->em->remove($categorie);
             $this->em->flush();
             $this->addFlash('success', 'Votre categorie a bien été supprime ');

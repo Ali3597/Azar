@@ -160,3 +160,7 @@ td > form > button:hover {
   height: 25vh;
   font-weight: 700;
 }
+
+td {
+  overflow: hidden;
+}

@@ -18,105 +18,113 @@
 			</div>
 		</div>
 		{{form_end(form)}}
-		<table class="table_admin">
-			<thead>
-				<th>
-					<div>
-						{% if categories.isSorted('c.name') %}
-							{% if categories.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
+		{% if categories|length >0 %}
 
-							{% endif %}
+			<table class="table_admin">
+				<thead>
+					<th>
+						<div>
+							{% if categories.isSorted('c.name') %}
+								{% if categories.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
 
-
-						{% endif %}
-
-						{{ knp_pagination_sortable(categories, 'Nom', 'c.name') }}
-
-					</div>
-				</th>
-
-
-				<th>
-					<div>
-						{% if categories.isSorted('c.description') %}
-							{% if categories.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
-
-
-						{% endif %}
-
-						{{ knp_pagination_sortable(categories, 'Description', 'c.description') }}
-
-
-					</div>
-				</th>
-
-				<th>
-					<div>
-						{% if categories.isSorted('c.slug') %}
-							{% if categories.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
-
-
-						{% endif %}
-						{{ knp_pagination_sortable(categories, 'Slug', 'c.slug') }}
-
-					</div>
-				</th>
-
-				<th>Categorie parent</th>
-				<th>Action</th>
-			</thead>
-			<tbody>
-				{% for categorie in categories %}
-					<tr>
-						<td>{{categorie.name}}
-						</td>
-						<td>
-							{% if categorie.description  %}
-								{{categorie.description|length > 100 ? categorie.description|slice(0,100)~ '...' : categorie.description}}
-							{% else %}
-								Pas de description
+								{% endif %}
 
 
 							{% endif %}
-						</td>
 
-						<td>{{categorie.slug}}</td>
-						<td>
-							<a href="{{path('admin_high_category_consult',{ id: categorie.CategoryParent.id })}}">{{categorie.CategoryParent.name}}</a>
+							{{ knp_pagination_sortable(categories, 'Nom', 'c.name') }}
 
-
-						</td>
-
-						<td class="flex column">
-							<a href="{{path('admin_low_category_edit',{ id: categorie.id })}}">Editer</a>
-							<a href="{{ path('admin_low_category_consult' , { id: categorie.id }) }}">Consulter</a>
-							<form action="{{ path('admin_low_category_delete' , { id: categorie.id }) }}" method="post">
-								<input type="hidden" name="_method" value="DELETE">
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
-								<button>Supprimer</button>
-							</form>
-						</td>
-
-					</tr>
-				{% endfor %}
-			</tbody>
+						</div>
+					</th>
 
 
-		</table>
-		<div class="pagination">
-			{{ knp_pagination_render(categories) }}
-		</div>
+					<th>
+						<div>
+							{% if categories.isSorted('c.description') %}
+								{% if categories.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(categories, 'Description', 'c.description') }}
+
+
+						</div>
+					</th>
+
+					<th>
+						<div>
+							{% if categories.isSorted('c.slug') %}
+								{% if categories.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+							{{ knp_pagination_sortable(categories, 'Slug', 'c.slug') }}
+
+						</div>
+					</th>
+
+					<th>Categorie parent</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+					{% for categorie in categories %}
+						<tr>
+							<td>{{categorie.name}}
+							</td>
+							<td>
+								{% if categorie.description  %}
+									{{categorie.description|length > 100 ? categorie.description|slice(0,100)~ '...' : categorie.description}}
+								{% else %}
+									Pas de description
+
+
+								{% endif %}
+							</td>
+
+							<td>{{categorie.slug}}</td>
+							<td>
+								<a href="{{path('admin_high_category_consult',{ id: categorie.CategoryParent.id })}}">{{categorie.CategoryParent.name}}</a>
+
+
+							</td>
+
+							<td class="flex column">
+								<a href="{{path('admin_low_category_edit',{ id: categorie.id })}}">Editer</a>
+								<a href="{{ path('admin_low_category_consult' , { id: categorie.id }) }}">Consulter</a>
+								<form action="{{ path('admin_low_category_delete' , { id: categorie.id }) }}" method="post">
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
+									<button>Supprimer</button>
+								</form>
+							</td>
+
+						</tr>
+					{% endfor %}
+				</tbody>
+
+
+			</table>
+			<div class="pagination">
+				{{ knp_pagination_render(categories) }}
+			</div>
+		{% else %}
+			<div class="noItem">
+				Aucun element ne correspond
+			</div>
+		{% endif %}
+
 	{% endblock %}
