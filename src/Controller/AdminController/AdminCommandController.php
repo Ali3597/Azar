@@ -4,6 +4,7 @@ namespace App\Controller\AdminController;
 
 use App\Entity\Command;
 use App\Entity\Search;
+use App\Form\CommandType;
 use App\Form\SearchType;
 use App\Repository\CommandRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,8 +39,6 @@ class AdminCommandController extends AbstractController
             3,
         );
 
-
-
         return $this->render('admin/admin_command/index.html.twig', [
             'commands' => $commands,
             "form" => $form->createView(),
@@ -47,34 +46,35 @@ class AdminCommandController extends AbstractController
     }
 
     #[Route('/admin/commands/consult/{id}', name: 'admin_command_consult')]
-    public function consult(Command $command): Response
+    public function consult(Command $command, Request $request): Response
     {
 
+        $form = $this->createForm(CommandType::class, $command);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
 
-
-
-
-
-
+            $this->em->persist($command);
+            $this->em->flush();
+            $this->addFlash('success', 'Votre commande a bien été modifié ');
+        }
         return $this->render('admin/admin_command/consult.html.twig', [
             'command' => $command,
-
+            'form' => $form->createView()
         ]);
     }
 
+
     #[Route('/command/{id}', name: 'admin_command_delete', methods: ['DELETE'])]
-    public function delete(): Response
+    public function delete(Command $command, Request $request): Response
     {
-        dd("todooooo");
-        // if ($this->isCsrfTokenValid('delete' . $marque->getId(), $request->get('_token'))) {
-        //     foreach ($marque->getProduits() as $product) {
-        //         $marque->removeProduit($product);
-        //     }
-        //     $this->em->remove($marque);
-        //     $this->em->flush();
-        //     $this->addFlash('success', 'Votre marque a bien été supprime ');
-        // }
-        // return $this->redirectToRoute('admin_marques');
+
+        if ($this->isCsrfTokenValid('delete' . $command->getId(), $request->get('_token'))) {
+
+            $this->em->remove($command);
+            $this->em->flush();
+            $this->addFlash('success', 'Votre commande a bien été supprime ');
+        }
+        return $this->redirectToRoute('admin_commands');
     }
 }

@@ -39,9 +39,12 @@
   text-decoration: underline;
   color: red;
 }
-.content > div > button {
+button {
+  margin-top: 3%;
+  background-color: green;
   border-radius: 5px;
   height: 5vh;
+  width: 20%;
   color: white;
   border: 1px solid #d5d9d9;
   padding: 1%;
@@ -50,18 +53,33 @@
   justify-content: center;
   cursor: pointer;
 }
-.content > div > button:hover {
+button:hover {
   transform: scale(1.05);
 }
-.valid {
-  background-color: green;
+.form-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.invalid {
-  background-color: red;
-}
-
 .content > div {
   width: 100%;
   justify-content: center;
   display: flex;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+textarea {
+  height: 20vh;
+  width: 60%;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3%;
 }
