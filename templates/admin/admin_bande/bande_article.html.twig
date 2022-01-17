@@ -1,19 +1,18 @@
-
 <div class="elements" data-sortable=".element">
 	{% for  article in bande.bandeArticle.articles %}
 		<div class="element" data-position={{loop.index -1}} data-id={{article.id}}>
 			<div class="cross" onclick="removeElement(this)">
 				<i class="fas fa-times"></i>
 			</div>
-			<img width="80%" height="80%" src="{{ vich_uploader_asset(article.pictures[0],'imageFile') }}" alt="">
+			<img width="80%" height="80%" src="{{ vich_uploader_asset(article.picture,'imageFile') }}" alt="">
 			<p>{{article.title}}</p>
-			
+
 		</div>
 	{% endfor %}
 
 
 </div>
-<p class= "errorElement"></p>
+<p class="errorElement"></p>
 <div class="addnew">
 	<button onclick="newarticle(this)">Rajoutez une nouveau article</button>
 </div>

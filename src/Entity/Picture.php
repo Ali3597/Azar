@@ -34,10 +34,6 @@ class Picture
 
 
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="pictures")
-     */
-    private $article;
 
     /**
      * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="pictures")

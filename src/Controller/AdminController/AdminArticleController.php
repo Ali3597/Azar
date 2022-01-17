@@ -11,6 +11,7 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,12 +55,17 @@ class AdminArticleController extends AbstractController
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $article->setCreatedAt(new DateTimeImmutable('now'));
-            $this->em->persist($article);
-            $this->em->flush();
-            $this->addFlash('success', 'Votre article a bien été ajouté ');
-            return $this->redirectToRoute('admin_articles');
+            if ($article->getPicture()) {
+                $article->setCreatedAt(new DateTimeImmutable('now'));
+                $this->em->persist($article);
+                $this->em->flush();
+                $this->addFlash('success', 'Votre article a bien été ajouté ');
+                return $this->redirectToRoute('admin_articles');
+            } else {
+                $form->get("pictureFile")->addError(new FormError('Vous n\'avez pas mis de photo'));
+            }
         }
+
 
         return $this->render('admin/admin_article/new.html.twig', [
             'form' => $form->createview()
@@ -70,10 +76,13 @@ class AdminArticleController extends AbstractController
     #[Route('/article/{id}', name: 'article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article): Response
     {
+        $picture = $article->getPicture();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $article->setCreatedAt(new DateTimeImmutable('now'));
+            if ($article->getPictureFile()) {
+                $this->em->remove($picture);
+            }
             $this->em->persist($article);
             $this->em->flush();
             $this->addFlash('success', 'Votre article a bien été modifié ');

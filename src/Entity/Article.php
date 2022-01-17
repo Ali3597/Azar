@@ -6,11 +6,17 @@ use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
+#[UniqueEntity(
+    fields: ['slug'],
+    errorPath: 'slug',
+    message: 'Ce slug est deja utilisé',
+)]
 class Article
 {
     /**
@@ -31,7 +37,7 @@ class Article
      * @ORM\Column(type="text")
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner un contenu')]
-    #[Assert\Length(min: 10, minMessage: 'Veuillez détailler votre contenu')]
+    #[Assert\Length(min: 50, minMessage: 'Veuillez détailler votre contenu')]
     private $content;
 
     /**
@@ -40,20 +46,18 @@ class Article
     private $created_at;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="article",orphanRemoval=true,cascade={"persist"})
+     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
      */
-    private $pictures;
+    private $picture;
 
-    /**
-     * @Assert\All({
-     *     @Assert\Image(mimeTypes="image/jpeg")
-     * })
-     */
-    private $pictureFiles;
+    #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+    private $pictureFile;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Veuillez rajoutez un slug')]
+    #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug n'a pas le bon format")]
     private $slug;
 
     public function __construct()
@@ -102,51 +106,41 @@ class Article
         return $this;
     }
 
+    public function getPicture(): ?Picture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?Picture $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+
     /**
-     * @return Collection|Picture[]
+     * Get the value of pictureFile
      */
-    public function getPictures(): Collection
+    public function getPictureFile()
     {
-        return $this->pictures;
+        return $this->pictureFile;
     }
 
-    public function addPicture(Picture $picture): self
+    /**
+     * Set the value of pictureFile
+     *
+     * @return  self
+     */
+    public function setPictureFile($pictureFile)
     {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures[] = $picture;
-            $picture->setArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): self
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getArticle() === $this) {
-                $picture->setArticle(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getPictureFiles()
-    {
-        return $this->pictureFiles;
-    }
-
-  
-    public function setPictureFiles($pictureFiles)
-    {
-        foreach($pictureFiles as $pictureFile)
-        {
+        if ($pictureFile) {
             $picture = new Picture();
             $picture->setImageFile($pictureFile);
-            $this->addPicture($picture);
+            $this->picture = $picture;
         }
-        $this->pictureFiles = $pictureFiles;
+
+        $this->pictureFile = $pictureFile;
 
         return $this;
     }

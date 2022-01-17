@@ -33,7 +33,7 @@ class HighCategoryType extends AbstractType
             ->add('pictureFile', FileType::class, [
                 'required' => false,
                 'label' => 'Photo'
-            ]);;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

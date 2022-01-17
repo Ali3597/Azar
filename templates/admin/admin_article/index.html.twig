@@ -108,12 +108,12 @@
 
 						<td>{{article.slug}}</td>
 						<td>
-							{% if article.pictures %}
-								{% for picture in article.pictures %}
-									<div class="imagecard">
-										<img width="100%" height="100%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
-									</div>
-								{% endfor %}
+							{% if article.picture %}
+
+								<div class="imagecard">
+									<img width="100%" height="100%" src="{{ vich_uploader_asset(article.picture,'imageFile') }}" alt="">
+								</div>
+
 
 							{% endif %}
 						</td>
