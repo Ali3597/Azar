@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,10 +55,14 @@ class AdminHighCategoryController extends AbstractController
         $form = $this->createForm(HighCategoryType::class, $categorie);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($categorie);
-            $this->em->flush();
-            $this->addFlash('success', 'Votre categorie a bien été ajouté ');
-            return $this->redirectToRoute('admin_high_categories');
+            if ($categorie->getPicture()) {
+                $this->em->persist($categorie);
+                $this->em->flush();
+                $this->addFlash('success', 'Votre categorie a bien été ajouté ');
+                return $this->redirectToRoute('admin_high_categories');
+            } else {
+                $form->get("pictureFile")->addError(new FormError('Vous n\'avez pas mis de photo'));
+            }
         }
 
         return $this->render('admin/admin_high_category/new.html.twig', [
@@ -112,6 +117,11 @@ class AdminHighCategoryController extends AbstractController
     {
 
         if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->get('_token'))) {
+            $categoriesChildren = $categorie->getCategoriesChildrens();
+            foreach ($categoriesChildren as $element) {
+                $this->em->remove($element);
+            }
+            $this->em->flush();
             $this->em->remove($categorie);
             $this->em->flush();
             $this->addFlash('success', 'Votre categorie a bien été supprime ');

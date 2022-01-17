@@ -20,103 +20,111 @@
 			</div>
 		</div>
 		{{form_end(form)}}
-		<table class="table_admin">
-			<thead>
-				<th>
-					<div>
-						{% if categories.isSorted('c.name') %}
-							{% if categories.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
+		{% if categories|length >0 %}
+
+			<table class="table_admin">
+				<thead>
+					<th>
+						<div>
+							{% if categories.isSorted('c.name') %}
+								{% if categories.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(categories, 'Nom', 'c.name') }}
+
+						</div>
+					</th>
+
+					<th>
+						<div>
+							{% if categories.isSorted('c.description') %}
+								{% if categories.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(categories, 'Description', 'c.description') }}
+
+
+						</div>
+					</th>
+
+					<th>
+						<div>
+							{% if categories.isSorted('c.slug') %}
+								{% if categories.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
 
 							{% endif %}
 
 
-						{% endif %}
+							{{ knp_pagination_sortable(categories, 'Slug', 'c.slug') }}
 
-						{{ knp_pagination_sortable(categories, 'Nom', 'c.name') }}
+						</div>
+					</th>
 
-					</div>
-				</th>
+					<th>Image</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+					{% for categorie in categories %}
+						<tr>
+							<td>{{categorie.name}}
+							</td>
+							<td>{{categorie.description|length > 100 ? categorie.description|slice(0,100)~ '...' : categorie.description}}</td>
 
-				<th>
-					<div>
-						{% if categories.isSorted('c.description') %}
-							{% if categories.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
+							<td>{{categorie.slug}}</td>
+							<td>
+								{% if categorie.picture %}
 
-							{% endif %}
+									<div class="imagecard">
+										<img width="100%" height="100%" src="{{ vich_uploader_asset(categorie.picture,'imageFile') }}" alt="">
+									</div>
 
+								{% endif %}
+							</td>
+							<td class="flex column">
+								<a href="{{path('admin_high_category_edit',{ id: categorie.id })}}">Editer</a>
+								<a href="{{path('admin_high_category_consult',{ id: categorie.id })}}">Consulter</a>
+								<form action="{{ path('admin_high_category_delete' , { id: categorie.id }) }}" method="post">
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
+									<button>Supprimer</button>
+								</form>
+							</td>
 
-						{% endif %}
-
-						{{ knp_pagination_sortable(categories, 'Description', 'c.description') }}
-
-
-					</div>
-				</th>
-
-				<th>
-					<div>
-						{% if categories.isSorted('c.slug') %}
-							{% if categories.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
-
-
-						{% endif %}
-
-
-						{{ knp_pagination_sortable(categories, 'Slug', 'c.slug') }}
-
-					</div>
-				</th>
-
-				<th>Image</th>
-				<th>Action</th>
-			</thead>
-			<tbody>
-				{% for categorie in categories %}
-					<tr>
-						<td>{{categorie.name}}
-						</td>
-						<td>{{categorie.description|length > 100 ? categorie.description|slice(0,100)~ '...' : categorie.description}}</td>
-
-						<td>{{categorie.slug}}</td>
-						<td>
-							{% if categorie.picture %}
-
-								<div class="imagecard">
-									<img width="100%" height="100%" src="{{ vich_uploader_asset(categorie.picture,'imageFile') }}" alt="">
-								</div>
-
-							{% endif %}
-						</td>
-						<td class="flex column">
-							<a href="{{path('admin_high_category_edit',{ id: categorie.id })}}">Editer</a>
-							<a href="{{path('admin_high_category_consult',{ id: categorie.id })}}">Consulter</a>
-							<form action="{{ path('admin_high_category_delete' , { id: categorie.id }) }}" method="post">
-								<input type="hidden" name="_method" value="DELETE">
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
-								<button>Supprimer</button>
-							</form>
-						</td>
-
-					</tr>
-				{% endfor %}
+						</tr>
+					{% endfor %}
 
 
-			</tbody>
+				</tbody>
 
 
-		</table>
-		<div class="pagination">
-			{{ knp_pagination_render(categories) }}
-		</div>
+			</table>
+			<div class="pagination">
+				{{ knp_pagination_render(categories) }}
+			</div>
+		{% else %}
+			<div class="noItem">
+				Aucun element ne correspond
+			</div>
+		{% endif %}
+
 	{% endblock %}

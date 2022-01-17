@@ -6,11 +6,22 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
+#[UniqueEntity(
+    fields: ['slug'],
+    errorPath: 'slug',
+    message: 'Ce slug est deja utilisé',
+)]
+#[UniqueEntity(
+    fields: ['name'],
+    errorPath: 'name',
+    message: 'Ce nom est deja utilisé',
+)]
 class Category
 {
     /**
@@ -21,27 +32,26 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,unique=true)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner un Nom')]
-    #[Assert\Length(min: 10, minMessage: 'Veuillez détailler votre nom', max: 255, maxMessage: 'Le nom de votre categorie est trop long')]
+    #[Assert\Length(max: 255, maxMessage: 'Le nom de votre categorie est trop long')]
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    #[Assert\Length(min: 40, minMessage: 'Veuillez détailler votre description')]
     private $description;
 
-     /**
+    /**
      * @ORM\OneToMany(targetEntity=Category::class, mappedBy="category_parent" ,orphanRemoval=true)
      */
     private $categories_children;
 
-   /**
+    /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="categories_childrens")
      */
-  
+
     private $category_parent;
 
     /**
@@ -54,12 +64,14 @@ class Category
      */
     private $picture;
 
-    #[Assert\Image(mimeTypes:["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+    #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]
     private $pictureFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true ,nullable=false)
      */
+    #[Assert\NotBlank(message: 'Veuillez rajoutez un slug')]
+    #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug n'a pas le bon format")]
     private $slug;
 
     public function __construct()
@@ -182,7 +194,7 @@ class Category
 
     /**
      * Get the value of pictureFile
-     */ 
+     */
     public function getPictureFile()
     {
         return $this->pictureFile;
@@ -192,7 +204,7 @@ class Category
      * Set the value of pictureFile
      *
      * @return  self
-     */ 
+     */
     public function setPictureFile($pictureFile)
     {
         if ($pictureFile) {
@@ -200,7 +212,7 @@ class Category
             $picture->setImageFile($pictureFile);
             $this->picture = $picture;
         }
-    
+
         $this->pictureFile = $pictureFile;
 
         return $this;

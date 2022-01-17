@@ -96,7 +96,6 @@ class AdminMarqueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($marque->getPictureFile());
             if ($marque->getPictureFile()) {
                 $this->em->remove($picture);
             }
