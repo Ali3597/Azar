@@ -20,6 +20,7 @@ form > button {
   height: 8vh;
   cursor: pointer;
   border: 0.1rem solid #d8dadf;
+  margin-bottom: 5%;
 }
 form > button:hover {
   transform: scale(1.03);
@@ -60,4 +61,39 @@ textarea {
   display: flex;
   width: 100%;
   justify-content: center;
+}
+
+.imagecard {
+  margin-right: 5%;
+  width: 30%;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.imagecard a {
+  padding: 4%;
+  color: white;
+  border-radius: 5px;
+  background-color: red;
+  cursor: pointer;
+}
+.imagecard a:hover {
+  transform: scale(1.02);
+}
+
+.imagecard img {
+  margin-bottom: 5%;
+}
+
+.editcard {
+  width: 100%;
+  margin-bottom: 2%;
+  justify-content: center;
+  display: flex;
+
+  height: fit-content;
+  align-items: center;
 }

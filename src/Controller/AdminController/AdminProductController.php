@@ -51,7 +51,9 @@ class AdminProductController extends AbstractController
         $product = new Produit();
         $form = $this->createForm(ProduitType::class, $product);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->em->persist($product);
             $this->em->flush();
             $this->addFlash('success', 'Votre produit a bien été ajouté ');

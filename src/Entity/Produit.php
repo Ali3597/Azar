@@ -6,12 +6,23 @@ use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
  */
+#[UniqueEntity(
+    fields: ['slug'],
+    errorPath: 'slug',
+    message: 'Ce slug est deja utilisé',
+)]
+#[UniqueEntity(
+    fields: ['name'],
+    errorPath: 'name',
+    message: 'Ce nom est deja utilisé',
+)]
 class Produit
 {
     /**
@@ -26,7 +37,7 @@ class Produit
      * @ORM\Column(type="string", length=255)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner un Nom')]
-    #[Assert\Length(min: 10, minMessage: 'Veuillez détailler votre nom', max: 255, maxMessage: 'Le nom de votre categorie est trop long')]
+    #[Assert\Length(max: 255, maxMessage: 'Le nom de votre categorie est trop long')]
     private $name;
 
     /**
@@ -40,12 +51,17 @@ class Produit
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner un stock')]
     #[Assert\PositiveOrZero(message: 'Veuillez renseigner un stock egal a 0 ou positif')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'Vous devez rentrez un entier',
+    )]
     private $stock;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner une unite')]
+    #[Assert\Length(max: 255, maxMessage: 'Le nom de votre unite est trop long')]
     private $unite;
 
     /**
@@ -62,6 +78,7 @@ class Produit
 
 
     private $categoryParent;
+
 
     /**
      * @Assert\All({
@@ -83,6 +100,8 @@ class Produit
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Veuillez rajoutez un slug')]
+    #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug n'a pas le bon format")]
     private $slug;
 
 

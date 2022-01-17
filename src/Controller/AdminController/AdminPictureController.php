@@ -20,21 +20,23 @@ class AdminPictureController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/picture/{id}', name: 'picture_delete',methods: ['DELETE'])]
+    #[Route('/picture/{id}', name: 'picture_delete', methods: ['DELETE'])]
     public function index(Request $request, Picture $picture): Response
     {
-        
-       $data = json_decode($request->getContent(),true);
-        if ($this->isCsrfTokenValid('delete'.$picture->getId(), $data['_token'])) 
-        {
-            
-            $this->em->remove($picture);
-            $this->em->flush();
-            $this->addFlash('success', 'Votre image a bien été supprime ');
-            return new JsonResponse(['success' => 1]);
-        }else{
+
+        $data = json_decode($request->getContent(), true);
+        if ($this->isCsrfTokenValid('delete' . $picture->getId(), $data['_token'])) {
+            $product = $picture->getProduit();
+            if (sizeof($product->getPictures()) <= 1) {
+                return new JsonResponse(['error' => 'Ile ne reste que une photo vous nepouvez pas la supprimer'], 400);
+            } else {
+                $this->em->remove($picture);
+                $this->em->flush();
+                $this->addFlash('success', 'Votre image a bien été supprime ');
+                return new JsonResponse(['success' => 1]);
+            }
+        } else {
             return new JsonResponse(['error' => 'Token invalide'], 400);
         }
-        
     }
 }

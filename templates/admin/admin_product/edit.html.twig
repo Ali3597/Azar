@@ -9,12 +9,16 @@
 		<div class="comment-form">
 			{{ form_start(form)}}
 			{{ form_rest(form) }}
-			<div class="flex">
+			<div class="flex editcard">
 				{% if product.pictures %}
 					{% for picture in product.pictures %}
 						<div class="imagecard">
-							<img width="100%" height="100%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
-							<a href="{{ path('admin_picture_delete' , { id: picture.id }) }}" method="post" data-delete data-token="{{ csrf_token('delete' ~ picture.id) }}">Supprimer</a>
+							<img width="100%" height="80%" src="{{ vich_uploader_asset(picture,'imageFile') }}" alt="">
+							{% if product.pictures|length > 1 %}
+
+								<a href="{{ path('admin_picture_delete' , { id: picture.id }) }}" method="post" data-delete data-token="{{ csrf_token('delete' ~ picture.id) }}">Supprimer</a>
+							{% endif %}
+
 						</div>
 					{% endfor %}
 
@@ -25,7 +29,7 @@
 		</div>
 	</div>
 
-		{% block javascripts %}
-			{{ encore_entry_script_tags('form') }}
-		{% endblock %}
+	{% block javascripts %}
+		{{ encore_entry_script_tags('form') }}
+	{% endblock %}
 {% endblock %}
