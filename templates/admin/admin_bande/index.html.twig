@@ -13,14 +13,16 @@
 		<h1>Les bandes</h1>
 		<div class="bandes" data-sortable=".bande">
 			{% for bande in bandes %}
-				<div class="bande" data-position={{bande.position}}>
+				<div data-type={{bande.type}} class="bande" data-position={{bande.position}}>
 					<div onclick="deleteBande(this)" class="cross">
 						<i class="fas fa-times"></i>
-					</div> 
+					</div>
 					<div class="details">
-							<div id="visible"data-visible="{{bande.slideVisible}} ">Visible:{{bande.slideVisible}}   &nbsp;</div>
-							<br>
-							<div>Scroll:{{bande.slideToScroll}} &nbsp;</div>
+						<div id="visible" data-visible="{{bande.slideVisible}} ">Visible:{{bande.slideVisible}}
+							&nbsp;</div>
+						<br>
+						<div>Scroll:{{bande.slideToScroll}}
+							&nbsp;</div>
 						<p>
 							{{bande.type}}
 						</p>
@@ -32,7 +34,7 @@
 						<label for="subTitle">
 							Sous-Titre</label>
 						<input type="text" id="subtitle" name='subTitle' value="{{bande.subtitle}}" placeholder="placer le titre">
-						<p class= "error"></p>
+						<p class="error"></p>
 					</div>
 					{%  if bande.bandeProduct %}
 						{{ include('admin/admin_bande/bande_product.html.twig') }}
@@ -57,7 +59,8 @@
 			<i class="fas fa-2x fa-plus"></i>
 		</div>
 
-		<button  onclick="validAll()" class="validAll"> Validez les bandes</button>
+		<button onclick="validAll()" class="validAll">
+			Validez les bandes</button>
 
 	</div>
 {% endblock %}

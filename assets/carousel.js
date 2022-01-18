@@ -138,7 +138,10 @@ class Carousel {
     });
     this.setStyle();
     this.createNavigation();
-    if (this.options.pagination) {
+    if (
+      this.options.pagination &&
+      this.options.slidesVisible < this.items.length
+    ) {
       this.createPagination();
     }
 

@@ -5,6 +5,7 @@ namespace App\Controller\AdminController;
 use App\Entity\Bande;
 use App\Entity\BandeArticle;
 use App\Entity\BandeCategory;
+use App\Entity\BandeCategoryTitle;
 use App\Entity\BandeMarque;
 use App\Entity\BandeProduct;
 use App\Entity\BandePromo;
@@ -113,6 +114,17 @@ class AdminBandeController extends AbstractController
                     $bandePromo->addPromo($promo);
                 }
                 $this->em->persist($bandePromo);
+            } else if ($bande->getType() == "categoryTitle") {
+                $bande->setSlideVisible(3);
+                $bande->setSlideToScroll(1);
+                $this->em->persist($bande);
+                $bandeCategoryTitle = new BandeCategoryTitle();
+                $bandeCategoryTitle->setBande($bande);
+                foreach ($dataBande["elements"] as $elementId) {
+                    $category = $categoryRepo->find($elementId);
+                    $bandeCategoryTitle->addCategory($category);
+                }
+                $this->em->persist($bandeCategoryTitle);
             }
             $this->em->flush();
         }

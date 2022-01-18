@@ -143,7 +143,6 @@ let fillSelect = function (elementToFill, array, option) {
     opt.innerHTML = element.name;
 
     if (element.filename != null) {
-      console.log("il ya un filenamee");
       opt.setAttribute("filename", element.filename);
     }
     elementToFill.appendChild(opt);
@@ -197,7 +196,8 @@ let categorySelects = `<div  class="selectNewElement">
 </div>
 <button onclick="addThisElement(this,'category')">Ajoutez ce nouvelle categorie</button>`;
 
-let categoryAddNew = `<button onclick="newcategory(this)">Rajoutez une nouvelle category</button>`;
+let categoryAddNew = `<button onclick="newcategory(this)">Rajoutez une nouvelle categorie</button>`;
+let categoryTitleAddNew = `<button onclick="newcategoryTitle(this)">Rajoutez une nouvelle categorie</button>`;
 
 let promoSelects = `<div  class="selectNewElement">
 <select  id="element">
@@ -217,8 +217,8 @@ let creatBande = `<div onclick="removeAddbande(this)" class="cross">
 <option value="marque">Marque</option>
 <option value="promo">Promo</option>
 <option value="article">Article</option>
-<option value="category">Category</option>
-<option value="categoryTitle">Titre de Category</option>
+<option value="category">Categorie</option>
+<option value="categoryTitle">Titre de Categorie</option>
 </select>
 <button onclick="confirmNewBande(this)">Valider</button>`;
 
@@ -260,7 +260,6 @@ let newproduit = function (element) {
   axios
     .get("/admin/getHighCategories")
     .then((response) => {
-      console.log(response.data);
       div.innerHTML = produitSelects;
       fillSelect(
         div.querySelector("#highCategory"),
@@ -278,7 +277,6 @@ let newpromo = function (element) {
   axios
     .get("/admin/getPromos")
     .then((response) => {
-      console.log(response.data);
       div.innerHTML = promoSelects;
       fillSelect(
         div.querySelector("#element"),
@@ -297,7 +295,6 @@ let ChangeProduitOnCategoryHigh = function (element) {
   axios
     .post("/admin/getLowCategories", { value })
     .then((response) => {
-      console.log(response.data);
       fillSelect(
         div.querySelector("#lowCategory"),
         response.data.categories,
@@ -316,7 +313,6 @@ let ChangeProduitOnCategoryLow = function (element) {
   axios
     .post("/admin/getProducts", { value })
     .then((response) => {
-      console.log(response.data);
       fillSelect(
         div.querySelector("#element"),
         response.data.categories,
@@ -340,7 +336,7 @@ let isthIsIdAlreadySelect = function (id, element) {
 
 let addThisElement = function (element, type) {
   let id = element.parentNode.querySelector("#element").value;
-  console.log(isthIsIdAlreadySelect(id, element));
+
   if (!isNaN(parseInt(id))) {
     if (isthIsIdAlreadySelect(id, element)) {
       let pError = element.parentNode.parentNode.querySelector(".errorElement");
@@ -412,6 +408,11 @@ let reloadNewCategory = function (element) {
   toChange.innerHTML = categoryAddNew;
 };
 
+let reloadNewCategoryTitle = function (element) {
+  let toChange = element.parentNode.querySelector(".addnew");
+  toChange.innerHTML = categoryTitleAddNew;
+};
+
 let reloadNewMarque = function (element) {
   let toChange = element.parentNode.querySelector(".addnew");
   toChange.innerHTML = marqueAddNew;
@@ -423,9 +424,6 @@ let reloadNewProduct = function (element) {
 };
 
 let removeElement = function (element) {
-  console.log("element");
-  console.log(element);
-  console.log(element.parentNode);
   let myElementParent = element.parentNode.parentNode;
   let toInsertAfter =
     element.parentNode.parentNode.parentNode.querySelector(".subdetails");
@@ -446,7 +444,6 @@ let removeElement = function (element) {
 };
 
 let deleteBande = function (element) {
-  console.log(element.parentNode);
   let myElementParent = element.parentNode.parentNode;
   let toInsertAfter = myElementParent.parentNode.querySelector("h1");
   element.parentNode.remove();
@@ -470,7 +467,7 @@ let newarticle = function (element) {
     .get("/admin/getArticles")
     .then((response) => {
       div.innerHTML = articleSelects;
-      console.log(div);
+
       fillSelect(
         div.querySelector("#element"),
         response.data.articles,
@@ -488,7 +485,7 @@ let newmarque = function (element) {
     .get("/admin/getMarques")
     .then((response) => {
       div.innerHTML = marqueSelects;
-      console.log(div);
+
       fillSelect(
         div.querySelector("#element"),
         response.data.marques,
@@ -502,12 +499,12 @@ let newmarque = function (element) {
 
 let newcategory = function (element) {
   let div = element.parentNode;
-  if (element.parentNode.parentNode.querySelectorAll(".element").length < 6) {
+  if (element.parentNode.parentNode.querySelectorAll(".element").length < 5) {
     axios
       .get("/admin/getHighCategories")
       .then((response) => {
         div.innerHTML = categorySelects;
-        console.log(div);
+
         fillSelect(
           div.querySelector("#element"),
           response.data.categories,
@@ -517,7 +514,27 @@ let newcategory = function (element) {
       .catch((err) => {
         console.log(err);
       });
+  } else {
+    console.log("errrror to do");
   }
+};
+let newcategoryTitle = function (element) {
+  let div = element.parentNode;
+
+  axios
+    .get("/admin/getHighCategories")
+    .then((response) => {
+      div.innerHTML = categorySelects;
+
+      fillSelect(
+        div.querySelector("#element"),
+        response.data.categories,
+        "--Choisis une categorie--"
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 let addBande = function (element) {
@@ -528,7 +545,6 @@ let addBande = function (element) {
 };
 
 let removeAddbande = function (element) {
-  console.log(element.parentNode);
   let div = createDivWithClass("more");
   div.innerHTML = plus;
   div.onclick = function () {
@@ -538,35 +554,40 @@ let removeAddbande = function (element) {
   element.parentNode.remove();
 };
 
-let ajustVisibleAndScroll = function (visible, scroll, div) {
+let ajustVisibleTypeAndScroll = function (bandeType, visible, scroll, div) {
   let elements = div.querySelector(".details").querySelectorAll("div");
 
+  div.setAttribute("data-type", bandeType);
+  elements[0].setAttribute("data-visible", visible);
   elements[0].innerHTML = `Visible:${visible}  &nbsp;`;
   elements[1].innerHTML = `Scroll: ${scroll}  &nbsp;`;
 };
 let confirmNewBande = function (element) {
   let bandType = element.parentNode.querySelector("#bandeType").value;
-  console.log(bandType);
   if (bandType !== "no") {
     let div = createDivWithClass("bande");
     let bandeNumbers = document.querySelectorAll(".bande").length;
     div.setAttribute("data-position", bandeNumbers);
     div.innerHTML = bandeCommun;
+
     if (bandType == "Category") {
-      ajustVisibleAndScroll(1, 1, div);
+      ajustVisibleTypeAndScroll(bandType, 1, 1, div);
       reloadNewCategory(div.querySelector(".addnew"));
     } else if (bandType == "marque") {
-      ajustVisibleAndScroll(8, 2, div);
+      ajustVisibleTypeAndScroll(bandType, 8, 2, div);
       reloadNewMarque(div.querySelector(".addnew"));
     } else if (bandType == "article") {
-      ajustVisibleAndScroll(3, 1, div);
+      ajustVisibleTypeAndScroll(bandType, 3, 1, div);
       reloadNewarticle(div.querySelector(".addnew"));
     } else if (bandType == "product") {
-      ajustVisibleAndScroll(4, 1, div);
+      ajustVisibleTypeAndScroll(bandType, 4, 1, div);
       reloadNewProduct(div.querySelector(".addnew"));
     } else if (bandType == "promo") {
-      ajustVisibleAndScroll(1, 1, div);
+      ajustVisibleTypeAndScroll(bandType, 1, 1, div);
       reloadNewPromo(div.querySelector(".addnew"));
+    } else if (bandType == "categoryTitle") {
+      ajustVisibleTypeAndScroll(bandType, 3, 1, div);
+      reloadNewCategoryTitle(div.querySelector(".addnew"));
     }
     let p = div.querySelector(".details p");
     p.innerHTML = bandType;
@@ -614,22 +635,46 @@ let verifyElements = function (element, error) {
 
 let verifyElementsLenght = function (element, error) {
   let numberelements = element.querySelectorAll(".element").length;
-  let lenghtVIsible = element
-    .querySelector("#visible")
-    .getAttribute("data-visible");
-  if (numberelements < lenghtVIsible) {
-    let pError = element.querySelector(".errorElement");
-    pError.innerHTML =
-      "Une bande de ce type doit avoir au moins " + lenghtVIsible + "elements";
-    error += 1;
+  if (element.getAttribute("data-type") == "category") {
+    if (numberelements != 5) {
+      let pError = element.querySelector(".errorElement");
+      pError.innerHTML =
+        "Une bande de ce type doit exactements 5  " + "elements";
+      error += 1;
+    }
+  } else {
+    let lenghtVIsible = element
+      .querySelector("#visible")
+      .getAttribute("data-visible");
+
+    if (numberelements < lenghtVIsible) {
+      let pError = element.querySelector(".errorElement");
+      pError.innerHTML =
+        "Une bande de ce type doit avoir au moins " +
+        lenghtVIsible +
+        " elements";
+      error += 1;
+    }
   }
+
   return error;
 };
-
+let deleteAllErrors = function () {
+  let errors = document.querySelectorAll(".subdetails .error");
+  errors.forEach((error) => {
+    error.innerHTML = "";
+  });
+  let errorElements = document.querySelectorAll(".errorElement");
+  errorElements.forEach((element) => {
+    element.innerHTML = "";
+  });
+};
 let validAll = function () {
+  deleteAllErrors();
   let error = 0;
   let bandesToSendHttp = [];
   let bandes = document.querySelectorAll(".bande");
+
   for (let i = 0; i < bandes.length; i++) {
     error = verifySubDetails(bandes[i], error);
     error = verifyElements(bandes[i], error);
@@ -641,21 +686,17 @@ let validAll = function () {
       let array = [];
       for (let j = 0; j < mySquares.length; j++) {
         array[j] = mySquares[j].getAttribute("data-id");
-        console.log(mySquares[j].getAttribute("data-id"));
       }
 
       bandesToSendHttp[i] = {
-        type: bandes[i]
-          .querySelector(".details p")
-          .innerHTML.replace(/\n/g, "")
-          .replace(/\t/g, ""),
+        type: bandes[i].getAttribute("data-type"),
         title: bandes[i].querySelector("#title").value,
         subtitle: bandes[i].querySelector("#subtitle").value,
         position: bandes[i].dataset.position,
         elements: array,
       };
     }
-    // window.location.href = "/admin";
+
     axios
       .post("/admin/validNewBandes", { bandesToSendHttp })
       .then((response) => {
@@ -672,6 +713,7 @@ window.validAll = validAll;
 window.confirmNewBande = confirmNewBande;
 window.removeAddbande = removeAddbande;
 window.addBande = addBande;
+window.newcategoryTitle = newcategoryTitle;
 window.newcategory = newcategory;
 window.newmarque = newmarque;
 window.newarticle = newarticle;

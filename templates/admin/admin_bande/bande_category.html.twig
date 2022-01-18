@@ -1,4 +1,3 @@
-
 <div class="elements" data-sortable=".element">
 	{% for category in bande.bandeCategory.categories %}
 		<div class="element" data-position={{loop.index -1}} data-id={{category.id}}>
@@ -10,7 +9,7 @@
 		</div>
 	{% endfor %}
 </div>
-<p class= "errorElement"></p>
+<p class="errorElement"></p>
 <div class="addnew">
-	<button onclick="newcategory(this)">Rajoutez une nouvelle category</button>
+	<button onclick="newcategory(this)">Rajoutez une nouvelle categorie</button>
 </div>

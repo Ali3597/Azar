@@ -19,10 +19,7 @@ class BandeCategoryTitle
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $limitSub;
+
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class)
@@ -46,17 +43,7 @@ class BandeCategoryTitle
         return $this->id;
     }
 
-    public function getLimitSub(): ?int
-    {
-        return $this->limitSub;
-    }
 
-    public function setLimitSub(int $limitSub): self
-    {
-        $this->limitSub = $limitSub;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Category[]
@@ -93,6 +80,4 @@ class BandeCategoryTitle
 
         return $this;
     }
-
-    
 }
