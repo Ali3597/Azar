@@ -35,6 +35,18 @@ class CommandRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findUserCommands($userId)
+    {
+
+        $query = $this->createQueryBuilder('c');
+        $query->leftJoin('c.user', 'user')
+            ->Where('user.id = :userId')
+            ->setParameter('userId', $userId);
+        return   $query->getQuery()
+            ->getResult();
+    }
+
     public function findAllVisibleQuery($search)
     {
 

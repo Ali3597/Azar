@@ -5,18 +5,8 @@
 {% endblock %}
 {% block body %}
 	<div class="content column ">
-		<h1>Mes Commandes</h1>
-		{{form_start(form)}}
-		<div class="form-row flex">
-			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher une commande  par l\'email de l\'utilisateur'} })}}
-
-			<div class="button_form">
-				<button>
-					<i class="fas fa-search"></i>
-				</button>
-			</div>
-		</div>
-		{{form_end(form)}}
+		<h1>Commande de
+			{{user.email}}</h1>
 		{% if commands|length >0 %}
 
 			<table class="table_admin">

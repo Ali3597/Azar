@@ -17,109 +17,101 @@
 			</div>
 		</div>
 		{{form_end(form)}}
-		<table class="table_admin">
-			<thead>
-				<th>
-					<div>
-						{% if users.isSorted('u.email') %}
-							{% if users.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
+		{% if users|length >0 %}
+
+			<table class="table_admin">
+				<thead>
+					<th>
+						<div>
+							{% if users.isSorted('u.email') %}
+								{% if users.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
 
 							{% endif %}
 
+							{{ knp_pagination_sortable(users, 'Email', 'u.email') }}
 
-						{% endif %}
+						</div>
+					</th>
 
-						{{ knp_pagination_sortable(users, 'Email', 'u.email') }}
+					<th>
+						<div>
+							{% if users.isSorted('u.firstname') %}
+								{% if users.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
 
-					</div>
-				</th>
+								{% endif %}
 
-				<th>
-					<div>
-						{% if users.isSorted('u.firstname') %}
-							{% if users.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
 
 							{% endif %}
 
+							{{ knp_pagination_sortable(users, 'Prénom', 'u.firstname') }}
 
-						{% endif %}
-
-						{{ knp_pagination_sortable(users, 'Prénom', 'u.firstname') }}
-
-					</div>
-				</th>
+						</div>
+					</th>
 
 
-				<th>
-					<div>
-						{% if users.isSorted('u.lastname') %}
-							{% if users.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
+					<th>
+						<div>
+							{% if users.isSorted('u.lastname') %}
+								{% if users.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
 
 							{% endif %}
 
+							{{ knp_pagination_sortable(users, 'Nom', 'u.lastname') }}
 
-						{% endif %}
-
-						{{ knp_pagination_sortable(users, 'Nom', 'u.lastname') }}
-
-					</div>
-				</th>
-
-				<th>Télephone
-				</th>
-				<th>Addresse</th>
-				<th>Vérifié</th>
-				<th>Actions</th>
-
-			</thead>
-			<tbody>
-				{% for user in users %}
-
-					<td>{{user.email}}</td>
-					<td>{{user.firstname}}</td>
-					<td>{{user.lastname}}</td>
-					<td>{{user.telephone}}</td>
-					{% if user.addresse %}
-						<td>{{user.addresse}}</td>
-					{% else %}
-						<td>Pas d'addresse'</td>
-					{% endif %}
+						</div>
+					</th>
 
 
-					{% if user.isverified == true %}
-						<td>
-							<i class="fas fa-check"></i>
+					<th>Actions</th>
+
+				</thead>
+				<tbody>
+					{% for user in users %}
+
+						<td>{{user.email}}</td>
+						<td>{{user.firstname}}</td>
+						<td>{{user.lastname}}</td>
+
+
+						<td class="flex column ">
+							<a href="{{ path('admin_user_command' , { id: user.id }) }}">Consulter ses commandes</a>
+
+
+							<a href="{{ path('admin_user_want' , { id: user.id }) }}">Consulter ses envies</a>
+
+
+							<a href="{{ path('admin_user_consult' , { id: user.id }) }}">Consulter</a>
+
+
+							<form action="{{ path('admin_marque_delete' , { id: user.id }) }}" method="post">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+								<button>Supprimer</button>
+							</form>
 						</td>
-					{% else %}
-						<td>
-							<i class="fas fa-times"></i>
-						</td>
-
-
-					{% endif %}
-
-
-					<td class="flex column ">
-						<a href="#">Consulter ses commandes</a>
-						<a href="#">Consulter ses envies</a>
-						<form action="{{ path('admin_marque_delete' , { id: user.id }) }}" method="post">
-							<input type="hidden" name="_method" value="DELETE">
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-							<button>Supprimer</button>
-						</form>
-					</td>
+					</tbody>
 				</tbody>
-			</tbody>
-		</tr>
-	{% endfor %}
-</tbody></table><div class="pagination">
-{{ knp_pagination_render(users) }}</div>{% endblock %}
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="pagination">
+	{{ knp_pagination_render(users) }}</div>{% else %}
+<div class="noItem">
+	Aucun element ne correspond
+</div>{% endif %}{% endblock %}

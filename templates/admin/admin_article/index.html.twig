@@ -19,119 +19,128 @@
 			</div>
 		</div>
 		{{form_end(form)}}
-		<table class="table_admin">
-			<thead>
-
-				<th>
-					<div>
-						{% if articles.isSorted('a.title') %}
-							{% if articles.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
+		{% if articles|length >0 %}
 
 
-						{% endif %}
+			<table class="table_admin">
+				<thead>
 
-						{{ knp_pagination_sortable(articles, 'Titre', 'a.title') }}
+					<th>
+						<div>
+							{% if articles.isSorted('a.title') %}
+								{% if articles.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
 
-					</div>
-				</th>
-
-				<th>
-					<div>
-						{% if articles.isSorted('a.content') %}
-							{% if articles.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
-
-
-						{% endif %}
-
-						{{ knp_pagination_sortable(articles, 'Contenu', 'a.content') }}
-
-					</div>
-				</th>
-				<th>
-					<div>
-						{% if articles.isSorted('a.created_at') %}
-							{% if articles.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
-
-
-						{% endif %}
-
-						{{ knp_pagination_sortable(articles, 'Date de création', 'a.created_at') }}
-
-					</div>
-				</th>
-
-
-				<th>
-					<div>
-						{% if articles.isSorted('a.slug') %}
-							{% if articles.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
-
-							{% endif %}
-
-
-						{% endif %}
-
-						{{ knp_pagination_sortable(articles, 'Slug', 'a.slug') }}
-
-					</div>
-				</th>
-
-				<th>image</th>
-				<th>Action</th>
-			</thead>
-			<tbody>
-				{% for article in articles %}
-					<tr>
-						<td>{{article.title}}
-						</td>
-
-						<td>{{article.content|length > 200 ? article.content|slice(0,200)~ '...' : article.content}}</td>
-						<td>{{article.createdat|date("m/d/Y")}}</td>
-
-						<td>{{article.slug}}</td>
-						<td>
-							{% if article.picture %}
-
-								<div class="imagecard">
-									<img width="100%" height="100%" src="{{ vich_uploader_asset(article.picture,'imageFile') }}" alt="">
-								</div>
+								{% endif %}
 
 
 							{% endif %}
-						</td>
-						<td class="flex column">
-							<a href="{{path('admin_article_edit',{ id: article.id })}}">Editer</a>
 
-							<form action="{{ path('admin_article_delete' , { id: article.id }) }}" method="post">
-								<input type="hidden" name="_method" value="DELETE">
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-								<button>Supprimer</button>
-							</form>
-						</td>
+							{{ knp_pagination_sortable(articles, 'Titre', 'a.title') }}
 
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-		<div class="pagination">
-			{{ knp_pagination_render(articles) }}
-		</div>
+						</div>
+					</th>
+
+					<th>
+						<div>
+							{% if articles.isSorted('a.content') %}
+								{% if articles.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(articles, 'Contenu', 'a.content') }}
+
+						</div>
+					</th>
+					<th>
+						<div>
+							{% if articles.isSorted('a.created_at') %}
+								{% if articles.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(articles, 'Date de création', 'a.created_at') }}
+
+						</div>
+					</th>
+
+
+					<th>
+						<div>
+							{% if articles.isSorted('a.slug') %}
+								{% if articles.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(articles, 'Slug', 'a.slug') }}
+
+						</div>
+					</th>
+
+					<th>image</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+					{% for article in articles %}
+						<tr>
+							<td>{{article.title}}
+							</td>
+
+							<td>{{article.content|length > 200 ? article.content|slice(0,200)~ '...' : article.content}}</td>
+							<td>{{article.createdat|date("m/d/Y")}}</td>
+
+							<td>{{article.slug}}</td>
+							<td>
+								{% if article.picture %}
+
+									<div class="imagecard">
+										<img width="100%" height="100%" src="{{ vich_uploader_asset(article.picture,'imageFile') }}" alt="">
+									</div>
+
+
+								{% endif %}
+							</td>
+							<td class="flex column">
+								<a href="{{path('admin_article_edit',{ id: article.id })}}">Editer</a>
+
+								<form action="{{ path('admin_article_delete' , { id: article.id }) }}" method="post">
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+									<button>Supprimer</button>
+								</form>
+							</td>
+
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="pagination">
+				{{ knp_pagination_render(articles) }}
+			</div>
+		{% else %}
+			<div class="noItem">
+				Aucun element ne correspond
+			</div>
+		{% endif %}
+
 	{% endblock %}

@@ -89,14 +89,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $commands;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Produit::class)
+     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="usersWanter")
      */
-    private $aside;
+    private $wants;
+
 
     public function __construct()
     {
         $this->commands = new ArrayCollection();
-        $this->aside = new ArrayCollection();
+        $this->wants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -281,23 +282,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection|Produit[]
      */
-    public function getAside(): Collection
+    public function getWants(): Collection
     {
-        return $this->aside;
+        return $this->wants;
     }
 
-    public function addAside(Produit $aside): self
+    public function addWant(Produit $want): self
     {
-        if (!$this->aside->contains($aside)) {
-            $this->aside[] = $aside;
+        if (!$this->wants->contains($want)) {
+            $this->wants[] = $want;
         }
 
         return $this;
     }
 
-    public function removeAside(Produit $aside): self
+    public function removeWant(Produit $want): self
     {
-        $this->aside->removeElement($aside);
+        $this->wants->removeElement($want);
 
         return $this;
     }

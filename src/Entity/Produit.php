@@ -106,11 +106,18 @@ class Produit
 
 
 
+
     private $basketNumber;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="wants")
+     */
+    private $usersWanter;
 
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+        $this->usersWanter = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -301,6 +308,33 @@ class Produit
     public function setBasketNumber($basketNumber)
     {
         $this->basketNumber = $basketNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsersWanter(): Collection
+    {
+        return $this->usersWanter;
+    }
+
+    public function addUsersWanter(User $usersWanter): self
+    {
+        if (!$this->usersWanter->contains($usersWanter)) {
+            $this->usersWanter[] = $usersWanter;
+            $usersWanter->addWant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersWanter(User $usersWanter): self
+    {
+        if ($this->usersWanter->removeElement($usersWanter)) {
+            $usersWanter->removeWant($this);
+        }
 
         return $this;
     }

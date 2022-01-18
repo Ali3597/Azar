@@ -115,6 +115,7 @@ class ProduitRepository extends ServiceEntityRepository
         }
         return   $query->getQuery();
     }
+
     public function findProductsDependsOnCategorySlug($categorySlug)
     {
 
@@ -159,6 +160,29 @@ class ProduitRepository extends ServiceEntityRepository
         return   $query->getQuery()
             ->getResult();
     }
+
+
+
+    public function findUserWantingsWithSearch($userId, $search)
+    {
+
+        $query = $this->createQueryBuilder('p');
+        $query->leftJoin('p.usersWanter', 'user')
+            ->Where('user.id = :userId')
+            ->setParameter('userId', $userId);
+        if ($search->getQueryName()) {
+            $query->andWhere('p.name LIKE :search')
+                ->setParameter('search', '%' . $search->getQueryName() . '%');
+        }
+
+
+        return   $query->getQuery()
+            ->getResult();
+    }
+
+
+
+
     public function findProductsinOneCategory($id)
     {
         return $this->createQueryBuilder('p')

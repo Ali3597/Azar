@@ -6,7 +6,8 @@
 {% block body %}
 	<div class="content column ">
 		<h1>Mes promos</h1>
-		<a href="{{path('admin_low_category_new')}}" class="new">Créer une nouvelle promo</a>
+		<a href="{{path('admin_promo_new')}}" class="new">Créer une nouvelle promo</a>
+
 		{{form_start(form)}}
 		<div class="form-row flex">
 			{{form_row(form.queryName,{ 'attr' : { 'placeholder': 'Rechercher une promo par son nom'} })}}
@@ -17,56 +18,66 @@
 			</div>
 		</div>
 		{{form_end(form)}}
-		<table class="table_admin">
-			<thead>
-				<th>
-					<div>
-						{% if promos.isSorted('p.name') %}
-							{% if promos.direction == "asc" %}
-								<i class="fas fa-chevron-up"></i>
-							{% else %}
-								<i class="fas fa-chevron-down"></i>
+		{% if promos|length >0 %}
+
+
+			<table class="table_admin">
+				<thead>
+					<th>
+						<div>
+							{% if promos.isSorted('p.name') %}
+								{% if promos.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
 
 							{% endif %}
 
+							{{ knp_pagination_sortable(promos, 'Nom', 'p.name') }}
 
-						{% endif %}
+						</div>
+					</th>
 
-						{{ knp_pagination_sortable(promos, 'Nom', 'p.name') }}
+					<th>image</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+					{% for promo in promos %}
+						<tr>
+							<td>{{promo.name}}
+							</td>
+							<td>
+								{% if promo.picture %}
+									<div class="imagecard">
+										<img width="100%" height="100%" src="{{ vich_uploader_asset(promo.picture,'imageFile') }}" alt="">
+									</div>
+								{% endif %}
+							</td>
+							<td class="flex column">
+								<a href="{{path('admin_promo_edit',{ id: promo.id })}}">Editer</a>
 
-					</div>
-				</th>
+								<form action="{{ path('admin_promo_delete' , { id: promo.id }) }}" method="post">
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promo.id) }}">
+									<button>Supprimer</button>
+								</form>
+							</td>
 
-				<th>image</th>
-				<th>Action</th>
-			</thead>
-			<tbody>
-				{% for promo in promos %}
-					<tr>
-						<td>{{promo.name}}
-						</td>
-						<td>
-							{% if promo.picture %}
-								<div class="imagecard">
-									<img width="100%" height="100%" src="{{ vich_uploader_asset(promo.picture,'imageFile') }}" alt="">
-								</div>
-							{% endif %}
-						</td>
-						<td class="flex column">
-							<a href="{{path('admin_promo_edit',{ id: promo.id })}}">Editer</a>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="pagination">
+				{{ knp_pagination_render(promos) }}
+			</div>
+		{% else %}
+			<div class="noItem">
+				Aucun element ne correspond
+			</div>
+		{% endif %}
 
-							<form action="{{ path('admin_promo_delete' , { id: promo.id }) }}" method="post">
-								<input type="hidden" name="_method" value="DELETE">
-								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promo.id) }}">
-								<button>Supprimer</button>
-							</form>
-						</td>
 
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-		<div class="pagination">
-			{{ knp_pagination_render(promos) }}
-		</div>
 	{% endblock %}

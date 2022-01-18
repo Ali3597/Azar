@@ -1,0 +1,36 @@
+.content {
+  width: 100%;
+  height: fit-content;
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 5%;
+}
+.RowUser > p {
+  width: 250px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.RowUser {
+  margin-bottom: 3%;
+  width: fit-content;
+}
+
+h1 {
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
+a {
+  color: red;
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.links {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+}

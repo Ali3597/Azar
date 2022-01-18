@@ -1,0 +1,75 @@
+{% extends 'base_admin.html.twig' %}
+{% block stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags('user_consult')}}
+
+{% endblock %}
+{% block body %}
+	<div class="content column ">
+		<h1>Profil de l'utilisateur</h1>
+		<div class="RowUser flex">
+			<p>
+				Email :</p>
+
+			<p>{{user.email}}</p>
+
+		</div>
+		<div class="RowUser flex">
+			<p>Prenom :</p>
+
+			<p>{{user.firstname}}</p>
+
+
+		</div>
+		<div class="RowUser flex">
+
+
+			<p>Nom :</p>
+
+			<p>{{user.lastname}}</p>
+
+		</div>
+		<div class="RowUser flex">
+			<p>Numero de téléphone :</p>
+
+
+			<p>{{user.telephone}}</p>
+
+		</div>
+		<div class="RowUser flex">
+
+			<p>Addresse:</p>
+
+			<p>{{user.addresse}}</p>
+
+		</div>
+		<div class="RowUser flex">
+			<p>Vérifié:</p>
+
+
+			{% if user.isverified == true %}
+				<p>
+					<i class="fas fa-check"></i>
+				</p>
+			{% else %}
+				<p>
+					<i class="fas fa-times"></i>
+				</p>
+
+
+			{% endif %}
+
+
+		</div>
+		<div class="links flex">
+
+			<a href="{{ path('admin_user_command' , { id: user.id }) }}">Consulter ses commandes</a>
+
+
+			<a href="{{ path('admin_user_want' , { id: user.id }) }}">Consulter ses envies</a>
+
+		</div>
+
+
+	</div>
+{% endblock %}
