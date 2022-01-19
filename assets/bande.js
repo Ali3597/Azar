@@ -336,7 +336,7 @@ let isthIsIdAlreadySelect = function (id, element) {
 
 let addThisElement = function (element, type) {
   let id = element.parentNode.querySelector("#element").value;
-
+  element.parentNode.parentNode.querySelector(".errorElement").innerHTML = "";
   if (!isNaN(parseInt(id))) {
     if (isthIsIdAlreadySelect(id, element)) {
       let pError = element.parentNode.parentNode.querySelector(".errorElement");
@@ -669,6 +669,14 @@ let deleteAllErrors = function () {
     element.innerHTML = "";
   });
 };
+let popBigError = function () {
+  let pop = document.querySelector(".popUpError");
+  pop.classList.add("active");
+
+  setTimeout(function () {
+    pop.classList.remove("active");
+  }, 3000);
+};
 let validAll = function () {
   deleteAllErrors();
   let error = 0;
@@ -705,6 +713,8 @@ let validAll = function () {
       .catch((err) => {
         console.log(err);
       });
+  } else {
+    popBigError();
   }
 };
 

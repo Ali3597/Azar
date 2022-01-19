@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=BandeArticleRepository::class)
  */
-class BandeArticle
+class BandeArticle extends Bande
 {
     /**
      * @ORM\Id
@@ -30,7 +30,8 @@ class BandeArticle
      */
     private $bande;
 
-  
+    private $frenchType;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -77,5 +78,11 @@ class BandeArticle
         return $this;
     }
 
-   
+    /**
+     * Get the value of frentchType
+     */
+    public function getFrenchType()
+    {
+        return "Article";
+    }
 }

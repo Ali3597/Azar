@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=BandeProductRepository::class)
  */
-class BandeProduct
+class BandeProduct extends Bande
 {
     /**
      * @ORM\Id
@@ -29,7 +29,7 @@ class BandeProduct
      * @ORM\ManyToMany(targetEntity=Produit::class)
      */
     private $products;
-
+    private $frenchType;
 
     public function __construct()
     {
@@ -77,5 +77,11 @@ class BandeProduct
         return $this;
     }
 
-   
+    /**
+     * Get the value of frentchType
+     */
+    public function getFrenchType()
+    {
+        return "Produit";
+    }
 }

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=BandePromoRepository::class)
  */
-class BandePromo
+class BandePromo extends Bande
 {
     /**
      * @ORM\Id
@@ -19,7 +19,7 @@ class BandePromo
      */
     private $id;
 
-    
+
 
     /**
      * @ORM\OneToOne(targetEntity=Bande::class, inversedBy="bandePromo", cascade={"persist", "remove"})
@@ -32,8 +32,8 @@ class BandePromo
      */
     private $promos;
 
-   
 
+    private $frenchType;
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -45,7 +45,7 @@ class BandePromo
         return $this->id;
     }
 
-   
+
 
 
     public function getBande(): ?Bande
@@ -84,5 +84,11 @@ class BandePromo
         return $this;
     }
 
-   
+    /**
+     * Get the value of frentchType
+     */
+    public function getFrenchType()
+    {
+        return "Image de Promotion";
+    }
 }

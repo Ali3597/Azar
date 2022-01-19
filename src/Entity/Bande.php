@@ -39,9 +39,11 @@ class Bande
      */
     private $slideVisible;
 
-    
 
- 
+
+
+
+
 
     /**
      * @ORM\OneToOne(targetEntity=BandePromo::class, mappedBy="bande", cascade={"persist", "remove"})
@@ -53,7 +55,7 @@ class Bande
      */
     private $bandeProduct;
 
- 
+
 
     /**
      * @ORM\OneToOne(targetEntity=BandeCategoryTitle::class, mappedBy="bande", cascade={"persist", "remove"})
@@ -85,7 +87,9 @@ class Bande
      */
     private $subtitle;
 
-    
+    private $frenchType;
+
+
 
     public function __construct()
     {
@@ -146,7 +150,7 @@ class Bande
         return $this;
     }
 
-    
+
     public function getBandePromo(): ?BandePromo
     {
         return $this->bandePromo;
@@ -181,7 +185,7 @@ class Bande
         return $this;
     }
 
-   
+
     public function getBandeCategoryTitle(): ?BandeCategoryTitle
     {
         return $this->bandeCategoryTitle;
@@ -274,6 +278,23 @@ class Bande
         return $this;
     }
 
-    
-  
+    /**
+     * Get the value of frenchType
+     */
+    public function getFrenchType()
+    {
+        return $this->frenchType;
+    }
+
+    /**
+     * Set the value of frenchType
+     *
+     * @return  self
+     */
+    public function setFrenchType($frenchType)
+    {
+        $this->frenchType = $frenchType;
+
+        return $this;
+    }
 }
