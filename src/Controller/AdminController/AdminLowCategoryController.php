@@ -123,16 +123,4 @@ class AdminLowCategoryController extends AbstractController
         }
         return $this->redirectToRoute('admin_low_categories');
     }
-
-    #[Route('/getLowCategories', name: 'ajax_lowCategories')]
-    public function getHighCategories(Request $request): Response
-    {
-        $data = json_decode($request->getContent(), true);
-        $categories = $this->categorieRepo->findAllLowCategoriesofCategoryParent($data["value"]);
-        $test = [];
-        for ($i = 0; $i < sizeof($categories); $i++) {
-            $test[$i] = ["name" => $categories[$i]->getName(), "id" => $categories[$i]->getId()];
-        }
-        return new JsonResponse(['categories' => $test]);
-    }
 }

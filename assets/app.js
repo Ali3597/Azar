@@ -97,37 +97,47 @@ let deplier = function () {
 menudepliant.addEventListener("click", (e) => {
   e.stopPropagation();
 });
+let ref;
 let activeHighCategory = function () {
-  let hightCategories = document.querySelectorAll(
-    ".categorieHaut-depliant div"
-  );
+  let hightCategories = document.querySelectorAll(".categorieHaut-depliant a");
 
   hightCategories.forEach((element) => {
     element.classList.remove("active");
   });
+
   this.classList.add("active");
   let value = printIdHighCategory(this);
   let subCategoriesPrinted = "";
-  axios
-    .post("/admin/getLowCategories", { value })
-    .then((response) => {
-      if (response.data.categories.length == 0) {
-        subCategoriesPrinted = "";
-      } else {
-        response.data.categories.forEach((element) => {
-          subCategoriesPrinted += `<div data-id=${element.id} class="flex ">
+
+  if (ref) {
+    clearTimeout(ref);
+    console.log("ok");
+  }
+
+  ref = setTimeout(() => {
+    console.log("ok");
+    axios
+      .post("/getLowCategories", { value })
+      .then((response) => {
+        if (response.data.categories.length == 0) {
+          subCategoriesPrinted = "";
+        } else {
+          response.data.categories.forEach((element) => {
+            subCategoriesPrinted += `<a href="/produits/categorie/${element.slug}" class="flex ">
         ${element.name}
-      </div>`;
-        });
-      }
-      tabSubCategories.innerHTML = subCategoriesPrinted;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      </a>`;
+          });
+        }
+        tabSubCategories.innerHTML = subCategoriesPrinted;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, 200);
 };
+
 let tabSubCategories = document.querySelector(".categorieBas-depliant");
-let hightCategories = document.querySelectorAll(".categorieHaut-depliant div");
+let hightCategories = document.querySelectorAll(".categorieHaut-depliant a");
 
 for (let i = 0; i < hightCategories.length; i++) {
   hightCategories[i].addEventListener("mouseenter", activeHighCategory);

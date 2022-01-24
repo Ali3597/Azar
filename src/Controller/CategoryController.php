@@ -9,6 +9,7 @@ use App\Repository\BandeRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -41,5 +42,16 @@ class CategoryController extends AbstractController
                 "category" => $category,
             ]);
         }
+    }
+    #[Route('/getLowCategories', name: 'ajax_lowCategories')]
+    public function getHighCategories(Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $categories = $this->categoryRepo->findAllLowCategoriesofCategoryParent($data["value"]);
+        $test = [];
+        for ($i = 0; $i < sizeof($categories); $i++) {
+            $test[$i] = ["name" => $categories[$i]->getName(), "slug" => $categories[$i]->getSlug()];
+        }
+        return new JsonResponse(['categories' => $test]);
     }
 }

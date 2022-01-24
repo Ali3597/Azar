@@ -116,7 +116,7 @@
 			<div class="menudepliant flex">
 				<div class="categorieHaut-depliant flex column ">
 					{% for category in categoriesHigh  %}
-						<div style="--background: {{colors.allColors.primary}};" class="flex ">
+						<a href="{{path('category',{ slug: category.slug })}}" style="--background: {{colors.allColors.primary}};" class="flex ">
 
 
 							<span>
@@ -128,7 +128,7 @@
 							<span>
 								<i class="fas fa-arrow-right"></i>
 							</span>
-						</div>
+						</a>
 					{% endfor %}
 				</div>
 				<div class="categorieBas-depliant flex column" style="--background: {{colors.allColors.primary}};"></div>
