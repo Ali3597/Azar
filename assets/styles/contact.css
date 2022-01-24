@@ -23,7 +23,6 @@
 }
 
 .contact_right {
-  background-color: red;
   width: 35%;
   height: 80vh;
   border-radius: 5px;
@@ -64,14 +63,8 @@
   font-weight: 700;
 }
 
-.contact_right div span svg {
-  width: 40%;
-  fill: red;
-}
-
 .contact_left h1 {
   width: 100%;
-  color: red;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -116,7 +109,7 @@
 .contact_left form :nth-child(5) {
   width: 30%;
   height: 8vh;
-  background-color: red;
+
   cursor: pointer;
   border-radius: 5px;
   border: 1px solid #ecedf0;

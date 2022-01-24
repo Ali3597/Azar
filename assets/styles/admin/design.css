@@ -1,0 +1,121 @@
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  height: fit-content;
+}
+
+.content > h1 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  margin-bottom: 1%;
+}
+/*Just fancy stuff!!*/
+
+input[type="color"] {
+  background-color: #fff;
+
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  border: 2px solid #000;
+  border-radius: 3px;
+}
+
+b {
+  background-color: #fff;
+  padding: 16px;
+  font-family: sans-serif;
+}
+
+code {
+  font-size: 1.2rem;
+  background-color: lightslategray;
+  color: #fff;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.colors {
+  width: 100%;
+  margin-top: 2%;
+  justify-content: center;
+}
+.colors > .form-row {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5%;
+}
+
+.colors > .form-row > label {
+  font-weight: 700;
+  margin-bottom: 3%;
+}
+.title {
+  display: flex;
+
+  height: 15vh;
+}
+.title > .form-row {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+}
+
+.title > .form-row > input {
+  height: 50%;
+  font-size: 14px;
+  width: 70%;
+}
+
+.title > .form-row > label {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.picture {
+  height: 35vh;
+
+  display: flex;
+  padding-top: 0.5%;
+  align-items: center;
+  flex-direction: column;
+}
+.picture .imagecard {
+  margin-top: 1%;
+  height: 65%;
+  width: 30%;
+}
+
+.picture > .form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.picture > .form-row > label {
+  font-weight: 700;
+  margin-bottom: 1.5%;
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 4%;
+}
+.button > button {
+  background-color: red;
+  height: 8vh;
+  color: white;
+  width: 20%;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.button > button:hover {
+  transform: scale(1.02);
+}

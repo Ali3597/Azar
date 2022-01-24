@@ -55,7 +55,7 @@ class BasketController extends AbstractController
     {
 
         $user = $this->getUser();
-        $userProducts = $user->getAside();
+        $userProducts = $user->getWants();
         return $this->render('basket/aside.html.twig', [
             'basket' => $userProducts,
             "products" => $userProducts,
@@ -175,14 +175,14 @@ class BasketController extends AbstractController
         return new JsonResponse(['nbr' => $totalNumber]);
     }
 
-    #[Route('/aside/delete/{id}', name: 'panier_add')]
+    #[Route('/aside/delete/{id}', name: 'aside_delete')]
     public function deleteAside(Produit $product, SessionInterface $session, Request $request): Response
     {
 
         $user = $this->getUser();
         $user->removeAside($product);
         $this->em->flush();
-        $this->addFlash('success', 'Ce produit a bien été nlevé de votre liste de souhait ');
+        $this->addFlash('success', 'Ce produit a bien été enlevé de votre liste de souhait ');
 
         return new JsonResponse(['ok' => "ok"]);
     }

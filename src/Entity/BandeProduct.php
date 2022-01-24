@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=BandeProductRepository::class)
  */
-class BandeProduct extends Bande
+class BandeProduct
 {
     /**
      * @ORM\Id
@@ -29,7 +29,7 @@ class BandeProduct extends Bande
      * @ORM\ManyToMany(targetEntity=Produit::class)
      */
     private $products;
-    private $frenchType;
+
 
     public function __construct()
     {
@@ -75,13 +75,5 @@ class BandeProduct extends Bande
         $this->products->removeElement($product);
 
         return $this;
-    }
-
-    /**
-     * Get the value of frentchType
-     */
-    public function getFrenchType()
-    {
-        return "Produit";
     }
 }

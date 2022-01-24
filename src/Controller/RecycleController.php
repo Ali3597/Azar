@@ -8,6 +8,7 @@ use App\Repository\BandeRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use App\Repository\CategoryRepository;
+use App\Repository\DesignRepository;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Stmt\Else_;
@@ -34,13 +35,13 @@ class RecycleController extends AbstractController
 
 
 
-    public function header(SessionInterface $session, Request $request, UserAuthenticatorInterface $authenticator, LoginFormAuthenticator $loginForm, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo, MailerInterface $mailer): Response
+    public function header(SessionInterface $session, DesignRepository $designRepo, UserAuthenticatorInterface $authenticator, LoginFormAuthenticator $loginForm, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo, MailerInterface $mailer): Response
     {
 
         $categories = $categoryRepo->findAllHighCategories();
 
-
-
+        //logo
+        $logo = $designRepo->find(1)->getLogo();
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -59,7 +60,7 @@ class RecycleController extends AbstractController
             "categoriesHigh" => $categories,
             'formInscription' => $userForm->createView(),
             'last_username' => $lastUsername,
-
+            'logo' => $logo,
             'total' => $totalNumber,
             "basket" => $basket
         ]);

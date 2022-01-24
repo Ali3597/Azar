@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=BandePromoRepository::class)
  */
-class BandePromo extends Bande
+class BandePromo
 {
     /**
      * @ORM\Id
@@ -33,7 +33,7 @@ class BandePromo extends Bande
     private $promos;
 
 
-    private $frenchType;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -82,13 +82,5 @@ class BandePromo extends Bande
         $this->promos->removeElement($promo);
 
         return $this;
-    }
-
-    /**
-     * Get the value of frentchType
-     */
-    public function getFrenchType()
-    {
-        return "Image de Promotion";
     }
 }

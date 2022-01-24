@@ -7,11 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity(repositoryClass=BandeCategoryRepository::class)
  */
-class BandeCategory extends Bande
+class BandeCategory
 {
     /**
      * @ORM\Id
@@ -31,8 +30,6 @@ class BandeCategory extends Bande
      * @ORM\JoinColumn(nullable=false)
      */
     private $bande;
-
-    private $frenchType;
 
     public function __construct()
     {
@@ -80,13 +77,5 @@ class BandeCategory extends Bande
         $this->bande = $bande;
 
         return $this;
-    }
-
-    /**
-     * Get the value of frentchType
-     */
-    public function getFrenchType()
-    {
-        return "Categorie";
     }
 }

@@ -43,8 +43,6 @@ class Bande
 
 
 
-
-
     /**
      * @ORM\OneToOne(targetEntity=BandePromo::class, mappedBy="bande", cascade={"persist", "remove"})
      */
@@ -86,8 +84,6 @@ class Bande
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $subtitle;
-
-    private $frenchType;
 
 
 
@@ -274,26 +270,6 @@ class Bande
     public function setSubtitle(?string $subtitle): self
     {
         $this->subtitle = $subtitle;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of frenchType
-     */
-    public function getFrenchType()
-    {
-        return $this->frenchType;
-    }
-
-    /**
-     * Set the value of frenchType
-     *
-     * @return  self
-     */
-    public function setFrenchType($frenchType)
-    {
-        $this->frenchType = $frenchType;
 
         return $this;
     }

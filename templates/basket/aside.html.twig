@@ -1,6 +1,7 @@
 <div class="ensemble_left_panier flex column">
 	<div class="flex onglet">
-		<div class=" ensemble_onglet flex column">
+		<div style="--background: {{colors.allColors.primary}};" class=" ensemble_onglet flex column">
+
 			<div onclick="goToBasketItems(this)" class="onglet_panier flex">
 
 
@@ -9,9 +10,11 @@
 				<p>Panier</p>
 
 			</div>
-			<div class="bordure_panier  "></div>
+			<div style="--background: {{colors.allColors.primary}};" class="bordure_panier  "></div>
+
 		</div>
-		<div class="column flex ensemble_onglet">
+		<div style="--background: {{colors.allColors.primary}};" class="column flex ensemble_onglet">
+
 			<div onclick="goToAsideItems(this)" class="onglet_cote flex">
 
 
@@ -21,7 +24,8 @@
 				<p>Mis de coté</p>
 
 			</div>
-			<div class="bordure_panier active"></div>
+			<div style="--background: {{colors.allColors.primary}};" class="bordure_panier active"></div>
+
 		</div>
 	</div>
 	{% if basket %}
@@ -31,15 +35,17 @@
 				<div data-id={{ product.id }} class="basketItem flex">
 					<img width="20%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
 					<div class="itemsDetails flex column">
-						<a href="#">{{ product.name }}</a>
+						<a style="color: {{colors.allColors.primary}}" href="#">{{ product.name }}</a>
+
 						<p class="descriptionItem">{{product.description|length > 350 ? product.description|slice(0,350)~ '...' : product.description}}</p>
 
 						<div class="flex itemOptions">
 
-							<p onclick="addToBasketFromAside(this)" class="action">Ajoutez au panier</p>
+							<p style="color: {{colors.allColors.primary}}" onclick="addToBasketFromAside(this)" class="action">Ajoutez au panier</p>
+
 
 							<p>|</p>
-							<p onclick="deleteFromAside(this)" class="action">Supprimer</p>
+							<p style="color: {{colors.allColors.primary}}" onclick="deleteFromAside(this)" class="action">Supprimer</p>
 
 
 						</div>
@@ -74,7 +80,7 @@
 
 			<form action="{{ path('panier_confirm') }}" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token('confirm' ~ idUser) }}">
-				<button onclick="goToBasketItems(this)">Retournez au panier</button>
+				<button style="background-color: {{colors.allColors.primary}}" onclick="goToBasketItems(this)">Retournez au panier</button>
 
 
 			</form>
@@ -83,7 +89,9 @@
 		{% else %}
 			<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
 			<a href="">
-				<button>Aller au catalogue</button>
+
+				<button style="background-color: {{colors.allColors.primary}}">Aller au catalogue</button>
+
 			</a>
 
 		{% endif %}

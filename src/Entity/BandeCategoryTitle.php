@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=BandeCategoryTitleRepository::class)
  */
-class BandeCategoryTitle extends Bande
+class BandeCategoryTitle
 {
     /**
      * @ORM\Id
@@ -32,7 +32,7 @@ class BandeCategoryTitle extends Bande
      */
     private $bande;
 
-    private $frenchType;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -79,12 +79,5 @@ class BandeCategoryTitle extends Bande
         $this->bande = $bande;
 
         return $this;
-    }
-    /**
-     * Get the value of frentchType
-     */
-    public function getFrenchType()
-    {
-        return "Titre de Categorie";
     }
 }

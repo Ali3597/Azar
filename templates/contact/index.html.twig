@@ -11,7 +11,8 @@
 
 		<div class="contact flex">
 			<div class="contact_left flex column">
-				<h1>Contactez nous !
+				<h1 style="color: {{colors.allColors.primary}}">Contactez nous !
+
 				</h1>
 				{{ form_start(form) }}
 
@@ -39,12 +40,14 @@
 				</div>
 
 
-				<button type="submit">Envoyer</button>
+				<button style="background-color: {{colors.allColors.primary}}" type="submit">Envoyer</button>
+
 				{{ form_end(form) }}
 
 
 			</div>
-			<div class="contact_right flex column">
+			<div style="background-color: {{colors.allColors.primary}}" class="contact_right flex column">
+
 				<div class="adress flex">
 					<span>
 						<i class="fas fa-map-marker"></i>

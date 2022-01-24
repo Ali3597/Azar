@@ -30,12 +30,16 @@ class CategoryController extends AbstractController
     }
 
 
-    #[Route('/category/{slug}', name: 'category')]
+    #[Route('/categorie/{slug}', name: 'category')]
     public function one(Category $category): Response
     {
+        if ($category->getCategoryParent()) {
+            return $this->redirectToRoute('home');
+        } else {
 
-        return $this->render('category/one.html.twig', [
-            "category" => $category,
-        ]);
+            return $this->render('category/one.html.twig', [
+                "category" => $category,
+            ]);
+        }
     }
 }

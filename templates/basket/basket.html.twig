@@ -1,6 +1,7 @@
 <div class="ensemble_left_panier flex column">
 	<div class="flex onglet">
-		<div class=" ensemble_onglet flex column">
+		<div style="--background: {{colors.allColors.primary}};" class=" ensemble_onglet flex column">
+
 			<div onclick="goToBasketItems(this)" class="onglet_panier flex">
 
 
@@ -9,9 +10,11 @@
 				<p>Panier</p>
 
 			</div>
-			<div class="bordure_panier active "></div>
+			<div style="--background: {{colors.allColors.primary}};" class="bordure_panier active "></div>
+
 		</div>
-		<div class="column flex ensemble_onglet">
+		<div style="--background: {{colors.allColors.primary}};" class="column flex ensemble_onglet">
+
 			<div onclick="goToAsideItems(this)" class="onglet_cote flex">
 
 
@@ -21,7 +24,8 @@
 				<p>Mis de coté</p>
 
 			</div>
-			<div class="bordure_panier"></div>
+			<div style="--background: {{colors.allColors.primary}};" class="bordure_panier"></div>
+
 		</div>
 	</div>
 	{% if basket %}
@@ -31,7 +35,8 @@
 				<div data-id={{ product.id }} class="basketItem flex">
 					<img width="20%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
 					<div class="itemsDetails flex column">
-						<a href="#">{{ product.name }}</a>
+						<a style="color: {{colors.allColors.primary}}" href="#">{{ product.name }}</a>
+
 						<p class="descriptionItem">{{product.description|length > 350 ? product.description|slice(0,350)~ '...' : product.description}}</p>
 
 						<div data-nbr={{product.basketNumber}} class="flex itemOptions">
@@ -41,7 +46,8 @@
 								<p>Qte:</p>
 								<p id="number">{{ product.basketNumber}}</p>
 
-								<i class="fas fa-xs fa-arrow-down"></i>
+								<i style="color: {{colors.allColors.primary}}" class="fas fa-xs fa-arrow-down"></i>
+
 								<div class="changeQuantity column ">
 									<p onclick="changeQuantity(this)">0 (Supprimer)</p>
 
@@ -74,13 +80,15 @@
 
 							<p id="unite">{{ product.unite }}</p>
 
-							<div onclick="updateTheInput(this)" class="update">Mettre a jour</div>
+							<div style="background-color: {{colors.allColors.primary}}" onclick="updateTheInput(this)" class="update">Mettre a jour</div>
 
 
 							<p>|</p>
-							<p onclick="deleteThisItem(this)" class="action">Supprimer</p>
+							<p style="color:{{colors.allColors.primary}}" onclick="deleteThisItem(this)" class="action">Supprimer</p>
+
 							<p>|</p>
-							<p class="action">Mettre de coté</p>
+							<p style="color: {{colors.allColors.primary}}" class="action">Mettre de coté</p>
+
 
 						</div>
 
@@ -113,14 +121,16 @@
 
 			<form action="{{ path('panier_confirm') }}" method="post">
 				<input type="hidden" name="_token" value="{{ csrf_token('confirm' ~ idUser) }}">
-				<button>Valider la commande</button>
+				<button style="background-color: {{colors.allColors.primary}}">Valider la commande</button>
+
 
 			</form>
 
 
 		{% else %}
 			<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
-			<a href="">
+			<a style="background-color: {{colors.allColors.primary}}" href="">
+
 				<button>Aller au catalogue</button>
 			</a>
 

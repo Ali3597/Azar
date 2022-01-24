@@ -17,13 +17,14 @@
 {% block body %}
 
 	<div class="content flex column ">
-		<h1>Ah vous êtes nouveau !</h1>
+		<h1 style="color: {{colors.allColors.primary}}">Ah vous êtes nouveau !</h1>
 
 
-		<h2>On est ravi de vous rencontrer!</h2>
+		<h2 style="color: {{colors.allColors.primary}}">On est ravi de vous rencontrer!</h2>
+
 
 		{{form_start(formInscription)}}
-		<h1>Inscription</h1>
+		<h1 style="color: {{colors.allColors.primary}}">Inscription</h1>
 
 
 		{{form_rest(formInscription)}}

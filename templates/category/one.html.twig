@@ -10,49 +10,63 @@
 		<div class="presentation flex column ">
 			<h1>{{category.name}}</h1>
 			<p>{{category.description}}</p>
-			{% for categorie in category.CategoriesChildrens %}
-				<div class="sous-categories flex">
-					<a href="#" class="sous-category flex column ">
-						{% if categorie.produits|length > 0 %}
+			<div class="presCat flex">
+				{% for categorie in category.CategoriesChildrens %}
+					{% if categorie.produits|length > 0 %}
+
+
+						<a href="{{path('productsCategories',{ slug: categorie.slug })}}" class="sous-category flex column ">
+
+
 							<img width="30%" height="60%" src="{{ vich_uploader_asset(categorie.produits[0].pictures[0] ,'imageFile') }}" alt="">
-						{% endif %}
-						<h3>{{categorie.name}}</h3>
-					</a>
-				</div>
-			{% endfor %}
+
+							<h3 style="color: {{colors.allColors.primary}}">{{categorie.name}}</h3>
+
+						</a>
+
+					{% endif %}
+
+				{% endfor %}
+			</div>
+
 		</div>
 		<div class="listecategories flex column">
 			<h1>Nos rayons
 				{{ category.name}}</h1>
 			{% for categorie in category.CategoriesChildrens %}
-				<div class="rayon flex  ">
-					<div class="rayon-presentation flex column ">
-						<h2>{{categorie.name}}</h2>
-						{% if categorie.produits|length > 0 %}
+				{% if categorie.produits|length > 0 %}
+
+					<div class="rayon flex  ">
+						<a href="{{path('productsCategories',{ slug: categorie.slug })}}" class="rayon-presentation flex column ">
+
+							<h2 style="color: {{colors.allColors.primary}}">{{categorie.name}}</h2>
+
+
 							<div class="rayon-img"><img width="95%" height="95%" src="{{ vich_uploader_asset(categorie.produits[0].pictures[0],'imageFile') }}" alt=""></div>
-						{% endif %}
-					</div>
-					<div class="rayon-produits flex column ">
-						<h1>Les produits les plus populaires de
-							{{categorie.name}}</h1>
-						<div class="lesproduits">
-							{% if categorie.produits|length > 0 %}
+
+						</a>
+						<div class="rayon-produits flex column ">
+							<h1>Les produits les plus populaires de
+								{{categorie.name}}</h1>
+							<div class="lesproduits">
+
 								{% for produit in categorie.produits %}
-									<a href="" class="flex">
+									<a href="{{path('produit',{ slug: produit.slug })}}" class="flex column">
+
 
 										<img width="50%" height="90%" src="{{ vich_uploader_asset(produit.pictures[0],'imageFile') }}" alt="">
-										<h3>{{produit.name}}</h3>
+										<h3 style="color:{{colors.allColors.primary}}">{{produit.name}}</h3>
+
 									</a>
 
 								{% endfor %}
-                                {% else %}
-                                    <h2>Pas encore de produits pour cette categorie</h2>
-							{% endif %}
 
 
+							</div>
 						</div>
 					</div>
-				</div>
+				{% endif %}
+
 			{% endfor %}
 		</div>
 	</div>

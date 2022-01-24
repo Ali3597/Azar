@@ -7,40 +7,45 @@
 				Welcome!
 			{% endblock %}
 		</title>
+		<style>:root
+		{
 
-		{% block cdn %}
-			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-			<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-			<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-		{% endblock %}
-		{% block stylesheets %}
-			{{ encore_entry_link_tags('app')}}
-		{% endblock %}
+			--heading-color: #818cab;
+		}
+
+	</style>
+
+	{% block cdn %}
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	{% endblock %}
+	{% block stylesheets %}
+		{{ encore_entry_link_tags('app')}}
+	{% endblock %}
 
 
-	</head>
-	<body>
-		{% block header %}
-			{{ render(controller(
-			        'App\\Controller\\RecycleController::header'
-			    )) }}
-			{# {{ include('partials/_header.html.twig') }} #}
-		{% endblock %}
-		{% block body %}
-			je suis le body
-		{% endblock %}
-		{% for cat, list in app.flashes %}
-			{% for message in list %}
-				<div class="flash flash-{{ cat }}">{{ message }}</div>
-			{% endfor %}
+</head>
+<body>
+	{% block header %}
+		{{ render(controller(
+						        'App\\Controller\\RecycleController::header'
+						    )) }}
+		{# {{ include('partials/_header.html.twig') }} #}
+	{% endblock %}
+	{% block body %}
+		je suis le body
+	{% endblock %}
+	{% for cat, list in app.flashes %}
+		{% for message in list %}
+			<div class="flash flash-{{ cat }}">{{ message }}</div>
 		{% endfor %}
-		{% block footer %}
-			{{ include('partials/_footer.html.twig') }}
-		{% endblock %}
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
-	</body>
-
-</html>
+	{% endfor %}
+	{% block footer %}
+		{{ include('partials/_footer.html.twig') }}
+	{% endblock %}
+	{% block javascripts %}
+		{{ encore_entry_script_tags('app') }}
+	{% endblock %}
+</body></html>

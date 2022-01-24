@@ -27,7 +27,7 @@ a {
 header {
   height: 8vh;
   width: 100%;
-  background-color: red;
+background-color: red;
   display: flex;
   align-items: center;
 }
