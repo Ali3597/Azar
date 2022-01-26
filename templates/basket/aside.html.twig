@@ -35,7 +35,8 @@
 				<div data-id={{ product.id }} class="basketItem flex">
 					<img width="20%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
 					<div class="itemsDetails flex column">
-						<a style="color: {{colors.allColors.primary}}" href="#">{{ product.name }}</a>
+<a style="color: {{colors.allColors.primary}}" href="{{path('produit',{ slug: product.slug })}}">{{ product.name }}</a>
+
 
 						<p class="descriptionItem">{{product.description|length > 350 ? product.description|slice(0,350)~ '...' : product.description}}</p>
 
