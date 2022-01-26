@@ -428,7 +428,7 @@ input[type="number"] {
   height: 100px;
   border-radius: 50%;
   border: 10px solid #dcefff;
-  border-top: 10px solid red;
+
   animation: rotate 2s infinite ease;
 }
 @keyframes rotate {

@@ -1,7 +1,7 @@
 import "./styles/basket.css";
-
+let color = document.querySelector(".content").getAttribute("data-color")
 let loader = `<div id="ctn">
-<div id="loader"></div>
+<div style=" border-top: 10px solid ${color}; "  id="loader"></div>
 </div>`;
 let startBasket = function () {
   let changeQuantitydefaults = document.querySelectorAll(".changeQuantity");
@@ -229,20 +229,23 @@ let goToAsideItems = function () {
   activeLoader();
   ajaxAside();
 };
-let activeLoader = function () {
-  let basketList = document.querySelectorAll(".toFill");
-  basketList.forEach(element => {
-    if (!element.classList.contains("none")){
-      element.innerHTML = loader;
-    }
-  });
-
-};
 let goToBasketItems = function () {
   activeAndInactiveItem(0);
   activeLoader();
   ajaxBasket();
 };
+let activeLoader = function () {
+  let basketList = document.querySelectorAll(".toFill");
+  basketList.forEach(element => {
+    console.log("elemenet", element);
+    if (!element.classList.contains("none")){
+      
+      element.innerHTML = loader;
+    }
+  });
+
+};
+
 let activeAndInactiveItem = function (number) {
   let elementsToInactive = document.querySelectorAll(".active");
   elementsToInactive.forEach((element) => {
