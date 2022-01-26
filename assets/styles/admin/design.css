@@ -119,3 +119,89 @@ code {
 .button > button:hover {
   transform: scale(1.02);
 }
+
+.high-showoff {
+  width: 100%;
+  margin-top: 3%;
+  height: 40vh;
+  padding-bottom: 1.5%;
+  padding-top: 1.5%;
+
+  background-color: #f5f6f7;
+}
+
+.showoff h1 {
+  display: flex;
+  width: 100%;
+
+  justify-content: center;
+  margin-top: 2%;
+}
+.showoff {
+  width: 100%;
+  align-items: center;
+  padding-right: 1%;
+  padding-left: 1%;
+}
+
+.showoffIn {
+  min-width: 100%;
+  height: 30vh;
+}
+.showoffIn div {
+  width: 33.3333333333333%;
+  height: 100%;
+}
+.showoffIn div :nth-child(n) {
+  font-size: large;
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.showoffIn div :nth-child(2) {
+  margin-top: 10%;
+}
+.high-showoff {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.position {
+  position: absolute;
+  right: 5%;
+  font-weight: 700;
+  font-size: 21px;
+}
+
+.bandecolor {
+  position: absolute;
+  font-weight: 700;
+  font-size: 21px;
+  top: 0;
+  left: 5%;
+}
+
+.bandecolor .form-row {
+  display: flex;
+  flex-direction: column;
+}
+.bandecolor .form-row input {
+  width: 180px;
+  height: 5vh;
+}
+
+.position .form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+#design_bandeTitle {
+  width: 850px;
+  height: 6vh;
+}
+
+.showoffIn {
+  width: 100%;
+}

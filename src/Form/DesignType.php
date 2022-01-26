@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Design;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,10 +37,58 @@ class DesignType extends AbstractType
                 'label' => 'Slogan header'
 
             ])
+            ->add('bandeTitle', TextType::class, [
+
+                'label' => false
+
+            ])->add('bandeLeft', TextType::class, [
+
+                'label' => false
+
+            ])->add('bandeCenter', TextType::class, [
+
+            'label' => false
+
+        ])->add('bandeRight', TextType::class, [
+
+            'label' => false
+
+        ])->add('bandeTitleLeft', TextType::class, [
+
+            'label' => false
+
+        ])->add('bandeTitleCenter', TextType::class, [
+
+            'label' => false
+
+        ])->add('bandeTitleRight', TextType::class, [
+
+            'label' => false
+
+        ])->add('position',ChoiceType::class,[
+            'choices'  => [
+                'Pas présent' => null,
+                '1' => 1,
+                '2' => 2,
+                '3' => 3,
+                '4' => 4,
+                '5' => 5,
+                '6' => 6,
+                '7' => 7,
+                '8' => 8,
+            ],
+        ])
+        ->add('colorBande', ColorType::class, [
+
+            'label' => 'couleur de la bande'
+
+        ])
+
+        
             ->add('pictureFile', FileType::class, [
                 'required' => false,
 
-                'label' => 'Photo'
+                'label' => 'Logo'
 
             ]);;
     }

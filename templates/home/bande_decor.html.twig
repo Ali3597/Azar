@@ -1,26 +1,32 @@
-<div class="high-showoff">
+<div style="background-color: {{design.colorBande}}" class=" high-showoff">
 	<div class="showoff flex column ">
-		<h1>Le plus grand magasin en ligne du Senegal de brico, maison & jardin</h1>
+		<h1>{{design.bandeTitle}}</h1>
 		<div class="showoffIn flex">
 			<div class=" flex column ">
 				<span>{{ source('@public_path'~asset('svg/paint.svg')) }}</span>
 
-				<h2>Des milliers de produits</h2>
-				<p>62 fois plus qu'en magasin, ça en fait du choix</p>
+				<h2>{{design.bandeTitleLeft}}</h2>
+
+				<p>{{design.bandeLeft}}</p>
+
 			</div>
 			<div class=" flex column ">
 				<span>
 					{{ source('@public_path'~asset('svg/box.svg')) }}</span>
 
-				<h2>Des milliers de produits</h2>
-				<p>62 fois plus qu'en magasin, ça en fait du choix</p>
+				<h2>{{design.bandeTitleCenter}}</h2>
+
+				<p>{{design.bandeCenter}}</p>
+
 			</div>
 			<div class=" flex column ">
-				<span>s
+				<span>
 					{{ source('@public_path'~asset('svg/customer.svg')) }}</span>
 
-				<h2>Des milliers de produits</h2>
-				<p>62 fois plus qu'en magasin, ça en fait du choix</p>
+				<h2>{{design.bandeTitleRight}}</h2>
+
+				<p>{{design.bandeRight}}</p>
+
 			</div>
 
 		</div>

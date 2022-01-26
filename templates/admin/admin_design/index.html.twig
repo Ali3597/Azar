@@ -32,6 +32,56 @@
 
 
 		</div>
+		<div style="background-color:{{design.colorBande}}" class="high-showoff">
+			<div class="position">
+				{{ form_row(form.position) }}
+
+			</div>
+			<div class="bandecolor">
+				{{ form_row(form.colorBande) }}
+
+			</div>
+
+
+			<div class="showoff flex column ">
+				{{ form_row(form.bandeTitle) }}
+
+
+				<div class="showoffIn flex">
+					<div class=" flex column ">
+						<span>{{ source('@public_path'~asset('svg/paint.svg')) }}</span>
+						{{ form_row(form.bandeTitleLeft) }}
+
+						{{ form_row(form.bandeLeft) }}
+
+
+					</div>
+					<div class=" flex column ">
+						<span>
+							{{ source('@public_path'~asset('svg/box.svg')) }}</span>
+
+						{{ form_row(form.bandeTitleCenter) }}
+
+						{{ form_row(form.bandeCenter) }}
+
+
+					</div>
+					<div class=" flex column ">
+						<span>
+							{{ source('@public_path'~asset('svg/customer.svg')) }}</span>
+
+						{{ form_row(form.bandeTitleRight) }}
+
+						{{ form_row(form.bandeRight) }}
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+
 
 		<div class="button">
 			<button>Soumettre</button>

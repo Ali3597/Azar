@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\BandeRepository;
+use App\Repository\DesignRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +17,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class HomeController extends AbstractController
 {
 
-   
+
     private $em;
-   
+
 
     function __construct(EntityManagerInterface $em)
     {
@@ -26,14 +27,16 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function index(BandeRepository $bandeRepo): Response
+    public function index(BandeRepository $bandeRepo, DesignRepository $designRepo): Response
     {
-        
 
-        $bandes= $bandeRepo->findAll();
-    
+
+        $bandes = $bandeRepo->findAll();
+        $design = $designRepo->find(1);
+
         return $this->render('home/index.html.twig', [
-            'bandes'=>$bandes,
+            'bandes' => $bandes,
+            'design' => $design
         ]);
     }
 }

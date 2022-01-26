@@ -51,6 +51,51 @@ class Design
      */
     private $headerSubTitle;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $bandeTitle;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $bandeLeft;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $bandeCenter;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $bandeRight;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $bandeTitleLeft;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $bandeTitleCenter;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $bandeTitleRight;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $position;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $colorBande;
+
 
 
     public function __construct()
@@ -144,6 +189,114 @@ class Design
             $this->logo = $picture;
         }
         $this->pictureFile = $pictureFile;
+
+        return $this;
+    }
+
+    public function getBandeTitle(): ?string
+    {
+        return $this->bandeTitle;
+    }
+
+    public function setBandeTitle(string $bandeTitle): self
+    {
+        $this->bandeTitle = $bandeTitle;
+
+        return $this;
+    }
+
+    public function getBandeLeft(): ?string
+    {
+        return $this->bandeLeft;
+    }
+
+    public function setBandeLeft(string $bandeLeft): self
+    {
+        $this->bandeLeft = $bandeLeft;
+
+        return $this;
+    }
+
+    public function getBandeCenter(): ?string
+    {
+        return $this->bandeCenter;
+    }
+
+    public function setBandeCenter(string $bandeCenter): self
+    {
+        $this->bandeCenter = $bandeCenter;
+
+        return $this;
+    }
+
+    public function getBandeRight(): ?string
+    {
+        return $this->bandeRight;
+    }
+
+    public function setBandeRight(string $bandeRight): self
+    {
+        $this->bandeRight = $bandeRight;
+
+        return $this;
+    }
+
+    public function getBandeTitleLeft(): ?string
+    {
+        return $this->bandeTitleLeft;
+    }
+
+    public function setBandeTitleLeft(string $bandeTitleLeft): self
+    {
+        $this->bandeTitleLeft = $bandeTitleLeft;
+
+        return $this;
+    }
+
+    public function getBandeTitleCenter(): ?string
+    {
+        return $this->bandeTitleCenter;
+    }
+
+    public function setBandeTitleCenter(string $bandeTitleCenter): self
+    {
+        $this->bandeTitleCenter = $bandeTitleCenter;
+
+        return $this;
+    }
+
+    public function getBandeTitleRight(): ?string
+    {
+        return $this->bandeTitleRight;
+    }
+
+    public function setBandeTitleRight(string $bandeTitleRight): self
+    {
+        $this->bandeTitleRight = $bandeTitleRight;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): self
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    public function getColorBande(): ?string
+    {
+        return $this->colorBande;
+    }
+
+    public function setColorBande(string $colorBande): self
+    {
+        $this->colorBande = $colorBande;
 
         return $this;
     }
