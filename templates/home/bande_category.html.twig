@@ -1,4 +1,6 @@
-<div class="high-category">
+<div style="background-color : {{bande.color}}" class="high-category">
+
+
 	<div class="category">
 		<div class="titre-category flex column ">
 			<h1>{{bande.title}}</h1>
@@ -6,7 +8,9 @@
 			<h2>{{bande.subtitle}}</h2>
 
 		</div>
-		<div class="category-up-left flex ">
+		<a href="{{path('category',{ slug: bande.bandeCategory.categories[0].slug })}}" class="category-up-left flex ">
+
+
 			<div class="card flex column  centerY  category_damier">
 				<img width="95%" height="75%" src="{{ vich_uploader_asset(bande.bandeCategory.categories[0].picture,'imageFile') }}" alt="">
 				<div class="category-description flex centerX ">
@@ -14,8 +18,9 @@
 
 				</div>
 			</div>
-		</div>
-		<div class="category-up-right flex ">
+		</a>
+		<a href="{{path('category',{ slug: bande.bandeCategory.categories[1].slug })}}" class="category-up-right flex ">
+
 			<div class="card flex column centerY category_damier">
 				<img width="95%" height="75%" src="{{ vich_uploader_asset(bande.bandeCategory.categories[1].picture,'imageFile') }}" alt="">
 
@@ -25,8 +30,9 @@
 
 				</div>
 			</div>
-		</div>
-		<div class="category-down-left flex ">
+		</a>
+		<a href="{{path('category',{ slug: bande.bandeCategory.categories[2].slug })}}" class="category-down-left flex ">
+
 			<div class="card flex column centerY  category_damier">
 				<img width="95%" height="75%" src="{{ vich_uploader_asset(bande.bandeCategory.categories[2].picture,'imageFile') }}" alt="">
 
@@ -36,8 +42,9 @@
 
 				</div>
 			</div>
-		</div>
-		<div class="category-down-right flex ">
+		</a>
+		<a href="{{path('category',{ slug: bande.bandeCategory.categories[3].slug })}}" class="category-down-right flex ">
+
 			<div class="card flex column  centerY  category_damier">
 				<img width="95%" height="75%" src="{{ vich_uploader_asset(bande.bandeCategory.categories[3].picture,'imageFile') }}" alt="">
 
@@ -47,8 +54,9 @@
 
 				</div>
 			</div>
-		</div>
-		<div class="right">
+		</a>
+		<a href="{{path('category',{ slug: bande.bandeCategory.categories[4].slug })}}" class="right">
+
 			<div class="card flex  column centerY  centerY">
 				<img width="97%" height="88.2%" src="{{ vich_uploader_asset(bande.bandeCategory.categories[4].picture,'imageFile') }}" alt="">
 
@@ -58,7 +66,7 @@
 
 				</div>
 			</div>
-		</div>
+		</a>
 
 
 	</div>

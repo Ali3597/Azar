@@ -85,6 +85,11 @@ class Bande
      */
     private $subtitle;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Color;
+
 
 
     public function __construct()
@@ -270,6 +275,18 @@ class Bande
     public function setSubtitle(?string $subtitle): self
     {
         $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->Color;
+    }
+
+    public function setColor(string $Color): self
+    {
+        $this->Color = $Color;
 
         return $this;
     }

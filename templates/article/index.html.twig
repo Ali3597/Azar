@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('article') }}
+{% endblock %}
+
+
+{% block body %}
+	<div class="content flex ">
+		<h1>Hello je suis l'article</h1>
+		{% for article in articles %}
+			<p>{{article.title}}</p>
+
+		{% endfor %}
+	</div>
+{% endblock %}

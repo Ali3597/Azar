@@ -1,12 +1,15 @@
-<div class="high_ecriture">
-	<div class="ecriture">
+<div style="background-color : {{bande.color}}" class="high_ecriture">
+	<div style="--background: {{colors.allColors.primary}};" class="ecriture">
+
+
 		<div class="item_titre_ecriture">
 			<h1>{{bande.title}}</h1>
 		</div>
 		<div class="item_description">{{bande.subtitle}}</div>
 		<div class="carouselSelect" data-type="article" data-visible={{bande.slideVisible}} data-scroll={{bande.slideToScroll}}>
 			{% for article in bande.bandeArticle.articles %}
-				<div class="item_ecriture  column ">
+				<a href="{{path('article',{ slug: article.slug })}}" class="item_ecriture  column ">
+
 					<div class="item_image_ecriture">
 						<img width="100%" height="80%" src="{{ vich_uploader_asset(article.picture,'imageFile') }}" alt="">
 					</div>
@@ -14,7 +17,7 @@
 						<p>{{article.title}}</p>
 
 					</div>
-				</div>
+				</a>
 			{% endfor %}
 
 

@@ -56,8 +56,9 @@ class BasketController extends AbstractController
 
         $user = $this->getUser();
         $userProducts = $user->getWants();
+
         return $this->render('basket/aside.html.twig', [
-            'basket' => $userProducts,
+            'basket' => sizeof($userProducts) == 0 ? null : true,
             "products" => $userProducts,
             'idUser' => $this->getUser()->getId()
         ]);
@@ -180,7 +181,7 @@ class BasketController extends AbstractController
     {
 
         $user = $this->getUser();
-        $user->removeAside($product);
+        $user->removeWant($product);
         $this->em->flush();
         $this->addFlash('success', 'Ce produit a bien été enlevé de votre liste de souhait ');
 

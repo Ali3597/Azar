@@ -34,10 +34,6 @@
   width: 15%;
 }
 
-.tri p:last-child {
-  color: red;
-  margin-left: 3%;
-}
 .up-produits h1 {
   margin-top: 3%;
   margin-left: 0.8%;
@@ -330,10 +326,6 @@ input[type="number"] {
   padding-top: 1.5%;
   padding-bottom: 1.5%;
 }
-.righ-produits-bas h3 {
-  font-size: medium;
-  color: red;
-}
 
 .pagination {
   max-width: 50%;
@@ -358,17 +350,17 @@ input[type="number"] {
   color: black;
   cursor: pointer;
 }
-.pagination span:hover {
+.righ-produits-bas .pagination span:hover {
   color: white !important;
   font-weight: 700 !important;
-  background-color: red;
+  background-color: var(--background);
 }
 
 .current {
   color: white !important;
   cursor: default !important;
   font-weight: 700 !important;
-  background-color: red;
+  background-color: var(--background);
 }
 
 .search span {
@@ -407,7 +399,7 @@ input[type="number"] {
 }
 
 .filtre span.active {
-  background-color: red;
+  background-color: var(--background);
   color: white;
 }
 

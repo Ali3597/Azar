@@ -4,14 +4,12 @@
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
-
-  padding-top: 1.5%;
 }
 
 .high-promo {
   width: 100%;
-  margin-bottom: 1.5%;
-  margin-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-top: 1.5%;
   height: fit-content;
   padding-left: 12%;
   padding-right: 12%;
@@ -177,7 +175,7 @@
 .carousel_pagination_button_active_promo,
 .carousel_pagination_button_promo:hover {
   transform: scale(1.4);
-  background-color: red;
+  background-color: var(--background);
 }
 
 @media screen and (min-width: 800px) {
@@ -189,8 +187,8 @@
 /* carousel article */
 .high-article {
   width: 100%;
-  margin-bottom: 1.5%;
-  margin-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-top: 1.5%;
   height: fit-content;
   padding-left: 12%;
   padding-right: 12%;
@@ -234,8 +232,8 @@
 
 .high_ecriture {
   width: 100%;
-  margin-bottom: 1.5%;
-  margin-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-top: 1.5%;
   background-color: #f5f6f7;
   height: fit-content;
   padding-left: 12%;
@@ -247,8 +245,7 @@
   overflow: hidden;
 }
 .item_titre_ecriture {
-  margin-top: 2%;
-  margin-bottom: 1%;
+  margin-bottom: 2%;
 }
 .item_ecriture {
   cursor: pointer;
@@ -259,15 +256,20 @@
   margin-right: 15%;
   position: relative;
 }
+.item_ecriture:hover {
+  transform: scale(1.02);
+}
 .item_image_description_ecriture {
   position: absolute;
   background-color: white;
   border-radius: 5px;
   left: 5%;
+  text-align: center;
+  font-size: 17px;
   height: 10vh;
   width: 90%;
   bottom: 8%;
-  border-bottom: 5px solid red;
+  border-bottom: 5px solid var(--background);
 }
 .item_image_description_ecriture p {
   font-size: 14px;
@@ -307,8 +309,8 @@
 /*  Category */
 .high-category {
   width: 100%;
-  margin-bottom: 1.5%;
-  margin-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-top: 1.5%;
 
   height: fit-content;
   padding-left: 12%;
@@ -317,19 +319,26 @@
 .category {
   display: grid;
   width: 100%;
-  height: 75vh;
-  margin-top: 3%;
+  height: 85vh;
+
   grid-template-columns: 0.3fr 0.3fr 0.4fr;
   grid-template-rows: 0.15fr 0.5fr 0.5fr;
+}
+.category > a:hover {
+  transform: scale(1.02);
 }
 
 .titre-category {
   grid-column: 1 / 4;
   grid-row: 1 /2;
+  margin-bottom: 2%;
 }
 .titre-category h2 {
   font-size: 14px;
   font-weight: 300;
+}
+.titre-category h1 {
+  margin-bottom: 2%;
 }
 .category-up-left {
   grid-column: 1 / 2;
@@ -406,25 +415,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80%;
+  min-height: 100%;
   width: 100%;
-  margin-bottom: 2%;
+  border-radius: 5px;
+}
+.item_image_marque img {
+  border-radius: 5px;
+  height: 100%;
 }
 .item_marque {
-  height: 100%;
+  height: 80px;
+  cursor: pointer;
   margin-right: 8%;
+}
+.item_marque:hover {
+  transform: scale(1.02);
 }
 .high-marque {
   width: 100%;
-  margin-bottom: 1.5%;
-  margin-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-top: 1.5%;
   height: fit-content;
   padding-left: 12%;
   padding-right: 12%;
 }
 
 .marque {
-  margin-top: 2%;
   height: 30vh;
 
   overflow: hidden;
@@ -477,8 +493,8 @@
 
 .high-category-carousel {
   width: 100%;
-  margin-bottom: 1.5%;
-  margin-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-top: 1.5%;
   height: fit-content;
   padding-left: 12%;
   padding-right: 12%;
@@ -496,6 +512,23 @@
   border-right: 1px solid grey;
 }
 
+.item_category a {
+  cursor: pointer;
+}
+.linkHigh {
+  font-size: 21px;
+  font-weight: 700;
+  width: fit-content;
+}
+.linkLow {
+  margin-top: 3%;
+  font-size: 17px;
+  width: fit-content;
+}
+.item_category a:hover {
+  transform: scale(1.02);
+}
+
 .carousel_item_category .carousel_item:first-child .item_category {
   padding-left: 0;
 }
@@ -507,8 +540,8 @@
 .high-showoff {
   width: 100%;
   height: 40vh;
-  margin-bottom: 1.5%;
-  margin-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-top: 1.5%;
   padding-left: 12%;
   padding-right: 12%;
   background-color: #f5f6f7;
@@ -561,6 +594,9 @@
   margin-top: 2%;
   border: 1px solid #e2e2e2;
   color: #6f6f7e;
+}
+.produit > a:hover {
+  transform: scale(1.02);
 }
 
 .produit:nth-child(3n) {
@@ -647,12 +683,16 @@
   flex: 1;
   margin-left: 8%;
   cursor: pointer;
-  background: linear-gradient(90deg, #f00000, #dc281e);
+  background-color: var(--background);
   border: 0.1rem solid #d8dadf;
   color: white;
+
   font-size: large;
 }
 
+.ajout-produit button:hover {
+  transform: scale(1.02);
+}
 HTML CSS JSResult Skip Results Iframe .quantity {
   position: relative;
 }
@@ -731,4 +771,12 @@ input[type="number"] {
 
 .carouselPromo {
   height: 100%;
+}
+
+.marque .carousel_next_article {
+  top: -40%;
+}
+
+.marque .carousel_prev_article {
+  top: -40%;
 }

@@ -44,7 +44,8 @@ Encore
   .addEntry("admin_command_consult", "./assets/admin_command_consult.js")
   .addEntry("user_consult", "./assets/user_consult.js")
   .addEntry("design", "./assets/design.js")
-
+  .addEntry("article", "./assets/article.js")
+  .addEntry("oneArticle", "./assets/oneArticle.js")
   // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
   // .enableStimulusBridge('./assets/controllers.json')
 

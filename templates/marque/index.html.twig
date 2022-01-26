@@ -14,7 +14,8 @@
 		</div>
 		<div class="marques flex">
 			{% for marque in marques %}
-				<div class="marque">
+				<div style="--background: {{colors.allColors.primary}};" class="marque">
+
 					<img width="90%" height="55%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
 				</div>
 			{% endfor %}

@@ -199,6 +199,7 @@ let deleteThisItem = function (element) {
   let nbrProducts = -nbr;
   let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
   element.parentNode.parentNode.parentNode.remove();
+  changeBasketNumber(nbrProducts);
   axios
     .post("/panier/add/" + id, { nbrProducts })
     .then((response) => {

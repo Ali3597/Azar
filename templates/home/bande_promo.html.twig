@@ -1,5 +1,8 @@
-<div class="high-promo flex">
-	<div class="promo">
+<div style="background-color : {{bande.color}}" class="high-promo flex">
+
+
+	<div style="--background: {{colors.allColors.primary}};" class="promo">
+
 		<div class="carouselSelect carouselPromo" data-type="promo" data-visible={{bande.slideVisible}} data-scroll={{bande.slideToScroll}}>
 			{% for promo in bande.bandePromo.promos %}
 				<div class="item_promo">

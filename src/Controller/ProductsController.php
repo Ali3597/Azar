@@ -65,7 +65,7 @@ class ProductsController extends AbstractController
             $PaginateProducts = $paginator->paginate(
                 $products,
                 $request->query->getInt('page', 1),
-                1,
+                12,
             );
 
             $marques = [];
@@ -132,7 +132,7 @@ class ProductsController extends AbstractController
             $PaginateProducts = $paginator->paginate(
                 $products,
                 $request->query->getInt('page', 1),
-                1,
+                12,
             );
 
 

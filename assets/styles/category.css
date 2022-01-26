@@ -21,14 +21,6 @@
   margin-bottom: 3%;
 }
 
-.sous-categories {
-  background-color: red;
-  flex: 1;
-  width: 100%;
-
-  flex-wrap: wrap;
-}
-
 .sous-category {
   align-items: center;
   width: 13%;

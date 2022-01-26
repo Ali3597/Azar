@@ -1,4 +1,6 @@
-<div class="high-category-carousel">
+<div style="background-color : {{bande.color}}" class="high-category-carousel">
+
+
 	<div class=" category-carousel">
 		<div class="item_titre">
 			<h1>
@@ -10,12 +12,17 @@
 		<div class=" carouselSelect theCategoryCarousel" data-type="article" data-visible={{bande.slideVisible}} data-scroll={{bande.slideToScroll}}>
 			{% for item in bande.bandeCategoryTitle.categories %}
 
-				<div class="item_category column ">
+				<div class="item_category flex column ">
 
 
-					<h1>{{item.name}}</h1>
-					{% for element in item.categoriesChildrens %}
-						<h2>{{element.name}}</h2>
+					<a class="linkHigh" href="{{path('category',{ slug: item.slug } )}}">{{item.name|capitalize }}</a>
+
+
+					{% for element in item.categoriesChildrens|slice(0,5) %}
+
+						<a class="linkLow" {{path('productsCategories',{ slug: element.slug } )}}">{{element.name|capitalize }}</a>
+
+
 					{% endfor %}
 
 
