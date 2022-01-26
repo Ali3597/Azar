@@ -115,7 +115,12 @@ let activeInputBasket = function (element) {
 };
 
 let deleteItem = function (element) {
-  element.parentNode.parentNode.parentNode.parentNode.parentNode.remove();
+  console.log(element.parentNode.parentNode.parentNode.parentNode.parentNode);
+   element.parentNode.parentNode.parentNode.parentNode.parentNode.style.opacity ="0"
+   window.setTimeout(function () {
+      element.parentNode.parentNode.parentNode.parentNode.parentNode.remove();
+   }, 300);
+  
 };
 
 window.addEventListener("click", () => {
@@ -198,12 +203,21 @@ let deleteThisItem = function (element) {
   let nbr = element.parentNode.getAttribute("data-nbr");
   let nbrProducts = -nbr;
   let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
-  element.parentNode.parentNode.parentNode.remove();
+  
   changeBasketNumber(nbrProducts);
+  
+ element.parentNode.parentNode.parentNode.style.opacity = "0";
+  window.setTimeout(function () {
+   element.parentNode.parentNode.parentNode.remove();
+  }, 300);
   axios
     .post("/panier/add/" + id, { nbrProducts })
     .then((response) => {
-      console.log(response.data["nbr"]);
+      let elements = document.querySelectorAll(".basketItem");
+      if (elements.length == 0) {
+        fillEmptyLeft();
+        fillEmptyButton();
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -216,8 +230,13 @@ let goToAsideItems = function () {
   ajaxAside();
 };
 let activeLoader = function () {
-  let basketList = document.querySelector("#toFill");
-  basketList.innerHTML = loader;
+  let basketList = document.querySelectorAll(".toFill");
+  basketList.forEach(element => {
+    if (!element.classList.contains("none")){
+      element.innerHTML = loader;
+    }
+  });
+
 };
 let goToBasketItems = function () {
   activeAndInactiveItem(0);
@@ -267,6 +286,7 @@ let addToBasketFromAside = function (element) {
     .post("/panier/add/" + id, { nbrProducts })
     .then((response) => {
       goToBasketItems();
+      changeBasketNumber(1);
     })
     .catch((err) => {
       console.log(err);
@@ -274,16 +294,59 @@ let addToBasketFromAside = function (element) {
 };
 
 let deleteFromAside = function (element) {
+  let elements = document.querySelectorAll(".basketItem");
+  if (elements.length == 1) {
+    fillEmptyLeft();
+    fillEmptyButton();
+  }
   let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
-  axios
+   element.parentNode.parentNode.parentNode.style.opacity = "0";
+ 
+  window.setTimeout( function() {
+ axios
     .get("/aside/delete/" + id)
     .then((response) => {
       element.parentNode.parentNode.parentNode.remove();
+      
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }, 300);
+ 
+}
+
+// /putAsideItem/{id}
+let putAsideThisItem = function (element) {
+  let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
+  console.log(id);
+  axios
+    .get("/putAsideItem/" + id)
+    .then((response) => {
+      console.log(response.data);
+      /// to do flash
     })
     .catch((err) => {
       console.log(err);
     });
 };
+
+let fillEmptyLeft = function () {
+ let basketList = document.querySelector(".basketlist");
+ let vide = document.querySelector(".panier_vide");
+ console.log(basketList)
+ basketList.classList.add("none")
+ vide.classList.remove("none")
+ 
+};
+
+let fillEmptyButton = function () {
+   let valid = document.querySelector(".validB");
+   let noValid = document.querySelector(".novalidB");
+   valid.classList.add("none");
+   noValid.classList.remove("none");
+};
+window.putAsideThisItem = putAsideThisItem;
 window.deleteFromAside = deleteFromAside;
 window.addToBasketFromAside = addToBasketFromAside;
 window.goToBasketItems = goToBasketItems;

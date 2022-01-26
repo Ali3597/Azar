@@ -84,6 +84,18 @@ class BasketController extends AbstractController
         ]);
     }
 
+    #[Route('/putAsideItem/{id}', name: 'putAsideItem')]
+    public function putAside(Produit $produit): Response
+    {
+
+        $user = $this->getUser();
+        $user->addWant($produit);
+        $this->em->persist($user);
+        $this->em->flush();
+        return new JsonResponse(['sucess' => "ok"]);
+    }
+
+
     #[Route('/panier/confirmer', name: 'panier_confirm', methods: ['POST'])]
     public function confirm(SessionInterface $session, MailerInterface $mailer, Request $request, ProduitRepository $produitRepo, CommandRepository $commandRepo, ComandProductsRepository $comandProductsRepo): Response
     {

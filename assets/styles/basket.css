@@ -286,6 +286,9 @@ input[type="number"] {
 .basketItem {
   height: 25vh;
   border-bottom: 1px solid #ddd;
+   transition : all .3s;
+  -wekit-transition : all .3s;
+  -moz-transition : all .3s;
 }
 
 .basketItem img {
@@ -447,4 +450,8 @@ input[type="number"] {
 
 .itemsDetails > a:hover {
   text-decoration: underline;
+}
+
+.none {
+  display: none;
 }

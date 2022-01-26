@@ -28,8 +28,8 @@
 
 		</div>
 	</div>
-	{% if basket %}
-		<div id="toFill" class="basketList flex column ">
+		<div class=" {{basket ? " " : " none "}} basketlist flex column toFill">
+
 
 			{% for product in products %}
 				<div data-id={{ product.id }} class="basketItem flex">
@@ -59,9 +59,12 @@
 		</div>
 
 
-	{% else %}
+	
 
-		<div id="toFill" class=" panier_vide flex column">
+<div class=" {{basket ? " none " : " "}}panier_vide novalidB flex column tofill ">
+
+
+
 
 			<h1>Ça alors. Vous n’avez rien mis de côté.
 			</h1>
@@ -71,31 +74,37 @@
 		</div>
 
 
-	{% endif %}
+
 
 </div>
 <div class="flex  ensemble_right_panier ">
-	<div id="toFill" class="recap flex column ">
 
-		{% if basket %}
 
-			<form action="{{ path('panier_confirm') }}" method="post">
-				<input type="hidden" name="_token" value="{{ csrf_token('confirm' ~ idUser) }}">
+	
+		<div class="recap {{basket ? " " : " none "}} validB flex column ">
+
+
+			
 				<button style="background-color: {{colors.allColors.primary}}" onclick="goToBasketItems(this)">Retournez au panier</button>
 
 
-			</form>
+			
+
+		</div>
+
+	
+		<div  class=" {{basket ? " none " : ""}}recap flex column ">
 
 
-		{% else %}
 			<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
 			<a href="">
 
 				<button style="background-color: {{colors.allColors.primary}}">Aller au catalogue</button>
 
 			</a>
+		</div>
 
-		{% endif %}
+	
 
-	</div>
+
 </div>
