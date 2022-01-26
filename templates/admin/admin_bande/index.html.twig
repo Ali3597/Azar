@@ -21,20 +21,26 @@
 						<div id="visible" data-visible="{{bande.slideVisible}} ">Visible:{{bande.slideVisible}}
 							&nbsp;</div>
 						<br>
-						<div>Scroll:{{bande.slideToScroll}}
-							&nbsp;</div>
 						<p>
 							Bande de
 							{{bande.type}}
 						</p>
+
+						<div>Scroll:{{bande.slideToScroll}}
+							&nbsp;</div>
+
 					</div>
 					<div class="subdetails">
 						<label for="title">
-							Titre</label>
+							Titre :
+						</label>
 						<input type="text" name='title' id="title" value="{{ bande.title }}" placeholder="placer le titre">
 						<label for="subTitle">
-							Sous-Titre</label>
+							Sous-Titre :
+						</label>
 						<input type="text" id="subtitle" name='subTitle' value="{{bande.subtitle}}" placeholder="placer le titre">
+						<input type="color" id="color" name="head" value="{{bande.color}}">
+
 						<p class="error"></p>
 					</div>
 					{%  if bande.bandeProduct %}

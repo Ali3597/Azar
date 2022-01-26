@@ -700,6 +700,7 @@ let validAll = function () {
         type: bandes[i].getAttribute("data-type"),
         title: bandes[i].querySelector("#title").value,
         subtitle: bandes[i].querySelector("#subtitle").value,
+        color: bandes[i].querySelector("#color").value,
         position: bandes[i].dataset.position,
         elements: array,
       };

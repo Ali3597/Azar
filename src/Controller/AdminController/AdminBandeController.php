@@ -59,6 +59,7 @@ class AdminBandeController extends AbstractController
             $bande->setPosition($dataBande["position"]);
             $bande->setTitle($dataBande["title"]);
             $bande->setSubtitle($dataBande["subtitle"]);
+            $bande->setColor($dataBande["color"]);
             if ($bande->getType() == "product") {
                 $bande->setSlideVisible(4);
                 $bande->setSlideToScroll(1);
