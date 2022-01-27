@@ -16,14 +16,19 @@
 {% block body %}
 	<div class="content flex column ">
 		<div class=" archo flex">
-			<a href="#">Accueil</a>
-			<span>
-				></span>
-			<a href="#">{{product.category.categoryParent.name}}</a>
+			<a style="color: {{colors.allColors.primary}}" href="{{path('home')}}">Accueil</a>
+
 
 			<span>
 				></span>
-			<a href="#">{{product.category.name}}</a>
+			<a style="color: {{colors.allColors.primary}}" href="{{path('category',{ slug: product.category.categoryParent.slug })}}">{{product.category.categoryParent.name}}</a>
+
+
+			<span>
+
+				></span>
+			<a style="color: {{colors.allColors.primary}}" href="{{path('productsCategories',{ slug: product.category.slug })}}">{{product.category.name}}</a>
+
 
 			<span>
 				></span>
@@ -31,8 +36,10 @@
 		</div>
 		<h1>{{product.name}}</h1>
 		<div class="produit-brut flex">
-			<div class="echantillons flex column "></div>
-			<div class="img-brut flex" id="carousel1">
+			<div style="--background: {{colors.allColors.primary}};" class="echantillons flex column "></div>
+
+			<div style="--background: {{colors.allColors.primary}};" class="img-brut flex" id="carousel1">
+
 				{% for picture in product.pictures %}
 					<div class="item_promo">
 						<div class="item_image">
@@ -46,8 +53,9 @@
 			</div>
 			<div class="ajouter-brut surquantity flex column ">
 				<div class="ajouter-brut-haut quantity flex">
+
 					<input type="number" name="tentacles" min="1" value="1">
-					<button data-name={{product.name}} data-id={{ product.id }} onclick="addBasket(this)">Ajouter</button>
+					<button style="background-color: {{colors.allColors.primary}}" data-name={{product.name}} data-id={{ product.id }} onclick="addBasket(this)">Ajouter</button>
 
 
 				</div>
@@ -56,6 +64,8 @@
 					</h1>
 					<h2>En stock</h2>
 				</div>
+				<p style="color: {{colors.allColors.primary}}" class="aside">Mette de coté</p>
+
 			</div>
 		</div>
 		<div class="produit-description  flex column">
@@ -101,7 +111,8 @@
 				</ul>
 
 			</div>
-			<div class="afficher-plus flex">
+			<div style="--background: {{colors.allColors.primary}};" class="afficher-plus flex">
+
 				<p>Afficher plus</p>
 				<span>
 					<i class="fas fa-arrow-down"></i>

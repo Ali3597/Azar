@@ -7,18 +7,25 @@ class CarouselTouchPlugin {
    * @param {Carousel} carousel
    */
   constructor(carousel) {
-    carousel.container.addEventListener("dragstart", (e) => e.preventDefault());
-    carousel.container.addEventListener("mousedown", this.startDrag.bind(this));
-    carousel.container.addEventListener(
-      "touchstart",
-      this.startDrag.bind(this)
-    );
-    window.addEventListener("mousemove", this.drag.bind(this));
-    window.addEventListener("touchmove", this.drag.bind(this));
-    window.addEventListener("mouseup", this.endDrag.bind(this));
-    window.addEventListener("touchend", this.endDrag.bind(this));
-    window.addEventListener("touchcancel", this.endDrag.bind(this));
-    this.carousel = carousel;
+    if (carousel.options.slidesVisible < carousel.items.length) {
+      carousel.container.addEventListener("dragstart", (e) =>
+        e.preventDefault()
+      );
+      carousel.container.addEventListener(
+        "mousedown",
+        this.startDrag.bind(this)
+      );
+      carousel.container.addEventListener(
+        "touchstart",
+        this.startDrag.bind(this)
+      );
+      window.addEventListener("mousemove", this.drag.bind(this));
+      window.addEventListener("touchmove", this.drag.bind(this));
+      window.addEventListener("mouseup", this.endDrag.bind(this));
+      window.addEventListener("touchend", this.endDrag.bind(this));
+      window.addEventListener("touchcancel", this.endDrag.bind(this));
+      this.carousel = carousel;
+    }
   }
 
   /**
@@ -221,7 +228,6 @@ class Carousel {
   }
 
   createPagination() {
-    console.log("on crééé");
     if (this.options.style == "produit") {
       let laDiv = document.querySelector(".echantillons");
       this.echantillons = [];
