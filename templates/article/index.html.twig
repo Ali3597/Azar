@@ -6,11 +6,36 @@
 
 
 {% block body %}
-	<div class="content flex ">
-		<h1>Hello je suis l'article</h1>
+	<div class="content flex column ">
+		<h1 style="color: {{colors.allColors.primary}}">Nos derniers articles</h1>
+
 		{% for article in articles %}
-			<p>{{article.title}}</p>
+			<a href="{{path('article',{ slug: article.slug } )}}" class="bandeArticle flex">
+				<img width="20%" height="80%" src="{{ vich_uploader_asset(article.picture,'imageFile') }}" alt="">
+				<div class="content-article flex column">
+					<h1 style="color: {{colors.allColors.primary}}">{{article.title}}</h1>
+
+					<p>{{article.content|length >600 ? article.content|slice(0,600)~ '...' : article.content}}</p>
+
+
+					<span>Fait le
+						{{article.createdat|date("m/d/Y")}}
+					</span>
+
+
+				</div>
+
+
+			</a>
+
 
 		{% endfor %}
+		<div style="--background: {{colors.allColors.primary}};" class="righ-produits-bas flex column">
+
+
+			{{ knp_pagination_render(articles) }}
+
+		</div>
+
 	</div>
 {% endblock %}

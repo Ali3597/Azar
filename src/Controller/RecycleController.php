@@ -41,7 +41,7 @@ class RecycleController extends AbstractController
         $categories = $categoryRepo->findAllHighCategories();
 
         //logo
-        $logo = $designRepo->find(1)->getLogo();
+        $design = $designRepo->find(1);
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -60,7 +60,7 @@ class RecycleController extends AbstractController
             "categoriesHigh" => $categories,
             'formInscription' => $userForm->createView(),
             'last_username' => $lastUsername,
-            'logo' => $logo,
+            'design' => $design,
             'total' => $totalNumber,
             "basket" => $basket
         ]);

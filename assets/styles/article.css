@@ -1,6 +1,90 @@
 .content {
-  height: 120vh;
+  height: fit-content;
   padding-left: 12%;
   padding-right: 12%;
-  background-color: aqua;
+  background-color: white;
+}
+.content > h1 {
+  text-align: center;
+  margin-bottom: 4%;
+  margin-top: 2%;
+}
+.bandeArticle {
+  background-color: #d6cbd3;
+  width: 90%;
+  height: 25vh;
+  margin-bottom: 3%;
+  cursor: pointer;
+  border-radius: 5px;
+  align-items: center;
+}
+.bandeArticle img {
+  margin-left: 2%;
+  border-radius: 5px;
+}
+.bandeArticle:hover {
+  transform: scale(1.02);
+}
+
+.content-article :nth-child(2) {
+  min-height: 13.5vh;
+  margin-top: 2%;
+}
+
+.content-article :nth-child(3) {
+  text-align: end;
+  margin-right: 2%;
+}
+
+.content-article {
+  height: 100%;
+  flex: 1;
+  margin-left: 2%;
+  margin-top: 2%;
+}
+
+.righ-produits-bas {
+  width: 100%;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+}
+
+.pagination {
+  max-width: 50%;
+  min-width: 15%;
+  height: 7vh;
+
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 60%;
+  margin: 1%;
+  font-size: 14px;
+  border-radius: 5px;
+  color: black;
+  cursor: pointer;
+}
+.righ-produits-bas .pagination span:hover {
+  color: white !important;
+  font-weight: 700 !important;
+  background-color: var(--background);
+}
+
+.current {
+  color: white !important;
+  cursor: default !important;
+  font-weight: 700 !important;
+  background-color: var(--background);
 }
