@@ -40,11 +40,7 @@ class Produit
     #[Assert\Length(max: 255, maxMessage: 'Le nom de votre categorie est trop long')]
     private $name;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    #[Assert\Length(min: 40, minMessage: 'Veuillez détailler votre description')]
-    private $description;
+
 
     /**
      * @ORM\Column(type="integer")
@@ -114,6 +110,16 @@ class Produit
      */
     private $usersWanter;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Advice::class, cascade={"persist", "remove"})
+     */
+    private $advices;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Description::class, cascade={"persist", "remove"})
+     */
+    private $descriptionList;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -130,31 +136,21 @@ class Produit
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
 
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 
     public function getStock(): ?int
     {
         return $this->stock;
     }
 
-    public function setStock(int $stock): self
+    public function setStock(?int $stock): self
     {
         $this->stock = $stock;
 
@@ -166,7 +162,7 @@ class Produit
         return $this->unite;
     }
 
-    public function setUnite(string $unite): self
+    public function setUnite(?string $unite): self
     {
         $this->unite = $unite;
 
@@ -178,7 +174,7 @@ class Produit
         return $this->afficher;
     }
 
-    public function setAfficher(bool $afficher): self
+    public function setAfficher(?bool $afficher): self
     {
         $this->afficher = $afficher;
 
@@ -285,7 +281,7 @@ class Produit
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
@@ -335,6 +331,30 @@ class Produit
         if ($this->usersWanter->removeElement($usersWanter)) {
             $usersWanter->removeWant($this);
         }
+
+        return $this;
+    }
+
+    public function getAdvices(): ?Advice
+    {
+        return $this->advices;
+    }
+
+    public function setAdvices(?Advice $advices): self
+    {
+        $this->advices = $advices;
+
+        return $this;
+    }
+
+    public function getDescriptionList(): ?Description
+    {
+        return $this->descriptionList;
+    }
+
+    public function setDescriptionList(?Description $descriptionList): self
+    {
+        $this->descriptionList = $descriptionList;
 
         return $this;
     }

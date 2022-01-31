@@ -28,7 +28,6 @@ Encore
   .addEntry("admin_index", "./assets/adminindex.js")
   .addEntry("bande", "./assets/bande.js")
   .addEntry("contact", "./assets/contact.js")
-
   .addEntry("category", "./assets/category.js")
   .addEntry("marque", "./assets/marque.js")
   .addEntry("produitQuery", "./assets/produitQuery.js")
@@ -46,6 +45,7 @@ Encore
   .addEntry("design", "./assets/design.js")
   .addEntry("article", "./assets/article.js")
   .addEntry("oneArticle", "./assets/oneArticle.js")
+  .addEntry("formadd", "./assets/formadd.js")
   // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
   // .enableStimulusBridge('./assets/controllers.json')
 

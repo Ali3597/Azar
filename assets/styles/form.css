@@ -97,3 +97,29 @@ textarea {
   height: fit-content;
   align-items: center;
 }
+
+form ul li {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+form ul {
+  width: 80%;
+}
+
+form ul li button {
+  width: 25px;
+  height: 25px;
+  background-color: red;
+  color: white;
+  border-radius: 50px;
+  margin-left: 3%;
+  text-align: center;
+  cursor: pointer;
+}
+form ul li div {
+  flex: 1;
+}
+form ul li button:hover {
+  transform: scale(1.03);
+}

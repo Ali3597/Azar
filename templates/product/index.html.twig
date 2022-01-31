@@ -4,6 +4,8 @@
 {% block stylesheets %}
 	{{ parent() }}
 	{{ encore_entry_link_tags('product') }}
+
+
 {% endblock %}
 
 {% block cdn %}
@@ -14,6 +16,10 @@
 
 
 {% block body %}
+	<div class="popup column flex">
+
+		<p>C'est oke le produit a été mis de coté</p>
+	</div>
 	<div class="content flex column ">
 		<div class=" archo flex">
 			<a style="color: {{colors.allColors.primary}}" href="{{path('home')}}">Accueil</a>
@@ -64,94 +70,63 @@
 					</h1>
 					<h2>En stock</h2>
 				</div>
-				<p style="color: {{colors.allColors.primary}}" class="aside">Mette de coté</p>
+				<p style="color: {{colors.allColors.primary}}" onclick="popup(this)" class="aside">Mette de coté</p>
 
 			</div>
 		</div>
-		<div class="produit-description  flex column">
+		{% if  product.descriptionList.content or product.descriptionList.itemList|length > 0 %}
+		<div style="--background: {{colors.allColors.primary}};" class="produit-description  flex column">
 			<div class="reel flex column">
-				<h1>Detail du produit</h1>
-				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
-				<ul>
-					<li>Montage rapide de la machine de forage Diamant</li>
-					<li>Conception robuste pour un forage de précision</li>
-					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
-				</ul>
-				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
-				<ul>
-					<li>Montage rapide de la machine de forage Diamant</li>
-					<li>Conception robuste pour un forage de précision</li>
-					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
-				</ul>
-				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
-				<ul>
-					<li>Montage rapide de la machine de forage Diamant</li>
-					<li>Conception robuste pour un forage de précision</li>
-					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
-				</ul>
-				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
-				<ul>
-					<li>Montage rapide de la machine de forage Diamant</li>
-					<li>Conception robuste pour un forage de précision</li>
-					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
-				</ul>
+				<h1>Description du produit</h1>
+			<p>{{product.descriptionList.content}}</p>
 
-				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
 				<ul>
-					<li>Montage rapide de la machine de forage Diamant</li>
-					<li>Conception robuste pour un forage de précision</li>
-					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
+				{% for item in product.descriptionList.itemList %}
+					<li>{{item.content}}</li>
+				{% endfor %}
+				
 				</ul>
-
-				<h2>Adapté à l'appareil de forage diamant GDB 350 WE</h2>
-				<ul>
-					<li>Montage rapide de la machine de forage Diamant</li>
-					<li>Conception robuste pour un forage de précision</li>
-					<li>Adaptation aisée de l'angle de travail à l'aide de l'échelle angulaire</li>
-				</ul>
+				
 
 			</div>
-			<div style="--background: {{colors.allColors.primary}};" class="afficher-plus flex">
-
-				<p>Afficher plus</p>
-				<span>
-					<i class="fas fa-arrow-down"></i>
-				</span>
-
-			</div>
+			
 		</div>
+		{% endif %}
+		{% if  product.advices.content or product.advices.itemAdviceList|length > 0 %}
+		<div style="--background: {{colors.allColors.primary}};"  class="produit-description  flex column">
+			<div class="reel flex column">
+				<h1>Conseil d'utilisation</h1>
+			<p>{{product.advices.content}}</p>
 
+				<ul>
+				{% for item in product.advices.itemAdviceList %}
+					<li>{{item.content}}</li>
+				{% endfor %}
+				
+				</ul>
+				
+
+			</div>
+			
+		</div>
+		{% endif %}
+{% if alikes|length > 0 %}
 		<div class="flex column else">
 			<h1>Ces produits pourraient aussi vous intéresser</h1>
 			<div class="otherProducts flex">
-				<a class="otherProduct">
-					<img width="80%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
-					<p>{{product.name}}</p>
-
+			{% for item in alikes %}
+				<a href="{{path('produit',{ slug: item.slug })}}" class="otherProduct">
+					<img width="80%" height="80%" src="{{ vich_uploader_asset(item.pictures[0],'imageFile') }}" alt="">
+					<p>{{item.name}}</p>
 				</a>
-				<a class="otherProduct">
-					<img width="80%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
-					<p>{{product.name}}</p>
-
-				</a>
-
-				<a class="otherProduct">
-					<img width="80%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
-					<p>{{product.name}}</p>
-
-				</a>
-
-				<a class="otherProduct">
-					<img width="80%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
-					<p>{{product.name}}</p>
-
-				</a>
+			{% endfor %}
+				
 
 			</div>
 
 
 		</div>
-
+{% endif %}
 
 	</div>
 

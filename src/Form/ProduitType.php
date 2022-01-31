@@ -9,6 +9,7 @@ use App\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -34,11 +35,9 @@ class ProduitType extends AbstractType
                 'label' => 'Slug'
 
             ])
-            ->add('description', TextareaType::class, [
 
-                'label' => 'Description'
 
-            ])
+
             ->add('stock', IntegerType::class, [
 
                 'label' => 'Stock'
@@ -68,6 +67,17 @@ class ProduitType extends AbstractType
                 'placeholder' => 'Chosisser une sous category',
                 'choices' => []
             ])
+            ->add('descriptionList', DescriptionType::class, [
+
+                'label' => false
+
+            ])
+            ->add('advices', AdviceType::class, [
+
+                'label' => false
+
+            ])
+
             ->add('marque', EntityType::class, [
                 'class' => Marque::class,
                 'choice_label' => 'name',
@@ -115,6 +125,7 @@ class ProduitType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Produit::class,
             "csrf_protection" => false,
+
         ]);
     }
 }

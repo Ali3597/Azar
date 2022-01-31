@@ -222,7 +222,7 @@ input[type="number"] {
 }
 
 .carousel_item {
-  height: 45vh;
+  height: 55vh;
   display: flex;
   align-items: flex-start;
 }
@@ -300,8 +300,22 @@ input[type="number"] {
   width: 100%;
   height: fit-content;
   border-radius: 5px;
+  letter-spacing: 0.3px;
   margin-bottom: 2%;
+
   align-items: center;
+}
+
+.produit-description ul {
+  margin-top: 3%;
+  font-size: 17px;
+
+  list-style-type: circle;
+  margin-left: 3%;
+}
+.produit-description ul li {
+  list-style: disc;
+  margin-bottom: 2%;
 }
 .afficher-plus {
   border: 1px solid var(--background);
@@ -320,35 +334,34 @@ input[type="number"] {
   display: flex;
   justify-content: center;
   width: 15%;
-  margin-left: 14%;
 }
 
 .reel {
-  max-height: 45vh;
-
   width: 60%;
+}
+
+.reel.long {
+  max-height: 45vh;
   overflow: hidden;
   transition: all 0.5s ease-in-out;
 }
 .reel h1 {
   margin-top: 4%;
 }
-.reel ul {
-  list-style-type: circle;
-  margin-left: 4%;
-  font-size: 14px;
-}
 
-.reel.taille {
+.taille .reel {
   max-height: 100vh;
 }
-
-.taille .afficher-plus svg {
-  transform: rotateZ(180deg);
+.afficher-plus i {
+  color: black;
+  margin-right: 3%;
 }
-.afficher-plus svg {
+.taille .afficher-plus .fas {
+  transform: rotateZ(180deg) !important;
+}
+.afficher-plus i {
   width: 20%;
-  transition: all 0.2s linear;
+  transition: all 0.5s ease-in-out;
 }
 .afficher-plus p {
   min-width: 65%;
@@ -426,7 +439,7 @@ input[type="number"] {
 
 .else {
   background-color: white;
-  height: 45vh;
+  height: fit-content;
   border-radius: 5px;
   width: 100%;
   margin-bottom: 3%;
@@ -438,6 +451,8 @@ input[type="number"] {
 }
 
 .otherProducts {
+  margin-top: 2%;
+  margin-bottom: 2%;
   flex: 1;
   justify-content: space-around;
 }

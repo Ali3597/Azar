@@ -23,11 +23,13 @@ class ProductController extends AbstractController
         $this->productRepo = $productRepo;
     }
     #[Route('/produit/{slug}', name: 'produit')]
-    public function index(Produit $product): Response
+    public function index(Produit $product, ProduitRepository $produitRepo): Response
     {
+        $productsAlike =  $produitRepo->findFourProductsDependsOnCategoryId($product->getCategory()->getId(), $product->getId());
 
         return $this->render('product/index.html.twig', [
             'product' => $product,
+            'alikes' => $productsAlike
         ]);
     }
 }

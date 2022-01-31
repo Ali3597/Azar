@@ -7,6 +7,7 @@ use App\Entity\Search;
 use App\Form\ProduitType;
 use App\Form\SearchType;
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,12 +70,47 @@ class AdminProductController extends AbstractController
     #[Route('/product/{id}', name: 'product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $product): Response
     {
+        $orginalsItemsDescription = null;
+        if ($product->getDescriptionList()) {
+            if ($product->getDescriptionList()->getItemList()) {
+                $orginalsItemsDescription = new ArrayCollection();
+                foreach ($product->getDescriptionList()->getItemList() as $item) {
+                    $orginalsItemsDescription
+                        ->add($item);
+                }
+            }
+        }
+
+
+        $orginalsItemsAdvice = null;
+        if ($product->getAdvices()) {
+            if ($product->getAdvices()->getItemAdviceList()) {
+                $orginalsItemsAdvice = new ArrayCollection();
+                foreach ($product->getAdvices()->getItemAdviceList() as $item) {
+                    $orginalsItemsAdvice->add($item);
+                }
+            }
+        }
         $product->setCategoryParent($product->getCategory()->getCategoryParent());
         $form = $this->createForm(ProduitType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            if ($orginalsItemsDescription) {
+                foreach ($orginalsItemsDescription as $item) {
+                    if (false === $product->getDescriptionList()->getItemList()->contains($item)) {
+                        $this->em->remove($item);
+                    }
+                }
+            }
+            if ($orginalsItemsAdvice) {
+                foreach ($orginalsItemsAdvice as $item) {
+                    if (false === $product->getAdvices()->getItemAdviceList()->contains($item)) {
+                        $this->em->remove($item);
+                    }
+                }
+            }
             $this->em->persist($product);
             $this->em->flush();
             $this->addFlash('success', 'Votre produit a bien été modifié ');

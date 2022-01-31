@@ -1,5 +1,5 @@
 import "./styles/basket.css";
-let color = document.querySelector(".content").getAttribute("data-color")
+let color = document.querySelector(".content").getAttribute("data-color");
 let loader = `<div id="ctn">
 <div style=" border-top: 10px solid ${color}; "  id="loader"></div>
 </div>`;
@@ -116,11 +116,11 @@ let activeInputBasket = function (element) {
 
 let deleteItem = function (element) {
   console.log(element.parentNode.parentNode.parentNode.parentNode.parentNode);
-   element.parentNode.parentNode.parentNode.parentNode.parentNode.style.opacity ="0"
-   window.setTimeout(function () {
-      element.parentNode.parentNode.parentNode.parentNode.parentNode.remove();
-   }, 300);
-  
+  element.parentNode.parentNode.parentNode.parentNode.parentNode.style.opacity =
+    "0";
+  window.setTimeout(function () {
+    element.parentNode.parentNode.parentNode.parentNode.parentNode.remove();
+  }, 300);
 };
 
 window.addEventListener("click", () => {
@@ -203,12 +203,12 @@ let deleteThisItem = function (element) {
   let nbr = element.parentNode.getAttribute("data-nbr");
   let nbrProducts = -nbr;
   let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
-  
+
   changeBasketNumber(nbrProducts);
-  
- element.parentNode.parentNode.parentNode.style.opacity = "0";
+
+  element.parentNode.parentNode.parentNode.style.opacity = "0";
   window.setTimeout(function () {
-   element.parentNode.parentNode.parentNode.remove();
+    element.parentNode.parentNode.parentNode.remove();
   }, 300);
   axios
     .post("/panier/add/" + id, { nbrProducts })
@@ -236,14 +236,12 @@ let goToBasketItems = function () {
 };
 let activeLoader = function () {
   let basketList = document.querySelectorAll(".toFill");
-  basketList.forEach(element => {
+  basketList.forEach((element) => {
     console.log("elemenet", element);
-    if (!element.classList.contains("none")){
-      
+    if (!element.classList.contains("none")) {
       element.innerHTML = loader;
     }
   });
-
 };
 
 let activeAndInactiveItem = function (number) {
@@ -303,21 +301,19 @@ let deleteFromAside = function (element) {
     fillEmptyButton();
   }
   let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
-   element.parentNode.parentNode.parentNode.style.opacity = "0";
- 
-  window.setTimeout( function() {
- axios
-    .get("/aside/delete/" + id)
-    .then((response) => {
-      element.parentNode.parentNode.parentNode.remove();
-      
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  element.parentNode.parentNode.parentNode.style.opacity = "0";
+
+  window.setTimeout(function () {
+    axios
+      .get("/aside/delete/" + id)
+      .then((response) => {
+        element.parentNode.parentNode.parentNode.remove();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, 300);
- 
-}
+};
 
 // /putAsideItem/{id}
 let putAsideThisItem = function (element) {
@@ -335,19 +331,18 @@ let putAsideThisItem = function (element) {
 };
 
 let fillEmptyLeft = function () {
- let basketList = document.querySelector(".basketlist");
- let vide = document.querySelector(".panier_vide");
- console.log(basketList)
- basketList.classList.add("none")
- vide.classList.remove("none")
- 
+  let basketList = document.querySelector(".basketlist");
+  let vide = document.querySelector(".panier_vide");
+  console.log(basketList);
+  basketList.classList.add("none");
+  vide.classList.remove("none");
 };
 
 let fillEmptyButton = function () {
-   let valid = document.querySelector(".validB");
-   let noValid = document.querySelector(".novalidB");
-   valid.classList.add("none");
-   noValid.classList.remove("none");
+  let valid = document.querySelector(".validB");
+  let noValid = document.querySelector(".novalidB");
+  valid.classList.add("none");
+  noValid.classList.remove("none");
 };
 window.putAsideThisItem = putAsideThisItem;
 window.deleteFromAside = deleteFromAside;

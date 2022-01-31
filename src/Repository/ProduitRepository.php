@@ -130,6 +130,24 @@ class ProduitRepository extends ServiceEntityRepository
         return   $query->getQuery()
             ->getResult();
     }
+    public function findFourProductsDependsOnCategoryId($categoryId, $productId)
+    {
+
+
+        $query = $this->createQueryBuilder('p');
+
+        $query
+            ->Where('p.category = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->andWhere('p.id != :productId')
+            ->setParameter('productId', $productId)
+            ->setMaxResults(4);
+
+
+        return   $query->getQuery()
+            ->getResult();
+    }
+
 
     public function findProductsDependsOnParameters($categorySlug = null, $search = "none", $marqueSlug = null)
     {

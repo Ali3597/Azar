@@ -233,3 +233,18 @@ stopSearchProduct.addEventListener("submit", (e) => {
   e.preventDefault();
 });
 window.searchProduct = searchProduct;
+
+/////popup
+
+let popup = function (message) {
+  let popup = document.querySelector(".popup");
+  popup.querySelector("p").innerHTML = message;
+  popup.classList.add("active");
+
+  setInterval(() => {
+    popup.classList.remove("active");
+    popup.querySelector(p).innerHTML = "";
+  }, 2000);
+};
+
+window.popup = popup;

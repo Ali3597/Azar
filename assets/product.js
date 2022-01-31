@@ -12,10 +12,31 @@ let onReady = function () {
     style: "produit",
   });
 };
+let affPlus = `
+
+
+				<p>Afficher plus</p>
+				<span>
+					<i class="fas fa-arrow-down"></i>
+				</span>
+
+		
+`;
 
 document.addEventListener("DOMContentLoaded", onReady);
 
-let afficherPlus = document.querySelector(".afficher-plus");
-afficherPlus.addEventListener("click", () => {
-  afficherPlus.parentNode.querySelector(".reel").classList.toggle("taille");
+let afficherPlus = document.querySelectorAll(".produit-description");
+
+afficherPlus.forEach((element) => {
+  let div = document.createElement("div");
+  div.classList.add("afficher-plus", "flex");
+  div.innerHTML = affPlus;
+  console.log(element.offsetHeight);
+  if (element.offsetHeight > 295) {
+    element.append(div);
+  }
+  element.querySelector(".reel").classList.add("long");
+  div.addEventListener("click", () => {
+    element.parentNode.classList.toggle("taille");
+  });
 });

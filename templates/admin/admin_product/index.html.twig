@@ -41,23 +41,6 @@
 						</div>
 					</th>
 
-					<th>
-						<div>
-							{% if products.isSorted('p.description') %}
-								{% if products.direction == "asc" %}
-									<i class="fas fa-chevron-up"></i>
-								{% else %}
-									<i class="fas fa-chevron-down"></i>
-
-								{% endif %}
-
-
-							{% endif %}
-
-							{{ knp_pagination_sortable(products, 'Description', 'p.description') }}
-
-						</div>
-					</th>
 
 					<th>
 						<div>
@@ -107,7 +90,6 @@
 
 						<td>{{product.name|length > 10 ? product.name|slice(0,10)~ '...' : product.name}}</td>
 
-						<td>{{product.description|length > 10 ? product.description|slice(0,10)~ '...' : product.description}}</td>
 
 						<td>{{product.stock}}</td>
 						<td>{{product.unite}}</td>

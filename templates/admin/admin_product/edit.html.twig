@@ -8,6 +8,35 @@
 	<div class="content column ">
 		<div class="comment-form">
 			{{ form_start(form)}}
+			{{ form_row(form.name)}}
+			{{ form_row(form.slug)}}
+			{{ form_row(form.stock)}}
+			{{ form_row(form.unite)}}
+			{{ form_row(form.afficher)}}
+			{{ form_row(form.categoryParent)}}
+			{{ form_row(form.category)}}
+			{{ form_row(form.descriptionList.content)}}
+			
+			 <ul class="itemList" data-index="{{ form.descriptionList.itemList|length > 0 ? form.descriptionList.itemList|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.descriptionList.itemList.vars.prototype)|e('html_attr') }}">
+	{% for item in form.descriptionList.itemList %}
+		<li>	{{ form_row(item.content)}} </li>
+				
+			{% endfor %}
+
+			</ul>
+      <button type="button" class="add_item_link" data-collection-holder-class="itemList">Rajoutez un item </button> 
+
+{{ form_row(form.advices.content)}}
+	   <ul class="itemAdviceList" data-index="{{ form.advices.itemAdviceList|length > 0 ? form.advices.itemAdviceList|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.advices.itemAdviceList.vars.prototype)|e('html_attr') }}">
+	{% for item in form.advices.itemAdviceList %}
+		<li>	{{ form_row(item.content)}} </li>
+				
+			{% endfor %}
+
+			</ul>
+			<button type="button" class="add_item_link" data-collection-holder-class="itemAdviceList">Rajoutez un item </button> 
 			{{ form_rest(form) }}
 			<div class="flex editcard">
 				{% if product.pictures %}
@@ -31,5 +60,7 @@
 
 	{% block javascripts %}
 		{{ encore_entry_script_tags('form') }}
+		{{ encore_entry_script_tags('formadd') }}
+		{{ encore_entry_script_tags('formCategory') }}
 	{% endblock %}
 {% endblock %}
