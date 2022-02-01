@@ -726,16 +726,20 @@ footer div {
 
 .headerlog {
   height: 10vh;
-  width: 100%;
+
   align-items: center;
+  display: flex;
+  width: 100%;
 }
 
 .headerlog a {
   margin-left: 2%;
   width: 5%;
+  margin-right: 33%;
+  font-weight: 700;
 }
 .headerlog a i {
-  margin-right: 2%;
+  margin-right: 10%;
 }
 
 .form-errors {

@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserChangeType;
 use App\Form\UserMailType;
 use App\Form\UserType;
+use App\Repository\DesignRepository;
 use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -47,14 +48,17 @@ class UserController extends AbstractController
 
 
     #[Route("/connexion", name: "connexion")]
-    public function connexion(AuthenticationUtils $authenticationUtils): Response
+    public function connexion(AuthenticationUtils $authenticationUtils, DesignRepository $designRepo): Response
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+
+        $design =  $designRepo->find(1);
         return $this->render('user/connexion.html.twig', [
             'last_username' => $lastUsername,
+            'design' => $design,
             'error' => $error,
         ]);
     }
@@ -66,9 +70,10 @@ class UserController extends AbstractController
         return $this->render('user/commands.html.twig', []);
     }
     #[Route("/inscription", name: "inscription")]
-    public function inscription(Request $request, VerifyEmailHelperInterface $verifyEmailHelper,  UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer): Response
+    public function inscription(Request $request, VerifyEmailHelperInterface $verifyEmailHelper,  UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer, DesignRepository $designRepo): Response
     {
         $user =  new User();
+        $design =  $designRepo->find(1);
         $userForm = $this->createForm(UserType::class, $user);
         $userForm->handleRequest($request);
         if ($userForm->isSubmitted()) {
@@ -101,6 +106,7 @@ class UserController extends AbstractController
         }
         return $this->render('user/inscription.html.twig', [
             'formInscription' => $userForm->createView(),
+            'design' => $design
         ]);
     }
 

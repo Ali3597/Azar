@@ -8,8 +8,21 @@
 }
 .content > h1 {
   margin-bottom: 1%;
+  margin-top: 3%;
 }
-
+.content > h2 {
+  margin-bottom: 5%;
+}
+.content > a {
+  width: 40%;
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: 1%;
+  text-align: end;
+}
+.content > a:hover {
+  text-decoration: underline;
+}
 form {
   background-color: white;
   border-radius: 5px;
@@ -18,7 +31,7 @@ form {
   padding-left: 2%;
   padding-right: 2%;
   padding-bottom: 3%;
-  margin-top: 5%;
+
   margin-bottom: 5%;
 }
 form h1 {
