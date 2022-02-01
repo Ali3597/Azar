@@ -67,7 +67,37 @@ let adaptActiveFilter = function (number) {
 let adaptTri = function (element) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
+
+let newTri = function (element) {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  let urlJava = window.location.href;
+  let url = new URL(urlJava);
+  let pathname = url.pathname;
+  let params = new URLSearchParams(url.search);
+  if (element.value == "Pertinence") {
+    params.delete("order");
+  } else {
+    params.set("order", element.value);
+  }
+  let newUrl = pathname + "?" + params.toString();
+  window.history.replaceState("product", "product", newUrl);
+
+  axios
+    .get(newUrl, {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
+    .then((response) => {
+      let products = document.querySelector(".right-produits");
+      products.innerHTML = response.data;
+      productJquery();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 window.getTheTri = getTheTri;
+window.newTri = newTri;
 window.adaptCategory = adaptCategory;
 window.adaptMark = adaptMark;
 window.adaptTri = adaptTri;

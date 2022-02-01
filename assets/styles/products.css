@@ -233,10 +233,13 @@
   flex: 1;
   margin-left: 8%;
   cursor: pointer;
-  background: linear-gradient(90deg, #f00000, #dc281e);
+
   border: 0.1rem solid #d8dadf;
   color: white;
   font-size: large;
+}
+.ajout-produit button:hover {
+  transform: scale(1.02);
 }
 
 HTML CSS JSResult Skip Results Iframe .quantity {
@@ -417,4 +420,21 @@ input[type="number"] {
   padding: 0;
   margin-top: 2%;
   margin-bottom: 2%;
+}
+.linkss {
+  font-size: medium !important;
+}
+
+.linkss > p {
+  font-size: medium !important;
+}
+.linkss a {
+  margin-right: 1%;
+}
+.linkss span {
+  margin-right: 1%;
+}
+
+.linkss a:hover {
+  text-decoration: underline;
 }

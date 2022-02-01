@@ -30,6 +30,11 @@ class ProduitType extends AbstractType
                 'label' => 'Nom'
 
             ])
+            ->add('reference', TextType::class, [
+
+                'label' => 'reference'
+
+            ])
             ->add('slug', TextType::class, [
 
                 'label' => 'Slug'

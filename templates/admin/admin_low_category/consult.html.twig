@@ -83,6 +83,23 @@
 
 						</div>
 					</th>
+					<th>
+						<div>
+							{% if products.isSorted('p.reference') %}
+								{% if products.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+
+							{{ knp_pagination_sortable(products, 'Reference', 'p.reference') }}
+
+						</div>
+					</th>
 
 					<th>Marque</th>
 					<th>Categorie</th>
@@ -112,6 +129,7 @@
 						{% endif %}
 
 						<td>{{product.slug}}</td>
+						<td>{{product.reference}}</td>
 						{% if product.marque %}
 							<td>
 								<a href="{{ path('admin_marque_consult' , { id: product.marque.id }) }}">{{product.marque.name}}</a>

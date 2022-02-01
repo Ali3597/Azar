@@ -57,7 +57,7 @@ class ProduitRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
-    public function findProductsDependsOnSearch($search)
+    public function findProductsDependsOnSearch($search, $order = null)
     {
 
 
@@ -65,13 +65,15 @@ class ProduitRepository extends ServiceEntityRepository
 
         $query->Where('p.name LIKE :search')
             ->setParameter('search', '%' . $search . '%');
-
+        if ($order) {
+            $query->orderBy("p.name", $order);
+        }
 
         return   $query->getQuery()
             ->getResult();
     }
 
-    public function findProductsDependsOnMarqueSlug($marqueSlug)
+    public function findProductsDependsOnMarqueSlug($marqueSlug, $order = null)
     {
 
 
@@ -80,6 +82,9 @@ class ProduitRepository extends ServiceEntityRepository
         $query->Join('p.marque', 'marqueJoin')
             ->andWhere('marqueJoin.slug = :marqueSlug')
             ->setParameter('marqueSlug', $marqueSlug);
+        if ($order) {
+            $query->orderBy("p.name", $order);
+        }
 
 
         return   $query->getQuery()
@@ -116,7 +121,7 @@ class ProduitRepository extends ServiceEntityRepository
         return   $query->getQuery();
     }
 
-    public function findProductsDependsOnCategorySlug($categorySlug)
+    public function findProductsDependsOnCategorySlug($categorySlug, $order = null)
     {
 
 
@@ -125,7 +130,9 @@ class ProduitRepository extends ServiceEntityRepository
         $query->Join('p.category', 'categoryJoin')
             ->andWhere('categoryJoin.slug = :categorySlug')
             ->setParameter('categorySlug', $categorySlug);
-
+        if ($order) {
+            $query->orderBy("p.name", $order);
+        }
 
         return   $query->getQuery()
             ->getResult();
@@ -149,10 +156,8 @@ class ProduitRepository extends ServiceEntityRepository
     }
 
 
-    public function findProductsDependsOnParameters($categorySlug = null, $search = "none", $marqueSlug = null)
+    public function findProductsDependsOnParameters($categorySlug = null, $search = "none", $marqueSlug = null, $order = null)
     {
-
-
         $query = $this->createQueryBuilder('p');
         if ($search) {
             $query->andWhere('p.name LIKE :search')
@@ -174,6 +179,9 @@ class ProduitRepository extends ServiceEntityRepository
 
                 $query->andWhere('p.marque is  NULL');
             }
+        }
+        if ($order) {
+            $query->orderBy("p.name", $order);
         }
         return   $query->getQuery()
             ->getResult();

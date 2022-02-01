@@ -15,7 +15,7 @@ let onReady = function () {
 let affPlus = `
 
 
-				<p>Afficher plus</p>
+				<p class="flex">Afficher <span>plus</span></p>
 				<span>
 					<i class="fas fa-arrow-down"></i>
 				</span>
@@ -37,7 +37,17 @@ afficherPlus.forEach((element) => {
   }
   element.querySelector(".reel").classList.add("long");
   div.addEventListener("click", () => {
-    element.parentNode.classList.toggle("taille");
+    if (element.parentNode.classList.contains("taille")) {
+      element.parentNode.classList.remove("taille");
+      setTimeout(() => {
+        document.querySelector(".afficher-plus span").innerHTML = "plus";
+      }, 300);
+    } else {
+      element.parentNode.classList.add("taille");
+      setTimeout(() => {
+        document.querySelector(".afficher-plus span").innerHTML = "moins";
+      }, 300);
+    }
   });
 });
 
