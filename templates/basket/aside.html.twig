@@ -38,7 +38,7 @@
 <a style="color: {{colors.allColors.primary}}" href="{{path('produit',{ slug: product.slug })}}">{{ product.name }}</a>
 
 
-						<p class="descriptionItem">{{product.description|length > 350 ? product.description|slice(0,350)~ '...' : product.description}}</p>
+						<p class="descriptionItem">{{product.descriptionList.content|length > 350 ? product.descriptionList.content|slice(0,350)~ '...' : product.descriptionList.content}}</p>
 
 						<div class="flex itemOptions">
 

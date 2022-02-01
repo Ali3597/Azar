@@ -40,3 +40,20 @@ afficherPlus.forEach((element) => {
     element.parentNode.classList.toggle("taille");
   });
 });
+
+//aside
+let putAsideThisItem = function (element) {
+  let id = element.getAttribute("data-id");
+  console.log(id);
+  axios
+    .get("/putAsideItem/" + id)
+    .then((response) => {
+      console.log(response.data);
+      /// to do flash
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+window.putAsideThisItem = putAsideThisItem;

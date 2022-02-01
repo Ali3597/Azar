@@ -70,7 +70,7 @@
 					</h1>
 					<h2>En stock</h2>
 				</div>
-				<p style="color: {{colors.allColors.primary}}" onclick="popup(this)" class="aside">Mette de coté</p>
+				<p data-id={{ product.id }} style="color: {{colors.allColors.primary}}" onclick="putAsideThisItem(this)" class="aside">Mette de coté</p>
 
 			</div>
 		</div>
@@ -138,6 +138,4 @@
 	{{ encore_entry_script_tags('product') }}
 	{{ encore_entry_script_tags('addbasket') }}
 	{{ encore_entry_script_tags('produitQuery') }}
-
-
 {% endblock %}

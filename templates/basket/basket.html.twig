@@ -38,7 +38,7 @@
 		<a href="{{path('produit',{ slug: product.slug })}}" style="color: {{colors.allColors.primary}}" >{{ product.name }}</a>
 
 
-					<p class="descriptionItem">{{product.description|length > 350 ? product.description|slice(0,350)~ '...' : product.description}}</p>
+					<p class="descriptionItem">{{product.descriptionList.content|length > 350 ? product.descriptionList.content|slice(0,350)~ '...' : product.descriptionList.content}}</p>
 
 					<div data-nbr={{product.basketNumber}} class="flex itemOptions">
 
