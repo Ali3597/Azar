@@ -1,7 +1,41 @@
 {% extends 'base_admin.html.twig' %}
+{% block stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags('graphHome')}}
+{% endblock %}
 
+{% block cdn %}
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+{% endblock %}
 
 {% block body %}
-	<h1>Home admin
-	</h1>
+	<div class="content column">
+		<div class="choose-date flex ">
+			<div class="ongletDate flex active">
+				Par Année
+			</div>
+			<div class="ongletDate flex">
+				Par mois
+			</div>
+
+			<div class="ongletDate flex">
+				Par Semaine
+			</div>
+
+		</div>
+		<input type="month" id="start" name="start" min="2018-03" value="2018-05">
+		<input type="number" min="1900" max="2099" step="1" value="2016"/>
+
+		<input type="week" id="start" name="start">
+
+
+		<div id="chart_div"></div>
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('graphHome') }}
 {% endblock %}

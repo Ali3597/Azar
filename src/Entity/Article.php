@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Tchoulom\ViewCounterBundle\Model\ViewCountable;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -17,7 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     errorPath: 'slug',
     message: 'Ce slug est deja utilisé',
 )]
-class Article
+class Article implements ViewCountable
+
 {
     /**
      * @ORM\Id
@@ -59,6 +61,16 @@ class Article
     #[Assert\NotBlank(message: 'Veuillez rajoutez un slug')]
     #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug n'a pas le bon format")]
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ViewCounter::class, mappedBy="article")
+     */
+    private $viewCounters;
+
+    /**
+     * @ORM\Column(name="views", type="integer", nullable=true)
+     */
+    private $views = 0;
 
     public function __construct()
     {
@@ -155,5 +167,62 @@ class Article
         $this->slug = $slug;
 
         return $this;
+    }
+    /**
+     * Sets $views
+     *
+     * @param integer $views
+     *
+     * @return $this
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Gets $views
+     *
+     * @return integer
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * Get $viewCounters
+     *
+     * @return Collection
+     */
+    public function getViewCounters()
+    {
+        return $this->viewCounters;
+    }
+
+    /**
+     * Add $viewCounter
+     *
+     * @param ViewCounter $viewCounter
+     *
+     * @return $this
+     */
+    public function addViewCounter(ViewCounter $viewCounter)
+    {
+        $this->viewCounters[] = $viewCounter;
+
+        return $this;
+    }
+
+    /**
+     * Remove $viewCounter
+     *
+     * @param ViewCounter $viewCounter
+     */
+    public function removeViewCounter(ViewCounter $viewCounter)
+    {
+        $this->viewCounters->removeElement($viewCounter);
     }
 }

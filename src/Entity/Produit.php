@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Tchoulom\ViewCounterBundle\Model\ViewCountable;
+use  App\Entity\ViewCounter;
 
 
 /**
@@ -23,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     errorPath: 'name',
     message: 'Ce nom est deja utilisé',
 )]
-class Produit
+class Produit  implements ViewCountable
 {
     /**
      * @ORM\Id
@@ -40,6 +42,15 @@ class Produit
     #[Assert\Length(max: 255, maxMessage: 'Le nom de votre categorie est trop long')]
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ViewCounter::class, mappedBy="produit")
+     */
+    protected $viewCounters;
+
+    /**
+     * @ORM\Column(name="views", type="integer", nullable=true)
+     */
+    protected $views = 0;
 
 
     /**
@@ -129,6 +140,7 @@ class Produit
     {
         $this->pictures = new ArrayCollection();
         $this->usersWanter = new ArrayCollection();
+        $this->viewCounters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -374,5 +386,62 @@ class Produit
         $this->reference = $reference;
 
         return $this;
+    }
+    /**
+     * Sets $views
+     *
+     * @param integer $views
+     *
+     * @return $this
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Gets $views
+     *
+     * @return integer
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * Get $viewCounters
+     *
+     * @return Collection
+     */
+    public function getViewCounters()
+    {
+        return $this->viewCounters;
+    }
+
+    /**
+     * Add $viewCounter
+     *
+     * @param ViewCounter $viewCounter
+     *
+     * @return $this
+     */
+    public function addViewCounter(ViewCounter $viewCounter)
+    {
+        $this->viewCounters[] = $viewCounter;
+
+        return $this;
+    }
+
+    /**
+     * Remove $viewCounter
+     *
+     * @param ViewCounter $viewCounter
+     */
+    public function removeViewCounter(ViewCounter $viewCounter)
+    {
+        $this->viewCounters->removeElement($viewCounter);
     }
 }

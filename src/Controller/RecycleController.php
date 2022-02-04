@@ -20,6 +20,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Tchoulom\ViewCounterBundle\Counter\ViewCounter as Counter;
 
 class RecycleController extends AbstractController
 {
@@ -27,15 +28,16 @@ class RecycleController extends AbstractController
     private $em;
 
 
-    function __construct(EntityManagerInterface $em)
+    function __construct(EntityManagerInterface $em, Counter $viewCounter)
     {
         $this->em = $em;
+        $this->viewcounter = $viewCounter;
     }
 
 
 
 
-    public function header(SessionInterface $session, DesignRepository $designRepo, UserAuthenticatorInterface $authenticator, LoginFormAuthenticator $loginForm, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo, MailerInterface $mailer): Response
+    public function header(Request $request, SessionInterface $session, DesignRepository $designRepo, UserAuthenticatorInterface $authenticator, LoginFormAuthenticator $loginForm, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo, MailerInterface $mailer): Response
     {
 
         $categories = $categoryRepo->findAllHighCategories();
@@ -55,6 +57,35 @@ class RecycleController extends AbstractController
         //basket
         $totalNumber = $session->get("total", 0);
         $basket = $session->get("basket", null);
+
+
+        // view
+        $viewcounter = $this->viewcounter->getViewCounter($design);
+        if ($this->viewcounter->isNewView($viewcounter)) {
+            $views = $this->viewcounter->getViews($design);
+            $viewcounter->setIp($request->getClientIp());
+            $viewcounter->setDesign($design);
+            $viewcounter->setViewDate(new \DateTime('now'));
+
+            $design->setViews($views);
+
+            $this->em->persist($viewcounter);
+            $this->em->persist($design);
+            $this->em->flush();
+        }
+        // $viewcounter = $this->viewcounter->getViewCounter($product);
+        // if ($this->viewcounter->isNewView($viewcounter)) {
+        //     $views = $this->viewcounter->getViews($product);
+        //     $viewcounter->setIp($request->getClientIp());
+        //     $viewcounter->setProduit($product);
+        //     $viewcounter->setViewDate(new \DateTime('now'));
+
+        //     $product->setViews($views);
+
+        //     $this->em->persist($viewcounter);
+        //     $this->em->persist($product);
+        //     $this->em->flush();
+        // }
 
         return $this->render('partials/_header.html.twig', [
             "categoriesHigh" => $categories,

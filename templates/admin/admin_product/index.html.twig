@@ -59,6 +59,22 @@
 
 						</div>
 					</th>
+					<th>
+						<div>
+							{% if products.isSorted('p.views') %}
+								{% if products.direction == "asc" %}
+									<i class="fas fa-chevron-up"></i>
+								{% else %}
+									<i class="fas fa-chevron-down"></i>
+
+								{% endif %}
+
+
+							{% endif %}
+							{{ knp_pagination_sortable(products, 'Vues', 'p.views') }}
+
+						</div>
+					</th>
 
 					<th>Unite</th>
 					<th>afficher</th>
@@ -109,6 +125,8 @@
 
 
 						<td>{{product.stock}}</td>
+						<td>{{product.views}}</td>
+
 						<td>{{product.unite}}</td>
 						{% if product.afficher == true %}
 							<td>

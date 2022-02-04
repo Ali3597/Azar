@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Tchoulom\ViewCounterBundle\Counter\ViewCounter as Counter;
 
 class ArticleController extends AbstractController
 {
@@ -18,10 +19,11 @@ class ArticleController extends AbstractController
     private $articleRepo;
 
 
-    function __construct(EntityManagerInterface $em, ArticleRepository $articleRepo)
+    function __construct(EntityManagerInterface $em, ArticleRepository $articleRepo, Counter $viewCounter)
     {
         $this->em = $em;
         $this->articleRepo = $articleRepo;
+        $this->viewcounter = $viewCounter;
     }
 
     #[Route('/articles', name: 'articles')]
@@ -39,8 +41,20 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/{slug}', name: 'article')]
-    public function one(Article $article): Response
+    public function one(Article $article, Request $request): Response
     {
+
+        $viewcounter = $this->viewcounter->getViewCounter($article);
+        if ($this->viewcounter->isNewView($viewcounter)) {
+            $views = $this->viewcounter->getViews($article);
+            $viewcounter->setIp($request->getClientIp());
+            $viewcounter->setArticle($article);
+            $viewcounter->setViewDate(new \DateTime('now'));
+            $article->setViews($views);
+            $this->em->persist($viewcounter);
+            $this->em->persist($article);
+            $this->em->flush();
+        }
         return $this->render('article/one.html.twig', [
             'article' => $article,
         ]);

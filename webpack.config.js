@@ -46,6 +46,7 @@ Encore
   .addEntry("article", "./assets/article.js")
   .addEntry("oneArticle", "./assets/oneArticle.js")
   .addEntry("formadd", "./assets/formadd.js")
+  .addEntry("graphHome", "./assets/graphHome.js")
   // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
   // .enableStimulusBridge('./assets/controllers.json')
 

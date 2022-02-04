@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bbe27718d3024c6d80296d80360b2ea",
+    "content-hash": "c87271b4da005c0e46fe5c61e6db19c8",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -7084,6 +7084,72 @@
                 "source": "https://github.com/SymfonyCasts/verify-email-bundle/tree/v1.7.0"
             },
             "time": "2021-11-30T17:26:37+00:00"
+        },
+        {
+            "name": "tchoulom/view-counter-bundle",
+            "version": "5.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tchoulom/ViewCounterBundle.git",
+                "reference": "e4bc45033d89ab4aeda7e34c808e0efe3c831533"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tchoulom/ViewCounterBundle/zipball/e4bc45033d89ab4aeda7e34c808e0efe3c831533",
+                "reference": "e4bc45033d89ab4aeda7e34c808e0efe3c831533",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0 || ^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">5.7"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Tchoulom\\ViewCounterBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ernest TCHOULOM",
+                    "email": "tchoulomernest@yahoo.fr",
+                    "homepage": "https://www.linkedin.com/in/ernest-tchoulom-69422025/"
+                }
+            ],
+            "description": "The \"View Counter\" bundle",
+            "keywords": [
+                "Count the number of views of a page",
+                "Google Charts",
+                "page view count",
+                "page views",
+                "pages views counter",
+                "statistics",
+                "statistics bundle",
+                "statistics of web pages",
+                "statistics symfony",
+                "view count",
+                "view counter",
+                "view counter bundle",
+                "view counter interface",
+                "view counter symfony",
+                "viewership",
+                "viewership measurement"
+            ],
+            "support": {
+                "issues": "https://github.com/tchoulom/ViewCounterBundle/issues",
+                "source": "https://github.com/tchoulom/ViewCounterBundle/tree/5.5.3"
+            },
+            "time": "2021-04-09T09:49:08+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

@@ -444,6 +444,9 @@
     "symfonycasts/verify-email-bundle": {
         "version": "v1.7.0"
     },
+    "tchoulom/view-counter-bundle": {
+        "version": "5.5.3"
+    },
     "tijsverkoyen/css-to-inline-styles": {
         "version": "2.2.3"
     },
