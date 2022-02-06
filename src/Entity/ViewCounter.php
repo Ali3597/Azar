@@ -2,128 +2,120 @@
 
 namespace App\Entity;
 
-use App\Entity\Produit;
-use Tchoulom\ViewCounterBundle\Entity\ViewCounter as BaseViewCounter;
-use Tchoulom\ViewCounterBundle\Model\ViewCountable;
-use Tchoulom\ViewCounterBundle\Entity\ViewCounterInterface;
+use App\Repository\ViewCounterRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ViewCounter.
- *
- * @ORM\Table(name="view_counter")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=ViewCounterRepository::class)
  */
-class ViewCounter extends BaseViewCounter
+class ViewCounter
 {
-
     /**
-     * @ORM\ManyToOne(targetEntity=Produit::class, cascade={"persist"}, inversedBy="viewCounters")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
-    private $produit;
+    private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Design::class, cascade={"persist"}, inversedBy="viewCounters")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ip;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $viewDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Produit::class)
+     */
+    private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Design::class)
      */
     private $design;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Article::class, cascade={"persist"}, inversedBy="viewCounters")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity=Article::class)
      */
     private $article;
 
-    /**
-     * Gets the Page (Produit entity)
-     *
-     * @return ViewCountable
-     */
-    public function getPage(): ViewCountable
+    public function getId(): ?int
     {
-        return $this->produit;
+        return $this->id;
     }
 
-    /**
-     * Set the Page (Produit entity)
-     *
-     * @param ViewCountable $produit
-     *
-     * @return ViewCounterInterface
-     */
-    public function setPage(ViewCountable $produit): ViewCounterInterface
+    public function getIp(): ?string
     {
-        $this->produit = $produit;
+        return $this->ip;
+    }
+
+    public function setIp(string $ip): self
+    {
+        $this->ip = $ip;
 
         return $this;
     }
 
-    /**
-     * Gets Produit
-     *
-     * @return Produit
-     */
-    public function getProduit()
+    public function getViewDate(): ?\DateTimeInterface
     {
-        return $this->produit;
+        return $this->viewDate;
     }
 
-    /**
-     * Sets Produit
-     *
-     * @param Produit $produit
-     *
-     * @return $this
-     */
-    public function setProduit(Produit $produit)
+    public function setViewDate(\DateTimeInterface $viewDate): self
     {
-        $this->produit = $produit;
+        $this->viewDate = $viewDate;
 
         return $this;
     }
 
-    /**
-     * Gets Design
-     *
-     * @return Design
-     */
-    public function getDesign()
+    public function getProduct(): ?Produit
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Produit $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getDesign(): ?Design
     {
         return $this->design;
     }
 
-    /**
-     * Sets Design
-     *
-     * @param Design $design
-     *
-     * @return $this
-     */
-    public function setDesign(Design $design)
+    public function setDesign(?Design $design): self
     {
         $this->design = $design;
 
         return $this;
     }
 
-    /**
-     * Get the value of article
-     */
-    public function getArticle()
+    public function getArticle(): ?Article
     {
         return $this->article;
     }
 
-    /**
-     * Set the value of article
-     *
-     * @return  self
-     */
-    public function setArticle($article)
+    public function setArticle(?Article $article): self
     {
         $this->article = $article;
 
+        return $this;
+    }
+
+    public function setEntity($item): self
+    {
+        if ($item instanceof Produit) {
+            $this->setProduct($item);
+        } elseif ($item instanceof Article) {
+            $this->setArticle($item);
+        } elseif ($item instanceof Design) {
+            $this->setDesign($item);
+        }
         return $this;
     }
 }

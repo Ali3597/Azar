@@ -3,13 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\ViewCounter as EntityViewCounter;
 use App\Form\UserType;
 use App\Repository\BandeRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use App\Repository\CategoryRepository;
 use App\Repository\DesignRepository;
+use App\Repository\StatViewRepository;
+use App\Repository\ViewCounterRepository;
 use App\Security\LoginFormAuthenticator;
+use App\Service\StatUse;
+use App\Service\ViewCounter;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Stmt\Else_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +25,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use Tchoulom\ViewCounterBundle\Counter\ViewCounter as Counter;
+
 
 class RecycleController extends AbstractController
 {
@@ -28,18 +33,21 @@ class RecycleController extends AbstractController
     private $em;
 
 
-    function __construct(EntityManagerInterface $em, Counter $viewCounter)
+    function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
-        $this->viewcounter = $viewCounter;
     }
 
 
 
 
-    public function header(Request $request, SessionInterface $session, DesignRepository $designRepo, UserAuthenticatorInterface $authenticator, LoginFormAuthenticator $loginForm, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo, MailerInterface $mailer): Response
+    public function header(StatUse $statUse, Request $request, ViewCounter $viewCounter, SessionInterface $session, DesignRepository $designRepo, UserAuthenticatorInterface $authenticator, LoginFormAuthenticator $loginForm, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo, MailerInterface $mailer): Response
     {
 
+
+        // dd($statUse->getWeeklyStat(["year" => 2022, "week" => 05]));
+        // dd($statUse->getMonthlyStat(["year" => 2022, "month" => 02]));
+        dd($statUse->getYearlyStat(2022));
         $categories = $categoryRepo->findAllHighCategories();
 
         //logo
@@ -59,33 +67,11 @@ class RecycleController extends AbstractController
         $basket = $session->get("basket", null);
 
 
-        // view
-        $viewcounter = $this->viewcounter->getViewCounter($design);
-        if ($this->viewcounter->isNewView($viewcounter)) {
-            $views = $this->viewcounter->getViews($design);
-            $viewcounter->setIp($request->getClientIp());
-            $viewcounter->setDesign($design);
-            $viewcounter->setViewDate(new \DateTime('now'));
+        // // view
+        $ipUser = $request->getClientIp();
+        $viewCounter->saveIt($ipUser, $design);
 
-            $design->setViews($views);
 
-            $this->em->persist($viewcounter);
-            $this->em->persist($design);
-            $this->em->flush();
-        }
-        // $viewcounter = $this->viewcounter->getViewCounter($product);
-        // if ($this->viewcounter->isNewView($viewcounter)) {
-        //     $views = $this->viewcounter->getViews($product);
-        //     $viewcounter->setIp($request->getClientIp());
-        //     $viewcounter->setProduit($product);
-        //     $viewcounter->setViewDate(new \DateTime('now'));
-
-        //     $product->setViews($views);
-
-        //     $this->em->persist($viewcounter);
-        //     $this->em->persist($product);
-        //     $this->em->flush();
-        // }
 
         return $this->render('partials/_header.html.twig', [
             "categoriesHigh" => $categories,

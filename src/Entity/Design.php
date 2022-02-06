@@ -7,12 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Tchoulom\ViewCounterBundle\Model\ViewCountable;
 
 /**
  * @ORM\Entity(repositoryClass=DesignRepository::class)
  */
-class Design implements ViewCountable
+class Design
 {
     /**
      * @ORM\Id
@@ -97,16 +96,11 @@ class Design implements ViewCountable
      */
     private $colorBande;
 
-
     /**
-     * @ORM\OneToMany(targetEntity=ViewCounter::class, mappedBy="design")
+     * @ORM\Column(type="integer")
      */
-    private $viewCounters;
+    private $views;
 
-    /**
-     * @ORM\Column(name="views", type="integer", nullable=true)
-     */
-    private $views = 0;
 
 
     public function __construct()
@@ -312,61 +306,21 @@ class Design implements ViewCountable
         return $this;
     }
 
-    /**
-     * Sets $views
-     *
-     * @param integer $views
-     *
-     * @return $this
-     */
-    public function setViews($views)
+    public function getViews(): ?int
+    {
+        return $this->views;
+    }
+
+    public function setViews(int $views): self
     {
         $this->views = $views;
 
         return $this;
     }
-
-    /**
-     * Gets $views
-     *
-     * @return integer
-     */
-    public function getViews()
+    public function addOneView(): self
     {
-        return $this->views;
-    }
-
-    /**
-     * Get $viewCounters
-     *
-     * @return Collection
-     */
-    public function getViewCounters()
-    {
-        return $this->viewCounters;
-    }
-
-    /**
-     * Add $viewCounter
-     *
-     * @param ViewCounter $viewCounter
-     *
-     * @return $this
-     */
-    public function addViewCounter(ViewCounter $viewCounter)
-    {
-        $this->viewCounters[] = $viewCounter;
+        $this->views = $this->views + 1;
 
         return $this;
-    }
-
-    /**
-     * Remove $viewCounter
-     *
-     * @param ViewCounter $viewCounter
-     */
-    public function removeViewCounter(ViewCounter $viewCounter)
-    {
-        $this->viewCounters->removeElement($viewCounter);
     }
 }

@@ -27,7 +27,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function index(BandeRepository $bandeRepo, DesignRepository $designRepo): Response
+    public function index(BandeRepository $bandeRepo, DesignRepository $designRepo, Request $request): Response
     {
 
 

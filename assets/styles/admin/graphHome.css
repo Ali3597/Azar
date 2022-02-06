@@ -32,3 +32,16 @@
   width: 100%;
   height: 55vh;
 }
+.calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  width: 100%;
+}
+
+.calendar input {
+  width: 20%;
+  min-height: 100%;
+  font-weight: 700;
+}
