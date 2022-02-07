@@ -8,7 +8,8 @@
 {% block body %}
 	<div class="content flex column ">
 		<div class="presentation flex column ">
-			<h1>{{category.name}}</h1>
+			<h1>{{category.name|capitalize}}</h1>
+
 			<p>{{category.description}}</p>
 			<div class="presCat flex">
 				{% for categorie in category.CategoriesChildrens %}
@@ -20,7 +21,8 @@
 
 							<img width="30%" height="60%" src="{{ vich_uploader_asset(categorie.produits[0].pictures[0] ,'imageFile') }}" alt="">
 
-							<h3 style="color: {{colors.allColors.primary}}">{{categorie.name}}</h3>
+							<h3 style="color: {{colors.allColors.primary}}">{{categorie.name|capitalize}}</h3>
+
 
 						</a>
 
@@ -32,14 +34,15 @@
 		</div>
 		<div class="listecategories flex column">
 			<h1>Nos rayons
-				{{ category.name}}</h1>
+				{{ category.name|capitalize}}</h1>
+
 			{% for categorie in category.CategoriesChildrens %}
 				{% if categorie.produits|length > 0 %}
 
 					<div class="rayon flex  ">
 						<a href="{{path('productsCategories',{ slug: categorie.slug })}}" class="rayon-presentation flex column ">
 
-							<h2 style="color: {{colors.allColors.primary}}">{{categorie.name}}</h2>
+							<h2 style="color: {{colors.allColors.primary}}">{{categorie.name|capitalize}}</h2>
 
 
 							<div class="rayon-img"><img width="95%" height="95%" src="{{ vich_uploader_asset(categorie.produits[0].pictures[0],'imageFile') }}" alt=""></div>
@@ -55,7 +58,8 @@
 
 
 										<img width="50%" height="90%" src="{{ vich_uploader_asset(produit.pictures[0],'imageFile') }}" alt="">
-										<h3 style="color:{{colors.allColors.primary}}">{{produit.name}}</h3>
+										<h3 style="color:{{colors.allColors.primary}}">{{produit.name|capitalize}}</h3>
+
 
 									</a>
 

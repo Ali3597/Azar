@@ -28,84 +28,72 @@
 
 		</div>
 	</div>
-		<div class=" {{basket ? " " : " none "}} basketlist flex column toFill">
+	<div class=" {{basket ? " " : " none "}} basketlist flex column toFill">
 
 
-			{% for product in products %}
-				<div data-id={{ product.id }} class="basketItem flex">
-					<img width="20%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
-					<div class="itemsDetails flex column">
-<a style="color: {{colors.allColors.primary}}" href="{{path('produit',{ slug: product.slug })}}">{{ product.name }}</a>
+		{% for product in products %}
+			<div data-id={{ product.id }} class="basketItem flex">
+				<img width="20%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
+				<div class="itemsDetails flex column">
+					<a style="color: {{colors.allColors.primary}}" href="{{path('produit',{ slug: product.slug })}}">{{ product.name|capitalize }}</a>
 
 
-						<p class="descriptionItem">{{product.descriptionList.content|length > 350 ? product.descriptionList.content|slice(0,350)~ '...' : product.descriptionList.content}}</p>
+					<p class="descriptionItem">{{product.descriptionList.content|length > 350 ? product.descriptionList.content|slice(0,350)~ '...' : product.descriptionList.content}}</p>
 
-						<div class="flex itemOptions">
+					<div class="flex itemOptions">
 
-							<p style="color: {{colors.allColors.primary}}" onclick="addToBasketFromAside(this)" class="action">Ajoutez au panier</p>
-
-
-							<p>|</p>
-							<p style="color: {{colors.allColors.primary}}" onclick="deleteFromAside(this)" class="action">Supprimer</p>
+						<p style="color: {{colors.allColors.primary}}" onclick="addToBasketFromAside(this)" class="action">Ajoutez au panier</p>
 
 
-						</div>
+						<p>|</p>
+						<p style="color: {{colors.allColors.primary}}" onclick="deleteFromAside(this)" class="action">Supprimer</p>
 
 
 					</div>
 
 
 				</div>
-			{% endfor %}
-		</div>
 
 
-	
-
-<div class=" {{basket ? " none " : " "}}panier_vide novalidB flex column toFill ">
-
-
+			</div>
+		{% endfor %}
+	</div>
 
 
-			<h1>Ça alors. Vous n’avez rien mis de côté.
-			</h1>
-
-			<span>
-				{{ source('@public_path'~asset('svg/vide.svg')) }}</span>
-		</div>
+	<div class=" {{basket ? " none " : " "}}panier_vide novalidB flex column toFill ">
 
 
+		<h1>Ça alors. Vous n’avez rien mis de côté.
+		</h1>
+
+		<span>
+			{{ source('@public_path'~asset('svg/vide.svg')) }}</span>
+	</div>
 
 
 </div>
 <div class="flex  ensemble_right_panier ">
 
 
-	
-		<div class="recap {{basket ? " " : " none "}} validB flex column ">
+	<div class="recap {{basket ? " " : " none "}} validB flex column ">
 
 
-			
-				<button style="background-color: {{colors.allColors.primary}}" onclick="goToBasketItems(this)">Retournez au panier</button>
+		<button style="background-color: {{colors.allColors.primary}}" onclick="goToBasketItems(this)">Retournez au panier</button>
 
 
-			
-
-		</div>
-
-	
-		<div  class=" {{basket ? " none " : ""}}recap flex column ">
+	</div>
 
 
-			<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
-			<a href="">
+	<div class=" {{basket ? " none " : " "}}recap flex column ">
 
-				<button style="background-color: {{colors.allColors.primary}}">Aller au catalogue</button>
 
-			</a>
-		</div>
+		<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
+		<a href="">
 
-	
+			<button style="background-color: {{colors.allColors.primary}}">Aller au catalogue</button>
+
+		</a>
+	</div>
 
 
 </div>

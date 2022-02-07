@@ -5,27 +5,33 @@
 			<div class=" flex column ">
 				<span>{{ source('@public_path'~asset('svg/paint.svg')) }}</span>
 
-				<h2>{{design.bandeTitleLeft}}</h2>
+				<h2>{{design.bandeTitleLeft|capitalize}}</h2>
 
-				<p>{{design.bandeLeft}}</p>
+
+				<p>{{design.bandeLeft|capitalize}}</p>
+
 
 			</div>
 			<div class=" flex column ">
 				<span>
 					{{ source('@public_path'~asset('svg/box.svg')) }}</span>
 
-				<h2>{{design.bandeTitleCenter}}</h2>
+				<h2>{{design.bandeTitleCenter|capitalize}}</h2>
 
-				<p>{{design.bandeCenter}}</p>
+
+				<p>{{design.bandeCenter|capitalize}}</p>
+
 
 			</div>
 			<div class=" flex column ">
 				<span>
 					{{ source('@public_path'~asset('svg/customer.svg')) }}</span>
 
-				<h2>{{design.bandeTitleRight}}</h2>
+				<h2>{{design.bandeTitleRight|capitalize}}</h2>
 
-				<p>{{design.bandeRight}}</p>
+
+				<p>{{design.bandeRight|capitalize}}</p>
+
 
 			</div>
 

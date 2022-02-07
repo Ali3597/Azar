@@ -5,7 +5,8 @@
 
 		<div class="item_titre">
 			<h1>
-				{{bande.title}}</h1>
+				{{bande.title|capitalize}}</h1>
+
 		</div>
 		<div class="item_description">{{bande.subtitle}}</div>
 		<div class="carouselSelect carouselProduct" data-type="article" data-visible={{bande.slideVisible}} data-scroll={{bande.slideToScroll}}>
@@ -18,21 +19,19 @@
 							<img width="60%" height="90%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}">
 						</div>
 						<div class="titre-produit">
-							<h3>{{product.name}}</h3>
+							<h3>{{product.name|capitalize}}</h3>
+
 						</div>
 						<div class="reference-produit">
-							<h3>S540204 - Schneider Electric</h3>
+							<h3>{{product.reference|capitalize}}</h3>
+
 						</div>
 					</a>
 					<div class="bas-produit flex column ">
 						<div class="disponible flex column ">
 							<h2>Disponibilité :
 							</h2>
-							{% if product.stock >0 %}
-								<h2>En stock</h2>
-							{% else %}
-								<h2>Epuisé</h2>
-							{% endif %}
+							<h2>En stock</h2>
 						</div>
 						<div class="ajout-produit flex">
 							<div class="flex surquantity column">

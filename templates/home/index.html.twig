@@ -13,12 +13,18 @@
 {% block body %}
 
 	<div class="content flex column">
+		{% set designLoad = false %}
 
 		{% for bande in bandes %}
-			{% if loop.index == design.position %}
-				{{ include('home/bande_decor.html.twig') }}
+			{% if design.position %}
+				{% if loop.index == design.position %}
+					{{ include('home/bande_decor.html.twig') }}
+					{% set designLoad = true %}
+
+				{% endif %}
 
 			{% endif %}
+
 
 			{% if bande.type == "product" %}
 				{{ include('home/bande_product.html.twig') }}
@@ -36,6 +42,14 @@
 				{{ include('home/bande_article.html.twig') }}
 			{% endif %}
 		{% endfor %}
+		{% if design.position and not designLoad  %}
+
+			{{ include('home/bande_decor.html.twig') }}
+			{% set design = true %}
+
+
+		{% endif %}
+
 	</div>
 
 

@@ -28,14 +28,14 @@
 
 		</div>
 	</div>
-	<div class=" {{basket ? " " : " none"}} basketlist toFill  flex column ">
+	<div class=" {{basket ? " " : " none"}} basketlist tofill  flex column ">
 
 
 		{% for product in products %}
 			<div data-id={{ product.id }} class="basketItem flex">
 				<img width="20%" height="80%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
 				<div class="itemsDetails flex column">
-		<a href="{{path('produit',{ slug: product.slug })}}" style="color: {{colors.allColors.primary}}" >{{ product.name }}</a>
+					<a href="{{path('produit',{ slug: product.slug })}}" style="color: {{colors.allColors.primary}}">{{ product.name|capitalize }}</a>
 
 
 					<p class="descriptionItem">{{product.descriptionList.content|length > 350 ? product.descriptionList.content|slice(0,350)~ '...' : product.descriptionList.content}}</p>
@@ -116,7 +116,7 @@
 </div>
 <div class="flex  ensemble_right_panier ">
 
-	<div class="  {{basket ? " " : " none"}} validB recap flex column ">
+	<div class="  {{basket ? " " : " none"}} validb recap flex column ">
 
 
 		<form action="{{ path('panier_confirm') }}" method="post">

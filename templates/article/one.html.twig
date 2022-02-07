@@ -11,7 +11,8 @@
 			<img width="100%" height="100%" src="{{ vich_uploader_asset(article.picture,'imageFile') }}" alt="">
 		</div>
 
-		<h1 style="color: {{colors.allColors.primary}}">{{article.title}}</h1>
+		<h1 style="color: {{colors.allColors.primary}}">{{article.title|capitalize}}</h1>
+
 
 		<p>{{article.content}}</p>
 		<span>Fait le

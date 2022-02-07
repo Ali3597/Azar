@@ -41,13 +41,10 @@ class RecycleController extends AbstractController
 
 
 
-    public function header(StatUse $statUse, Request $request, ViewCounter $viewCounter, SessionInterface $session, DesignRepository $designRepo, UserAuthenticatorInterface $authenticator, LoginFormAuthenticator $loginForm, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo, MailerInterface $mailer): Response
+    public function header(Request $request, ViewCounter $viewCounter, SessionInterface $session, DesignRepository $designRepo,  AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo): Response
     {
 
 
-        // dd($statUse->getWeeklyStat(["year" => 2022, "week" => 05]));
-        // dd($statUse->getMonthlyStat(["year" => 2022, "month" => 02]));
-        dd($statUse->getYearlyStat(2022));
         $categories = $categoryRepo->findAllHighCategories();
 
         //logo

@@ -29,7 +29,7 @@
 				{% if marque %}
 					<div class="marqueTop">
 						<img width="30%" height="70%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
-						<h1>{{marque.name}}</h1>
+						<h1>{{marque.name|capitalize}}</h1>
 						<p>{{marque.description}}</p>
 
 					</div>
@@ -86,7 +86,7 @@
 
 						<div style="--background: {{colors.allColors.primary}};" class=" filtre  flex">
 
-							<span  class="{{activeFilter > 0 ? "active" : "" }}">{{activeFilter}}</span>filtre actif
+							<span class="{{activeFilter > 0 ? "active" : "" }}">{{activeFilter}}</span>filtre actif
 						</div>
 
 
@@ -106,10 +106,11 @@
 						</div>
 						<div class="tri-bas column ">
 							{% for marqueName,key in marques %}
-								<span   data-slug={{key.slug}} class="flex">
+								<span data-slug={{key.slug}} class="flex">
 
 									<input {{marqueSlug == key.slug ? "checked" : ""}} onclick="adaptMark(this)" type="checkbox" name="stay" placeholder="hoelndelnk">
-									{{marqueName}}
+									{{marqueName|capitalize}}
+
 									({{key.nbr}})
 
 
@@ -139,7 +140,8 @@
 								<span data-slug={{key.slug}} class="flex">
 									<input {{categorySlug == key.slug ? "checked" : ""}} onclick="adaptCategory(this)" type="checkbox" name="stay" placeholder="hoelndelnk">
 
-									{{categoryName}}
+									{{categoryName|capitalize}}
+
 
 									({{key.nbr}})
 

@@ -16,10 +16,7 @@
 
 
 {% block body %}
-	<div class="popup column flex">
 
-		<p>C'est oke le produit a été mis de coté</p>
-	</div>
 	<div class="content flex column ">
 		<div class=" archo flex">
 			<a style="color: {{colors.allColors.primary}}" href="{{path('home')}}">Accueil</a>
@@ -75,58 +72,58 @@
 			</div>
 		</div>
 		{% if  product.descriptionList.content or product.descriptionList.itemList|length > 0 %}
-		<div style="--background: {{colors.allColors.primary}};" class="produit-description  flex column">
-			<div class="reel flex column">
-				<h1>Description du produit</h1>
-			<p>{{product.descriptionList.content}}</p>
+			<div style="--background: {{colors.allColors.primary}};" class="produit-description  flex column">
+				<div class="reel flex column">
+					<h1>Description du produit</h1>
+					<p>{{product.descriptionList.content}}</p>
 
-				<ul>
-				{% for item in product.descriptionList.itemList %}
-					<li>{{item.content}}</li>
-				{% endfor %}
-				
-				</ul>
-				
+					<ul>
+						{% for item in product.descriptionList.itemList %}
+							<li>{{item.content}}</li>
+						{% endfor %}
+
+					</ul>
+
+
+				</div>
 
 			</div>
-			
-		</div>
 		{% endif %}
 		{% if  product.advices.content or product.advices.itemAdviceList|length > 0 %}
-		<div style="--background: {{colors.allColors.primary}};"  class="produit-description  flex column">
-			<div class="reel flex column">
-				<h1>Conseil d'utilisation</h1>
-			<p>{{product.advices.content}}</p>
+			<div style="--background: {{colors.allColors.primary}};" class="produit-description  flex column">
+				<div class="reel flex column">
+					<h1>Conseil d'utilisation</h1>
+					<p>{{product.advices.content}}</p>
 
-				<ul>
-				{% for item in product.advices.itemAdviceList %}
-					<li>{{item.content}}</li>
-				{% endfor %}
-				
-				</ul>
-				
+					<ul>
+						{% for item in product.advices.itemAdviceList %}
+							<li>{{item.content}}</li>
+						{% endfor %}
+
+					</ul>
+
+
+				</div>
 
 			</div>
-			
-		</div>
 		{% endif %}
-{% if alikes|length > 0 %}
-		<div class="flex column else">
-			<h1>Ces produits pourraient aussi vous intéresser</h1>
-			<div class="otherProducts flex">
-			{% for item in alikes %}
-				<a href="{{path('produit',{ slug: item.slug })}}" class="otherProduct">
-					<img width="80%" height="80%" src="{{ vich_uploader_asset(item.pictures[0],'imageFile') }}" alt="">
-					<p>{{item.name}}</p>
-				</a>
-			{% endfor %}
-				
+		{% if alikes|length > 0 %}
+			<div class="flex column else">
+				<h1>Ces produits pourraient aussi vous intéresser</h1>
+				<div class="otherProducts flex">
+					{% for item in alikes %}
+						<a href="{{path('produit',{ slug: item.slug })}}" class="otherProduct">
+							<img width="80%" height="80%" src="{{ vich_uploader_asset(item.pictures[0],'imageFile') }}" alt="">
+							<p>{{item.name}}</p>
+						</a>
+					{% endfor %}
+
+
+				</div>
+
 
 			</div>
-
-
-		</div>
-{% endif %}
+		{% endif %}
 
 	</div>
 

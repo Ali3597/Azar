@@ -3,9 +3,11 @@
 
 	<div class="category">
 		<div class="titre-category flex column ">
-			<h1>{{bande.title}}</h1>
+			<h1>{{bande.title|capitalize}}</h1>
 
-			<h2>{{bande.subtitle}}</h2>
+
+			<h2>{{bande.subtitle|capitalize}}</h2>
+
 
 		</div>
 		<a href="{{path('category',{ slug: bande.bandeCategory.categories[0].slug })}}" class="category-up-left flex ">
@@ -14,7 +16,8 @@
 			<div class="card flex column  centerY  category_damier">
 				<img width="95%" height="75%" src="{{ vich_uploader_asset(bande.bandeCategory.categories[0].picture,'imageFile') }}" alt="">
 				<div class="category-description flex centerX ">
-					{{bande.bandeCategory.categories[0].name}}
+					{{bande.bandeCategory.categories[0].name|capitalize}}
+
 
 				</div>
 			</div>
@@ -26,7 +29,8 @@
 
 				<div class="category-description flex centerX ">
 
-					{{bande.bandeCategory.categories[1].name}}
+					{{bande.bandeCategory.categories[1].name|capitalize}}
+
 
 				</div>
 			</div>
@@ -38,7 +42,8 @@
 
 				<div class="category-description flex centerX ">
 
-					{{bande.bandeCategory.categories[2].name}}
+					{{bande.bandeCategory.categories[2].name|capitalize}}
+
 
 				</div>
 			</div>
@@ -50,7 +55,8 @@
 
 				<div class="category-description flex centerX ">
 
-					{{bande.bandeCategory.categories[3].name}}
+					{{bande.bandeCategory.categories[3].name|capitalize}}
+
 
 				</div>
 			</div>
@@ -62,7 +68,8 @@
 
 				<div class="category-description-right flex centerX ">
 
-					{{bande.bandeCategory.categories[4].name}}
+					{{bande.bandeCategory.categories[4].name|capitalize}}
+
 
 				</div>
 			</div>

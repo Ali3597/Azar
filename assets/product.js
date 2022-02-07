@@ -59,7 +59,7 @@ let putAsideThisItem = function (element) {
     .get("/putAsideItem/" + id)
     .then((response) => {
       console.log(response.data);
-      /// to do flash
+      popup("Votre produit a bien était mis de coté ");
     })
     .catch((err) => {
       console.log(err);

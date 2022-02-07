@@ -47,44 +47,51 @@ class DesignType extends AbstractType
 
             ])->add('bandeCenter', TextType::class, [
 
-            'label' => false
+                'label' => false
 
-        ])->add('bandeRight', TextType::class, [
+            ])->add('bandeRight', TextType::class, [
 
-            'label' => false
+                'label' => false
 
-        ])->add('bandeTitleLeft', TextType::class, [
+            ])->add('bandeTitleLeft', TextType::class, [
 
-            'label' => false
+                'label' => false
 
-        ])->add('bandeTitleCenter', TextType::class, [
+            ])->add('bandeTitleCenter', TextType::class, [
 
-            'label' => false
+                'label' => false
 
-        ])->add('bandeTitleRight', TextType::class, [
+            ])->add('bandeTitleRight', TextType::class, [
 
-            'label' => false
+                'label' => false
 
-        ])->add('position',ChoiceType::class,[
-            'choices'  => [
-                'Pas présent' => null,
-                '1' => 1,
-                '2' => 2,
-                '3' => 3,
-                '4' => 4,
-                '5' => 5,
-                '6' => 6,
-                '7' => 7,
-                '8' => 8,
-            ],
-        ])
-        ->add('colorBande', ColorType::class, [
+            ])->add('position', ChoiceType::class, [
+                'choices'  => [
+                    'Pas présent' => null,
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                    '7' => 7,
+                    '8' => 8,
+                    '9' => 9,
+                    '10' => 10,
+                    '11' => 11,
+                    '12' => 12,
+                    '13' => 13,
+                    '14' => 14,
+                    '15' => 15,
+                ],
+            ])
+            ->add('colorBande', ColorType::class, [
 
-            'label' => 'couleur de la bande'
+                'label' => 'couleur de la bande'
 
-        ])
+            ])
 
-        
+
             ->add('pictureFile', FileType::class, [
                 'required' => false,
 

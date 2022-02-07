@@ -13,7 +13,8 @@
 			<a href="{{path('article',{ slug: article.slug } )}}" class="bandeArticle flex">
 				<img width="20%" height="80%" src="{{ vich_uploader_asset(article.picture,'imageFile') }}" alt="">
 				<div class="content-article flex column">
-					<h1 style="color: {{colors.allColors.primary}}">{{article.title}}</h1>
+					<h1 style="color: {{colors.allColors.primary}}">{{article.title|capitalize}}</h1>
+
 
 					<p>{{article.content|length >600 ? article.content|slice(0,600)~ '...' : article.content}}</p>
 

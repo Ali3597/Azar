@@ -237,11 +237,20 @@ window.searchProduct = searchProduct;
 /////popup
 
 let popup = function (message) {
+  let ref;
+  if (ref) {
+    clearTimeout(ref);
+    console.log("ok");
+  }
   let popup = document.querySelector(".popup");
-  popup.querySelector("p").innerHTML = message;
-  popup.classList.add("active");
 
-  setInterval(() => {
+  if (popup.classList.contains("active")) {
+    popup.classList.remove("active");
+  }
+  popup.querySelector("p").innerHTML = message;
+
+  popup.classList.add("active");
+  ref = setTimeout(() => {
     popup.classList.remove("active");
     popup.querySelector(p).innerHTML = "";
   }, 2000);
