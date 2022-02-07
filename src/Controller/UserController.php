@@ -125,7 +125,7 @@ class UserController extends AbstractController
                 $user->getEmail(),
             );
         } catch (VerifyEmailExceptionInterface $e) {
-            $this->addFlash('error', "Le lien n'est pas valdie");
+            $this->addFlash('error', "Le lien n'est pas valide");
             return $this->redirectToRoute('inscription');
         }
 

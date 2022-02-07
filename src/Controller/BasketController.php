@@ -151,7 +151,7 @@ class BasketController extends AbstractController
                 $mailer->send($emailAdmin);
                 $session->remove("basket");
                 $session->remove("total");
-                $this->addFlash('success', 'Votre commande a bien était passé nous reviendrons ver vous ulterieurement');
+                $this->addFlash('success', 'Votre commande a bien était passé nous reviendrons vers vous ulterieurement');
                 return $this->redirectToRoute('commande_valide');
             } else {
                 return $this->redirectToRoute('panier');
@@ -195,7 +195,7 @@ class BasketController extends AbstractController
         $user = $this->getUser();
         $user->removeWant($product);
         $this->em->flush();
-        $this->addFlash('success', 'Ce produit a bien été enlevé de votre liste de souhait ');
+
 
         return new JsonResponse(['ok' => "ok"]);
     }

@@ -1,5 +1,6 @@
 let addBasket = function (element) {
   let idProduct = element.getAttribute("data-id");
+  popup("Votre produit a bien été rajouté au panier");
   let nbrProducts = element.parentNode.querySelector(
     ".surquantity input "
   ).value;

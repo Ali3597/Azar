@@ -295,6 +295,7 @@ let addToBasketFromAside = function (element) {
 };
 
 let deleteFromAside = function (element) {
+  popup("Ce produit a bien été enlevé de votre liste de souhait ");
   let elements = document.querySelectorAll(".basketItem");
   if (elements.length == 1) {
     fillEmptyLeft();
@@ -323,7 +324,8 @@ let putAsideThisItem = function (element) {
     .get("/putAsideItem/" + id)
     .then((response) => {
       console.log(response.data);
-      /// to do flash
+
+      popup("Ce produit a bien été rajouté a votre liste de souhait");
     })
     .catch((err) => {
       console.log(err);
