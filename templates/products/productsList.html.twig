@@ -2,9 +2,10 @@
 	{% for product in products %}
 
 		<div class="produit flex column">
-			<a href="#">
+			<a href="{{path('produit',{ slug: product.slug })}}">
+
 				<div class="img-produit">
-					<img width="30%" height="70%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
+					<img width="60%" height="95%" src="{{ vich_uploader_asset(product.pictures[0],'imageFile') }}" alt="">
 
 				</div>
 				<div class="titre-produit">

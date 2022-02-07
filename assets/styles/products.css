@@ -148,7 +148,9 @@
   border: 1px solid #e2e2e2;
   color: #6f6f7e;
 }
-
+.produit > a:hover {
+  transform: scale(1.02);
+}
 .produit:nth-child(3n) {
   margin-right: 0;
 }
