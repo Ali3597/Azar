@@ -65,6 +65,11 @@ class Article
      */
     private $views;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $published;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -176,6 +181,18 @@ class Article
     public function addOneView(): self
     {
         $this->views = $this->views + 1;
+
+        return $this;
+    }
+
+    public function getPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
 
         return $this;
     }

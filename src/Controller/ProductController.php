@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Service\ViewCounter as ServiceViewCounter;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -30,6 +31,10 @@ class ProductController extends AbstractController
     #[Route('/produit/{slug}', name: 'produit')]
     public function index(Produit $product, ProduitRepository $produitRepo, Request $request, ServiceViewCounter $viewCounter): Response
     {
+
+        if (!$product->getAfficher()) {
+            throw new Exception('Cette page n\'existe pas');
+        }
         $productsAlike =  $produitRepo->findFourProductsDependsOnCategoryId($product->getCategory()->getId(), $product->getId());
 
         // view 

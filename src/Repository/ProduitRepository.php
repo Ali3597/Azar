@@ -61,9 +61,9 @@ class ProduitRepository extends ServiceEntityRepository
     {
 
 
-        $query = $this->createQueryBuilder('p');
-
-        $query->Where('p.name LIKE :search')
+        $query = $this->createQueryBuilder('p')
+            ->Where('p.afficher = true');
+        $query->andWhere('p.name LIKE :search')
             ->setParameter('search', '%' . $search . '%');
         if ($order) {
             $query->orderBy("p.name", $order);
@@ -77,9 +77,10 @@ class ProduitRepository extends ServiceEntityRepository
     {
 
 
-        $query = $this->createQueryBuilder('p');
-
+        $query = $this->createQueryBuilder('p')
+            ->Where('p.afficher = true');
         $query->Join('p.marque', 'marqueJoin')
+
             ->andWhere('marqueJoin.slug = :marqueSlug')
             ->setParameter('marqueSlug', $marqueSlug);
         if ($order) {
@@ -125,8 +126,8 @@ class ProduitRepository extends ServiceEntityRepository
     {
 
 
-        $query = $this->createQueryBuilder('p');
-
+        $query = $this->createQueryBuilder('p')
+            ->Where('p.afficher = true');
         $query->Join('p.category', 'categoryJoin')
             ->andWhere('categoryJoin.slug = :categorySlug')
             ->setParameter('categorySlug', $categorySlug);
@@ -158,7 +159,8 @@ class ProduitRepository extends ServiceEntityRepository
 
     public function findProductsDependsOnParameters($categorySlug = null, $search = "none", $marqueSlug = null, $order = null)
     {
-        $query = $this->createQueryBuilder('p');
+        $query = $this->createQueryBuilder('p')
+            ->Where('p.afficher = true');
         if ($search) {
             $query->andWhere('p.name LIKE :search')
                 ->setParameter('search', '%' . $search . '%');

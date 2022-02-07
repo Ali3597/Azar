@@ -113,6 +113,7 @@
 
 						</div>
 					</th>
+					<th>Publié</th>
 
 					<th>image</th>
 					<th>Action</th>
@@ -130,6 +131,20 @@
 							<td>{{article.createdat|date("m/d/Y")}}</td>
 
 							<td>{{article.slug}}</td>
+							{% if article.published == true %}
+								<td>
+									<i class="fas fa-check"></i>
+								</td>
+
+
+							{% else %}
+								<td>
+									<i class="fas fa-times"></i>
+								</td>
+
+
+							{% endif %}
+
 							<td>
 								{% if article.picture %}
 

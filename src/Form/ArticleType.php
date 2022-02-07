@@ -25,6 +25,7 @@ class ArticleType extends AbstractType
                 'label' => 'Contenu'
 
             ])
+            ->add('published')
             ->add('slug', TextType::class, [
 
                 'label' => 'Slug'
