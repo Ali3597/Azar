@@ -98,7 +98,8 @@
 							<form action="{{ path('admin_command_delete' , { id: command.id }) }}" method="post">
 								<input type="hidden" name="_method" value="DELETE">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ command.id) }}">
-								<button>Supprimer</button>
+								<button onclick="return confirm('Etes vos sure de couloir supprimer cette commande ?')">Supprimer</button>
+
 							</form>
 						</td>
 					</tbody>

@@ -7,6 +7,7 @@ use App\Entity\Search;
 use App\Form\ProduitType;
 use App\Form\SearchType;
 use App\Repository\ProduitRepository;
+use App\Service\BandeManagement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -125,10 +126,11 @@ class AdminProductController extends AbstractController
 
 
     #[Route('/product/{id}', name: 'product_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Produit $product): Response
+    public function delete(Request $request, Produit $product, BandeManagement $bandeManagement): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
+            $bandeManagement->deleteItemBande($product);
             foreach ($product->getPictures() as $image) {
                 $product->removePicture($image);
                 $this->em->remove($image);

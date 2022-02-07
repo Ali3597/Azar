@@ -20,7 +20,7 @@ class BandeCategory
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class)
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="bandesSimple")
      */
     private $categories;
 

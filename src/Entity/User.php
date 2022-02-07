@@ -94,6 +94,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $wants;
 
 
+
+
     public function __construct()
     {
         $this->commands = new ArrayCollection();

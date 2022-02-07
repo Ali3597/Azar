@@ -70,9 +70,18 @@ class Article
      */
     private $published;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity=BandeArticle::class, mappedBy="articles")
+     */
+    private $bandes;
+
+
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+        $this->bandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +202,33 @@ class Article
     public function setPublished(bool $published): self
     {
         $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BandeArticle[]
+     */
+    public function getBandes(): Collection
+    {
+        return $this->bandes;
+    }
+
+    public function addBande(BandeArticle $bandeArticle): self
+    {
+        if (!$this->bandes->contains($bandeArticle)) {
+            $this->bandes = $bandeArticle;
+            $bandeArticle->addArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBande(BandeArticle $bandeArticle): self
+    {
+        if ($this->bandes->removeElement($bandeArticle)) {
+            $bandeArticle->removeArticle($this);
+        }
 
         return $this;
     }

@@ -8,6 +8,7 @@ use App\Form\MarqueType;
 use App\Form\SearchType;
 use App\Repository\MarqueRepository;
 use App\Repository\ProduitRepository;
+use App\Service\BandeManagement;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -113,10 +114,11 @@ class AdminMarqueController extends AbstractController
 
 
     #[Route('/marque/{id}', name: 'marque_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Marque $marque): Response
+    public function delete(Request $request, Marque $marque, BandeManagement $bandeManagement): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $marque->getId(), $request->get('_token'))) {
+            $bandeManagement->deleteItemBande($marque);
             foreach ($marque->getProduits() as $product) {
                 $marque->removeProduit($product);
             }

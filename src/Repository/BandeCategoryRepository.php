@@ -35,6 +35,16 @@ class BandeCategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findBandeByItemId($id)
+    {
+        return $this->createQueryBuilder('b')
+            ->innerJoin('b.categories', 'c')
+            ->andWhere('c.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     /*
     public function findOneBySomeField($value): ?BandeCategory

@@ -20,7 +20,7 @@ class BandeMarque
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Marque::class)
+     * @ORM\ManyToMany(targetEntity=Marque::class, inversedBy="bandes")
      */
     private $marques;
 

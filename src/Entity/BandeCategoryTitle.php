@@ -22,7 +22,7 @@ class BandeCategoryTitle
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class)
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="bandesTitle")
      */
     private $categories;
 

@@ -74,15 +74,28 @@ class Category
     #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug n'a pas le bon format")]
     private $slug;
 
-    public function __construct()
-    {
-        $this->categories_children = new ArrayCollection();
-        $this->produits = new ArrayCollection();
-    }
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity=BandeCategoryTitle::class, mappedBy="categories")
+     */
+    private $bandesTitle;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=BandeCategory::class, mappedBy="categories")
+     */
+    private $bandesSimple;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function __construct()
+    {
+        $this->categories_children = new ArrayCollection();
+        $this->produits = new ArrayCollection();
+        $this->bandesSimple = new ArrayCollection();
+        $this->bandesTitle = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -228,5 +241,62 @@ class Category
         $this->slug = $slug;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|BandeCategory[]
+     */
+    public function getBandesSimple(): Collection
+    {
+        return $this->bandesSimple;
+    }
+
+    public function addBandeSimple(BandeCategory $bandeCategory): self
+    {
+        if (!$this->bandesSimple->contains($bandeCategory)) {
+            $this->bandesSimple = $bandeCategory;
+            $bandeCategory->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBandeSimple(BandeCategory $bandeCategory): self
+    {
+        if ($this->bandesSimple->removeElement($bandeCategory)) {
+            $bandeCategory->removeCategory($this);
+        }
+
+        return $this;
+    }
+    /**
+     * @return Collection|BandeCategoryTitle[]
+     */
+    public function getBandesTitle(): Collection
+    {
+        return $this->bandesTitle;
+    }
+
+    public function addBande(BandeCategoryTitle $bandeCategoryTitle): self
+    {
+        if (!$this->bandesTitle->contains($bandeCategoryTitle)) {
+            $this->bandesTitle = $bandeCategoryTitle;
+            $bandeCategoryTitle->addCategory($this);
+        }
+        return $this;
+    }
+
+    public function removeBande(BandeCategoryTitle $bandeCategoryTitle): self
+    {
+        if ($this->bandesTitle->removeElement($bandeCategoryTitle)) {
+            $bandeCategoryTitle->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function getBandes(): Collection
+    {
+        return $this->bandesTitle + $this->bandesSimple;
     }
 }

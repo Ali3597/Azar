@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PromoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,11 +23,11 @@ class Promo
     /**
      * @ORM\Column(type="string", length=255)
      */
-      #[Assert\NotBlank(message: 'Veuillez renseigner un Nom')]
+    #[Assert\NotBlank(message: 'Veuillez renseigner un Nom')]
     #[Assert\Length(min: 10, minMessage: 'Veuillez détailler votre nom', max: 255, maxMessage: 'Le nom de votre promo est trop long')]
     private $name;
 
-    #[Assert\Image(mimeTypes:["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+    #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]
     private $pictureFile;
     /**
      * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
@@ -36,6 +38,15 @@ class Promo
      */
     private $picture;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=BandePromo::class, mappedBy="promos")
+     */
+    private $bandes;
+    public function __construct()
+    {
+
+        $this->bandes = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -64,9 +75,9 @@ class Promo
 
         return $this;
     }
-     /**
+    /**
      * Get the value of pictureFile
-     */ 
+     */
     public function getPictureFile()
     {
         return $this->pictureFile;
@@ -76,7 +87,7 @@ class Promo
      * Set the value of pictureFile
      *
      * @return  self
-     */ 
+     */
     public function setPictureFile($pictureFile)
     {
         if ($pictureFile) {
@@ -85,6 +96,33 @@ class Promo
             $this->picture = $picture;
         }
         $this->pictureFile = $pictureFile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BandePromo[]
+     */
+    public function getBandes(): Collection
+    {
+        return $this->bandes;
+    }
+
+    public function addBande(BandePromo $bandePromo): self
+    {
+        if (!$this->bandes->contains($bandePromo)) {
+            $this->bandes = $bandePromo;
+            $bandePromo->addPromo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBande(BandePromo $bandePromo): self
+    {
+        if ($this->bandes->removeElement($bandePromo)) {
+            $bandePromo->removePromo($this);
+        }
 
         return $this;
     }

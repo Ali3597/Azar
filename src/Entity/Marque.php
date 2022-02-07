@@ -70,11 +70,17 @@ class Marque
     #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug n'a pas le bon format")]
     private $slug;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=BandeMarque::class, mappedBy="marques")
+     */
+    private $bandes;
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
         $this->produits = new ArrayCollection();
+        $this->bandes = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -181,6 +187,33 @@ class Marque
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BandeMarque[]
+     */
+    public function getBandes(): Collection
+    {
+        return $this->bandes;
+    }
+
+    public function addBande(BandeMarque $bandeMarque): self
+    {
+        if (!$this->bandes->contains($bandeMarque)) {
+            $this->bandes = $bandeMarque;
+            $bandeMarque->addMarque($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBande(BandeMarque $bandeMarque): self
+    {
+        if ($this->bandes->removeElement($bandeMarque)) {
+            $bandeMarque->removeMarque($this);
+        }
 
         return $this;
     }

@@ -113,7 +113,8 @@
 								<form action="{{ path('admin_low_category_delete' , { id: categorie.id }) }}" method="post">
 									<input type="hidden" name="_method" value="DELETE">
 									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
-									<button>Supprimer</button>
+									<button onclick="return confirm('Etes vos sure de couloir supprimer cette categorie , tous les produits dans cette categories seront aussi supprimeé  ?')">Supprimer</button>
+
 								</form>
 							</td>
 

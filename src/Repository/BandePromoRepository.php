@@ -35,6 +35,15 @@ class BandePromoRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findBandeByItemId($id)
+    {
+        return $this->createQueryBuilder('b')
+            ->innerJoin('b.promos', 'p')
+            ->andWhere('p.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?BandePromo

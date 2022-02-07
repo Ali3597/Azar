@@ -7,6 +7,7 @@ use App\Entity\Search;
 use App\Form\ArticleType;
 use App\Form\SearchType;
 use App\Repository\ArticleRepository;
+use App\Service\BandeManagement;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -97,10 +98,11 @@ class AdminArticleController extends AbstractController
 
 
     #[Route('/article/{id}', name: 'article_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Article $article): Response
+    public function delete(Request $request, Article $article, BandeManagement $bandeManagement): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->get('_token'))) {
+            $bandeManagement->deleteItemBande($article);
             $this->em->remove($article);
             $this->em->flush();
             $this->addFlash('success', 'Votre article a bien été supprime ');

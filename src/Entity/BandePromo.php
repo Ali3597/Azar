@@ -28,7 +28,7 @@ class BandePromo
     private $bande;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Promo::class)
+     * @ORM\ManyToMany(targetEntity=Promo::class, inversedBy="bandes")
      */
     private $promos;
 

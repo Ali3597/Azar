@@ -7,6 +7,7 @@ use App\Entity\Search;
 use App\Form\HighCategoryType;
 use App\Form\SearchType as FormSearchType;
 use App\Repository\CategoryRepository;
+use App\Service\BandeManagement;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -113,10 +114,11 @@ class AdminHighCategoryController extends AbstractController
 
 
     #[Route('/high_category/{id}', name: 'high_category_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Category $categorie): Response
+    public function delete(Request $request, Category $categorie, BandeManagement $bandeManagement): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->get('_token'))) {
+            $bandeManagement->deleteItemBande($categorie);
             $categoriesChildren = $categorie->getCategoriesChildrens();
             foreach ($categoriesChildren as $element) {
                 $this->em->remove($element);
@@ -124,7 +126,7 @@ class AdminHighCategoryController extends AbstractController
             $this->em->flush();
             $this->em->remove($categorie);
             $this->em->flush();
-            $this->addFlash('success', 'Votre categorie a bien été supprime ');
+            $this->addFlash('success', 'Votre categorie a bien été supprimé ');
         }
         return $this->redirectToRoute('admin_high_categories');
     }

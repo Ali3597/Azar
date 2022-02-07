@@ -26,7 +26,7 @@ class BandeProduct
     private $bande;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Produit::class)
+     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="bandes")
      */
     private $products;
 

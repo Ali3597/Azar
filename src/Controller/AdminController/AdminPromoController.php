@@ -7,6 +7,7 @@ use App\Entity\Search;
 use App\Form\PromoType;
 use App\Form\SearchType;
 use App\Repository\PromoRepository;
+use App\Service\BandeManagement;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -88,10 +89,11 @@ class AdminPromoController extends AbstractController
 
 
     #[Route('/promo/{id}', name: 'promo_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Promo $promo): Response
+    public function delete(Request $request, Promo $promo, BandeManagement $bandeManagement): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $promo->getId(), $request->get('_token'))) {
+            $bandeManagement->deleteItemBande($promo);
             $this->em->remove($promo);
             $this->em->flush();
             $this->addFlash('success', 'Votre promo a bien été supprime ');

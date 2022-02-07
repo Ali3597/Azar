@@ -132,10 +132,16 @@ class Produit
      */
     private $views;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=BandeProduct::class, mappedBy="products")
+     */
+    private $bandes;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
         $this->usersWanter = new ArrayCollection();
+        $this->bandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -320,6 +326,32 @@ class Produit
         return $this;
     }
 
+    /**
+     * @return Collection|BandeProduct[]
+     */
+    public function getBandes(): Collection
+    {
+        return $this->bandes;
+    }
+
+    public function addBande(BandeProduct $bandeProduct): self
+    {
+        if (!$this->bandes->contains($bandeProduct)) {
+            $this->bandes = $bandeProduct;
+            $bandeProduct->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBande(BandeProduct $bandeProduct): self
+    {
+        if ($this->bandes->removeElement($bandeProduct)) {
+            $bandeProduct->removeProduct($this);
+        }
+
+        return $this;
+    }
     /**
      * @return Collection|User[]
      */

@@ -35,6 +35,16 @@ class BandeProductRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findBandeByItemId($id)
+    {
+        return $this->createQueryBuilder('b')
+            ->innerJoin('b.products', 'p')
+            ->andWhere('p.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     /*
     public function findOneBySomeField($value): ?BandeProduct
