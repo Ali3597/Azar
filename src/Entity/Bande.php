@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=BandeRepository::class)
  */
+
 class Bande
 {
     /**
@@ -91,7 +92,7 @@ class Bande
     private $color;
 
 
- 
+
 
 
 
@@ -294,5 +295,20 @@ class Bande
         return $this;
     }
 
-   
+    public function getItemLenght()
+    {
+        if ($this->bandePromo) {
+            return  sizeof($this->getBandePromo()->getPromos());
+        } else if ($this->bandeProduct) {
+            return  sizeof($this->getBandeProduct()->getProducts());
+        } else if ($this->bandeArticle) {
+            return  sizeof($this->getBandeArticle()->getArticles());
+        } else if ($this->bandeMarque) {
+            return  sizeof($this->getbandeMarque()->getMarques());
+        } else if ($this->bandeCategory) {
+            return  sizeof($this->getBandeCategory()->getCategories());
+        } else if ($this->bandeCategoryTitle) {
+            return  sizeof($this->getBandeCategoryTitle()->getCategories());
+        }
+    }
 }

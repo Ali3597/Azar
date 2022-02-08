@@ -69,7 +69,7 @@ class AdminProductController extends AbstractController
 
 
     #[Route('/product/{id}', name: 'product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Produit $product): Response
+    public function edit(Request $request, Produit $product, BandeManagement $bandeManagement): Response
     {
         $orginalsItemsDescription = null;
         if ($product->getDescriptionList()) {
@@ -112,6 +112,12 @@ class AdminProductController extends AbstractController
                     }
                 }
             }
+            if ($product->getBandes() && !$product->getAfficher()) {
+                $bandeManagement->deleteItemBande($product);
+                foreach ($product->getBandes() as $bandeProduct) {
+                    $product->removeBande($bandeProduct);
+                }
+            }
             $this->em->persist($product);
             $this->em->flush();
             $this->addFlash('success', 'Votre produit a bien été modifié ');
@@ -135,6 +141,7 @@ class AdminProductController extends AbstractController
                 $product->removePicture($image);
                 $this->em->remove($image);
             }
+
             $this->em->flush();
             $this->em->remove($product);
             $this->em->flush();

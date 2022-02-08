@@ -52,7 +52,15 @@ class BandeRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('b')
             ->orderBy('b.position', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+    }
+
+    public function findOneBandeByPosition($position)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.position = :val')
+            ->setParameter('val', $position)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

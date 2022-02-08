@@ -1,7 +1,5 @@
 import "./styles/admin/bande.css";
-setTimeout(() => {
-  console.log(document.querySelector("html").scrollTop);
-}, 3000);
+
 let Sortable = function (element, scrollable, hop = null) {
   this.element = element;
   let self = this;
@@ -51,7 +49,6 @@ let Sortable = function (element, scrollable, hop = null) {
       };
 
       self.scrollTopStart = self.scrollable.scrollTop;
-      console.log(self.scrollable);
     })
     .on("dragend", function (e) {
       e.target.classList.remove("is-dragged");
@@ -60,7 +57,7 @@ let Sortable = function (element, scrollable, hop = null) {
 };
 Sortable.prototype.move = function (e) {
   let p = this.getXY(this.startPosition);
-  console.log(p);
+
   let x = p.x + e.clientX - e.clientX0;
   let y =
     p.y +
@@ -126,12 +123,16 @@ Sortable.prototype.moveItem = function (item, position) {
 };
 
 let toSort = document.querySelectorAll(".elements");
-for (let i = 0; i < toSort.length; i++) {
-  new Sortable(toSort[i], toSort[i]);
+if (toSort) {
+  for (let i = 0; i < toSort.length; i++) {
+    new Sortable(toSort[i], toSort[i]);
+  }
 }
 
 let toSortBandes = document.querySelector(".bandes");
-new Sortable(toSortBandes, toSortBandes, true);
+if (toSortBandes.querySelector(".bande")) {
+  new Sortable(toSortBandes, toSortBandes, true);
+}
 
 let createDivWithClass = function (className) {
   let div = document.createElement("div");
@@ -460,7 +461,9 @@ let deleteBande = function (element) {
       myElements[i].setAttribute("data-position", i);
     }
     insertAfter(contenant, toInsertAfter);
-    new Sortable(contenant, contenant);
+    if (contenant.querySelector("bande")) {
+      new Sortable(contenant, contenant);
+    }
   } else {
     let div = createDivWithClass("bandes");
     div.setAttribute("data-sortable", ".bande");
@@ -590,7 +593,7 @@ let confirmNewBande = function (element) {
       ajustVisibleTypeAndScroll(bandType, 1, 1, div);
       reloadNewPromo(div.querySelector(".addnew"));
     } else if (bandType == "categoryTitle") {
-      ajustVisibleTypeAndScroll(bandType, 3, 1, div);
+      ajustVisibleTypeAndScroll(bandType, 5, 1, div);
       reloadNewCategoryTitle(div.querySelector(".addnew"));
     }
     let p = div.querySelector(".details p");
@@ -603,8 +606,11 @@ let confirmNewBande = function (element) {
     insertAfter(bandeSubstitute, toInsertAfter);
     new Sortable(bandeSubstitute, bandeSubstitute, true);
     let toSort = document.querySelectorAll(".elements");
+
     for (let i = 0; i < toSort.length - 1; i++) {
-      new Sortable(toSort[i], toSort[i]);
+      if (toSort[i].querySelector(".element")) {
+        new Sortable(toSort[i], toSort[i]);
+      }
     }
     removeAddbande(element);
   }

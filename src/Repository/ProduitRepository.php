@@ -214,6 +214,7 @@ class ProduitRepository extends ServiceEntityRepository
     public function findProductsinOneCategory($id)
     {
         return $this->createQueryBuilder('p')
+            ->Where('p.afficher = true')
             ->andWhere('p.category = :id')
             ->setParameter('id', $id)
             ->getQuery()

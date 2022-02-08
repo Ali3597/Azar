@@ -161,7 +161,7 @@
 								<form action="{{ path('admin_article_delete' , { id: article.id }) }}" method="post">
 									<input type="hidden" name="_method" value="DELETE">
 									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-									<button onclick="return confirm('Etes vos sure de couloir supprimer cet article, si cette article est présent dans une bande elle sera supprimé ?')">Supprimer</button>
+									<button onclick="return confirm('Etes vos sure de couloir supprimer cet article, si cette article est présent dans une bande elle  pourrait etre supprimé ?')">Supprimer</button>
 
 								</form>
 							</td>

@@ -158,7 +158,8 @@
 							<form action="{{ path('admin_product_delete' , { id: product.id }) }}" method="post">
 								<input type="hidden" name="_method" value="DELETE">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
-								<button onclick="return confirm('Etes vos sure de couloir supprimer ce produit , Si ce produit est présent dans une bande cette bande sera supprimé')">Supprimer</button>
+								<button onclick="return confirm('Etes vos sure de couloir supprimer ce produit , Si ce produit est présent dans une bande cette bande pourrait etre supprimé')">Supprimer</button>
+
 
 							</form>
 						</td>

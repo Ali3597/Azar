@@ -27,9 +27,31 @@ class BandeManagement
         if ($bandes) {
             foreach ($bandes as $bande) {
 
-                $this->em->remove($bande->getBande());
+                if ($this->IsThisBandeUnderVisible($bande->getBande())) {
+                    $this->RearangePosition($bande->getBande());
+                    $this->em->remove($bande->getBande());
+                }
             }
             $this->em->flush();
+        }
+    }
+    public function IsThisBandeUnderVisible($bande)
+    {
+        $visibleBande = $bande->getSlideVisible();
+        $size = $bande->getItemLenght();
+        if ($size - $visibleBande <= 0) {
+            return true;
+        }
+        return false;
+    }
+    public function RearangePosition($bande)
+    {
+        $position = $bande->getPosition();
+        $size = count($this->bandeRepo->findAll());
+        for ($i = $position + 1; $i < $size; $i++) {
+            $bandeToSet = $this->bandeRepo->findOneBandeByPosition($i);
+            $bandeToSet->setPosition($i - 1);
+            $this->em->persist($bandeToSet);
         }
     }
 }

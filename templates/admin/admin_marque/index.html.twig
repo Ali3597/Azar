@@ -110,7 +110,8 @@
 								<form action="{{ path('admin_marque_delete' , { id: marque.id }) }}" method="post">
 									<input type="hidden" name="_method" value="DELETE">
 									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ marque.id) }}">
-									<button onclick="return confirm('Etes vous sure de vouloir supprimer cette marque , Si cette marque est présent dans une bande cette bande sera supprimé')">Supprimer</button>
+									<button onclick="return confirm('Etes vous sure de vouloir supprimer cette marque , Si cette marque est présent dans une bande cette bande pourrait etre supprimé')">Supprimer</button>
+
 								</form>
 							</td>
 

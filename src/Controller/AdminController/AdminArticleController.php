@@ -75,14 +75,21 @@ class AdminArticleController extends AbstractController
 
 
     #[Route('/article/{id}', name: 'article_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Article $article): Response
+    public function edit(Request $request, Article $article, BandeManagement $bandeManagement): Response
     {
+
         $picture = $article->getPicture();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($article->getPictureFile()) {
                 $this->em->remove($picture);
+            }
+            if ($article->getBandes() && !$article->getPublished()) {
+                $bandeManagement->deleteItemBande($article);
+                foreach ($article->getBandes() as $bandeArticle) {
+                    $article->removeBande($bandeArticle);
+                }
             }
             $this->em->persist($article);
             $this->em->flush();

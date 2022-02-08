@@ -116,7 +116,7 @@ class AdminBandeController extends AbstractController
                 }
                 $this->em->persist($bandePromo);
             } else if ($bande->getType() == "categoryTitle") {
-                $bande->setSlideVisible(3);
+                $bande->setSlideVisible(5);
                 $bande->setSlideToScroll(1);
                 $this->em->persist($bande);
                 $bandeCategoryTitle = new BandeCategoryTitle();
