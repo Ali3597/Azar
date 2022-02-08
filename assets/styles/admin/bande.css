@@ -8,9 +8,11 @@
 }
 .bandes {
   display: flex;
+
   flex-direction: column;
   align-items: center;
-  height: fit-content;
+  height: 100vh;
+  overflow-y: scroll;
   width: 100%;
   position: relative;
 }
@@ -88,6 +90,16 @@
   border: 1px solid black;
   cursor: pointer;
   position: relative;
+}
+.element > p {
+  font-weight: 500;
+  font-size: 17px;
+  flex: 1;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .element.is-dragged {
   transition: 0s;
@@ -213,7 +225,8 @@ select {
   font-weight: 700;
   font-size: 14px;
   padding-left: 5%;
-  right: -70%;
+
+  top: 0;
 }
 
 .errorElement {
@@ -250,4 +263,5 @@ select {
 
 .popUpError.active {
   display: block;
+  visibility: visible;
 }

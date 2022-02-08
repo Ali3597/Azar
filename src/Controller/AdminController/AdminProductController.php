@@ -147,6 +147,7 @@ class AdminProductController extends AbstractController
     public function getHighCategories(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
+
         $products = $this->productRepo->findProductsinOneCategory($data["value"]);
         $test = [];
 

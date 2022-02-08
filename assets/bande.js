@@ -1,10 +1,12 @@
 import "./styles/admin/bande.css";
-
+setTimeout(() => {
+  console.log(document.querySelector("html").scrollTop);
+}, 3000);
 let Sortable = function (element, scrollable, hop = null) {
   this.element = element;
   let self = this;
   if (scrollable == null) {
-    scrollable = document.body;
+    scrollable = document.querySelector("html");
   }
   this.scrollable = scrollable;
   this.items = this.element.querySelectorAll(this.element.dataset.sortable);
@@ -13,6 +15,7 @@ let Sortable = function (element, scrollable, hop = null) {
   this.item_width = Math.floor(rect.width);
   this.item_height = Math.floor(rect.height);
   this.cols = Math.floor(this.element.offsetWidth / this.item_width);
+
   if (hop != null) {
     element.style.height = this.item_height * this.items.length + "px";
   }
@@ -46,7 +49,9 @@ let Sortable = function (element, scrollable, hop = null) {
         x: e.clientX - r.left,
         y: e.clientY - r.top,
       };
+
       self.scrollTopStart = self.scrollable.scrollTop;
+      console.log(self.scrollable);
     })
     .on("dragend", function (e) {
       e.target.classList.remove("is-dragged");
@@ -55,6 +60,7 @@ let Sortable = function (element, scrollable, hop = null) {
 };
 Sortable.prototype.move = function (e) {
   let p = this.getXY(this.startPosition);
+  console.log(p);
   let x = p.x + e.clientX - e.clientX0;
   let y =
     p.y +
@@ -62,6 +68,7 @@ Sortable.prototype.move = function (e) {
     e.clientY0 +
     this.scrollable.scrollTop -
     this.scrollTopStart;
+
   e.target.style.transform = "translate3D(" + x + "px," + y + "px,0)";
   let oldPosition = e.target.dataset.position;
   let newPosition = this.guessPosition(x + this.offset.x, y + this.offset.y);
@@ -125,6 +132,7 @@ for (let i = 0; i < toSort.length; i++) {
 
 let toSortBandes = document.querySelector(".bandes");
 new Sortable(toSortBandes, toSortBandes, true);
+
 let createDivWithClass = function (className) {
   let div = document.createElement("div");
   div.setAttribute("class", className);
@@ -241,7 +249,8 @@ let bandeCommun = `
 <input id="title" type="text" name='title' placeholder="placer le titre">
 <label for="subTitle">
   Sous-Titre</label>
-<input id="subtitle" type="text" name='subTitle' placeholder="placer le titre">
+<input id="subtitle" type="text" name='subTitle' placeholder="placer le sous titre">
+	<input type="color" id="color" name="head" >
 <p class= "error"></p>
 </div>
 <div class="elements" data-sortable=".element">
@@ -388,8 +397,6 @@ let addThisElement = function (element, type) {
         reloadNewPromo(contenant);
       }
     }
-  } else {
-    //todoooo errooooor
   }
 };
 
@@ -438,8 +445,6 @@ let removeElement = function (element) {
   insertAfter(contenant, toInsertAfter);
   if (myElements.length > 0) {
     new Sortable(contenant, contenant);
-  } else {
-    //TODOOOOOO delete bande
   }
 };
 
@@ -457,7 +462,10 @@ let deleteBande = function (element) {
     insertAfter(contenant, toInsertAfter);
     new Sortable(contenant, contenant);
   } else {
-    //TODOOOOOO delete bande
+    let div = createDivWithClass("bandes");
+    div.setAttribute("data-sortable", ".bande");
+    let h1 = document.querySelector(".content > h1");
+    insertAfter(div, h1);
   }
 };
 
@@ -499,24 +507,20 @@ let newmarque = function (element) {
 
 let newcategory = function (element) {
   let div = element.parentNode;
-  if (element.parentNode.parentNode.querySelectorAll(".element").length < 5) {
-    axios
-      .get("/admin/getHighCategories")
-      .then((response) => {
-        div.innerHTML = categorySelects;
+  axios
+    .get("/admin/getHighCategories")
+    .then((response) => {
+      div.innerHTML = categorySelects;
 
-        fillSelect(
-          div.querySelector("#element"),
-          response.data.categories,
-          "--Choisis une categorie--"
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else {
-    console.log("errrror to do");
-  }
+      fillSelect(
+        div.querySelector("#element"),
+        response.data.categories,
+        "--Choisis une categorie--"
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 let newcategoryTitle = function (element) {
   let div = element.parentNode;
@@ -569,8 +573,8 @@ let confirmNewBande = function (element) {
     let bandeNumbers = document.querySelectorAll(".bande").length;
     div.setAttribute("data-position", bandeNumbers);
     div.innerHTML = bandeCommun;
-
-    if (bandType == "Category") {
+    console.log(bandType);
+    if (bandType == "category") {
       ajustVisibleTypeAndScroll(bandType, 1, 1, div);
       reloadNewCategory(div.querySelector(".addnew"));
     } else if (bandType == "marque") {
@@ -669,53 +673,58 @@ let deleteAllErrors = function () {
     element.innerHTML = "";
   });
 };
-let popBigError = function () {
+let popBigError = function (message) {
   let pop = document.querySelector(".popUpError");
+  pop.innerHTML = message;
   pop.classList.add("active");
 
   setTimeout(function () {
     pop.classList.remove("active");
-  }, 3000);
+    pop.innerHTML = "";
+  }, 1500);
 };
 let validAll = function () {
   deleteAllErrors();
   let error = 0;
   let bandesToSendHttp = [];
   let bandes = document.querySelectorAll(".bande");
-
-  for (let i = 0; i < bandes.length; i++) {
-    error = verifySubDetails(bandes[i], error);
-    error = verifyElements(bandes[i], error);
-    error = verifyElementsLenght(bandes[i], error);
-  }
-  if (error == 0) {
+  if (bandes.length == 0) {
+    popBigError("Vous n'avez aucune bandes");
+  } else {
     for (let i = 0; i < bandes.length; i++) {
-      let mySquares = bandes[i].querySelectorAll(".element");
-      let array = [];
-      for (let j = 0; j < mySquares.length; j++) {
-        array[j] = mySquares[j].getAttribute("data-id");
+      error = verifySubDetails(bandes[i], error);
+      error = verifyElements(bandes[i], error);
+      error = verifyElementsLenght(bandes[i], error);
+    }
+    if (error == 0) {
+      for (let i = 0; i < bandes.length; i++) {
+        let mySquares = bandes[i].querySelectorAll(".element");
+        let array = [];
+        for (let j = 0; j < mySquares.length; j++) {
+          array[j] = mySquares[j].getAttribute("data-id");
+        }
+
+        bandesToSendHttp[i] = {
+          type: bandes[i].getAttribute("data-type"),
+          title: bandes[i].querySelector("#title").value,
+          subtitle: bandes[i].querySelector("#subtitle").value,
+          color: bandes[i].querySelector("#color").value,
+          position: bandes[i].dataset.position,
+          elements: array,
+        };
       }
 
-      bandesToSendHttp[i] = {
-        type: bandes[i].getAttribute("data-type"),
-        title: bandes[i].querySelector("#title").value,
-        subtitle: bandes[i].querySelector("#subtitle").value,
-        color: bandes[i].querySelector("#color").value,
-        position: bandes[i].dataset.position,
-        elements: array,
-      };
+      axios
+        .post("/admin/validNewBandes", { bandesToSendHttp })
+        .then((response) => {
+          window.location.href = "/admin/bandes";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      popBigError("Oh ! Vous avez une erreur dans votre bande !");
     }
-
-    axios
-      .post("/admin/validNewBandes", { bandesToSendHttp })
-      .then((response) => {
-        window.location.href = "/admin/bandes";
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else {
-    popBigError();
   }
 };
 

@@ -44,15 +44,4 @@ class CategoryController extends AbstractController
             ]);
         }
     }
-    #[Route('/getLowCategories', name: 'ajax_lowCategories')]
-    public function getHighCategories(Request $request): Response
-    {
-        $data = json_decode($request->getContent(), true);
-        $categories = $this->categoryRepo->findAllLowCategoriesofCategoryParent($data["value"]);
-        $test = [];
-        for ($i = 0; $i < sizeof($categories); $i++) {
-            $test[$i] = ["name" => $categories[$i]->getName(), "slug" => $categories[$i]->getSlug()];
-        }
-        return new JsonResponse(['categories' => $test]);
-    }
 }

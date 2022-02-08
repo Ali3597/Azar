@@ -113,7 +113,7 @@ class ProduitRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('p');
 
         $query
-            ->andWhere('p.marque = :categoryId')
+            ->andWhere('p.category = :categoryId')
             ->setParameter('categoryId', $categoryId);
         if ($search->getQueryName()) {
             $query->andWhere('p.name LIKE :search')
@@ -142,10 +142,10 @@ class ProduitRepository extends ServiceEntityRepository
     {
 
 
-        $query = $this->createQueryBuilder('p');
-
+        $query = $this->createQueryBuilder('p')
+            ->Where('p.afficher = true');
         $query
-            ->Where('p.category = :categoryId')
+            ->andWhere('p.category = :categoryId')
             ->setParameter('categoryId', $categoryId)
             ->andWhere('p.id != :productId')
             ->setParameter('productId', $productId)

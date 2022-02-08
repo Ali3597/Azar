@@ -113,9 +113,8 @@ class AdminArticleController extends AbstractController
     #[Route('/getArticles', name: 'ajax_articles')]
     public function getArticles(): Response
     {
-        $articles = $this->articleRepo->findAllArticlesByDates();
+        $articles = $this->articleRepo->findAllArticlesPublishedByDates();
         $test = [];
-
         for ($i = 0; $i < sizeof($articles); $i++) {
             $test[$i] = ["name" => $articles[$i]->getTitle(), "id" => $articles[$i]->getId(), "filename" => $articles[$i]->getPicture()->getFilename()];
         }

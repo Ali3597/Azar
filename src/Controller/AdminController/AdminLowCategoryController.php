@@ -68,6 +68,7 @@ class AdminLowCategoryController extends AbstractController
     #[Route('/low_category/consult/{id}', name: 'low_category_consult')]
     public function consult(PaginatorInterface $paginator, Request $request, Category $category, ProduitRepository $produitRepo): Response
     {
+
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
@@ -122,5 +123,18 @@ class AdminLowCategoryController extends AbstractController
             $this->addFlash('success', 'Votre categorie a bien été supprime ');
         }
         return $this->redirectToRoute('admin_low_categories');
+    }
+
+    #[Route('/getLowCategories', name: 'ajax_lowCategories')]
+    public function getHighCategories(Request $request, CategoryRepository $categoryRepo): Response
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $categories = $categoryRepo->findAllLowCategoriesofCategoryParent($data["value"]);
+        $test = [];
+        for ($i = 0; $i < sizeof($categories); $i++) {
+            $test[$i] = ["name" => $categories[$i]->getName(), "slug" => $categories[$i]->getSlug(), 'id' => $categories[$i]->getId()];
+        }
+        return new JsonResponse(['categories' => $test]);
     }
 }
