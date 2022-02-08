@@ -13,7 +13,7 @@
 			<p>{{category.description}}</p>
 			<div class="presCat flex">
 				{% for categorie in category.CategoriesChildrens %}
-					{% if categorie.produits|length > 0 %}
+					{% if categorie.produitsAfficher|length > 0 %}
 
 
 						<a href="{{path('productsCategories',{ slug: categorie.slug })}}" class="sous-category flex column ">
@@ -37,7 +37,7 @@
 				{{ category.name|capitalize}}</h1>
 
 			{% for categorie in category.CategoriesChildrens %}
-				{% if categorie.produits|length > 0 %}
+				{% if categorie.produitsAfficher|length > 0 %}
 
 					<div class="rayon flex  ">
 						<a href="{{path('productsCategories',{ slug: categorie.slug })}}" class="rayon-presentation flex column ">

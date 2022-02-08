@@ -171,6 +171,17 @@ class Category
         return $this->produits;
     }
 
+    public function getProduitsAfficher()
+    {
+        $produits = $this->produits;
+        $newArray = [];
+        foreach ($produits as $produit) {
+            if ($produit->getAfficher()) {
+                array_push($newArray, $produit);
+            }
+        }
+        return $newArray;
+    }
     public function addProduit(Produit $produit): self
     {
         if (!$this->produits->contains($produit)) {
