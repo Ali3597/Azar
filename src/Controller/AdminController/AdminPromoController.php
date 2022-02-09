@@ -9,6 +9,7 @@ use App\Form\SearchType;
 use App\Repository\PromoRepository;
 use App\Service\BandeManagement;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -103,13 +104,18 @@ class AdminPromoController extends AbstractController
 
 
     #[Route('/getPromos', name: 'ajax_promos')]
-    public function getPromos(): Response
+    public function getPromos(Request $request): Response
     {
-        $promos = $this->promoRepo->findAllPromosAlphabet();
-        $test = [];
-        for ($i = 0; $i < sizeof($promos); $i++) {
-            $test[$i] = ["name" => $promos[$i]->getName(), "id" => $promos[$i]->getId(), "filename" => $promos[$i]->getPicture()->getFilename()];
+
+        if ($request->isXmlHttpRequest()) {
+            $promos = $this->promoRepo->findAllPromosAlphabet();
+            $test = [];
+            for ($i = 0; $i < sizeof($promos); $i++) {
+                $test[$i] = ["name" => $promos[$i]->getName(), "id" => $promos[$i]->getId(), "filename" => $promos[$i]->getPicture()->getFilename()];
+            }
+            return new JsonResponse(['promos' => $test]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
         }
-        return new JsonResponse(['promos' => $test]);
     }
 }

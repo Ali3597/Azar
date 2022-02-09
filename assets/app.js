@@ -126,7 +126,13 @@ let activeHighCategory = function () {
   ref = setTimeout(() => {
     console.log("ok");
     axios
-      .post("/getLowCategories", { value })
+      .post(
+        "/getLowCategories",
+        { value },
+        {
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+        }
+      )
       .then((response) => {
         if (response.data.categories.length == 0) {
           subCategoriesPrinted = "";

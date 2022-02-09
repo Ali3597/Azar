@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/admin', name: 'admin_')]
 class AdminCommandController extends AbstractController
 {
 
@@ -26,7 +27,7 @@ class AdminCommandController extends AbstractController
         $this->commandRepo = $commandRepo;
         $this->em = $em;
     }
-    #[Route('/admin/commands', name: 'admin_commands')]
+    #[Route('/commands', name: 'commands')]
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new Search();
@@ -45,7 +46,7 @@ class AdminCommandController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/commands/consult/{id}', name: 'admin_command_consult')]
+    #[Route('/commands/consult/{id}', name: 'command_consult')]
     public function consult(Command $command, Request $request): Response
     {
 
@@ -65,7 +66,7 @@ class AdminCommandController extends AbstractController
     }
 
 
-    #[Route('/command/{id}', name: 'admin_command_delete', methods: ['DELETE'])]
+    #[Route('/command/{id}', name: 'command_delete', methods: ['DELETE'])]
     public function delete(Command $command, Request $request): Response
     {
 

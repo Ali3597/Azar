@@ -91,7 +91,13 @@ let changeQuantity = function (element) {
       element.parentNode.parentNode.parentNode.querySelector("#number")
     );
     axios
-      .post("/panier/add/" + id, { nbrProducts })
+      .post(
+        "profile/panier/add/" + id,
+        { nbrProducts },
+        {
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+        }
+      )
       .then((response) => {
         console.log(response.data["nbr"]);
       })
@@ -179,7 +185,13 @@ let updateTheInput = function (element) {
   changeBasketNumber(nbrProducts);
 
   axios
-    .post("/panier/add/" + id, { nbrProducts })
+    .post(
+      "profile/panier/add/" + id,
+      { nbrProducts },
+      {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      }
+    )
     .then((response) => {
       console.log(response.data["nbr"]);
     })
@@ -211,7 +223,13 @@ let deleteThisItem = function (element) {
     element.parentNode.parentNode.parentNode.remove();
   }, 300);
   axios
-    .post("/panier/add/" + id, { nbrProducts })
+    .post(
+      "profile/panier/add/" + id,
+      { nbrProducts },
+      {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      }
+    )
     .then((response) => {
       let elements = document.querySelectorAll(".basketItem");
       if (elements.length == 0) {
@@ -261,7 +279,9 @@ let insertAfterAjax = function (toInsert) {
 };
 let ajaxBasket = function () {
   axios
-    .get("/panierAjaxBasket")
+    .get("profile/panierAjaxBasket", {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       insertAfterAjax(response.data);
       startBasket();
@@ -272,7 +292,9 @@ let ajaxBasket = function () {
 };
 let ajaxAside = function () {
   axios
-    .get("/panierAjaxAside")
+    .get("profile/panierAjaxAside", {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       insertAfterAjax(response.data);
     })
@@ -284,7 +306,13 @@ let addToBasketFromAside = function (element) {
   let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
   let nbrProducts = 1;
   axios
-    .post("/panier/add/" + id, { nbrProducts })
+    .post(
+      "profile/panier/add/" + id,
+      { nbrProducts },
+      {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      }
+    )
     .then((response) => {
       goToBasketItems();
       changeBasketNumber(1);
@@ -306,7 +334,9 @@ let deleteFromAside = function (element) {
 
   window.setTimeout(function () {
     axios
-      .get("/aside/delete/" + id)
+      .get("profile/aside/delete/" + id, {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      })
       .then((response) => {
         element.parentNode.parentNode.parentNode.remove();
       })
@@ -316,12 +346,13 @@ let deleteFromAside = function (element) {
   }, 300);
 };
 
-// /putAsideItem/{id}
 let putAsideThisItem = function (element) {
   let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
   console.log(id);
   axios
-    .get("/putAsideItem/" + id)
+    .get("profile/putAsideItem/" + id, {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       console.log(response.data);
 

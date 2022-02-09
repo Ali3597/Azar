@@ -8,7 +8,13 @@ let addBasket = function (element) {
 
   changeBasketNumber(nbrProducts);
   axios
-    .post("/panier/add/" + idProduct, { nbrProducts })
+    .post(
+      "profile/panier/add/" + idProduct,
+      { nbrProducts },
+      {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      }
+    )
     .then((response) => {
       console.log(response.data["nbr"]);
     })

@@ -44,4 +44,19 @@ class CategoryController extends AbstractController
             ]);
         }
     }
+    #[Route('/getLowCategories', name: 'ajax_lowCategories')]
+    public function getHighCategories(Request $request, CategoryRepository $categoryRepo): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $categories = $categoryRepo->findAllLowCategoriesofCategoryParent($data["value"]);
+            $test = [];
+            for ($i = 0; $i < sizeof($categories); $i++) {
+                $test[$i] = ["name" => $categories[$i]->getName(), "slug" => $categories[$i]->getSlug(), 'id' => $categories[$i]->getId()];
+            }
+            return new JsonResponse(['categories' => $test]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
+        }
+    }
 }

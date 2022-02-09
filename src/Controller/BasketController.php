@@ -9,6 +9,7 @@ use App\Repository\ComandProductsRepository;
 use App\Repository\CommandRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/profile', name: 'profile_')]
 class BasketController extends AbstractController
 {
 
@@ -51,48 +53,59 @@ class BasketController extends AbstractController
 
 
     #[Route('/panierAjaxAside', name: 'panierAjaxAside')]
-    public function AsideAjax(): Response
+    public function AsideAjax(Request $request): Response
     {
 
-        $user = $this->getUser();
-        $userProducts = $user->getWants();
 
-        return $this->render('basket/aside.html.twig', [
-            'basket' => sizeof($userProducts) == 0 ? null : true,
-            "products" => $userProducts,
-            'idUser' => $this->getUser()->getId()
-        ]);
+        if ($request->isXmlHttpRequest()) {
+            $user = $this->getUser();
+            $userProducts = $user->getWants();
+
+            return $this->render('basket/aside.html.twig', [
+                'basket' => sizeof($userProducts) == 0 ? null : true,
+                "products" => $userProducts,
+                'idUser' => $this->getUser()->getId()
+            ]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
+        }
     }
 
     #[Route('/panierAjaxBasket', name: 'panierAjaxBasket')]
-    public function BasketAjax(SessionInterface $session, ProduitRepository $produitRepo): Response
+    public function BasketAjax(SessionInterface $session, ProduitRepository $produitRepo, Request $request): Response
     {
-
-        $basket =  $session->get("basket", null);
-        $products = [];
-        if ($basket) {
-            foreach ($basket as $key => $value) {
-                $product = $produitRepo->find($key);
-                $product->setBasketNumber($value);
-                array_push($products, $product);
+        if ($request->isXmlHttpRequest()) {
+            $basket =  $session->get("basket", null);
+            $products = [];
+            if ($basket) {
+                foreach ($basket as $key => $value) {
+                    $product = $produitRepo->find($key);
+                    $product->setBasketNumber($value);
+                    array_push($products, $product);
+                }
             }
+            return $this->render('basket/basket.html.twig', [
+                'basket' => $basket,
+                'products' => $products,
+                'idUser' => $this->getUser()->getId()
+            ]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
         }
-        return $this->render('basket/basket.html.twig', [
-            'basket' => $basket,
-            'products' => $products,
-            'idUser' => $this->getUser()->getId()
-        ]);
     }
 
     #[Route('/putAsideItem/{id}', name: 'putAsideItem')]
-    public function putAside(Produit $produit): Response
+    public function putAside(Produit $produit, Request $request): Response
     {
-
-        $user = $this->getUser();
-        $user->addWant($produit);
-        $this->em->persist($user);
-        $this->em->flush();
-        return new JsonResponse(['sucess' => "ok"]);
+        if ($request->isXmlHttpRequest()) {
+            $user = $this->getUser();
+            $user->addWant($produit);
+            $this->em->persist($user);
+            $this->em->flush();
+            return new JsonResponse(['sucess' => "ok"]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
+        }
     }
 
 
@@ -168,35 +181,43 @@ class BasketController extends AbstractController
     #[Route('/panier/add/{id}', name: 'panier_add')]
     public function add(Produit $product, SessionInterface $session, Request $request): Response
     {
-        $data = json_decode($request->getContent(), true);
-        $nbr = $data["nbrProducts"];
-        $id = $product->getId();
-        $basket =  $session->get("basket");
-        $totalNumber = $session->get("total", 0);
-        $totalNumber += $nbr;
-        if (isset($basket[$id])) {
-            $basket[$id] += $nbr;
-            if ($basket[$id] == 0) {
-                unset($basket[$id]);
-            }
-        } else {
-            $basket[$id] = $nbr;
-        }
-        $session->set("total", $totalNumber);
-        $session->set("basket", $basket);
 
-        return new JsonResponse(['nbr' => $totalNumber]);
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $nbr = $data["nbrProducts"];
+            $id = $product->getId();
+            $basket =  $session->get("basket");
+            $totalNumber = $session->get("total", 0);
+            $totalNumber += $nbr;
+            if (isset($basket[$id])) {
+                $basket[$id] += $nbr;
+                if ($basket[$id] == 0) {
+                    unset($basket[$id]);
+                }
+            } else {
+                $basket[$id] = $nbr;
+            }
+            $session->set("total", $totalNumber);
+            $session->set("basket", $basket);
+
+            return new JsonResponse(['nbr' => $totalNumber]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
+        }
     }
 
     #[Route('/aside/delete/{id}', name: 'aside_delete')]
     public function deleteAside(Produit $product, SessionInterface $session, Request $request): Response
     {
+        if ($request->isXmlHttpRequest()) {
+            $user = $this->getUser();
+            $user->removeWant($product);
+            $this->em->flush();
 
-        $user = $this->getUser();
-        $user->removeWant($product);
-        $this->em->flush();
 
-
-        return new JsonResponse(['ok' => "ok"]);
+            return new JsonResponse(['ok' => "ok"]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
+        }
     }
 }

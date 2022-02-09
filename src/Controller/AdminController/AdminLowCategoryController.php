@@ -9,6 +9,7 @@ use App\Form\SearchType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -123,18 +124,5 @@ class AdminLowCategoryController extends AbstractController
             $this->addFlash('success', 'Votre categorie a bien été supprime ');
         }
         return $this->redirectToRoute('admin_low_categories');
-    }
-
-    #[Route('/getLowCategories', name: 'ajax_lowCategories')]
-    public function getHighCategories(Request $request, CategoryRepository $categoryRepo): Response
-    {
-        $data = json_decode($request->getContent(), true);
-
-        $categories = $categoryRepo->findAllLowCategoriesofCategoryParent($data["value"]);
-        $test = [];
-        for ($i = 0; $i < sizeof($categories); $i++) {
-            $test[$i] = ["name" => $categories[$i]->getName(), "slug" => $categories[$i]->getSlug(), 'id' => $categories[$i]->getId()];
-        }
-        return new JsonResponse(['categories' => $test]);
     }
 }

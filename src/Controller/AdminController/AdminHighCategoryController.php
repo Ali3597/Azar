@@ -9,6 +9,7 @@ use App\Form\SearchType as FormSearchType;
 use App\Repository\CategoryRepository;
 use App\Service\BandeManagement;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
@@ -136,11 +137,15 @@ class AdminHighCategoryController extends AbstractController
     #[Route('/getHighCategories', name: 'ajax_highCategories')]
     public function getHighCategories(Request $request): Response
     {
-        $categories = $this->categorieRepo->findAllHighCategories();
-        $test = [];
-        for ($i = 0; $i < sizeof($categories); $i++) {
-            $test[$i] = ["name" => $categories[$i]->getName(), "id" => $categories[$i]->getId(), "filename" => $categories[$i]->getPicture()->getFilename()];
+        if ($request->isXmlHttpRequest()) {
+            $categories = $this->categorieRepo->findAllHighCategories();
+            $test = [];
+            for ($i = 0; $i < sizeof($categories); $i++) {
+                $test[$i] = ["name" => $categories[$i]->getName(), "id" => $categories[$i]->getId(), "filename" => $categories[$i]->getPicture()->getFilename()];
+            }
+            return new JsonResponse(['categories' => $test]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
         }
-        return new JsonResponse(['categories' => $test]);
     }
 }

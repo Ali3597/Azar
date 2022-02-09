@@ -10,6 +10,7 @@ use App\Repository\ArticleRepository;
 use App\Service\BandeManagement;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -118,14 +119,19 @@ class AdminArticleController extends AbstractController
     }
 
     #[Route('/getArticles', name: 'ajax_articles')]
-    public function getArticles(): Response
+    public function getArticles(Request $request): Response
     {
-        $articles = $this->articleRepo->findAllArticlesPublishedByDates();
-        $test = [];
-        for ($i = 0; $i < sizeof($articles); $i++) {
-            $test[$i] = ["name" => $articles[$i]->getTitle(), "id" => $articles[$i]->getId(), "filename" => $articles[$i]->getPicture()->getFilename()];
-        }
+        if ($request->isXmlHttpRequest()) {
 
-        return new JsonResponse(['articles' => $test]);
+            $articles = $this->articleRepo->findAllArticlesPublishedByDates();
+            $test = [];
+            for ($i = 0; $i < sizeof($articles); $i++) {
+                $test[$i] = ["name" => $articles[$i]->getTitle(), "id" => $articles[$i]->getId(), "filename" => $articles[$i]->getPicture()->getFilename()];
+            }
+
+            return new JsonResponse(['articles' => $test]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
+        }
     }
 }

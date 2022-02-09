@@ -10,7 +10,9 @@ use App\Repository\MarqueRepository;
 use App\Repository\ProduitRepository;
 use App\Service\BandeManagement;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -129,15 +131,19 @@ class AdminMarqueController extends AbstractController
         return $this->redirectToRoute('admin_marques');
     }
 
-
     #[Route('/getMarques', name: 'ajax_marques')]
-    public function getMarques(): Response
+    public function getMarques(Request $request): Response
     {
-        $marques = $this->marqueRepo->findAllMarquesAlphabet();
-        $test = [];
-        for ($i = 0; $i < sizeof($marques); $i++) {
-            $test[$i] = ["name" => $marques[$i]->getName(), "id" => $marques[$i]->getId(), "filename" => $marques[$i]->getPicture()->getFilename()];
+
+        if ($request->isXmlHttpRequest()) {
+            $marques = $this->marqueRepo->findAllMarquesAlphabet();
+            $test = [];
+            for ($i = 0; $i < sizeof($marques); $i++) {
+                $test[$i] = ["name" => $marques[$i]->getName(), "id" => $marques[$i]->getId(), "filename" => $marques[$i]->getPicture()->getFilename()];
+            }
+            return new JsonResponse(['marques' => $test]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
         }
-        return new JsonResponse(['marques' => $test]);
     }
 }

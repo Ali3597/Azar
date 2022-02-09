@@ -10,6 +10,7 @@ use App\Repository\ProduitRepository;
 use App\Service\BandeManagement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -153,14 +154,21 @@ class AdminProductController extends AbstractController
     #[Route('/getProducts', name: 'ajax_products')]
     public function getHighCategories(Request $request): Response
     {
-        $data = json_decode($request->getContent(), true);
 
-        $products = $this->productRepo->findProductsinOneCategory($data["value"]);
-        $test = [];
 
-        for ($i = 0; $i < sizeof($products); $i++) {
-            $test[$i] = ["name" => $products[$i]->getName(), "id" => $products[$i]->getId(), 'filename' => $products[$i]->getPictures()[0]->getFilename()];
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+
+            $products = $this->productRepo->findProductsinOneCategory($data["value"]);
+            $test = [];
+
+            for ($i = 0; $i < sizeof($products); $i++) {
+                $test[$i] = ["name" => $products[$i]->getName(), "id" => $products[$i]->getId(), 'filename' => $products[$i]->getPictures()[0]->getFilename()];
+            }
+            return new JsonResponse(['categories' => $test]);
+        } else {
+
+            throw new Exception('Cette page n\'existe pas');
         }
-        return new JsonResponse(['categories' => $test]);
     }
 }

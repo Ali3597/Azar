@@ -268,7 +268,9 @@ let plus = `<i class="fas fa-2x fa-plus"></i>`;
 let newproduit = function (element) {
   let div = element.parentNode;
   axios
-    .get("/admin/getHighCategories")
+    .get("/admin/getHighCategories", {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       div.innerHTML = produitSelects;
       fillSelect(
@@ -285,7 +287,9 @@ let newproduit = function (element) {
 let newpromo = function (element) {
   let div = element.parentNode;
   axios
-    .get("/admin/getPromos")
+    .get("/admin/getPromos", {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       div.innerHTML = promoSelects;
       fillSelect(
@@ -303,7 +307,13 @@ let ChangeProduitOnCategoryHigh = function (element) {
   let value = element.value;
   let div = element.parentNode;
   axios
-    .post("/admin/getLowCategories", { value })
+    .post(
+      "/getLowCategories",
+      { value },
+      {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      }
+    )
     .then((response) => {
       fillSelect(
         div.querySelector("#lowCategory"),
@@ -321,7 +331,13 @@ let ChangeProduitOnCategoryLow = function (element) {
   let value = element.value;
   let div = element.parentNode;
   axios
-    .post("/admin/getProducts", { value })
+    .post(
+      "/admin/getProducts",
+      { value },
+      {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      }
+    )
     .then((response) => {
       fillSelect(
         div.querySelector("#element"),
@@ -475,7 +491,9 @@ let deleteBande = function (element) {
 let newarticle = function (element) {
   let div = element.parentNode;
   axios
-    .get("/admin/getArticles")
+    .get("/admin/getArticles", {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       div.innerHTML = articleSelects;
 
@@ -493,7 +511,9 @@ let newarticle = function (element) {
 let newmarque = function (element) {
   let div = element.parentNode;
   axios
-    .get("/admin/getMarques")
+    .get("/admin/getMarques", {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       div.innerHTML = marqueSelects;
 
@@ -511,7 +531,9 @@ let newmarque = function (element) {
 let newcategory = function (element) {
   let div = element.parentNode;
   axios
-    .get("/admin/getHighCategories")
+    .get("/admin/getHighCategories", {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       div.innerHTML = categorySelects;
 
@@ -529,7 +551,9 @@ let newcategoryTitle = function (element) {
   let div = element.parentNode;
 
   axios
-    .get("/admin/getHighCategories")
+    .get("/admin/getHighCategories", {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       div.innerHTML = categorySelects;
 
@@ -721,7 +745,13 @@ let validAll = function () {
       }
 
       axios
-        .post("/admin/validNewBandes", { bandesToSendHttp })
+        .post(
+          "/admin/validNewBandes",
+          { bandesToSendHttp },
+          {
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+          }
+        )
         .then((response) => {
           window.location.href = "/admin/bandes";
         })

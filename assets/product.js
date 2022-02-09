@@ -56,7 +56,9 @@ let putAsideThisItem = function (element) {
   let id = element.getAttribute("data-id");
   console.log(id);
   axios
-    .get("/putAsideItem/" + id)
+    .get("/profile/putAsideItem/" + id, {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       console.log(response.data);
       popup("Votre produit a bien était mis de coté ");

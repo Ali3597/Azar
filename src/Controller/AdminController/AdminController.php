@@ -5,6 +5,7 @@ namespace App\Controller\AdminController;
 use App\Repository\DesignRepository;
 use App\Repository\ProduitRepository;
 use App\Service\StatUse;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,30 +36,45 @@ class AdminController extends AbstractController
             'connected' => true,
         ]);
     }
+
     #[Route('/admin/weeklyStat', name: 'admin_weeklyStat')]
     public function weeklyStat(Request $request): Response
     {
-        $data = json_decode($request->getContent(), true);
-        $graphArray = $this->statUse->getWeeklyStat($data);
-        return new JsonResponse(['graph' => $graphArray]);
+
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $graphArray = $this->statUse->getWeeklyStat($data);
+            return new JsonResponse(['graph' => $graphArray]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
+        }
     }
 
     #[Route('/admin/monthlyStat', name: 'admin_monthlyStat')]
     public function monthlyStat(Request $request): Response
     {
 
-        $data = json_decode($request->getContent(), true);
-        $graphArray = $this->statUse->getMonthlyStat($data);
-        return new JsonResponse(['graph' => $graphArray]);
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            $graphArray = $this->statUse->getMonthlyStat($data);
+            return new JsonResponse(['graph' => $graphArray]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
+        }
     }
 
     #[Route('/admin/yearlyStat', name: 'admin_yearlyStat')]
     public function yearlyStat(Request $request): Response
     {
-        $data = json_decode($request->getContent(), true);
 
-        $graphArray = $this->statUse->getYearlyStat($data);
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
 
-        return new JsonResponse(['graph' => $graphArray]);
+            $graphArray = $this->statUse->getYearlyStat($data);
+
+            return new JsonResponse(['graph' => $graphArray]);
+        } else {
+            throw new Exception('Cette page n\'existe pas');
+        }
     }
 }

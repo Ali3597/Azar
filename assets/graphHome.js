@@ -71,7 +71,9 @@ let changeToTheWeek = function () {
 };
 let changeTheGraphYear = function (aYear) {
   axios
-    .post("/admin/yearlyStat", aYear)
+    .post("/admin/yearlyStat", aYear, {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       loadTheGraph(response.data["graph"], "mois");
       console.log(response.data);
@@ -86,7 +88,9 @@ let changeTheGraphMonth = function (aYear, aMonth) {
   dateUse["month"] = aMonth;
   console.log(dateUse);
   axios
-    .post("/admin/monthlyStat", dateUse)
+    .post("/admin/monthlyStat", dateUse, {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       loadTheGraph(response.data["graph"], "jours");
     })
@@ -100,7 +104,9 @@ let changeTheGraphWeek = function (aWeek, aYear) {
   dateUse["week"] = aWeek;
 
   axios
-    .post("/admin/weeklyStat", dateUse)
+    .post("/admin/weeklyStat", dateUse, {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    })
     .then((response) => {
       loadTheGraph(response.data["graph"], "jours");
     })
