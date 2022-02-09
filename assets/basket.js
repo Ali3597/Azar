@@ -98,12 +98,8 @@ let changeQuantity = function (element) {
           headers: { "X-Requested-With": "XMLHttpRequest" },
         }
       )
-      .then((response) => {
-        console.log(response.data["nbr"]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((response) => {})
+      .catch((err) => {});
   }
 };
 
@@ -121,7 +117,6 @@ let activeInputBasket = function (element) {
 };
 
 let deleteItem = function (element) {
-  console.log(element.parentNode.parentNode.parentNode.parentNode.parentNode);
   element.parentNode.parentNode.parentNode.parentNode.parentNode.style.opacity =
     "0";
   window.setTimeout(function () {
@@ -192,12 +187,8 @@ let updateTheInput = function (element) {
         headers: { "X-Requested-With": "XMLHttpRequest" },
       }
     )
-    .then((response) => {
-      console.log(response.data["nbr"]);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then((response) => {})
+    .catch((err) => {});
 };
 
 let activeSelectBasket = function (element) {
@@ -237,9 +228,7 @@ let deleteThisItem = function (element) {
         fillEmptyButton();
       }
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 let goToAsideItems = function () {
@@ -255,7 +244,6 @@ let goToBasketItems = function () {
 let activeLoader = function () {
   let basketList = document.querySelectorAll(".toFill");
   basketList.forEach((element) => {
-    console.log("elemenet", element);
     if (!element.classList.contains("none")) {
       element.innerHTML = loader;
     }
@@ -268,7 +256,7 @@ let activeAndInactiveItem = function (number) {
     element.classList.remove("active");
   });
   let items = document.querySelectorAll(".ensemble_onglet");
-  console.log(number, items[number]);
+
   items[number].querySelector("i").classList.add("active");
   items[number].querySelector(".bordure_panier").classList.add("active");
 };
@@ -286,9 +274,7 @@ let ajaxBasket = function () {
       insertAfterAjax(response.data);
       startBasket();
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 let ajaxAside = function () {
   axios
@@ -298,9 +284,7 @@ let ajaxAside = function () {
     .then((response) => {
       insertAfterAjax(response.data);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 let addToBasketFromAside = function (element) {
   let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
@@ -317,9 +301,7 @@ let addToBasketFromAside = function (element) {
       goToBasketItems();
       changeBasketNumber(1);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 let deleteFromAside = function (element) {
@@ -340,33 +322,27 @@ let deleteFromAside = function (element) {
       .then((response) => {
         element.parentNode.parentNode.parentNode.remove();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, 300);
 };
 
 let putAsideThisItem = function (element) {
   let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
-  console.log(id);
+
   axios
     .get("profile/putAsideItem/" + id, {
       headers: { "X-Requested-With": "XMLHttpRequest" },
     })
     .then((response) => {
-      console.log(response.data);
-
       popup("Ce produit a bien été rajouté a votre liste de souhait");
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 let fillEmptyLeft = function () {
   let basketList = document.querySelector(".basketlist");
   let vide = document.querySelector(".panier_vide");
-  console.log(basketList);
+
   basketList.classList.add("none");
   vide.classList.remove("none");
 };

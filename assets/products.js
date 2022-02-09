@@ -38,7 +38,7 @@ let adapt = function (element, table) {
   params.delete("page");
   let newUrl = pathname + "?" + params.toString();
   window.history.replaceState("product", "product", newUrl);
-  console.log(newUrl);
+
   axios
     .get(newUrl, {
       headers: { "X-Requested-With": "XMLHttpRequest" },
@@ -48,9 +48,7 @@ let adapt = function (element, table) {
       products.innerHTML = response.data;
       productJquery();
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 let adaptActiveFilter = function (number) {
@@ -91,9 +89,7 @@ let newTri = function (element) {
       products.innerHTML = response.data;
       productJquery();
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 window.getTheTri = getTheTri;

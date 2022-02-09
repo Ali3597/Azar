@@ -16,14 +16,13 @@ document.querySelectorAll("ul.itemList li").forEach((tag) => {
 });
 document.querySelectorAll("ul.itemAdviceList li").forEach((tag) => {
   addTagFormDeleteLink(tag);
-  console.log(tag.innerHTML);
 });
 
 const addFormToCollection = (e) => {
   const collectionHolder = document.querySelector(
     "." + e.currentTarget.dataset.collectionHolderClass
   );
-  console.log(collectionHolder);
+
   const item = document.createElement("li");
   item.innerHTML = collectionHolder.dataset.prototype.replace(
     /__name__/g,
@@ -36,5 +35,4 @@ const addFormToCollection = (e) => {
 
 document.querySelectorAll(".add_item_link").forEach((btn) => {
   btn.addEventListener("click", addFormToCollection);
-  console.log(btn);
 });

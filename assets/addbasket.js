@@ -15,12 +15,8 @@ let addBasket = function (element) {
         headers: { "X-Requested-With": "XMLHttpRequest" },
       }
     )
-    .then((response) => {
-      console.log(response.data["nbr"]);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then((response) => {})
+    .catch((err) => {});
 };
 
 let changeBasketNumber = function (number) {

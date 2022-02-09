@@ -169,10 +169,10 @@ class BasketController extends AbstractController
             } else {
                 return $this->redirectToRoute('panier');
             }
+        } else {
+            throw new Exception('Cette page n\'existe pas');
         }
-        dd("nonnnnnnnnnnnnn");
-        $basket =  $session->get("basket", null);
-        dd($basket);
+
 
 
         return $this->redirectToRoute('commande_valide');

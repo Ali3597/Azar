@@ -76,17 +76,14 @@ let changeTheGraphYear = function (aYear) {
     })
     .then((response) => {
       loadTheGraph(response.data["graph"], "mois");
-      console.log(response.data);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 let changeTheGraphMonth = function (aYear, aMonth) {
   let dateUse = new Object();
   dateUse["year"] = aYear;
   dateUse["month"] = aMonth;
-  console.log(dateUse);
+
   axios
     .post("/admin/monthlyStat", dateUse, {
       headers: { "X-Requested-With": "XMLHttpRequest" },
@@ -94,9 +91,7 @@ let changeTheGraphMonth = function (aYear, aMonth) {
     .then((response) => {
       loadTheGraph(response.data["graph"], "jours");
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 let changeTheGraphWeek = function (aWeek, aYear) {
   let dateUse = new Object();
@@ -110,9 +105,7 @@ let changeTheGraphWeek = function (aWeek, aYear) {
     .then((response) => {
       loadTheGraph(response.data["graph"], "jours");
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 changeTheGraphYear(year);
 //graphique
@@ -125,8 +118,6 @@ let loadTheGraph = function (arrayGraph, legend) {
     data.addColumn("string", "Date");
     data.addColumn("number", "Vues");
     arrayGraph.forEach((element) => {
-      console.log(element[0]);
-      console.log(element[1]);
       data.addRow([element[0], parseInt(element[1])]);
     });
 

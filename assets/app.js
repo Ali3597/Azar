@@ -120,11 +120,9 @@ let activeHighCategory = function () {
 
   if (ref) {
     clearTimeout(ref);
-    console.log("ok");
   }
 
   ref = setTimeout(() => {
-    console.log("ok");
     axios
       .post(
         "/getLowCategories",
@@ -145,9 +143,7 @@ let activeHighCategory = function () {
         }
         tabSubCategories.innerHTML = subCategoriesPrinted;
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, 200);
 };
 
@@ -255,7 +251,6 @@ let popup = function (message) {
   let ref;
   if (ref) {
     clearTimeout(ref);
-    console.log("ok");
   }
   let popup = document.querySelector(".popup");
 

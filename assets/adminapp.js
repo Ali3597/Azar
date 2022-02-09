@@ -1,6 +1,5 @@
 import "./styles/admin/app.css";
 let flashs = document.querySelectorAll(".flash");
-console.log(flashs);
 if (flashs) {
   flashs.forEach((element) => {
     if (element.classList.contains("active")) {

@@ -279,9 +279,7 @@ let newproduit = function (element) {
         "--Choisis une Haute categorie--"
       );
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 let newpromo = function (element) {
@@ -298,9 +296,7 @@ let newpromo = function (element) {
         "--Choisis une promo--"
       );
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 let ChangeProduitOnCategoryHigh = function (element) {
@@ -322,9 +318,7 @@ let ChangeProduitOnCategoryHigh = function (element) {
       );
       fillSelect(div.querySelector("#element"), [], "--Choisis un produit--");
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 let ChangeProduitOnCategoryLow = function (element) {
@@ -345,9 +339,7 @@ let ChangeProduitOnCategoryLow = function (element) {
         "--Choisis un produit--"
       );
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 let isthIsIdAlreadySelect = function (id, element) {
   let bool = false;
@@ -503,9 +495,7 @@ let newarticle = function (element) {
         "--Choisis un artcile --"
       );
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 let newmarque = function (element) {
@@ -523,9 +513,7 @@ let newmarque = function (element) {
         "--Choisis une marque --"
       );
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 let newcategory = function (element) {
@@ -543,9 +531,7 @@ let newcategory = function (element) {
         "--Choisis une categorie--"
       );
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 let newcategoryTitle = function (element) {
   let div = element.parentNode;
@@ -563,9 +549,7 @@ let newcategoryTitle = function (element) {
         "--Choisis une categorie--"
       );
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 let addBande = function (element) {
@@ -600,7 +584,7 @@ let confirmNewBande = function (element) {
     let bandeNumbers = document.querySelectorAll(".bande").length;
     div.setAttribute("data-position", bandeNumbers);
     div.innerHTML = bandeCommun;
-    console.log(bandType);
+
     if (bandType == "category") {
       ajustVisibleTypeAndScroll(bandType, 1, 1, div);
       reloadNewCategory(div.querySelector(".addnew"));
@@ -755,9 +739,7 @@ let validAll = function () {
         .then((response) => {
           window.location.href = "/admin/bandes";
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     } else {
       popBigError("Oh ! Vous avez une erreur dans votre bande !");
     }

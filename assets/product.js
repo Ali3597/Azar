@@ -31,7 +31,7 @@ afficherPlus.forEach((element) => {
   let div = document.createElement("div");
   div.classList.add("afficher-plus", "flex");
   div.innerHTML = affPlus;
-  console.log(element.offsetHeight);
+
   if (element.offsetHeight > 295) {
     element.append(div);
   }
@@ -54,18 +54,15 @@ afficherPlus.forEach((element) => {
 //aside
 let putAsideThisItem = function (element) {
   let id = element.getAttribute("data-id");
-  console.log(id);
+
   axios
     .get("/profile/putAsideItem/" + id, {
       headers: { "X-Requested-With": "XMLHttpRequest" },
     })
     .then((response) => {
-      console.log(response.data);
       popup("Votre produit a bien était mis de coté ");
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 window.putAsideThisItem = putAsideThisItem;
