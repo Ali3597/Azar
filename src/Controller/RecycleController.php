@@ -77,6 +77,7 @@ class RecycleController extends AbstractController
             'design' => $design,
             'total' => $totalNumber,
             "basket" => $basket
+
         ]);
     }
 }

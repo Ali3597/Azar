@@ -1,4 +1,13 @@
 import "./styles/app.css";
+//search value
+
+let urlSearch = window.location.pathname.split("/");
+if (urlSearch[1] == "produits" && urlSearch[2] == "recherche") {
+  let inputSearchPlaceHolder = document.querySelector(
+    "#stopSearchProduct input"
+  );
+  inputSearchPlaceHolder.value = urlSearch[3];
+}
 
 ///header sticky
 
