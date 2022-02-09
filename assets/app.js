@@ -247,7 +247,8 @@ window.searchProduct = searchProduct;
 
 /////popup
 
-let popup = function (message) {
+let popup = function (message, classColor) {
+  console.log("bonjour");
   let ref;
   if (ref) {
     clearTimeout(ref);
@@ -258,7 +259,7 @@ let popup = function (message) {
     popup.classList.remove("active");
   }
   popup.querySelector("p").innerHTML = message;
-
+  popup.classList.add(classColor);
   popup.classList.add("active");
   ref = setTimeout(() => {
     popup.classList.remove("active");

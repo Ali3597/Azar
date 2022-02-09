@@ -3,6 +3,10 @@
 	{{ parent() }}
 	{{ encore_entry_link_tags('oneArticle') }}
 {% endblock %}
+{% block title %}
+	{{article.title|capitalize}}
+
+{% endblock %}
 
 
 {% block body %}

@@ -10,6 +10,24 @@
 
 {% endblock %}
 
+{% block title %}
+	Nos produits -
+	{% if category %}
+		{{category.name}}
+	{% endif %}
+
+	{% if marque %}
+		{{marque.name|capitalize}}
+
+	{% endif %}
+
+	{% if search %}
+		«{{search|capitalize}}»
+
+	{% endif %}
+
+{% endblock %}
+
 {% block body %}
 	<div class="content-produits flex column ">
 		<div class="up-produits flex column ">

@@ -55,8 +55,6 @@ class BasketController extends AbstractController
     #[Route('/panierAjaxAside', name: 'panierAjaxAside')]
     public function AsideAjax(Request $request): Response
     {
-
-
         if ($request->isXmlHttpRequest()) {
             $user = $this->getUser();
             $userProducts = $user->getWants();
@@ -181,7 +179,6 @@ class BasketController extends AbstractController
     #[Route('/panier/add/{id}', name: 'panier_add')]
     public function add(Produit $product, SessionInterface $session, Request $request): Response
     {
-
         if ($request->isXmlHttpRequest()) {
             $data = json_decode($request->getContent(), true);
             $nbr = $data["nbrProducts"];

@@ -475,3 +475,14 @@ input[type="number"] {
 .aside:hover {
   text-decoration: underline;
 }
+
+.TitleAndMarque a {
+  margin-top: 4%;
+  margin-left: 1%;
+  margin-bottom: 3%;
+  cursor: pointer;
+}
+
+.TitleAndMarque a:hover {
+  text-decoration: underline;
+}

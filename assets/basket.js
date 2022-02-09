@@ -92,7 +92,7 @@ let changeQuantity = function (element) {
     );
     axios
       .post(
-        "profile/panier/add/" + id,
+        "/profile/panier/add/" + id,
         { nbrProducts },
         {
           headers: { "X-Requested-With": "XMLHttpRequest" },
@@ -181,14 +181,16 @@ let updateTheInput = function (element) {
 
   axios
     .post(
-      "profile/panier/add/" + id,
+      "/profile/panier/add/" + id,
       { nbrProducts },
       {
         headers: { "X-Requested-With": "XMLHttpRequest" },
       }
     )
     .then((response) => {})
-    .catch((err) => {});
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 let activeSelectBasket = function (element) {
@@ -212,10 +214,10 @@ let deleteThisItem = function (element) {
   element.parentNode.parentNode.parentNode.style.opacity = "0";
   window.setTimeout(function () {
     element.parentNode.parentNode.parentNode.remove();
-  }, 300);
+  }, 100);
   axios
     .post(
-      "profile/panier/add/" + id,
+      "/profile/panier/add/" + id,
       { nbrProducts },
       {
         headers: { "X-Requested-With": "XMLHttpRequest" },
@@ -267,7 +269,7 @@ let insertAfterAjax = function (toInsert) {
 };
 let ajaxBasket = function () {
   axios
-    .get("profile/panierAjaxBasket", {
+    .get("/profile/panierAjaxBasket", {
       headers: { "X-Requested-With": "XMLHttpRequest" },
     })
     .then((response) => {
@@ -277,8 +279,9 @@ let ajaxBasket = function () {
     .catch((err) => {});
 };
 let ajaxAside = function () {
+  console.log("pspsp");
   axios
-    .get("profile/panierAjaxAside", {
+    .get("/profile/panierAjaxAside", {
       headers: { "X-Requested-With": "XMLHttpRequest" },
     })
     .then((response) => {
@@ -291,7 +294,7 @@ let addToBasketFromAside = function (element) {
   let nbrProducts = 1;
   axios
     .post(
-      "profile/panier/add/" + id,
+      "/profile/panier/add/" + id,
       { nbrProducts },
       {
         headers: { "X-Requested-With": "XMLHttpRequest" },
@@ -305,7 +308,7 @@ let addToBasketFromAside = function (element) {
 };
 
 let deleteFromAside = function (element) {
-  popup("Ce produit a bien été enlevé de votre liste de souhait ");
+  popup("Ce produit a bien été enlevé de votre liste de souhait ", "success");
   let elements = document.querySelectorAll(".basketItem");
   if (elements.length == 1) {
     fillEmptyLeft();
@@ -316,7 +319,7 @@ let deleteFromAside = function (element) {
 
   window.setTimeout(function () {
     axios
-      .get("profile/aside/delete/" + id, {
+      .get("/profile/aside/delete/" + id, {
         headers: { "X-Requested-With": "XMLHttpRequest" },
       })
       .then((response) => {
@@ -330,11 +333,14 @@ let putAsideThisItem = function (element) {
   let id = element.parentNode.parentNode.parentNode.getAttribute("data-id");
 
   axios
-    .get("profile/putAsideItem/" + id, {
+    .get("/profile/putAsideItem/" + id, {
       headers: { "X-Requested-With": "XMLHttpRequest" },
     })
     .then((response) => {
-      popup("Ce produit a bien été rajouté a votre liste de souhait");
+      popup(
+        "Ce produit a bien été rajouté a votre liste de souhait",
+        "success"
+      );
     })
     .catch((err) => {});
 };

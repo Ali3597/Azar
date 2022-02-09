@@ -8,6 +8,13 @@
 
 {% endblock %}
 
+{% block title %}
+	{{product.name|capitalize}}
+
+
+{% endblock %}
+
+
 {% block cdn %}
 	{{ parent() }}
 	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
@@ -24,20 +31,31 @@
 
 			<span>
 				></span>
-			<a style="color: {{colors.allColors.primary}}" href="{{path('category',{ slug: product.category.categoryParent.slug })}}">{{product.category.categoryParent.name}}</a>
+			<a style="color: {{colors.allColors.primary}}" href="{{path('category',{ slug: product.category.categoryParent.slug })}}">{{product.category.categoryParent.name|capitalize}}</a>
 
 
 			<span>
 
 				></span>
-			<a style="color: {{colors.allColors.primary}}" href="{{path('productsCategories',{ slug: product.category.slug })}}">{{product.category.name}}</a>
+			<a style="color: {{colors.allColors.primary}}" href="{{path('productsCategories',{ slug: product.category.slug })}}">{{product.category.name|capitalize}}</a>
 
 
 			<span>
 				></span>
-			<p>{{product.name}}</p>
+			<p>{{product.name|capitalize}}</p>
+
 		</div>
-		<h1>{{product.name}}</h1>
+		<div class="flex TitleAndMarque">
+			<h1>{{product.name|capitalize}}</h1>
+			{% if product.marque %}
+
+
+				<a style="color: {{colors.allColors.primary}}" href="{{path('productsMarques',{ slug : product.marque.slug } )}}">{{product.marque.name|capitalize}}</a>
+
+
+			{% endif %}
+		</div>
+
 		<div class="produit-brut flex">
 			<div style="--background: {{colors.allColors.primary}};" class="echantillons flex column "></div>
 
@@ -58,7 +76,7 @@
 				<div class="ajouter-brut-haut quantity flex">
 
 					<input type="number" name="tentacles" min="1" value="1">
-					<button style="background-color: {{colors.allColors.primary}}" data-name={{product.name}} data-id={{ product.id }} onclick="addBasket(this)">Ajouter</button>
+					<button style="background-color: {{colors.allColors.primary}}" data-name={{product.name}} data-id={{ product.id }} {{ is_granted('ROLE_USER') ? 'onclick="addBasket(this)"' : 'onclick="popup(`Vous devez vous connecter pour pouvoir ajoutez un produit dans votre panier`,`error`)"'}}>Ajouter</button>
 
 
 				</div>
@@ -67,7 +85,11 @@
 					</h1>
 					<h2>En stock</h2>
 				</div>
-				<p data-id={{ product.id }} style="color: {{colors.allColors.primary}}" onclick="putAsideThisItem(this)" class="aside">Mette de coté</p>
+				{% if is_granted('ROLE_USER')  %}
+					<p data-id={{ product.id }} style="color: {{colors.allColors.primary}}" onclick="putAsideThisItem(this)" class="aside">Mette de coté</p>
+
+				{% endif %}
+
 
 			</div>
 		</div>

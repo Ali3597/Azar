@@ -29,6 +29,8 @@ security:
       login_throttling:
         max_attempts: 5
         interval: "10 minutes"
+      entry_point:
+        App\Security\AuthenticationEntryPoint
         # where to redirect after logout
         # target: app_any_route
 

@@ -4,6 +4,12 @@
 	{{ encore_entry_link_tags('category') }}
 {% endblock %}
 
+{% block title %}
+	{{category.name|capitalize}}
+
+
+{% endblock %}
+
 
 {% block body %}
 	<div class="content flex column ">

@@ -1,6 +1,6 @@
 let addBasket = function (element) {
   let idProduct = element.getAttribute("data-id");
-  popup("Votre produit a bien été rajouté au panier");
+  popup("Votre produit a bien été rajouté au panier", "success");
   let nbrProducts = element.parentNode.querySelector(
     ".surquantity input "
   ).value;
@@ -9,7 +9,7 @@ let addBasket = function (element) {
   changeBasketNumber(nbrProducts);
   axios
     .post(
-      "profile/panier/add/" + idProduct,
+      "/profile/panier/add/" + idProduct,
       { nbrProducts },
       {
         headers: { "X-Requested-With": "XMLHttpRequest" },

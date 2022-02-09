@@ -4,9 +4,14 @@
 	{{ encore_entry_link_tags('basket') }}
 {% endblock %}
 
+{% block title %}
+	Panier
+
+{% endblock %}
+
 
 {% block body %}
-<div data-color="{{colors.allColors.primary}}" class="content flex ">
+	<div data-color="{{colors.allColors.primary}}" class="content flex ">
 
 		{{ include('basket/basket.html.twig') }}
 	</div>

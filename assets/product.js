@@ -60,7 +60,7 @@ let putAsideThisItem = function (element) {
       headers: { "X-Requested-With": "XMLHttpRequest" },
     })
     .then((response) => {
-      popup("Votre produit a bien était mis de coté ");
+      popup("Votre produit a bien était mis de coté ", "success");
     })
     .catch((err) => {});
 };
