@@ -88,7 +88,11 @@
 						{% endif %}
 
 
-						<td>{{command.user.email}}</td>
+						<td>
+							<a href="{{ path('admin_user_consult' , { id:command.user.id }) }}">{{command.user.email}}</a>
+
+
+						</td>
 
 
 						<td class="flex column ">

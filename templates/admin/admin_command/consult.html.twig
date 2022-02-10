@@ -10,7 +10,8 @@
 		<h1>Commande numero
 			{{command.id}}
 			de
-			<a href="#">
+			<a href="{{ path('admin_user_consult' , { id: command.user.id }) }}">
+
 				{{command.user.email}}
 			</a>
 
@@ -20,7 +21,8 @@
 			{% for item in command.comandProducts %}
 				<li class="flex">
 					-<p>{{item.number}}</p>
-					<a href="#">{{item.products.name}}</a>
+					<a href="{{path('admin_product_edit',{ id: item.products.id })}}">{{item.products.name}}</a>
+
 
 				</li>
 
