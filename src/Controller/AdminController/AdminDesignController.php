@@ -27,6 +27,9 @@ class AdminDesignController extends AbstractController
     {
         $design = $this->designRepo->find(1);
         $logo = $design->getLogo();
+        $aboutUSPicture = $design->getAboutUsPicture();
+        $marquePicture = $design->getMarquePicture();
+        $icon = $design->getIcon();
         $form = $this->createForm(DesignType::class, $design);
 
         $form->handleRequest($request);
@@ -34,6 +37,15 @@ class AdminDesignController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($design->getPictureFile()) {
                 $this->em->remove($logo);
+            }
+            if ($design->getPictureFileAboutUs()) {
+                $this->em->remove($aboutUSPicture);
+            }
+            if ($design->getPictureFileMarque()) {
+                $this->em->remove($marquePicture);
+            }
+            if ($design->getPictureFileIcon()) {
+                $this->em->remove($icon);
             }
             $this->em->persist($design);
             $this->em->flush();

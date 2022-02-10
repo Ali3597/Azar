@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -97,7 +98,35 @@ class DesignType extends AbstractType
 
                 'label' => 'Logo'
 
-            ]);;
+            ])
+
+            ->add('pictureFileAboutUs', FileType::class, [
+                'required' => false,
+
+                'label' => 'Photo a propos header'
+
+            ])->add('aboutUsTitle', TextType::class, [
+
+                'label' => 'Titre de la page a propos'
+
+            ])
+            ->add('aboutUsContent', TextareaType::class, [
+
+                'label' => 'Contenu de la page  a propos'
+
+            ])
+            ->add('pictureFileMarque', FileType::class, [
+                'required' => false,
+
+                'label' => 'Photo  de la page de marque'
+
+            ])
+            ->add('pictureFileIcon', FileType::class, [
+                'required' => false,
+
+                'label' => 'Icone du site'
+
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

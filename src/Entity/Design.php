@@ -101,6 +101,41 @@ class Design
      */
     private $views;
 
+    #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+    private $pictureFileAboutUs;
+    /**
+     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $aboutUsPicture;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $aboutUsTitle;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $aboutUsContent;
+
+    #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+    private $pictureFileMarque;
+    /**
+     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $marquePicture;
+
+
+    #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+    private $pictureFileIcon;
+    /**
+     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Icon;
+
 
 
     public function __construct()
@@ -320,6 +355,141 @@ class Design
     public function addOneView(): self
     {
         $this->views = $this->views + 1;
+
+        return $this;
+    }
+    /**
+     * Get the value of pictureFile
+     */
+    public function getPictureFileAboutUs()
+    {
+        return $this->pictureFileAboutUs;
+    }
+
+    /**
+     * Set the value of pictureFileAboutUs
+     *
+     * @return  self
+     */
+    public function setPictureFileAboutUs($pictureFileAboutUs)
+    {
+        if ($pictureFileAboutUs) {
+            $picture = new Picture();
+            $picture->setImageFile($pictureFileAboutUs);
+            $this->aboutUsPicture = $picture;
+        }
+        $this->pictureFileAboutUs = $pictureFileAboutUs;
+
+        return $this;
+    }
+
+    public function getAboutUsPicture(): ?Picture
+    {
+        return $this->aboutUsPicture;
+    }
+
+    public function setAboutUsPicture(Picture $aboutUsPicture): self
+    {
+        $this->aboutUsPicture = $aboutUsPicture;
+
+        return $this;
+    }
+
+    public function getAboutUsTitle(): ?string
+    {
+        return $this->aboutUsTitle;
+    }
+
+    public function setAboutUsTitle(string $aboutUsTitle): self
+    {
+        $this->aboutUsTitle = $aboutUsTitle;
+
+        return $this;
+    }
+
+    public function getAboutUsContent(): ?string
+    {
+        return $this->aboutUsContent;
+    }
+
+    public function setAboutUsContent(string $aboutUsContent): self
+    {
+        $this->aboutUsContent = $aboutUsContent;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of pictureFile
+     */
+    public function getPictureFileMarque()
+    {
+        return $this->pictureFileMarque;
+    }
+
+    /**
+     * Set the value of pictureFileAboutUs
+     *
+     * @return  self
+     */
+    public function setPictureFileMarque($pictureFileMarque)
+    {
+        if ($pictureFileMarque) {
+            $picture = new Picture();
+            $picture->setImageFile($pictureFileMarque);
+            $this->marquePicture = $picture;
+        }
+        $this->pictureFileMarque = $pictureFileMarque;
+
+        return $this;
+    }
+
+    public function getMarquePicture(): ?Picture
+    {
+        return $this->marquePicture;
+    }
+
+    public function setMarquePicture(Picture $marquePicture): self
+    {
+        $this->marquePicture = $marquePicture;
+
+        return $this;
+    }
+
+    public function getIcon(): ?Picture
+    {
+        return $this->Icon;
+    }
+
+    public function setIcon(Picture $Icon): self
+    {
+        $this->Icon = $Icon;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of pictureFile
+     */
+    public function getPictureFileIcon()
+    {
+        return $this->pictureFileIcon;
+    }
+
+    /**
+     * Set the value of pictureFileAboutUs
+     *
+     * @return  self
+     */
+    public function setPictureFileIcon($pictureFileIcon)
+    {
+        if ($pictureFileIcon) {
+            $picture = new Picture();
+            $picture->setImageFile($pictureFileIcon);
+            $this->Icon = $picture;
+        }
+        $this->pictureFileIcon = $pictureFileIcon;
 
         return $this;
     }
