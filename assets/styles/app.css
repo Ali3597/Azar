@@ -212,12 +212,16 @@ footer div {
 }
 
 .footer-left {
-  justify-content: center;
   width: 33%;
+
+  padding-top: 2.5%;
 }
 
 .footer-left a {
-  margin-bottom: 3%;
+  margin-bottom: 5%;
+}
+.footer i {
+  color: black;
 }
 
 .footer-center {
@@ -225,6 +229,10 @@ footer div {
   align-items: center;
 
   width: 34%;
+  padding-top: 0.5%;
+}
+.footer-center > h1 {
+  margin-bottom: 0.5%;
 }
 .footer-center div {
   width: 80%;
@@ -253,9 +261,21 @@ footer div {
   margin-top: 5%;
 }
 
+.footer-right div {
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3%;
+}
+
 .footer-right p {
   font-weight: bold;
-  margin-top: 2%;
+}
+
+.footer-right i {
+  margin-bottom: 7%;
 }
 .footer-center input {
   width: 75%;

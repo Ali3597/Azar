@@ -75,86 +75,87 @@
 			<div class="ajouter-brut surquantity flex column ">
 				<div class="ajouter-brut-haut quantity flex">
 
-					<input type="number" name="tentacles" min="1" value="1">
-					<button style="background-color: {{colors.allColors.primary}}" data-name={{product.name}} data-id={{ product.id }} {{ is_granted('ROLE_USER') ? 'onclick="addBasket(this)"' : 'onclick="popup(`Vous devez vous connecter pour pouvoir ajoutez un produit dans votre panier`,`error`)"'}}>Ajouter</button>
+					<readonly="readonly" type="number" name="tentacles" min="1" value="1">
+
+						<button style="background-color: {{colors.allColors.primary}}" data-name={{product.name}} data-id={{ product.id }} {{ is_granted('ROLE_USER') ? 'onclick="addBasket(this)"' : 'onclick="popup(`Vous devez vous connecter pour pouvoir ajoutez un produit dans votre panier`,`error`)"'}}>Ajouter</button>
+
+
+					</div>
+					<div class="disponibilite flex column">
+						<h1>Disponibilité
+						</h1>
+						<h2>En stock</h2>
+					</div>
+					{% if is_granted('ROLE_USER')  %}
+						<p data-id={{ product.id }} style="color: {{colors.allColors.primary}}" onclick="putAsideThisItem(this)" class="aside">Mette de coté</p>
+
+					{% endif %}
 
 
 				</div>
-				<div class="disponibilite flex column">
-					<h1>Disponibilité
-					</h1>
-					<h2>En stock</h2>
-				</div>
-				{% if is_granted('ROLE_USER')  %}
-					<p data-id={{ product.id }} style="color: {{colors.allColors.primary}}" onclick="putAsideThisItem(this)" class="aside">Mette de coté</p>
-
-				{% endif %}
-
-
 			</div>
+			{% if  product.descriptionList.content or product.descriptionList.itemList|length > 0 %}
+				<div style="--background: {{colors.allColors.primary}};" class="produit-description  flex column">
+					<div class="reel flex column">
+						<h1>Description du produit</h1>
+						<p>{{product.descriptionList.content}}</p>
+
+						<ul>
+							{% for item in product.descriptionList.itemList %}
+								<li>{{item.content}}</li>
+							{% endfor %}
+
+						</ul>
+
+
+					</div>
+
+				</div>
+			{% endif %}
+			{% if  product.advices.content or product.advices.itemAdviceList|length > 0 %}
+				<div style="--background: {{colors.allColors.primary}};" class="produit-description  flex column">
+					<div class="reel flex column">
+						<h1>Conseil d'utilisation</h1>
+						<p>{{product.advices.content}}</p>
+
+						<ul>
+							{% for item in product.advices.itemAdviceList %}
+								<li>{{item.content}}</li>
+							{% endfor %}
+
+						</ul>
+
+
+					</div>
+
+				</div>
+			{% endif %}
+			{% if alikes|length > 0 %}
+				<div class="flex column else">
+					<h1>Ces produits pourraient aussi vous intéresser</h1>
+					<div class="otherProducts flex">
+						{% for item in alikes %}
+							<a href="{{path('produit',{ slug: item.slug })}}" class="otherProduct">
+								<img width="80%" height="80%" src="{{ vich_uploader_asset(item.pictures[0],'imageFile') }}" alt="">
+								<p>{{item.name}}</p>
+							</a>
+						{% endfor %}
+
+
+					</div>
+
+
+				</div>
+			{% endif %}
+
 		</div>
-		{% if  product.descriptionList.content or product.descriptionList.itemList|length > 0 %}
-			<div style="--background: {{colors.allColors.primary}};" class="produit-description  flex column">
-				<div class="reel flex column">
-					<h1>Description du produit</h1>
-					<p>{{product.descriptionList.content}}</p>
-
-					<ul>
-						{% for item in product.descriptionList.itemList %}
-							<li>{{item.content}}</li>
-						{% endfor %}
-
-					</ul>
 
 
-				</div>
+	{% endblock %}
 
-			</div>
-		{% endif %}
-		{% if  product.advices.content or product.advices.itemAdviceList|length > 0 %}
-			<div style="--background: {{colors.allColors.primary}};" class="produit-description  flex column">
-				<div class="reel flex column">
-					<h1>Conseil d'utilisation</h1>
-					<p>{{product.advices.content}}</p>
-
-					<ul>
-						{% for item in product.advices.itemAdviceList %}
-							<li>{{item.content}}</li>
-						{% endfor %}
-
-					</ul>
-
-
-				</div>
-
-			</div>
-		{% endif %}
-		{% if alikes|length > 0 %}
-			<div class="flex column else">
-				<h1>Ces produits pourraient aussi vous intéresser</h1>
-				<div class="otherProducts flex">
-					{% for item in alikes %}
-						<a href="{{path('produit',{ slug: item.slug })}}" class="otherProduct">
-							<img width="80%" height="80%" src="{{ vich_uploader_asset(item.pictures[0],'imageFile') }}" alt="">
-							<p>{{item.name}}</p>
-						</a>
-					{% endfor %}
-
-
-				</div>
-
-
-			</div>
-		{% endif %}
-
-	</div>
-
-
-{% endblock %}
-
-{% block javascripts %}
-	{{ parent() }}
-	{{ encore_entry_script_tags('product') }}
-	{{ encore_entry_script_tags('addbasket') }}
-	{{ encore_entry_script_tags('produitQuery') }}
-{% endblock %}
+	{% block javascripts %}
+		{{ parent() }}
+		{{ encore_entry_script_tags('product') }}
+		{{ encore_entry_script_tags('addbasket') }}
+		{{ encore_entry_script_tags('produitQuery') }}
+	{% endblock %}

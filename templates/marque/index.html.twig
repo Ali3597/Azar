@@ -19,10 +19,11 @@
 		</div>
 		<div class="marques flex">
 			{% for marque in marques %}
-				<div style="--background: {{colors.allColors.primary}};" class="marque">
+				<a href="{{path('productsMarques',{ slug : marque.slug } )}}" style="--background: {{colors.allColors.primary}};" class="marque">
+
 
 					<img width="90%" height="55%" src="{{ vich_uploader_asset(marque.picture,'imageFile') }}" alt="">
-				</div>
+				</a>
 			{% endfor %}
 		</div>
 

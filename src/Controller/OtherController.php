@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Message;
-use App\Form\MessageType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,8 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ContactController extends AbstractController
+class OtherController extends AbstractController
 {
+
+
 
     private $em;
 
@@ -23,6 +24,15 @@ class ContactController extends AbstractController
 
         $this->em = $em;
     }
+
+    #[Route('/APropos', name: 'other')]
+    public function AboutUs(): Response
+    {
+        return $this->render('other/aboutUs.html.twig', [
+            'controller_name' => 'OtherController',
+        ]);
+    }
+
     #[Route('/contact', name: 'contact')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
@@ -48,7 +58,7 @@ class ContactController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('contact/index.html.twig', [
+        return $this->render('other/contact.html.twig', [
             'controller_name' => 'ContactController',
             'form' => $form->createView()
         ]);
