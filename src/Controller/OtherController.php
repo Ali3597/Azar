@@ -56,7 +56,7 @@ class OtherController extends AbstractController
                 ]);
             $mailer->send($emailToAdmin);
             $this->addFlash('success', 'Votre Message a bien été envoyé ');
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('contact');
         }
 
         return $this->render('other/contact.html.twig', [

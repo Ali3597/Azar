@@ -270,11 +270,10 @@ let popup = function (message, classColor) {
 window.popup = popup;
 //
 let flashs = document.querySelectorAll(".flash");
-if (flashs) {
+console.log(flashs);
+if (flashs != null) {
+  console.log("ta soeur");
   flashs.forEach((element) => {
-    if (element.classList.contains("active")) {
-      element.classList.remove("active");
-    }
     element.classList.add("active");
     setTimeout(() => {
       element.classList.remove("active");
