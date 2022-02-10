@@ -149,3 +149,7 @@ input {
 textarea {
   height: 100%;
 }
+
+form button:hover {
+  transform: scale(1.02);
+}

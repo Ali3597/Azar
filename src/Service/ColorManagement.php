@@ -23,4 +23,12 @@ class ColorManagement
         ];
         return $colors;
     }
+
+    public function getIcon()
+    {
+        $design = $this->designRepo->find(1);
+
+        $icon = $design->getIcon();
+        return $icon;
+    }
 }

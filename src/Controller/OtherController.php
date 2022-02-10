@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Message;
+use App\Form\MessageType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +26,7 @@ class OtherController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/APropos', name: 'other')]
+    #[Route('/APropos', name: 'aboutUs')]
     public function AboutUs(): Response
     {
         return $this->render('other/aboutUs.html.twig', [

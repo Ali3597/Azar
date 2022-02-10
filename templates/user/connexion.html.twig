@@ -22,7 +22,7 @@
 
 		<h2 style="color: {{colors.allColors.primary}}">On est ravi de vous (re)voir !</h2>
 
-<a style="color: {{colors.allColors.primary}}" href="{{path('connexion')}}">Pas encore inscris ? Inscrivez vous !</a>
+		<a style="color: {{colors.allColors.primary}}" href="{{path('connexion')}}">Pas encore inscris ? Inscrivez vous !</a>
 		<form action="{{ path('login') }}" class="column" method="post">
 			<h1 style="color: {{colors.allColors.primary}}">Connexion</h1>
 
@@ -56,6 +56,12 @@
 
 
 	</div>
+
+{% endblock %}
+{% block javascripts %}
+
+	{{ encore_entry_script_tags('connexion') }}
+
 
 {% endblock %}
 
