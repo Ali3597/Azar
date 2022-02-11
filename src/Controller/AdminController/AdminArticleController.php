@@ -41,7 +41,7 @@ class AdminArticleController extends AbstractController
         $articles = $paginator->paginate(
             $this->articleRepo->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
 
         return $this->render('admin/admin_article/index.html.twig', [

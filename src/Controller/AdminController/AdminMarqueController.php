@@ -41,7 +41,7 @@ class AdminMarqueController extends AbstractController
         $marques = $paginator->paginate(
             $this->marqueRepo->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
         return $this->render('admin/admin_marque/index.html.twig', [
             'marques' => $marques,
@@ -80,7 +80,7 @@ class AdminMarqueController extends AbstractController
         $products = $paginator->paginate(
             $produitRepo->findProductsDependsOnMarqueIdWithSearch($marque->getId(), $search),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
         return $this->render('admin/admin_marque/consult.html.twig', [
             'marque' => $marque,

@@ -39,7 +39,7 @@ class AdminPromoController extends AbstractController
         $promos = $paginator->paginate(
             $this->promoRepo->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
         return $this->render('admin/admin_promo/index.html.twig', [
             'promos' => $promos,

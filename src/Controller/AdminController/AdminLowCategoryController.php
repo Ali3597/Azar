@@ -39,7 +39,7 @@ class AdminLowCategoryController extends AbstractController
         $lowCategories = $paginator->paginate(
             $this->categorieRepo->findLowCategoriesQueryWithSearch($search),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
 
         return $this->render('admin/admin_low_category/index.html.twig', [
@@ -76,7 +76,7 @@ class AdminLowCategoryController extends AbstractController
         $products = $paginator->paginate(
             $produitRepo->findProductsDependsOnCategoryIdWithSearch($category->getId(), $search),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
         return $this->render('admin/admin_low_category/consult.html.twig', [
             'products' => $products,

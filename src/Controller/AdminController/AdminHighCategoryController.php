@@ -42,7 +42,7 @@ class AdminHighCategoryController extends AbstractController
         $highCategories = $paginator->paginate(
             $this->categorieRepo->findHighCategoriesQueryWithSearch($search),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
         return $this->render('admin/admin_high_category/index.html.twig', [
             'categories' => $highCategories,
@@ -80,7 +80,7 @@ class AdminHighCategoryController extends AbstractController
         $lowCategories = $paginator->paginate(
             $this->categorieRepo->findCategoriesChildrensQueryWithSearch($search, $category->getId()),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
         return $this->render('admin/admin_high_category/consult.html.twig', [
             'categories' => $lowCategories,

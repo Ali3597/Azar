@@ -36,7 +36,7 @@ class AdminUserController extends AbstractController
         $users = $paginator->paginate(
             $this->userRepo->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
 
 
@@ -67,7 +67,7 @@ class AdminUserController extends AbstractController
         $products  = $paginator->paginate(
             $produitRepo->findUserWantingsWithSearch($user->getId(), $search),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
 
 
@@ -84,7 +84,7 @@ class AdminUserController extends AbstractController
         $commands  = $paginator->paginate(
             $commandRepo->findUserCommands($user->getId()),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
 
         return $this->render('admin/admin_user/command.html.twig', [

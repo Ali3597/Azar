@@ -164,3 +164,10 @@ td > form > button:hover {
 td {
   overflow: hidden;
 }
+.pagination span {
+  margin-right: 3%;
+}
+.current {
+  cursor: auto;
+  color: red;
+}
