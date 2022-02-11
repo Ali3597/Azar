@@ -695,7 +695,7 @@ let popBigError = function (message) {
   setTimeout(function () {
     pop.classList.remove("active");
     pop.innerHTML = "";
-  }, 1500);
+  }, 2500);
 };
 let validAll = function () {
   deleteAllErrors();

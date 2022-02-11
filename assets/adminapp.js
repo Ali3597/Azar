@@ -8,6 +8,6 @@ if (flashs) {
     element.classList.add("active");
     setTimeout(() => {
       element.classList.remove("active");
-    }, 2000);
+    }, 3500);
   });
 }

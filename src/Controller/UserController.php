@@ -43,6 +43,9 @@ class UserController extends AbstractController
     #[Route("/connexion", name: "connexion")]
     public function connexion(AuthenticationUtils $authenticationUtils, DesignRepository $designRepo): Response
     {
+        if ($this->isGranted("IS_AUTHENTICATED_FULLY")) {
+            return $this->redirectToRoute('home');
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -60,6 +63,9 @@ class UserController extends AbstractController
     #[Route("/inscription", name: "inscription")]
     public function inscription(Request $request, VerifyEmailHelperInterface $verifyEmailHelper,  UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer, DesignRepository $designRepo): Response
     {
+        if ($this->isGranted("IS_AUTHENTICATED_FULLY")) {
+            return $this->redirectToRoute('home');
+        }
         $user =  new User();
         $design =  $designRepo->find(1);
         $userForm = $this->createForm(UserType::class, $user);
@@ -100,6 +106,9 @@ class UserController extends AbstractController
     public function verifyUserEmail(UserRepository $userRepo, LoginFormAuthenticator $loginForm, UserAuthenticatorInterface $authenticator, VerifyEmailHelperInterface $verifyEmailHelper, Request $request): Response
     {
 
+        if ($this->isGranted("IS_AUTHENTICATED_FULLY")) {
+            return $this->redirectToRoute('home');
+        }
         $user = $userRepo->find($request->query->get('id'));
         if (!$user) {
             throw $this->createNotFoundException();

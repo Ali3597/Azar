@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\ResetPassword;
+use App\Entity\User;
+use App\Entity\UserPassword;
+use App\Form\UserPasswordType;
 use App\Repository\ResetPasswordRepository;
 use App\Repository\UserRepository;
 use DateTime;
@@ -10,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -42,38 +46,30 @@ class SecurityController extends AbstractController
     #[Route('/reset-password/{token}', name: 'reset-password')]
     public function resetPassword(RateLimiterFactory $passwordRecoveryLimiter, UserPasswordHasherInterface $userPasswordHasher, Request $request, EntityManagerInterface $em, string $token, ResetPasswordRepository $resetPasswordRepository)
     {
-        $limiter = $passwordRecoveryLimiter->create($request->getClientIp());
-        if (false === $limiter->consume(1)->isAccepted()) {
-            $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une tentative');
-            return $this->redirectToRoute('login');
-        }
 
+
+
+        if ($this->isGranted("IS_AUTHENTICATED_FULLY")) {
+            return $this->redirectToRoute('home');
+        }
         $resetPassword = $resetPasswordRepository->findOneBy(['token' => sha1($token)]);
+
         if (!$resetPassword || $resetPassword->getExpiredAt() < new DateTime('now')) {
             if ($resetPassword) {
                 $em->remove($resetPassword);
                 $em->flush();
+                $this->addFlash('error', 'Votre demande est expiré veuillez refaire une demande.');
+            } else {
+                $this->addFlash('error', 'Si vous avez oublié votre mot de passe veuillez faire une demande de nouveau mot de passe');
             }
-            $this->addFlash('error', 'Votre demande est expiré veuillez refaire une demande.');
+
             return $this->redirectToRoute('login');
         }
 
-        $passwordForm = $this->createFormBuilder()
-            ->add('password', PasswordType::class, [
-                'label' => 'Nouveau mot de passe',
-                'constraints' => [
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Le mot de passe doit faire au moins 6 caractères.'
-                    ]),
-                    new NotBlank([
-                        'message' => 'Veuillez renseigner un mot de passe.'
-                    ])
-                ]
-            ])
-            ->getForm();
-
+        $user =  new UserPassword();
+        $passwordForm  = $this->createForm(UserPasswordType::class, $user);
         $passwordForm->handleRequest($request);
+
         if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
             $password = $passwordForm->get('password')->getData();
             $user = $resetPassword->getUser();
@@ -93,6 +89,9 @@ class SecurityController extends AbstractController
     #[Route('/reset-password-request', name: 'reset-password-request')]
     public function resetPasswordRequest(RateLimiterFactory $passwordRecoveryLimiter,  MailerInterface $mailer, Request $request, UserRepository $userRepository, ResetPasswordRepository $resetPasswordRepository, EntityManagerInterface $em)
     {
+        if ($this->isGranted("IS_AUTHENTICATED_FULLY")) {
+            return $this->redirectToRoute('home');
+        }
         $limiter = $passwordRecoveryLimiter->create($request->getClientIp());
         if (false === $limiter->consume(1)->isAccepted()) {
             $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une tentative');
