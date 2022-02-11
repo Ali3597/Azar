@@ -101,7 +101,7 @@
   cursor: pointer;
 }
 
-.active {
+.tri-bas.active {
   max-height: 45vh;
 }
 

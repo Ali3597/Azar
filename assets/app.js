@@ -132,6 +132,7 @@ let activeHighCategory = function () {
         }
       )
       .then((response) => {
+        console.log(response.data.categories);
         if (response.data.categories.length == 0) {
           subCategoriesPrinted = "";
         } else {

@@ -121,19 +121,23 @@
 			<div class="menudepliant flex">
 				<div class="categorieHaut-depliant flex column ">
 					{% for category in categoriesHigh  %}
-						<a href="{{path('category',{ slug: category.slug })}}" style="--background: {{colors.allColors.primary}};" class="flex ">
+						{% if category.doYouHaveCategoriesWhoHaveProduct %}
+
+							<a href="{{path('category',{ slug: category.slug })}}" style="--background: {{colors.allColors.primary}};" class="flex ">
 
 
-							<span>
-								<i class="fas fa-plug"></i>
-							</span>
-							<p data-id={{category.id}}>
-								{{category.name}}
-							</p>
-							<span>
-								<i class="fas fa-arrow-right"></i>
-							</span>
-						</a>
+								<span>
+									<i class="fas fa-plug"></i>
+								</span>
+								<p data-id={{category.id}}>
+									{{category.name}}
+								</p>
+								<span>
+									<i class="fas fa-arrow-right"></i>
+								</span>
+							</a>
+						{% endif %}
+
 					{% endfor %}
 				</div>
 				<div class="categorieBas-depliant flex column" style="--background: {{colors.allColors.primary}};"></div>

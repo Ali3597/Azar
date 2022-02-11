@@ -309,4 +309,26 @@ class Category
     {
         return $this->bandesTitle + $this->bandesSimple;
     }
+
+    public function doYouHaveCategoriesWhoHaveProduct()
+    {
+        $categoriesChildren = $this->getCategoriesChildrens();
+        foreach ($categoriesChildren as $categoryChildren) {
+            if ($categoryChildren->doYouHaveProductsWhoHaveAfficher()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function doYouHaveProductsWhoHaveAfficher()
+    {
+        $products = $this->getProduits();
+        foreach ($products as $product) {
+            if ($product->getAfficher()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

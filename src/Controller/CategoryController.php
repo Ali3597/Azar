@@ -47,8 +47,12 @@ class CategoryController extends AbstractController
             $data = json_decode($request->getContent(), true);
             $categories = $categoryRepo->findAllLowCategoriesofCategoryParent($data["value"]);
             $test = [];
-            for ($i = 0; $i < sizeof($categories); $i++) {
-                $test[$i] = ["name" => $categories[$i]->getName(), "slug" => $categories[$i]->getSlug(), 'id' => $categories[$i]->getId()];
+            $i = 0;
+            foreach ($categories as $category) {
+                if ($category->doYouHaveProductsWhoHaveAfficher()) {
+                    $test[$i] = ["name" => $category->getName(), "slug" => $category->getSlug(), 'id' => $category->getId()];
+                    $i += 1;
+                }
             }
             return new JsonResponse(['categories' => $test]);
         } else {
