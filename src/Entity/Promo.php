@@ -24,7 +24,7 @@ class Promo
      * @ORM\Column(type="string", length=255)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner un Nom')]
-    #[Assert\Length(min: 10, minMessage: 'Veuillez détailler votre nom', max: 255, maxMessage: 'Le nom de votre promo est trop long')]
+    #[Assert\Length(max: 255, maxMessage: 'Le nom de votre promo est trop long')]
     private $name;
 
     #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]

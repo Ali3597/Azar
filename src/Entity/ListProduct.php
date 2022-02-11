@@ -21,7 +21,7 @@ class ListProduct
     /**
      * @ORM\Column(type="text")
      */
-    #[Assert\NotBlank(message: 'Veuillez renseigner un Nom')]
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $content;
 
     /**

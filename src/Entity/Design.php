@@ -44,46 +44,55 @@ class Design
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $headerTitle;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $headerSubTitle;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $bandeTitle;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $bandeLeft;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $bandeCenter;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $bandeRight;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $bandeTitleLeft;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $bandeTitleCenter;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $bandeTitleRight;
 
     /**
@@ -112,11 +121,13 @@ class Design
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $aboutUsTitle;
 
     /**
      * @ORM\Column(type="text")
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $aboutUsContent;
 
     #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]
@@ -139,11 +150,13 @@ class Design
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $aboutUsPictureTitle;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank(message: 'Vous n\'avez rien renseigner ici')]
     private $aboutUsPictureSubTitle;
 
 

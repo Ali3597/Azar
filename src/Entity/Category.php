@@ -51,7 +51,6 @@ class Category
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="categories_childrens")
      */
-
     private $category_parent;
 
     /**

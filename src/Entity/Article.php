@@ -17,6 +17,11 @@ use Symfony\Component\Validator\Constraints as Assert;
     errorPath: 'slug',
     message: 'Ce slug est deja utilisé',
 )]
+#[UniqueEntity(
+    fields: ['title'],
+    errorPath: 'title',
+    message: 'Ce titre est deja utilisé',
+)]
 class Article
 {
     /**
@@ -30,7 +35,7 @@ class Article
      * @ORM\Column(type="string", length=255)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner un titre')]
-    #[Assert\Length(min: 10, minMessage: 'Veuillez détailler votre titre', max: 255, maxMessage: 'Le titre de votre article est trop long')]
+    #[Assert\Length(min: 4, minMessage: 'Veuillez détailler votre titre', max: 255, maxMessage: 'Le titre de votre article est trop long')]
     private $title;
 
     /**

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksPassword;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -46,7 +47,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    // #[Assert\Length(min: 6, minMessage: 'Le mot de passe doit faire au moins 6 caractères.')]
+    /**
+     * @RollerworksPassword\PasswordRequirements(requireLetters=true,minLength=8, requireNumbers=true, requireCaseDiff=true)
+     */
     #[Assert\NotBlank(message: 'Veuillez renseigner un mot de passe.')]
     private $password;
 
@@ -58,19 +61,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner votre prénom.')]
-    #[Assert\Length(max: 6, maxMessage: 'Le mot de passe doit faire au moins 6 caractères.')]
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner votre nom.')]
-    #[Assert\Length(max: 6, maxMessage: 'Le mot de passe doit faire au moins 6 caractères.')]
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
+    #[Assert\NotBlank(message: 'Veuillez renseigner votre nurmero de télephone.')]
     private $telephone;
 
     /**
@@ -159,7 +161,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
