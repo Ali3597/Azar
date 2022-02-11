@@ -64,33 +64,31 @@ class UserController extends AbstractController
         $design =  $designRepo->find(1);
         $userForm = $this->createForm(UserType::class, $user);
         $userForm->handleRequest($request);
-        if ($userForm->isSubmitted()) {
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $hash = $passwordHasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($hash);
+            $user->setIsVerified(false);
 
-            if ($userForm->isValid()) {
-                $hash = $passwordHasher->hashPassword($user, $user->getPassword());
-                $user->setPassword($hash);
-                $user->setIsVerified(false);
-                $this->em->persist($user);
-                $this->em->flush();
-                $signatureComponents = $verifyEmailHelper->generateSignature(
-                    'app_verify_email',
-                    $user->getId(),
-                    $user->getEmail(),
-                    ['id' => $user->getId()]
-                );
-                $email = new TemplatedEmail();
-                $email->to($user->getEmail())
-                    ->subject('Bienvenue chez nous')
-                    ->htmlTemplate('@email_templates/welcome.html.twig')
-                    ->context([
-                        'urlEmail' => $signatureComponents->getSignedUrl(),
-                        'username' => $user->getFirstname()
-                    ]);
-                $mailer->send($email);
+            $this->em->persist($user);
+            $this->em->flush();
+            $signatureComponents = $verifyEmailHelper->generateSignature(
+                'app_verify_email',
+                $user->getId(),
+                $user->getEmail(),
+                ['id' => $user->getId()]
+            );
+            $email = new TemplatedEmail();
+            $email->to($user->getEmail())
+                ->subject('Bienvenue chez nous')
+                ->htmlTemplate('@email_templates/welcome.html.twig')
+                ->context([
+                    'urlEmail' => $signatureComponents->getSignedUrl(),
+                    'username' => $user->getFirstname()
+                ]);
+            $mailer->send($email);
 
-                $this->addFlash('success', 'Merci de vous être inscris chez nous il ne vous reste plus qu\'a confirmer votre email');
-                return $this->redirectToRoute('home');
-            }
+            $this->addFlash('success', 'Merci de vous être inscris chez nous il ne vous reste plus qu\'a confirmer votre email');
+            return $this->redirectToRoute('home');
         }
         return $this->render('user/inscription.html.twig', [
             'formInscription' => $userForm->createView(),

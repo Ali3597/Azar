@@ -46,8 +46,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     */
-    /**
      * @RollerworksPassword\PasswordRequirements(requireLetters=true,minLength=8, requireNumbers=true, requireCaseDiff=true)
      */
     #[Assert\NotBlank(message: 'Veuillez renseigner un mot de passe.')]
