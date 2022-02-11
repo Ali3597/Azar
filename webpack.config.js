@@ -48,6 +48,7 @@ Encore
   .addEntry("formadd", "./assets/formadd.js")
   .addEntry("graphHome", "./assets/graphHome.js")
   .addEntry("aboutUs", "./assets/aboutUs.js")
+  .addEntry("passwordRequest", "./assets/passwordRequest.js")
   // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
   // .enableStimulusBridge('./assets/controllers.json')
 

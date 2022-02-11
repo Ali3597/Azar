@@ -27,7 +27,7 @@ security:
       logout:
         path: logout
       login_throttling:
-        max_attempts: 5
+        max_attempts: 10
         interval: "10 minutes"
       entry_point:
         App\Security\AuthenticationEntryPoint

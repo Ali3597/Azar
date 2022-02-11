@@ -18,7 +18,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SecurityController extends AbstractController
@@ -41,13 +41,18 @@ class SecurityController extends AbstractController
 
 
     #[Route('/reset-password/{token}', name: 'reset-password')]
-    public function resetPassword(UserPasswordHasherInterface $userPasswordHasher, Request $request, EntityManagerInterface $em, string $token, ResetPasswordRepository $resetPasswordRepository)
+    public function resetPassword(RateLimiterFactory $passwordRecoveryLimiter, UserPasswordHasherInterface $userPasswordHasher, Request $request, EntityManagerInterface $em, string $token, ResetPasswordRepository $resetPasswordRepository)
     {
 
 
 
         if ($this->isGranted("IS_AUTHENTICATED_FULLY")) {
             return $this->redirectToRoute('home');
+        }
+        $limiter = $passwordRecoveryLimiter->create($request->getClientIp());
+        if (false === $limiter->consume(1)->isAccepted()) {
+            $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une tentative');
+            return $this->redirectToRoute('login');
         }
         $resetPassword = $resetPasswordRepository->findOneBy(['token' => sha1($token)]);
 
@@ -78,34 +83,39 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('security/reset_password_form.html.twig', [
-            'form' => $passwordForm->createView()
+        return $this->render('security/reset_password_request.html.twig', [
+            'form' => $passwordForm->createView(),
+            'title' => 'Veuillez renseignez votre nouveau mot de passe'
         ]);
     }
 
-    #[Route('/reset-password-request', name: 'reset-password-request')]
+    #[Route('/renitialisation-mot-de-passe', name: 'reset-password-request')]
     public function resetPasswordRequest(RateLimiterFactory $passwordRecoveryLimiter,  MailerInterface $mailer, Request $request, UserRepository $userRepository, ResetPasswordRepository $resetPasswordRepository, EntityManagerInterface $em)
     {
         if ($this->isGranted("IS_AUTHENTICATED_FULLY")) {
             return $this->redirectToRoute('home');
         }
-        $limiter = $passwordRecoveryLimiter->create($request->getClientIp());
-        if (false === $limiter->consume(1)->isAccepted()) {
-            $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une tentative');
-            return $this->redirectToRoute('home');
-        }
+
 
 
         $emailForm = $this->createFormBuilder()->add('email', EmailType::class, [
             'constraints' => [
                 new NotBlank([
                     'message' => 'Veuillez renseigner votre email'
+                ]),
+                new Email([
+                    'message' => 'Veuillez renseigner un email valide'
                 ])
             ]
         ])->getForm();
 
         $emailForm->handleRequest($request);
         if ($emailForm->isSubmitted() && $emailForm->isValid()) {
+            $limiter = $passwordRecoveryLimiter->create($request->getClientIp());
+            if (false === $limiter->consume(1)->isAccepted()) {
+                $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une tentative');
+                return $this->redirectToRoute('home');
+            }
             $emailValue = $emailForm->get('email')->getData();
             $user = $userRepository->findOneBy(['email' => $emailValue]);
             if ($user) {
@@ -135,7 +145,8 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/reset_password_request.html.twig', [
-            'form' => $emailForm->createView()
+            'form' => $emailForm->createView(),
+            'title' => "Indiquez nous votre addresse  mail pour qu\'on puisse vous envoyez un email"
         ]);
     }
 }

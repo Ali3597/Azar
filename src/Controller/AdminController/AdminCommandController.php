@@ -37,7 +37,7 @@ class AdminCommandController extends AbstractController
         $commands = $paginator->paginate(
             $this->commandRepo->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
-            3,
+            10,
         );
 
         return $this->render('admin/admin_command/index.html.twig', [
