@@ -34,21 +34,22 @@ afficherPlus.forEach((element) => {
 
   if (element.offsetHeight > 295) {
     element.append(div);
+
+    element.querySelector(".reel").classList.add("long");
+    div.addEventListener("click", () => {
+      if (element.classList.contains("taille")) {
+        element.classList.remove("taille");
+        setTimeout(() => {
+          document.querySelector(".afficher-plus span").innerHTML = "plus";
+        }, 300);
+      } else {
+        element.classList.add("taille");
+        setTimeout(() => {
+          document.querySelector(".afficher-plus span").innerHTML = "moins";
+        }, 300);
+      }
+    });
   }
-  element.querySelector(".reel").classList.add("long");
-  div.addEventListener("click", () => {
-    if (element.parentNode.classList.contains("taille")) {
-      element.parentNode.classList.remove("taille");
-      setTimeout(() => {
-        document.querySelector(".afficher-plus span").innerHTML = "plus";
-      }, 300);
-    } else {
-      element.parentNode.classList.add("taille");
-      setTimeout(() => {
-        document.querySelector(".afficher-plus span").innerHTML = "moins";
-      }, 300);
-    }
-  });
 });
 
 //aside

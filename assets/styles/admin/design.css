@@ -237,3 +237,7 @@ code {
 button {
   margin-bottom: 3%;
 }
+
+.form-errors {
+  color: red;
+}

@@ -105,7 +105,17 @@ class DesignType extends AbstractType
 
                 'label' => 'Photo a propos header'
 
-            ])->add('aboutUsTitle', TextType::class, [
+            ])->add('aboutUsPictureTitle', TextType::class, [
+
+                'label' => 'Titre sur la photo de la page  a propos'
+
+            ])
+            ->add('aboutUsPictureSubTitle', TextType::class, [
+
+                'label' => 'Sous-titre sur la photo de la page  a propos'
+
+            ])
+            ->add('aboutUsTitle', TextType::class, [
 
                 'label' => 'Titre de la page a propos'
 

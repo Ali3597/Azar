@@ -57,6 +57,7 @@ class AdminArticleController extends AbstractController
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $article->setViews(0);
             if ($article->getPicture()) {
                 $article->setCreatedAt(new DateTimeImmutable('now'));
                 $this->em->persist($article);

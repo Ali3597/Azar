@@ -136,6 +136,16 @@ class Design
      */
     private $Icon;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $aboutUsPictureTitle;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $aboutUsPictureSubTitle;
+
 
 
     public function __construct()
@@ -490,6 +500,30 @@ class Design
             $this->Icon = $picture;
         }
         $this->pictureFileIcon = $pictureFileIcon;
+
+        return $this;
+    }
+
+    public function getAboutUsPictureTitle(): ?string
+    {
+        return $this->aboutUsPictureTitle;
+    }
+
+    public function setAboutUsPictureTitle(string $aboutUsPictureTitle): self
+    {
+        $this->aboutUsPictureTitle = $aboutUsPictureTitle;
+
+        return $this;
+    }
+
+    public function getAboutUsPictureSubTitle(): ?string
+    {
+        return $this->aboutUsPictureSubTitle;
+    }
+
+    public function setAboutUsPictureSubTitle(string $aboutUsPictureSubTitle): self
+    {
+        $this->aboutUsPictureSubTitle = $aboutUsPictureSubTitle;
 
         return $this;
     }

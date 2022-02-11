@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Message;
 use App\Form\MessageType;
+use App\Repository\DesignRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,10 +28,11 @@ class OtherController extends AbstractController
     }
 
     #[Route('/APropos', name: 'aboutUs')]
-    public function AboutUs(): Response
+    public function AboutUs(DesignRepository $designRepo): Response
     {
+        $design = $designRepo->find(1);
         return $this->render('other/aboutUs.html.twig', [
-            'controller_name' => 'OtherController',
+            'design' => $design,
         ]);
     }
 

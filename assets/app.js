@@ -272,7 +272,6 @@ window.popup = popup;
 let flashs = document.querySelectorAll(".flash");
 console.log(flashs);
 if (flashs != null) {
-  console.log("ta soeur");
   flashs.forEach((element) => {
     element.classList.add("active");
     setTimeout(() => {

@@ -13,7 +13,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:view-counter:clean',
-    description: 'Deletes all the viewsin the database and write stats in StatView Repo',
+    description: 'Deletes all the views in the database and write stats in StatView Repo',
 )]
 class ViewCounterCleanCommand extends Command
 {

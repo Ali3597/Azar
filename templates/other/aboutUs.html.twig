@@ -11,8 +11,26 @@
 
 
 {% block body %}
+	<div style="--background: {{colors.allColors.primary}};" class="content">
 
-	<div class="content flex column"></div>
+		<div class="image flex column" style="background-image:url('{{ vich_uploader_asset(design.aboutUsPicture,'imageFile') }}')">
+			<h1>{{design.aboutUsPictureTitle}}</h1>
+
+			<h4>{{design.aboutUsPictureSubTitle}}</h4>
+
+
+		</div>
+		<div class="contentAboutUs flex column">
+			<h1>{{design.aboutUsTitle}}</h1>
+
+
+			<p style="white-space: pre-line">{{design.aboutUsContent}}</p>
+
+
+		</div>
+
+
+	</div>
 
 
 {% endblock %}
@@ -20,5 +38,7 @@
 
 {% block javascripts %}
 	{{ parent() }}
+	{{ encore_entry_script_tags('aboutUs') }}
+
 
 {% endblock %}
