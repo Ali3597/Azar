@@ -118,8 +118,10 @@
 					<th>image</th>
 					<th>Action</th>
 				</thead>
-				<tbody>
-					{% for article in articles %}
+				{% for article in articles %}
+
+					<tbody>
+
 						<tr>
 							<td>{{article.title}}
 							</td>
@@ -167,8 +169,10 @@
 							</td>
 
 						</tr>
-					{% endfor %}
-				</tbody>
+
+					</tbody>
+				{% endfor %}
+
 			</table>
 			<div class="pagination">
 				{{ knp_pagination_render(articles) }}
@@ -178,5 +182,5 @@
 				Aucun element ne correspond
 			</div>
 		{% endif %}
-
-	{% endblock %}
+	</div>
+{% endblock %}

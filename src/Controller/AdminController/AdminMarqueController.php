@@ -66,7 +66,7 @@ class AdminMarqueController extends AbstractController
             }
         }
 
-        return $this->render('admin/admin_marque/new.html.twig', [
+        return $this->render('admin/new.html.twig', [
             'form' => $form->createview()
         ]);
     }
@@ -107,9 +107,9 @@ class AdminMarqueController extends AbstractController
             return $this->redirectToRoute('admin_marques');
         }
 
-        return $this->render('admin/admin_marque/edit.html.twig', [
+        return $this->render('admin/edit.html.twig', [
             'form' => $form->createview(),
-            'marque' => $marque
+            'item' => $marque
         ]);
     }
 

@@ -66,7 +66,7 @@ class AdminHighCategoryController extends AbstractController
             }
         }
 
-        return $this->render('admin/admin_high_category/new.html.twig', [
+        return $this->render('admin/new.html.twig', [
             'form' => $form->createview()
         ]);
     }
@@ -106,9 +106,9 @@ class AdminHighCategoryController extends AbstractController
             return $this->redirectToRoute('admin_high_categories');
         }
 
-        return $this->render('admin/admin_high_category/edit.html.twig', [
+        return $this->render('admin/edit.html.twig', [
             'form' => $form->createview(),
-            'category' => $category,
+            'item' => $category,
         ]);
     }
 

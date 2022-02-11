@@ -61,7 +61,7 @@ class AdminLowCategoryController extends AbstractController
             return $this->redirectToRoute('admin_low_categories');
         }
 
-        return $this->render('admin/admin_low_category/new.html.twig', [
+        return $this->render('admin/new.html.twig', [
             'form' => $form->createview()
         ]);
     }
@@ -98,8 +98,9 @@ class AdminLowCategoryController extends AbstractController
             return $this->redirectToRoute('admin_low_categories');
         }
 
-        return $this->render('admin/admin_low_category/edit.html.twig', [
-            'form' => $form->createview()
+        return $this->render('admin/edit.html.twig', [
+            'form' => $form->createview(),
+            'item' => $category
         ]);
     }
 

@@ -60,7 +60,7 @@ class AdminPromoController extends AbstractController
             return $this->redirectToRoute('admin_promos');
         }
 
-        return $this->render('admin/admin_promo/new.html.twig', [
+        return $this->render('admin/new.html.twig', [
             'form' => $form->createview()
         ]);
     }
@@ -82,9 +82,9 @@ class AdminPromoController extends AbstractController
             return $this->redirectToRoute('admin_promos');
         }
 
-        return $this->render('admin/admin_promo/edit.html.twig', [
+        return $this->render('admin/edit.html.twig', [
             'form' => $form->createview(),
-            'promo' => $promo
+            'item' => $promo
         ]);
     }
 
