@@ -2,12 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\Article;
-use App\Entity\BandeArticle;
-use App\Entity\BandeCategory;
-use App\Entity\BandeCategoryTitle;
-use App\Entity\Category;
-use App\Entity\Marque;
+
 use App\Repository\BandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 

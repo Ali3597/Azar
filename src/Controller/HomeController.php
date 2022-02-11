@@ -2,17 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\UserType;
 use App\Repository\BandeRepository;
 use App\Repository\DesignRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 
 class HomeController extends AbstractController
 {
@@ -27,7 +25,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function index(BandeRepository $bandeRepo, DesignRepository $designRepo, Request $request): Response
+    public function index(BandeRepository $bandeRepo, DesignRepository $designRepo): Response
     {
 
 

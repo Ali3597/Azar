@@ -7,7 +7,6 @@ use App\Entity\Design;
 use App\Entity\Produit;
 use App\Entity\StatView;
 use App\Entity\ViewCounter as EntityViewCounter;
-use App\Repository\StatViewRepository;
 use App\Repository\ViewCounterRepository;
 
 use Doctrine\ORM\EntityManagerInterface;

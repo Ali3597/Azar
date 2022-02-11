@@ -2,8 +2,6 @@
 
 namespace App\Controller\AdminController;
 
-use App\Repository\DesignRepository;
-use App\Repository\ProduitRepository;
 use App\Service\StatUse;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

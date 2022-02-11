@@ -3,28 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\ViewCounter as EntityViewCounter;
 use App\Form\UserType;
-use App\Repository\BandeRepository;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mailer\MailerInterface;
 use App\Repository\CategoryRepository;
 use App\Repository\DesignRepository;
-use App\Repository\StatViewRepository;
-use App\Repository\ViewCounterRepository;
-use App\Security\LoginFormAuthenticator;
-use App\Service\StatUse;
+
 use App\Service\ViewCounter;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Stmt\Else_;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+
 
 
 class RecycleController extends AbstractController

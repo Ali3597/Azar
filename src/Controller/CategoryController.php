@@ -3,9 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\User;
-use App\Form\UserType;
-use App\Repository\BandeRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -13,9 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 
 class CategoryController extends AbstractController
 {

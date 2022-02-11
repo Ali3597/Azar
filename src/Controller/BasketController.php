@@ -5,8 +5,6 @@ namespace App\Controller;
 use App\Entity\ComandProducts;
 use App\Entity\Command;
 use App\Entity\Produit;
-use App\Repository\ComandProductsRepository;
-use App\Repository\CommandRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -108,7 +106,7 @@ class BasketController extends AbstractController
 
 
     #[Route('/panier/confirmer', name: 'panier_confirm', methods: ['POST'])]
-    public function confirm(SessionInterface $session, MailerInterface $mailer, Request $request, ProduitRepository $produitRepo, CommandRepository $commandRepo, ComandProductsRepository $comandProductsRepo): Response
+    public function confirm(SessionInterface $session, MailerInterface $mailer, Request $request, ProduitRepository $produitRepo): Response
     {
         $currentUser = $this->getUser();
         if ($this->isCsrfTokenValid('confirm' . $currentUser->getId(), $request->get('_token'))) {
@@ -204,7 +202,7 @@ class BasketController extends AbstractController
     }
 
     #[Route('/aside/delete/{id}', name: 'aside_delete')]
-    public function deleteAside(Produit $product, SessionInterface $session, Request $request): Response
+    public function deleteAside(Produit $product, Request $request): Response
     {
         if ($request->isXmlHttpRequest()) {
             $user = $this->getUser();

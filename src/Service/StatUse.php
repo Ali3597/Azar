@@ -5,8 +5,7 @@ namespace App\Service;
 use App\Repository\StatViewRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Expr\Cast\Array_;
-use Symfony\Component\HttpFoundation\Request;
+
 
 class StatUse
 {

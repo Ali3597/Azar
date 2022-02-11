@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\ResetPassword;
-use App\Entity\User;
 use App\Entity\UserPassword;
 use App\Form\UserPasswordType;
 use App\Repository\ResetPasswordRepository;
@@ -13,15 +12,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Validator\Constraints\Length;
+
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SecurityController extends AbstractController
@@ -44,7 +41,7 @@ class SecurityController extends AbstractController
 
 
     #[Route('/reset-password/{token}', name: 'reset-password')]
-    public function resetPassword(RateLimiterFactory $passwordRecoveryLimiter, UserPasswordHasherInterface $userPasswordHasher, Request $request, EntityManagerInterface $em, string $token, ResetPasswordRepository $resetPasswordRepository)
+    public function resetPassword(UserPasswordHasherInterface $userPasswordHasher, Request $request, EntityManagerInterface $em, string $token, ResetPasswordRepository $resetPasswordRepository)
     {
 
 
