@@ -25,6 +25,8 @@ class UserPassword
     #[Assert\NotBlank(message: 'Veuillez renseigner un mot de passe.')]
     private $password;
 
+    private $actualPassword;
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -36,6 +38,26 @@ class UserPassword
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of actualPassword
+     */
+    public function getActualPassword()
+    {
+        return $this->actualPassword;
+    }
+
+    /**
+     * Set the value of actualPassword
+     *
+     * @return  self
+     */
+    public function setActualPassword($actualPassword)
+    {
+        $this->actualPassword = $actualPassword;
 
         return $this;
     }

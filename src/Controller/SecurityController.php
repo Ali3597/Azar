@@ -73,6 +73,7 @@ class SecurityController extends AbstractController
         $passwordForm->handleRequest($request);
 
         if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
+            dd("lloo");
             $password = $passwordForm->get('password')->getData();
             $user = $resetPassword->getUser();
             $hash = $userPasswordHasher->hashPassword($user, $password);

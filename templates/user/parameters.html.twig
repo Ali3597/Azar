@@ -6,8 +6,26 @@
 
 
 {% block body %}
-	<div class="content flex column">
+	<div style="--background: {{colors.allColors.primary}};" class="content flex column">
+
+		<h1>Mes parametres</h1>
+
 		<div class="change flex ">
+
+
+			<div>
+				<h1>Mes informations personelles</h1>
+
+				{{ form_start(changeForm) }}
+				{{ form_rest(changeForm) }}
+
+
+				<button type="submit">Envoyer</button>
+
+				{{ form_end(changeForm)}}
+
+			</div>
+
 			<div>
 				<h1>Modifier mon email</h1>
 
@@ -19,20 +37,15 @@
 			<div>
 				<h1>Modifier mon mot de passe</h1>
 				{{ form_start(passwordForm) }}
+				{{ form_rest(passwordForm) }}
+
 				<button type="submit">Envoyer</button>
 
 				{{ form_end(passwordForm)}}
 
 
 			</div>
-			<div>
-				<h1>Mes informations personelles</h1>
-				{{ form_start(changeForm) }}
-				<button type="submit">Envoyer</button>
 
-				{{ form_end(changeForm)}}
-
-			</div>
 		</div>
 
 	</div>
