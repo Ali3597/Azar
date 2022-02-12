@@ -47,4 +47,13 @@ class ResetPasswordRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findOneByUserId($id): ?ResetPassword
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.user = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
