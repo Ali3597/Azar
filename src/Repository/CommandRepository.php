@@ -43,6 +43,7 @@ class CommandRepository extends ServiceEntityRepository
         $query->leftJoin('c.user', 'user')
             ->Where('user.id = :userId')
             ->setParameter('userId', $userId);
+
         return   $query->getQuery()
             ->getResult();
     }
@@ -52,7 +53,8 @@ class CommandRepository extends ServiceEntityRepository
 
         $query = $this->createQueryBuilder('c');
         if ($search->getQueryName()) {
-            $query->andWhere('c.email LIKE :search')
+            $query->leftJoin('c.user', 'user')
+                ->andWhere('user.email LIKE :search')
                 ->setParameter('search', '%' . $search->getQueryName() . '%');
         }
 

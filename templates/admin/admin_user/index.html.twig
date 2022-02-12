@@ -98,10 +98,11 @@
 							<a href="{{ path('admin_user_consult' , { id: user.id }) }}">Consulter</a>
 
 
-							<form action="{{ path('admin_marque_delete' , { id: user.id }) }}" method="post">
+							<form action="{{ path('admin_user_delete' , { id: user.id }) }}" method="post">
 								<input type="hidden" name="_method" value="DELETE">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-								<button>Supprimer</button>
+								<button onclick="return confirm('Etes vos sure de couloir supprimer cet uitlisateur , il ne pourra plus se connectez et ses envies et commandes vont se supprimer ?')">Supprimer</button>
+
 							</form>
 						</td>
 					</tbody>

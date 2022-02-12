@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/admin', name: 'admin_')]
 class AdminUserController extends AbstractController
 {
     private $userRepo;
@@ -26,7 +27,7 @@ class AdminUserController extends AbstractController
         $this->userRepo = $userRepo;
         $this->em = $em;
     }
-    #[Route('/admin/users', name: 'admin_users')]
+    #[Route('/users', name: 'users')]
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new Search();
@@ -46,7 +47,7 @@ class AdminUserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/user/consult/{id}', name: 'admin_user_consult')]
+    #[Route('/user/consult/{id}', name: 'user_consult')]
     public function consult(User $user, Request $request): Response
     {
 
@@ -56,7 +57,7 @@ class AdminUserController extends AbstractController
 
         ]);
     }
-    #[Route('/admin/user/envies/{id}', name: 'admin_user_want')]
+    #[Route('/user/envies/{id}', name: 'user_want')]
     public function want(User $user, Request $request, PaginatorInterface $paginator, ProduitRepository $produitRepo): Response
     {
 
@@ -67,7 +68,7 @@ class AdminUserController extends AbstractController
         $products  = $paginator->paginate(
             $produitRepo->findUserWantingsWithSearch($user->getId(), $search),
             $request->query->getInt('page', 1),
-            10,
+            3,
         );
 
 
@@ -77,20 +78,37 @@ class AdminUserController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    #[Route('/admin/user/commands/{id}', name: 'admin_user_command')]
+    #[Route('/user/commands/{id}', name: 'user_command')]
     public function command(User $user, Request $request, PaginatorInterface $paginator, CommandRepository $commandRepo): Response
     {
 
         $commands  = $paginator->paginate(
             $commandRepo->findUserCommands($user->getId()),
             $request->query->getInt('page', 1),
-            10,
+            3,
         );
 
         return $this->render('admin/admin_user/command.html.twig', [
             'user' => $user,
-            "commands" => $commands
+            "commands" => $commands,
+            "form" => false
 
         ]);
+    }
+
+    #[Route('/user/{id}', name: 'user_delete', methods: ['DELETE'])]
+    public function delete(User $user, Request $request): Response
+    {
+
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token'))) {
+            foreach ($user->getCommands() as $command) {
+                $this->em->remove($command);
+            }
+            $this->em->flush();
+            $this->em->remove($user);
+            $this->em->flush();
+            $this->addFlash('success', 'Votre utilisateur a bien été supprime ');
+        }
+        return $this->redirectToRoute('admin_users');
     }
 }
