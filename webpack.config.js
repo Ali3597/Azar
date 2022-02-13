@@ -39,6 +39,7 @@ Encore
   .addEntry("parameters", "./assets/parameters.js")
   .addEntry("connexion", "./assets/connexion.js")
   .addEntry("inscription", "./assets/inscription.js")
+  .addEntry("commands", "./assets/commands.js")
   .addEntry("command", "./assets/command.js")
   .addEntry("admin_command_consult", "./assets/admin_command_consult.js")
   .addEntry("user_consult", "./assets/user_consult.js")

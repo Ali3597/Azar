@@ -1,52 +1,34 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
 	{{ parent() }}
-	{{ encore_entry_link_tags('command') }}
+	{{ encore_entry_link_tags('commands') }}
 {% endblock %}
+{% block title %}
+	Mes Commandes
+
+{% endblock %}
+
 
 
 {% block body %}
 	<div class="content flex column ">
-		<h1>Bienvenue sur votre compte !</h1>
-
-		<h2>Ici, vous êtes comme à la maison</h2>
-		<div class="cardprofile">
-			<h1>Mes commandes</h1>
-			<div class="redirect">
-				<a class="flex" href="">
-
-					<p>Toutes mes commandes</p>
-					<i class="fas fa-chevron-right"></i>
-				</a>
-
-			</div>
-		</div>
-		<div class="cardprofile">
-			<h1>Mon panier / mes envies</h1>
-			<div class="redirect">
-				<a class="flex" href=" ">
-
-					<p>Consulter</p>
-					<i class="fas fa-chevron-right"></i>
-				</a>
+	<h1>Mes commandes</h1>
+	{% for command in commands %}
+<a href="{{path('commande_one',{ id: command.id })}}" class="command">Commande du
+	{{command.createdat|date("m/d/Y")}}</a>
 
 
-			</div>
 
-		</div>
-
-		<div class="cardprofile">
-			<h1>Mes information personelles</h1>
-			<div class="redirect flex ">
-				<a class="flex" href="">
-					<p>Modifier mes information personnelles</p>
-					<i class="fas fa-chevron-right"></i>
-				</a>
+	{% endfor %}
+<div style="--background: {{colors.allColors.primary}};" class="righ-produits-bas flex column">
 
 
-			</div>
+	{{ knp_pagination_render(commands) }}
 
-		</div>
+</div>
+
+
+
 
 
 	</div>

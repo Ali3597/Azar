@@ -42,7 +42,8 @@ class CommandRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('c');
         $query->leftJoin('c.user', 'user')
             ->Where('user.id = :userId')
-            ->setParameter('userId', $userId);
+            ->setParameter('userId', $userId)
+            ->orderBy('c.created_at', 'DESC');
 
         return   $query->getQuery()
             ->getResult();
@@ -60,6 +61,21 @@ class CommandRepository extends ServiceEntityRepository
 
         return $query->getQuery();
     }
+
+    public function findOneCommandByUSerAndCommandId($idCommand,$idUser)
+    {
+
+        $query = $this->createQueryBuilder('c')
+            ->Where('c.id = :id')
+            ->setParameter('id', $idCommand)
+            ->andWhere('c.user = :idUser')
+            ->setParameter('idUser', $idUser);
+        
+
+        return $query->getQuery()->getOneOrNullResult();
+    }
+
+    
 
     /*
     public function findOneBySomeField($value): ?Command

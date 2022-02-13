@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('command') }}
+{% endblock %}
+{% block title %}
+	Ma commande
+
+{% endblock %}
+
+
+{% block body %}
+	<div class="content flex column ">
+<h1>Ma Commande numero
+	{{command.id}}
+</h1>
+
+	
+{% for item in command.comandProducts %}
+	<li class="flex">
+		-<p>{{item.number}}</p>
+<a href="{{path('produit',{ slug: item.products.slug })}}">{{item.products.name}}</a>
+
+
+
+	</li>
+
+
+{% endfor %}
+
+
+
+
+	</div>
+{% endblock %}
+

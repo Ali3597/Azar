@@ -1,6 +1,7 @@
 .content {
   padding-left: 12%;
   padding-right: 12%;
-  height: 120vh;
-  background-color: aqua;
+  height: fit-content;
+
+  align-items: center;
 }

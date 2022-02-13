@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Entity\UserPassword;
 use App\Form\UserChangeType;
 use App\Form\UserPasswordProfileType;
+use App\Repository\CommandRepository;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\Form\FormError;
@@ -41,12 +42,34 @@ class ProfileController extends AbstractController
 
 
     #[Route("/profile/commandes", name: "commande_valide")]
-    public function command(): Response
+    public function commands(PaginatorInterface $paginator,CommandRepository $commandRepo,Request $request): Response
     {
+        $currentUser = $this->getUser();
+        $commands = $paginator->paginate(
+            $commandRepo->findUserCommands($currentUser->getId()),
+            $request->query->getInt('page', 1),
+            2,
+        );
+        return $this->render('user/commands.html.twig', [
 
-        return $this->render('user/commands.html.twig', []);
+          'commands' => $commands
+        ]);
     }
 
+
+    #[Route("/profile/commande/{id}", name: "commande_one")]
+    public function command($id,CommandRepository $commandRepo, Request $request): Response
+    {
+        $currentUser = $this->getUser();
+        $command = $commandRepo->findOneCommandByUSerAndCommandId($id,$currentUser->getId());
+        if($command==null){
+            return $this->redirectToRoute('commande_valide');
+        }
+        return $this->render('user/oneCommand.html.twig', [
+
+            'command' => $command
+        ]);
+    }
 
 
 
