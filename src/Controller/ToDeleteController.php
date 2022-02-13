@@ -37,7 +37,7 @@ class ToDeleteController extends AbstractController
             $this->em->persist($design);
             $this->em->flush();
             $this->addFlash('success', 'Votre Design a bien été crée ');
-            return $this->redirectToRoute('admin_design');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('to_delete/index.html.twig', [
