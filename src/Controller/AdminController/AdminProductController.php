@@ -6,6 +6,7 @@ use App\Entity\Produit;
 use App\Entity\Search;
 use App\Form\ProduitType;
 use App\Form\SearchType;
+use App\Repository\ComandProductsRepository;
 use App\Repository\ProduitRepository;
 use App\Service\BandeManagement;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -133,7 +134,7 @@ class AdminProductController extends AbstractController
 
 
     #[Route('/product/{id}', name: 'product_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Produit $product, BandeManagement $bandeManagement): Response
+    public function delete(Request $request, Produit $product, BandeManagement $bandeManagement,ComandProductsRepository $comandProductsRepo): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
@@ -142,7 +143,11 @@ class AdminProductController extends AbstractController
                 $product->removePicture($image);
                 $this->em->remove($image);
             }
-
+          $commandProducts =  $comandProductsRepo->findCommandByproductId($product->getId());
+            dd($commandProducts);
+            foreach ($commandProducts as $commandProduct) {
+                $this->em->remove($commandProduct);
+            }
             $this->em->flush();
             $this->em->remove($product);
             $this->em->flush();

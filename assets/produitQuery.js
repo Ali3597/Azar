@@ -37,3 +37,4 @@ productJquery();
 module.exports = {
   productJquery,
 };
+console.log("ksk");

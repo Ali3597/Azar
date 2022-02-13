@@ -48,4 +48,13 @@ class ComandProductsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findCommandByproductId($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.products = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult();
+    }
 }
