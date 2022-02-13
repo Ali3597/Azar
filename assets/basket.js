@@ -3,6 +3,11 @@ let color = document.querySelector(".content").getAttribute("data-color");
 let loader = `<div id="ctn">
 <div style=" border-top: 10px solid ${color}; "  id="loader"></div>
 </div>`;
+let loaderValid = `<div >
+<div style=" border-top: 5px solid ${color}; "  id="loaderValid"></div>
+</div>`;
+
+
 let startBasket = function () {
   let changeQuantitydefaults = document.querySelectorAll(".changeQuantity");
   for (let i = 0; i < changeQuantitydefaults.length; i++) {
@@ -308,7 +313,6 @@ let addToBasketFromAside = function (element) {
 };
 
 let deleteFromAside = function (element) {
-  popup("Ce produit a bien été enlevé de votre liste de souhait ", "success");
   let elements = document.querySelectorAll(".basketItem");
   if (elements.length == 1) {
     fillEmptyLeft();
@@ -354,12 +358,22 @@ let fillEmptyLeft = function () {
 };
 
 let fillEmptyButton = function () {
+  console.log("allo");
   let valid = document.querySelector(".validB");
   let noValid = document.querySelector(".novalidB");
+  console.log(noValid);
   valid.classList.add("none");
   noValid.classList.remove("none");
 };
+
+let activeLoaderValid = function () {
+  let toFill = document.querySelector(".toFillLoaderValid");
+  toFill.innerHTML = loaderValid;
+};
 window.putAsideThisItem = putAsideThisItem;
+window.fillEmptyButton = fillEmptyButton;
+window.fillEmptyLeft = fillEmptyLeft;
+window.activeLoaderValid = activeLoaderValid;
 window.deleteFromAside = deleteFromAside;
 window.addToBasketFromAside = addToBasketFromAside;
 window.goToBasketItems = goToBasketItems;

@@ -60,7 +60,7 @@
 	</div>
 
 
-	<div class=" {{basket ? " none " : " "}}panier_vide novalidB flex column toFill ">
+	<div class=" {{basket ? " none " : " "}}panier_vide flex column toFill ">
 
 
 		<h1>Ça alors. Vous n’avez rien mis de côté.
@@ -84,11 +84,12 @@
 	</div>
 
 
-	<div class=" {{basket ? " none " : " "}}recap flex column ">
+	<div class=" {{basket ? " none " : " "}}recap novalidB flex column ">
 
 
 		<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
-		<a href="">
+		<a href="{{ path('home')}}">
+
 
 			<button style="background-color: {{colors.allColors.primary}}">Aller au catalogue</button>
 

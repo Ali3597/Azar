@@ -264,7 +264,6 @@ let popup = function (message, classColor) {
   popup.classList.add("active");
   ref = setTimeout(() => {
     popup.classList.remove("active");
-    popup.querySelector(p).innerHTML = "";
   }, 2000);
 };
 

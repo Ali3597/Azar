@@ -286,9 +286,9 @@ input[type="number"] {
 .basketItem {
   height: 25vh;
   border-bottom: 1px solid #ddd;
-   transition : all .3s;
-  -wekit-transition : all .3s;
-  -moz-transition : all .3s;
+  transition: all 0.3s;
+  -wekit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
 }
 
 .basketItem img {
@@ -431,6 +431,13 @@ input[type="number"] {
 
   animation: rotate 2s infinite ease;
 }
+#loaderValid {
+   width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 5px solid #dcefff;
+  animation: rotate 2s infinite ease;
+}
 @keyframes rotate {
   0% {
     transform: none;
@@ -454,4 +461,17 @@ input[type="number"] {
 
 .none {
   display: none;
+}
+
+.toFillLoaderValid {
+  width: 15%;
+  height: 8vh;
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.validB form {
+  margin-left: 15%;
 }

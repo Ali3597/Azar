@@ -116,24 +116,31 @@
 </div>
 <div class="flex  ensemble_right_panier ">
 
-	<div class="  {{basket ? " " : " none"}} validb recap flex column ">
+	<div class="  {{basket ? " " : " none"}} validB     recap flex  ">
 
 
 		<form action="{{ path('profile_panier_confirm') }}" method="post">
 			<input type="hidden" name="_token" value="{{ csrf_token('confirm' ~ idUser) }}">
-			<button style="background-color: {{colors.allColors.primary}}">Valider la commande</button>
+<button onclick="activeLoaderValid()" style=" background-color: {{colors.allColors.primary}} ">Valider la commande</button>
+
 
 
 		</form>
+		<div class="toFillLoaderValid">
+		<div >
+<div style=" border-top: 5px solid red; "  id="loaderValid"></div>
+</div>
+		
+		</div>
 
 	</div>
-
 
 	<div class="recap  novalidB  {{basket ? " none" : " "}} flex column ">
 
 
 		<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>
-		<a href="">
+		<a href="{{ path('home')}}">
+
 
 			<button style="background-color: {{colors.allColors.primary}}">Aller au catalogue</button>
 

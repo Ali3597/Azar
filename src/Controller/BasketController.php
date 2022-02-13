@@ -120,8 +120,6 @@ class BasketController extends AbstractController
                 $command->setTreated(false);
                 $this->em->persist($command);
                 $this->em->flush();
-
-
                 foreach ($basket as $key => $value) {
                     $product = $produitRepo->find($key);
                     $commandProduct = new ComandProducts();
@@ -163,15 +161,12 @@ class BasketController extends AbstractController
                 $this->addFlash('success', 'Votre commande a bien était passé nous reviendrons vers vous ulterieurement');
                 return $this->redirectToRoute('commande_valide');
             } else {
+                $this->addFlash('error', 'Vous n\'avez rien dans votre panier actuellement');
                 return $this->redirectToRoute('panier');
             }
         } else {
             throw new Exception('Cette page n\'existe pas');
         }
-
-
-
-        return $this->redirectToRoute('commande_valide');
     }
 
     #[Route('/panier/add/{id}', name: 'panier_add')]
