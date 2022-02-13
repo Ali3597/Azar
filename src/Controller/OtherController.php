@@ -39,11 +39,11 @@ class OtherController extends AbstractController
     #[Route('/contact', name: 'contact')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
+
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $emailCurrentUser = "ansiazar@gmail.com";
             $emailValue = $emailCurrentUser;
             $emailToAdmin = new TemplatedEmail();
