@@ -52,9 +52,10 @@
 			{{ form_rest(form) }}
 		</div>
 	</div>
-	{% block javascripts %}
-		{{ encore_entry_script_tags('form') }}
-		{{ encore_entry_script_tags('formCategory') }}
-		{{ encore_entry_script_tags('formadd') }}
-	{% endblock %}
+
+{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('form') }}
+	{{ encore_entry_script_tags('formCategory') }}
+	{{ encore_entry_script_tags('formadd') }}
 {% endblock %}

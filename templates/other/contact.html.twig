@@ -14,7 +14,8 @@
 
 	<div class="content flex column">
 
-		<div class="contact flex">
+		<div data-color={{colors.allcolors.primary}} class="contact flex">
+
 			<div class="contact_left flex column">
 				<h1 style="color: {{colors.allColors.primary}}">Contactez nous !
 
@@ -45,8 +46,9 @@
 				</div>
 
 
-				<button style="background-color: {{colors.allColors.primary}}" type="submit">Envoyer</button>
+				<button onclick="activeLoader()" style="background-color: {{colors.allColors.primary}}" type="submit">Envoyer</button>
 
+				<div class="toFill"></div>
 				{{ form_end(form) }}
 
 
@@ -101,6 +103,12 @@
 			</div>
 		</div>
 	</div>
+
+
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('contact') }}
 
 
 {% endblock %}

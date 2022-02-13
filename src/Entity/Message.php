@@ -18,11 +18,11 @@ class Message
     #[Assert\NotBlank(message: 'Veuillez renseigner votre email.')]
     private $email;
 
-
+    #[Assert\NotBlank(message: 'Veuillez renseigner un sujet')]
     #[Assert\Length(min: 2, minMessage: 'Veuillez détailler votre sujet', max: 100, maxMessage: 'Le sujet est trop long ')]
     private $subject;
 
-
+    #[Assert\NotBlank(message: 'Veuillez renseigner un message')]
     #[Assert\Length(min: 20, minMessage: 'Veuillez détailler votre message')]
     private $content;
 

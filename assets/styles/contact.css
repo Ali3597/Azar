@@ -150,6 +150,35 @@ textarea {
   height: 100%;
 }
 
+form button {
+  margin-left: 8%;
+}
+
 form button:hover {
   transform: scale(1.02);
+}
+
+.toFill {
+  width: 15%;
+  height: 8vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  animation: rotate 2s infinite ease;
+}
+@keyframes rotate {
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: rotate(1turn);
+  }
 }
