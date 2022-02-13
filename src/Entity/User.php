@@ -93,6 +93,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $wants;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $deleted;
+
 
 
 
@@ -301,6 +306,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeWant(Produit $want): self
     {
         $this->wants->removeElement($want);
+
+        return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
 
         return $this;
     }

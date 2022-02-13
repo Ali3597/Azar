@@ -67,7 +67,7 @@ class UserController extends AbstractController
             $hash = $passwordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hash);
             $user->setIsVerified(false);
-
+            $user->setDeleted(false);
             $this->em->persist($user);
             $this->em->flush();
             $signatureComponents = $verifyEmailHelper->generateSignature(

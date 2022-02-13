@@ -28,7 +28,7 @@ class UserChecker implements UserCheckerInterface
 
     public function checkPostAuth(UserInterface $user): void
     {
-        if (!$user->getIsVerified()) {
+        if (!$user->getIsVerified() || $user->getDeleted()) {
             $this->flashbag->add('error', 'Votre compte n\'est pas encore validé veuillez verifié votre boite mail un lien de validation vous a été envoye');
             throw new AccountExpiredException('...');
         }
