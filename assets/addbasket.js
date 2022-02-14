@@ -1,5 +1,4 @@
 
-console.log("heee");
 let addBasket = function (element) {
   let idProduct = element.getAttribute("data-id");
   popup("Votre produit a bien été rajouté au panier", "success");

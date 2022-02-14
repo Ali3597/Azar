@@ -458,15 +458,12 @@ let removeElement = function (element) {
 };
 
 let deleteBande = function (element) {
-  console.log("alll")
   let myElementParent = element.parentNode.parentNode;
   let toInsertAfter = myElementParent.parentNode.querySelector("h1");
   element.parentNode.remove();
   let contenant = myElementParent.cloneNode(true);
   myElementParent.remove();
   let myElements = contenant.querySelectorAll(".bande");
-  console.log(myElements)
-  console.log(myElements.length)
   if (myElements.length > 0) {
     for (let i = 0; i < myElements.length; i++) {
       myElements[i].setAttribute("data-position", i);

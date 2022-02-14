@@ -194,7 +194,6 @@ let updateTheInput = function (element) {
     )
     .then((response) => {})
     .catch((err) => {
-      console.log(err);
     });
 };
 
@@ -284,7 +283,6 @@ let ajaxBasket = function () {
     .catch((err) => {});
 };
 let ajaxAside = function () {
-  console.log("pspsp");
   axios
     .get("/profile/panierAjaxAside", {
       headers: { "X-Requested-With": "XMLHttpRequest" },
@@ -358,10 +356,8 @@ let fillEmptyLeft = function () {
 };
 
 let fillEmptyButton = function () {
-  console.log("allo");
   let valid = document.querySelector(".validB");
   let noValid = document.querySelector(".novalidB");
-  console.log(noValid);
   valid.classList.add("none");
   noValid.classList.remove("none");
 };

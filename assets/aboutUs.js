@@ -1,8 +1,6 @@
 import "./styles/aboutUs.css";
 
-console.log("voill");
 let readMore = document.querySelector(".contentAboutUs");
-console.log(readMore.clientHeight);
 const affPlus = `Affichez <span>plus</span>`;
 if (readMore.offsetHeight > 210) {
   // read more

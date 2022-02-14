@@ -1,8 +1,6 @@
 import "./styles/connexion.css";
-console.log("papa");
 let flashs = document.querySelectorAll(".flash");
 if (flashs) {
-  console.log("heheheh");
   flashs.forEach((element) => {
     if (element.classList.contains("active")) {
       element.classList.remove("active");

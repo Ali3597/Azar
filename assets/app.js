@@ -132,7 +132,6 @@ let activeHighCategory = function () {
         }
       )
       .then((response) => {
-        console.log(response.data.categories);
         if (response.data.categories.length == 0) {
           subCategoriesPrinted = "";
         } else {
@@ -249,7 +248,6 @@ window.searchProduct = searchProduct;
 /////popup
 
 let popup = function (message, classColor) {
-  console.log("bonjour");
   let ref;
   if (ref) {
     clearTimeout(ref);
@@ -270,7 +268,6 @@ let popup = function (message, classColor) {
 window.popup = popup;
 //
 let flashs = document.querySelectorAll(".flash");
-console.log(flashs);
 if (flashs != null) {
   flashs.forEach((element) => {
     element.classList.add("active");
