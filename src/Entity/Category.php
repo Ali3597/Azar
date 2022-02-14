@@ -44,7 +44,7 @@ class Category
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="category_parent" ,orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="category_parent" )
      */
     private $categories_children;
 
@@ -54,7 +54,7 @@ class Category
     private $category_parent;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="category", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="category")
      */
     private $produits;
 
@@ -256,7 +256,7 @@ class Category
     /**
      * @return Collection|BandeCategory[]
      */
-    public function getBandesSimple(): Collection
+    public function getBandesSimple(): ?Collection
     {
         return $this->bandesSimple;
     }
@@ -282,7 +282,7 @@ class Category
     /**
      * @return Collection|BandeCategoryTitle[]
      */
-    public function getBandesTitle(): Collection
+    public function getBandesTitle(): ?Collection
     {
         return $this->bandesTitle;
     }
@@ -305,9 +305,11 @@ class Category
         return $this;
     }
 
-    public function getBandes(): Collection
+    public function getBandes()
     {
-        return $this->bandesTitle + $this->bandesSimple;
+      
+     
+        return  array_merge($this->bandesTitle->toArray(), $this->bandesSimple->toArray());
     }
 
     public function doYouHaveCategoriesWhoHaveProduct()

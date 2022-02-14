@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\CategoryRepository;
+use App\Repository\CommandRepository;
 use App\Repository\DesignRepository;
 
 use App\Service\ViewCounter;
@@ -33,7 +34,7 @@ class RecycleController extends AbstractController
 
 
 
-    public function header(Request $request, ViewCounter $viewCounter, SessionInterface $session, DesignRepository $designRepo,  AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo): Response
+    public function header(Request $request,CommandRepository $commandRepository, ViewCounter $viewCounter, SessionInterface $session, DesignRepository $designRepo,  AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo): Response
     {
 
 

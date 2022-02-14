@@ -125,9 +125,12 @@ class AdminHighCategoryController extends AbstractController
                 $productsElement = $element->getProduits();
                 foreach($productsElement as $productElement){
                     $deleteManagement->deleteProduct($productElement);
+                    
                 }
+               
                 $this->em->remove($element);
             }
+           
             $this->em->flush();
             $this->em->remove($categorie);
             $this->em->flush();

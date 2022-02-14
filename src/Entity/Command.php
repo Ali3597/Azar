@@ -35,7 +35,7 @@ class Command
     private $comment;
 
     /**
-     * @ORM\OneToMany(targetEntity=ComandProducts::class, mappedBy="commands", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ComandProducts::class, mappedBy="commands", cascade={"persist", "remove"})
      */
     private $comandProducts;
 

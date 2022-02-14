@@ -49,6 +49,19 @@ class CommandRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findProductCommands($productId)
+    {
+
+        $query = $this->createQueryBuilder('c');
+        $query->leftJoin('c.comandProducts', 'command')
+        ->Where('command.products = :productId')
+        ->setParameter('productId', $productId);
+    
+
+        return   $query->getQuery()
+            ->getResult();
+    }
+
     public function findAllVisibleQuery($search)
     {
 

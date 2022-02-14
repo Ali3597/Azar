@@ -5,17 +5,19 @@ namespace App\Service;
 
 use App\Repository\BandeRepository;
 use App\Repository\ComandProductsRepository;
+use App\Repository\CommandRepository;
 use App\Repository\ViewCounterRepository;
+use App\Service\BandeManagement;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DeleteManagement
 {
-    function __construct(BandeRepository $bandeRepo, EntityManagerInterface $em, BandeManagement $bandeManagement, ComandProductsRepository $comandProductsRepo, ViewCounterRepository $viewCounterRepo)
+    function __construct(BandeRepository $bandeRepo, EntityManagerInterface $em, BandeManagement $bandeManagement, CommandRepository $commandRepo, ViewCounterRepository $viewCounterRepo)
     {
         $this->bandeRepo = $bandeRepo;
         $this->em = $em;
-        $this->BandeManagement = $bandeManagement;
-        $this->comandProductsRepo = $comandProductsRepo;
+        $this->bandeManagement = $bandeManagement;
+        $this->commandRepo = $commandRepo;
         $this->viewCounterRepo = $viewCounterRepo;
     }
     public function deleteProduct($product)
@@ -25,23 +27,22 @@ class DeleteManagement
             $product->removePicture($image);
             $this->em->remove($image);
         }
-        $commandProducts =  $this->comandProductsRepo->findCommandByproductId($product->getId());
+        $commands =  $this->commandRepo->findProductCommands($product->getId());
 
-        foreach ($commandProducts as $commandProduct) {
-            $oneCommand =  $commandProduct->getCommands();
-            $this->em->remove($commandProduct);
-            if (count($oneCommand->getComandProducts()) == 1) {
-                $this->em->remove($oneCommand);
-            };
+        foreach ($commands as $command) {
+            $this->em->remove($command);
         }
-
+        
         $viewsOfTheProduct = $this->viewCounterRepo->findbyProductId($product->getId());
         foreach ($viewsOfTheProduct as $view) {
             $this->em->remove($view);
         }
+      
         $this->em->flush();
+     
         $this->em->remove($product);
         $this->em->flush();
+    
     }
    
 }

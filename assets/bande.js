@@ -458,18 +458,21 @@ let removeElement = function (element) {
 };
 
 let deleteBande = function (element) {
+  console.log("alll")
   let myElementParent = element.parentNode.parentNode;
   let toInsertAfter = myElementParent.parentNode.querySelector("h1");
   element.parentNode.remove();
   let contenant = myElementParent.cloneNode(true);
   myElementParent.remove();
   let myElements = contenant.querySelectorAll(".bande");
+  console.log(myElements)
+  console.log(myElements.length)
   if (myElements.length > 0) {
     for (let i = 0; i < myElements.length; i++) {
       myElements[i].setAttribute("data-position", i);
     }
     insertAfter(contenant, toInsertAfter);
-    if (contenant.querySelector("bande")) {
+    if (contenant.querySelector(".bande")) {
       new Sortable(contenant, contenant);
     }
   } else {
@@ -586,7 +589,7 @@ let confirmNewBande = function (element) {
     div.innerHTML = bandeCommun;
 
     if (bandType == "category") {
-      ajustVisibleTypeAndScroll(bandType, 1, 1, div);
+      ajustVisibleTypeAndScroll(bandType, 5, 1, div);
       reloadNewCategory(div.querySelector(".addnew"));
     } else if (bandType == "marque") {
       ajustVisibleTypeAndScroll(bandType, 8, 2, div);

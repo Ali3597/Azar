@@ -19,7 +19,7 @@ class BandeManagement
 
         $bandes =  $item->getBandes();
 
-        if ($bandes) {
+        if ($bandes != null) {
             foreach ($bandes as $bande) {
 
                 if ($this->IsThisBandeUnderVisible($bande->getBande())) {

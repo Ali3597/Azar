@@ -23,13 +23,13 @@ class ComandProducts
     private $number;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Produit::class)
+     * @ORM\ManyToOne(targetEntity=Produit::class,cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $products;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Command::class, inversedBy="comandProducts")
+     * @ORM\ManyToOne(targetEntity=Command::class, inversedBy="comandProducts",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $commands;
