@@ -8,6 +8,7 @@ use App\Form\LowCategoryType;
 use App\Form\SearchType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProduitRepository;
+use App\Service\DeleteManagement;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Knp\Component\Pager\PaginatorInterface;
@@ -106,20 +107,14 @@ class AdminLowCategoryController extends AbstractController
 
 
     #[Route('/low_category/{id}', name: 'low_category_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Category $categorie): Response
+    public function delete(Request $request, Category $categorie,DeleteManagement $deleteManagement): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->get('_token'))) {
             $products = $categorie->getProduits();
             foreach ($products as $element) {
-                $pictures = $element->getPictures();
-                foreach ($pictures as $picture) {
-                    $this->em->remove($picture);
-                }
-                $this->em->flush();
-                $this->em->remove($element);
+               $deleteManagement->deleteProduct($element);
             }
-            $this->em->flush();
             $this->em->remove($categorie);
             $this->em->flush();
             $this->addFlash('success', 'Votre categorie a bien été supprime ');

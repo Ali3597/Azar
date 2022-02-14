@@ -32,7 +32,9 @@
 							{{product.unite}}
 						</div>
 					</div>
-					<button data-name={{product.name}} data-id={{ product.id }} onclick="addBasket(this)">Ajouter</button>
+<button style="background-color: {{colors.allColors.primary}}" data-name={{product.name}} data-id={{ product.id }} {{ is_granted('ROLE_USER') ? 'onclick="addBasket(this)"' : 'onclick="popup(`Vous devez vous connecter pour pouvoir ajoutez un produit dans votre panier`,`error`)"'}}>Ajoutez</button>
+
+
 
 				</div>
 

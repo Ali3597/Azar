@@ -8,7 +8,9 @@ use App\Form\ProduitType;
 use App\Form\SearchType;
 use App\Repository\ComandProductsRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\ViewCounterRepository;
 use App\Service\BandeManagement;
+use App\Service\DeleteManagement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -134,24 +136,12 @@ class AdminProductController extends AbstractController
 
 
     #[Route('/product/{id}', name: 'product_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Produit $product, BandeManagement $bandeManagement,ComandProductsRepository $comandProductsRepo): Response
+    public function delete(Request $request, Produit $product, DeleteManagement $deleteManagement): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
-            $bandeManagement->deleteItemBande($product);
-            foreach ($product->getPictures() as $image) {
-                $product->removePicture($image);
-                $this->em->remove($image);
-            }
-          $commandProducts =  $comandProductsRepo->findCommandByproductId($product->getId());
-            dd($commandProducts);
-            foreach ($commandProducts as $commandProduct) {
-                $this->em->remove($commandProduct);
-            }
-            $this->em->flush();
-            $this->em->remove($product);
-            $this->em->flush();
-            $this->addFlash('success', 'Votre produit a bien été supprime ');
+            $deleteManagement->deleteProduct($product);
+            $this->addFlash('success', 'Votre produit a bien été supprimé ');
         }
         return $this->redirectToRoute('admin_products');
     }

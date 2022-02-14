@@ -8,6 +8,7 @@ use App\Form\HighCategoryType;
 use App\Form\SearchType as FormSearchType;
 use App\Repository\CategoryRepository;
 use App\Service\BandeManagement;
+use App\Service\DeleteManagement;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
@@ -114,13 +115,17 @@ class AdminHighCategoryController extends AbstractController
 
 
     #[Route('/high_category/{id}', name: 'high_category_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Category $categorie, BandeManagement $bandeManagement): Response
+    public function delete(Request $request, Category $categorie, BandeManagement $bandeManagement,DeleteManagement $deleteManagement): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->get('_token'))) {
             $bandeManagement->deleteItemBande($categorie);
             $categoriesChildren = $categorie->getCategoriesChildrens();
             foreach ($categoriesChildren as $element) {
+                $productsElement = $element->getProduits();
+                foreach($productsElement as $productElement){
+                    $deleteManagement->deleteProduct($productElement);
+                }
                 $this->em->remove($element);
             }
             $this->em->flush();

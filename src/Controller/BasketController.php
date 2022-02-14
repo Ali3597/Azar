@@ -34,12 +34,21 @@ class BasketController extends AbstractController
     {
 
         $basket =  $session->get("basket", null);
+        $totalNumber = $session->get("total", 0);
         $products = [];
+
         if ($basket) {
             foreach ($basket as $key => $value) {
                 $product = $produitRepo->find($key);
-                $product->setBasketNumber($value);
-                array_push($products, $product);
+                // if admin delete a product in a basket
+                if (!$product) {
+                    unset($basket[$key]);
+                    $session->set("basket", $basket);
+                    $session->set("total", $totalNumber - $value);
+                } else {
+                    $product->setBasketNumber($value);
+                    array_push($products, $product);
+                }
             }
         }
         return $this->render('basket/index.html.twig', [

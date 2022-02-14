@@ -67,7 +67,25 @@ class ViewCounterRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+    public function findbyProductId($productId)
+    {
 
+        return $this->createQueryBuilder('v')
+            ->where('v.product = :id')
+            ->setParameter('id', $productId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findbyArticleId($articleId)
+    {
+
+        return $this->createQueryBuilder('v')
+            ->where('v.article = :id')
+            ->setParameter('id', $articleId)
+            ->getQuery()
+            ->getResult();
+    }
     public function deleteAll()
     {
 

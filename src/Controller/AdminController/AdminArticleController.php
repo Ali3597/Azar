@@ -7,6 +7,7 @@ use App\Entity\Search;
 use App\Form\ArticleType;
 use App\Form\SearchType;
 use App\Repository\ArticleRepository;
+use App\Repository\ViewCounterRepository;
 use App\Service\BandeManagement;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -93,6 +94,8 @@ class AdminArticleController extends AbstractController
                     $article->removeBande($bandeArticle);
                 }
             }
+
+            
             $this->em->persist($article);
             $this->em->flush();
             $this->addFlash('success', 'Votre article a bien été modifié ');
@@ -107,11 +110,16 @@ class AdminArticleController extends AbstractController
 
 
     #[Route('/article/{id}', name: 'article_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Article $article, BandeManagement $bandeManagement): Response
+    public function delete(Request $request, Article $article, BandeManagement $bandeManagement,ViewCounterRepository $viewCounterRepo): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->get('_token'))) {
             $bandeManagement->deleteItemBande($article);
+            $viewsOfTheArticle = $viewCounterRepo->findbyArticleId($article->getId());
+            foreach ($viewsOfTheArticle as $view) {
+                $this->em->remove($view);
+            }
+            $this->em->flush();
             $this->em->remove($article);
             $this->em->flush();
             $this->addFlash('success', 'Votre article a bien été supprime ');
