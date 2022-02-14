@@ -14,7 +14,8 @@
 		<h1 style="color: {{colors.allColors.primary}}">Nos derniers articles</h1>
 
 		{% for article in articles %}
-			<a href="{{path('article',{ slug: article.slug } )}}" class="bandeArticle flex">
+<a style="background-color: {{colors.allColors.secondary}}" href="{{path('article',{ slug: article.slug } )}}" class="bandeArticle flex">
+
 				<img width="20%" height="80%" src="{{ vich_uploader_asset(article.picture,'imageFile') }}" alt="">
 				<div class="content-article flex column">
 					<h1 style="color: {{colors.allColors.primary}}">{{article.title|capitalize}}</h1>

@@ -5,7 +5,8 @@
 			<div onclick="goToBasketItems(this)" class="onglet_panier flex">
 
 
-				<i class=" fa-lg fas fa-shopping-basket active"></i>
+<i style="color: {{colors.allColors.secondary}}" class=" fa-lg fas fa-shopping-basket active"></i>
+
 
 				<p>Panier</p>
 
@@ -18,7 +19,8 @@
 			<div onclick="goToAsideItems(this)" class="onglet_cote flex">
 
 
-				<i class="far fa-lg fa-arrow-alt-circle-down"></i>
+<i style="color: {{colors.allColors.secondary}}" class="far fa-lg fa-arrow-alt-circle-down"></i>
+
 
 
 				<p>Mis de coté</p>
@@ -116,7 +118,8 @@
 </div>
 <div class="flex  ensemble_right_panier ">
 
-	<div class="  {{basket ? " " : " none"}} validB     recap flex  ">
+<div style="background-color: {{colors.allColors.secondary}}" class="  {{basket ? " " : " none"}} validb     recap flex  ">
+
 
 
 		<form action="{{ path('profile_panier_confirm') }}" method="post">
@@ -129,7 +132,8 @@
 
 	</div>
 
-	<div class="recap  novalidB  {{basket ? " none" : " "}} flex column ">
+<div style="background-color: {{colors.allColors.secondary}}" class="recap  novalidB  {{basket ? " none" : " "}} flex column ">
+
 
 
 		<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>

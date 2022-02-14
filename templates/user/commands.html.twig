@@ -14,7 +14,8 @@
 	<div class="content flex column ">
 	<h1>Mes commandes</h1>
 	{% for command in commands %}
-<a href="{{path('commande_one',{ id: command.id })}}" class="command">Commande du
+<a style="background-color: {{colors.allColors.secondary}}" href="{{path('commande_one',{ id: command.id })}}" class="command">Commande du
+
 	{{command.createdat|date("m/d/Y")}}</a>
 
 

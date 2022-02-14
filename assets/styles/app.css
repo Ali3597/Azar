@@ -364,7 +364,7 @@ footer div {
   height: 0;
   border-left: 11px solid transparent;
   border-right: 11px solid transparent;
-  border-bottom: 11px solid #f5f6f7;
+  border-bottom: 11px solid var(--background);
 }
 
 .threebar {
@@ -396,13 +396,13 @@ footer div {
   overflow-x: hidden;
   box-sizing: content-box;
   height: 60vh;
-  background-color: #f5f6f7;
+ 
 }
 
 .categorieHaut-depliant a {
   min-height: 14.8%;
   color: black;
-  background-color: #f5f6f7;
+
   font-size: 14px;
   font-weight: 700;
   display: flex;
@@ -452,13 +452,13 @@ footer div {
   height: 100%;
   font-size: 14px;
   font-weight: 700;
-  background-color: #f5f6f7;
+
 }
 
 .categorieBas-depliant a {
   width: 100%;
   min-height: 14.8%;
-  background-color: #f5f6f7;
+
   align-items: center;
 
   padding-left: 5%;

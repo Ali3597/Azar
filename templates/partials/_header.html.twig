@@ -108,7 +108,8 @@
 			</li>
 		</ul>
 	</div>
-	<div class="down-header flex" data-sticky>
+<div style="background-color: {{colors.allColors.secondary}}" class="down-header flex" data-sticky>
+
 		<div style="background-color: {{colors.allColors.primary}}" class="depliant flex ">
 
 			<div class="threebar flex column ">
@@ -116,10 +117,12 @@
 				<div class="bordurebar"></div>
 				<div class="bordurebar"></div>
 			</div>
-			<div class="arrow-up"></div>
+<div style="--background: {{colors.allColors.primary}};" class="arrow-up"></div>
+
 			<span>Produits</span>
-			<div class="menudepliant flex">
-				<div class="categorieHaut-depliant flex column ">
+<div style="background-color: {{colors.allColors.secondary}}" class="menudepliant flex">
+
+				<div  class="categorieHaut-depliant flex column ">
 					{% for category in categoriesHigh  %}
 						{% if category.doYouHaveCategoriesWhoHaveProduct %}
 

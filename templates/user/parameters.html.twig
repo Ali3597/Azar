@@ -13,7 +13,8 @@
 		<div class="change flex ">
 
 
-			<div>
+<div style="background-color: {{colors.allColors.secondary}}">
+
 				<h1>Mes informations personelles</h1>
 
 				{{ form_start(changeForm) }}
@@ -26,15 +27,17 @@
 
 			</div>
 
-			<div>
-				<h1>Modifier mon email</h1>
+<div style="background-color: {{colors.allColors.secondary}}">
+
+				<h1>Supprimez mon compte</h1>
 
 
-				<button type="submit">Envoyer</button>
+				<button type="submit">Supprimez</button>
 
 
 			</div>
-			<div>
+<div style="background-color: {{colors.allColors.secondary}}">
+
 				<h1>Modifier mon mot de passe</h1>
 				{{ form_start(passwordForm) }}
 				{{ form_rest(passwordForm) }}
