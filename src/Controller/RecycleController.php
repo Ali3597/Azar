@@ -58,7 +58,7 @@ class RecycleController extends AbstractController
 
 
         // // view
-        $ipUser = $request->getClientIp();
+        $ipUser = $request->getClientIps();
         $viewCounter->saveIt($ipUser, $design);
 
 
