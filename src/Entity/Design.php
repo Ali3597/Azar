@@ -105,10 +105,7 @@ class Design
      */
     private $colorBande;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $views;
+    
 
     #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]
     private $pictureFileAboutUs;
@@ -364,23 +361,7 @@ class Design
         return $this;
     }
 
-    public function getViews(): ?int
-    {
-        return $this->views;
-    }
-
-    public function setViews(int $views): self
-    {
-        $this->views = $views;
-
-        return $this;
-    }
-    public function addOneView(): self
-    {
-        $this->views = $this->views + 1;
-
-        return $this;
-    }
+    
     /**
      * Get the value of pictureFile
      */

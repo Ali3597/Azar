@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Service\ViewCounter as ServiceViewCounter;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,7 +27,7 @@ class ProductController extends AbstractController
         $this->productRepo = $productRepo;
     }
     #[Route('/produit/{slug}', name: 'produit')]
-    public function index(Produit $product, ProduitRepository $produitRepo, Request $request, ServiceViewCounter $viewCounter): Response
+    public function index(Produit $product, ProduitRepository $produitRepo): Response
     {
 
         if (!$product->getAfficher()) {
@@ -36,10 +35,6 @@ class ProductController extends AbstractController
         }
         $productsAlike =  $produitRepo->findFourProductsDependsOnCategoryId($product->getCategory()->getId(), $product->getId());
 
-        // view 
-        $ipUser = $request->getClientIp();
-
-        $viewCounter->saveIt($ipUser, $product);
 
         return $this->render('product/index.html.twig', [
             'product' => $product,

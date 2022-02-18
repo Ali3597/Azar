@@ -8,7 +8,7 @@ use App\Entity\Produit;
 use App\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -38,8 +38,12 @@ class ProduitType extends AbstractType
                 'label' => 'Slug'
 
             ])
-
-
+        ->add('disponibilite', ChoiceType::class, [
+            'choices'  => [
+                'En stock' => 'En stock',
+                'Sur commande' => 'Sur commande',
+            ],
+        ])
 
             ->add('stock', IntegerType::class, [
 

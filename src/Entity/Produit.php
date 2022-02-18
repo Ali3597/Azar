@@ -128,14 +128,14 @@ class Produit
     private $reference;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $views;
-
-    /**
      * @ORM\ManyToMany(targetEntity=BandeProduct::class, mappedBy="products")
      */
     private $bandes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $disponibilite;
 
     public function __construct()
     {
@@ -415,21 +415,16 @@ class Produit
         return $this;
     }
 
-    public function getViews(): ?int
+    public function getDisponibilite(): ?string
     {
-        return $this->views;
+        return $this->disponibilite;
     }
 
-    public function setViews(int $views): self
+    public function setDisponibilite(string $disponibilite): self
     {
-        $this->views = $views;
-
-        return $this;
-    }
-    public function addOneView(): self
-    {
-        $this->views = $this->views + 1;
+        $this->disponibilite = $disponibilite;
 
         return $this;
     }
+
 }

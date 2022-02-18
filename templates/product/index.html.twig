@@ -84,7 +84,7 @@
 				<div class="disponibilite flex column">
 					<h1>Disponibilité
 					</h1>
-					<h2>En stock</h2>
+					<h2>{{product.disponibilite}}</h2>
 				</div>
 				{% if is_granted('ROLE_USER')  %}
 					<p data-id={{ product.id }} style="color: {{colors.allColors.primary}}" onclick="putAsideThisItem(this)" class="aside">Mette de coté</p>

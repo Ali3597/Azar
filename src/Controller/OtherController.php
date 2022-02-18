@@ -41,6 +41,7 @@ class OtherController extends AbstractController
     {
 
         $message = new Message();
+        dd($message);
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

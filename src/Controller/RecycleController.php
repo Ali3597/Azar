@@ -8,7 +8,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\CommandRepository;
 use App\Repository\DesignRepository;
 
-use App\Service\ViewCounter;
+
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +34,7 @@ class RecycleController extends AbstractController
 
 
 
-    public function header(Request $request,CommandRepository $commandRepository, ViewCounter $viewCounter, SessionInterface $session, DesignRepository $designRepo,  AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo): Response
+    public function header(Request $request, SessionInterface $session, DesignRepository $designRepo,  AuthenticationUtils $authenticationUtils, CategoryRepository $categoryRepo): Response
     {
 
 
@@ -56,10 +56,6 @@ class RecycleController extends AbstractController
         $totalNumber = $session->get("total", 0);
         $basket = $session->get("basket", null);
 
-
-        // // view
-        $ipUser = $request->getClientIps();
-        $viewCounter->saveIt($ipUser, $design);
 
 
 

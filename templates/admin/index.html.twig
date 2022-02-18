@@ -5,41 +5,14 @@
 {% endblock %}
 
 {% block cdn %}
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 {% endblock %}
 
 
 {% block body %}
-	<div class="content column">
-		<div class="choose-date flex ">
-			<div id="year" class="ongletDate flex active">
-				Par Année
-			</div>
-			<div id="month" class="ongletDate flex">
-
-				Par mois
-			</div>
-
-			<div id="week" class="ongletDate flex">
-
-				Par Semaine
-			</div>
-
-		</div>
-		<div class="calendar">
-			<input onchange="onChangeYear(this)" type="number" min="2022" max="{{ 'now' | date('Y') }}" value="{{ 'now' | date('Y') }}" step="1"/>
-
-
-		</div>
-
-		<div id="chart_div"></div>
-
-	</div>
+<h1>Admin</h1>
 
 {% endblock %}
 
-{% block javascripts %}
-	{{ encore_entry_script_tags('graphHome') }}
-{% endblock %}
+

@@ -7,7 +7,7 @@ use App\Entity\Search;
 use App\Form\ArticleType;
 use App\Form\SearchType;
 use App\Repository\ArticleRepository;
-use App\Repository\ViewCounterRepository;
+
 use App\Service\BandeManagement;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -59,7 +59,7 @@ class AdminArticleController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($article->getPicture()) {
-                $article->setViews(0);
+                
                 $article->setCreatedAt(new DateTimeImmutable('now'));
                 $this->em->persist($article);
                 $this->em->flush();
@@ -110,15 +110,12 @@ class AdminArticleController extends AbstractController
 
 
     #[Route('/article/{id}', name: 'article_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Article $article, BandeManagement $bandeManagement,ViewCounterRepository $viewCounterRepo): Response
+    public function delete(Request $request, Article $article, BandeManagement $bandeManagement): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->get('_token'))) {
             $bandeManagement->deleteItemBande($article);
-            $viewsOfTheArticle = $viewCounterRepo->findbyArticleId($article->getId());
-            foreach ($viewsOfTheArticle as $view) {
-                $this->em->remove($view);
-            }
+          
             $this->em->flush();
             $this->em->remove($article);
             $this->em->flush();

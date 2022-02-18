@@ -42,24 +42,7 @@
 
 						</div>
 					</th>
-					<th>
-						<div>
-							{% if articles.isSorted('a.views') %}
-								{% if articles.direction == "asc" %}
-									<i class="fas fa-chevron-up"></i>
-								{% else %}
-									<i class="fas fa-chevron-down"></i>
-
-								{% endif %}
-
-
-							{% endif %}
-
-							{{ knp_pagination_sortable(articles, 'Vues', 'a.views') }}
-
-						</div>
-					</th>
-
+				
 					<th>
 						<div>
 							{% if articles.isSorted('a.content') %}
@@ -125,8 +108,7 @@
 						<tr>
 							<td>{{article.title}}
 							</td>
-							<td>{{article.views}}
-							</td>
+							
 
 
 							<td>{{article.content|length > 200 ? article.content|slice(0,200)~ '...' : article.content}}</td>

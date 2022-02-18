@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Article;
 
 use App\Repository\ArticleRepository;
-use App\Service\ViewCounter as ServiceViewCounter;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
@@ -43,14 +42,13 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/{slug}', name: 'article')]
-    public function one(Article $article, ServiceViewCounter $viewCounter, Request $request): Response
+    public function one(Article $article): Response
     {
         if (!$article->getPublished()) {
             throw new Exception('Cette page n\'existe pas');
         }
-        $ipUser = $request->getClientIp();
+      
 
-        $viewCounter->saveIt($ipUser, $article);
 
         return $this->render('article/one.html.twig', [
             'article' => $article,

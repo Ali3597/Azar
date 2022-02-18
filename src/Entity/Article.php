@@ -65,10 +65,7 @@ class Article
     #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug n'a pas le bon format")]
     private $slug;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $views;
+  
 
     /**
      * @ORM\Column(type="boolean")
@@ -181,23 +178,6 @@ class Article
         return $this;
     }
 
-    public function getViews(): ?int
-    {
-        return $this->views;
-    }
-
-    public function setViews(int $views): self
-    {
-        $this->views = $views;
-
-        return $this;
-    }
-    public function addOneView(): self
-    {
-        $this->views = $this->views + 1;
-
-        return $this;
-    }
 
     public function getPublished(): ?bool
     {
