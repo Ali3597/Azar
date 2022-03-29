@@ -144,6 +144,7 @@
   background-color: white;
   border-radius: 5px;
   margin-top: 1.5%;
+  margin-bottom: 2.5%;
   margin-right: 5%;
   border: 1px solid #e2e2e2;
   color: #6f6f7e;
@@ -159,7 +160,7 @@
   height: 60%;
 }
 .img-produit {
-  height: 60%;
+  height: 100px;
   width: 100%;
   display: flex;
   justify-content: center;

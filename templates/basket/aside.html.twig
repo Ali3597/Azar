@@ -5,7 +5,7 @@
 			<div onclick="goToBasketItems(this)" class="onglet_panier flex">
 
 
-<i style="color: {{colors.allColors.secondary}}" class=" fa-lg fas fa-shopping-basket "></i>
+				<i style="color: {{colors.allColors.secondary}}" class=" fa-lg fas fa-shopping-basket "></i>
 
 
 				<p>Panier</p>
@@ -19,14 +19,13 @@
 			<div onclick="goToAsideItems(this)" class="onglet_cote flex">
 
 
-<i style="color: {{colors.allColors.secondary}}" class="far fa-lg fa-arrow-alt-circle-down active"></i>
-
+				<i style="color: {{colors.allColors.primary}}" class="far fa-lg fa-arrow-alt-circle-down active"></i>
 
 
 				<p>Mis de coté</p>
 
 			</div>
-			<div   style="--background: {{colors.allColors.primary}};" class="bordure_panier active"></div>
+			<div style="--background: {{colors.allColors.primary}};" class="bordure_panier active"></div>
 
 		</div>
 	</div>
@@ -77,8 +76,7 @@
 <div class="flex  ensemble_right_panier ">
 
 
-<div style="background-color: {{colors.allColors.secondary}}" class="recap {{basket ? " " : " none "}} validB flex column ">
-
+	<div style="background-color: {{colors.allColors.secondary}}" class="recap {{basket ? " " : " none "}} validB flex column ">
 
 
 		<button style="background-color: {{colors.allColors.primary}}" onclick="goToBasketItems(this)">Retournez au panier</button>
@@ -87,8 +85,7 @@
 	</div>
 
 
-<div style="background-color: {{colors.allColors.secondary}}" class=" {{basket ? " none " : " "}}recap novalidB flex column ">
-
+	<div style="background-color: {{colors.allColors.secondary}}" class=" {{basket ? " none " : " "}}recap novalidB flex column ">
 
 
 		<h2>Mais c’est vide. Et si vous faisiez un tour dans notre catalogue ?</h2>

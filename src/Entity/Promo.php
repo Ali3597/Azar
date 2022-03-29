@@ -27,7 +27,7 @@ class Promo
     #[Assert\Length(max: 255, maxMessage: 'Le nom de votre promo est trop long')]
     private $name;
 
-    #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg"])]
+    #[Assert\Image(mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/webp"])]
     private $pictureFile;
     /**
      * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})

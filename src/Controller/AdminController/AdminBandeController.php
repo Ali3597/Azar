@@ -113,7 +113,9 @@ class AdminBandeController extends AbstractController
                     $this->em->persist($bande);
                     $bandePromo = new BandePromo();
                     $bandePromo->setBande($bande);
+
                     foreach ($dataBande["elements"] as $elementId) {
+
                         $promo = $promoRepo->find($elementId);
                         $bandePromo->addPromo($promo);
                     }
@@ -134,6 +136,7 @@ class AdminBandeController extends AbstractController
             }
             return new JsonResponse(['message' => "ok"]);
         } else {
+
             throw new Exception('Cette page n\'existe pas');
         }
     }
